@@ -8,9 +8,15 @@ Development start : August 2021.<br /><br /><br />
 
 I was first introduced to the "Punchout" game while playing "Enter the Gungeon".<br />
 Something sparked within me as I got smacked by the rat countless times.<br /><br />
-I loved RPG games as well, exploring new regions and diving into a storyline.<br />
+Then I tried playing the original Punchout game.<br />
+The dynamic animation sprites, the tension trying to read the opponents movement,<br />
+The feeling of victory after trying again and again was what made me so hooked.<br /><br />
+I loved RPG games as well, exploring new regions and diving into a deep storyline.<br />
 What if I replaced turn-based combat into a Punchout format?<br />
-The concept of a RPG game based on real-time fighting sequences seemed suddenly very interesting to me.<br /><br />
+The concept of a RPG game mixed with fighting game mechanics seemed suddenly very enticing to me.<br />
+
+My aim is to make this a dynamic & goofy game,<br />
+but with a pinch of story-telling that is hopefully interesting enough to keep on playing the game.<br /><br />
 So here I begin!<br /><br />
 
 
