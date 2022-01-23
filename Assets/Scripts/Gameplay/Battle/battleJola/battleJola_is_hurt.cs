@@ -58,7 +58,7 @@ public class battleJola_is_hurt : MonoBehaviour
         }
     }
 
-    public void enemyUpperedDamage()
+    public void ParryBonus()
     {
         tomatoParryBar.parryFill.fillAmount += 0.1f;
     }

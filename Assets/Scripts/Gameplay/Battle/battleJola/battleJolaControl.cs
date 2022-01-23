@@ -33,7 +33,7 @@ public class battleJolaControl : MonoBehaviour
         if(tomatoControl.enemyUppered)
         {
             anim.Play("battleJola_uppered",-1,0f);
-            enemyHurt.enemyUpperedDamage();
+            enemyHurt.ParryBonus();
         }
         if(tomatocontrol.enemyFreeze)
         {

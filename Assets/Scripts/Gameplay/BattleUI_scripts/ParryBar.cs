@@ -9,14 +9,18 @@ public class ParryBar : MonoBehaviour
     [SerializeField] private Image parryWhiteBarFill;
     public Image parryFill;
     public GameObject parryFillUp;
+    [SerializeField] private GameObject parryBar;
     [SerializeField] private GameObject gaksung;
     [System.NonSerialized] public bool gaksungOn = false;
     private void Update()
     {
         if(parryFill.fillAmount == 1)
         {
-            parryFillUp.SetActive(true);
-            if(!gaksungOn)
+            if(parryBar.activeSelf)
+            {
+                parryFillUp.SetActive(true);
+            }
+            if(!gaksungOn && !tomatoControl.isGuard)
             {
                 gaksungOn = true;
                 gaksung.SetActive(true);
