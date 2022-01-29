@@ -14,6 +14,14 @@ public class battleJola_countered : MonoBehaviour
         anim = GetComponentInParent<Animator>();
     }
 
+    void Update()
+    {
+        if(tomatoControl.enemyFreeze)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D col) 
     {
         battleJola_is_hurt.enemy_isPunched = false;

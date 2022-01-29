@@ -28,7 +28,6 @@ public class BattleUI_Control : MonoBehaviour
 
             if(gatleCircleControl.failUppercut)
             {
-                Debug.Log("fail");
                 stopGatle = true;
 
                 gatleCircle.SetActive(false);
@@ -52,7 +51,6 @@ public class BattleUI_Control : MonoBehaviour
             }
             else if(tomatoControl.uppercutYes)
             {
-                Debug.Log("upper");
                 stopGatle = true;
 
                 gatleCircleControl.uppercut_time = false;

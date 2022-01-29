@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 /* DEFAULT DEBUG CODE
 if(Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("isAction : " + isAction);
-            Debug.Log("isPunch : " + isPunch);
-            Debug.Log("isGatle : " + isGatle);
-            Debug.Log("isGuard : " + isGuard);
-            Debug.Log("downGamepad : " + downGamepad);
-            Debug.Log("isParry : " + tomatoGuard.isParry);
-            Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
-        }
+    {
+        Debug.Log("isAction : " + isAction);
+        Debug.Log("isPunch : " + isPunch);
+        Debug.Log("isGatle : " + isGatle);
+        Debug.Log("isGuard : " + isGuard);
+        Debug.Log("downGamepad : " + downGamepad);
+        Debug.Log("isParry : " + tomatoGuard.isParry);
+        Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
+    }
 */
 public class tomatoControl : MonoBehaviour
 {
@@ -51,7 +51,9 @@ public class tomatoControl : MonoBehaviour
     [HideInInspector] public static bool gatleButton_once = false;  // play a line once
     [HideInInspector] public static bool uppercutYes = false;       // player succeeded uppercut
     [HideInInspector] public static bool enemyUppered = false;
-    public bool enemyFreeze = false;
+    [HideInInspector] public static bool enemyFreeze = false;
+    [HideInInspector] public bool enemy_supered = false;
+    [HideInInspector] public int super = 1;                         // which super indication
 
     void Start()
     {
@@ -74,6 +76,17 @@ public class tomatoControl : MonoBehaviour
     }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("isAction : " + isAction);
+            Debug.Log("isPunch : " + isPunch);
+            Debug.Log("isGatle : " + isGatle);
+            Debug.Log("isGuard : " + isGuard);
+            Debug.Log("downGamepad : " + downGamepad);
+            Debug.Log("isParry : " + tomatoGuard.isParry);
+            Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
+        }
+
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
             x_GP = 0;
         if((Input.GetAxisRaw("LeftJoystickVertical") == 0))
@@ -123,13 +136,11 @@ public class tomatoControl : MonoBehaviour
                         parryBar.parryFill.fillAmount = 0;
                         parryBar.parryFillUp.SetActive(false);
                         gaksung_OBJ.SetActive(false);
-                        Instantiate(superBanner);
+
+                        superBanner.SetActive(true);
                         enemyFreeze = true;
+                        tomatoAnimator.enabled = false;
                     }
-                }
-                else
-                {
-                    ChangeAnimationState(TOMATO_IDLE);
                 }
             }
         
@@ -196,7 +207,6 @@ public class tomatoControl : MonoBehaviour
     }
 
     // FUNCTIONS ====================================================================================================================
-    
     void actionStart()
     {
         isPunch = false;
@@ -206,6 +216,7 @@ public class tomatoControl : MonoBehaviour
     {
         isAction = false;
         isPunch = false;
+        ChangeAnimationState(TOMATO_IDLE);
     }
     void smoothPunch()          //allows to rapidly switch between LP and RP
     {
@@ -252,6 +263,7 @@ public class tomatoControl : MonoBehaviour
         isAction = false;
         tomato_hurt.isTomatoHurt = false;
         tomatoGuard.preventDamageOverlap = false;
+        ChangeAnimationState(TOMATO_IDLE);
     }
 
     void guardStart()
@@ -303,6 +315,7 @@ public class tomatoControl : MonoBehaviour
 
     void parryDeactivate()
     {
+        Debug.Log("Destroy Parry");
         Destroy(_parryInstance);
     }
 
@@ -446,5 +459,9 @@ public class tomatoControl : MonoBehaviour
             gaksung_OBJ.SetActive(true);
         }
     }
-
+// SUPER ATTACK =====================================================================================================================
+    void superAttack()
+    {
+        enemy_supered = true;
+    }
 }

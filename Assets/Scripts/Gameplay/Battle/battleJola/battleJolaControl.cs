@@ -14,6 +14,7 @@ public class battleJolaControl : MonoBehaviour
     [SerializeField] private battleJola_is_hurt enemyHurt;
     [HideInInspector] public static bool isPhysical = true;
     private bool action_afterSuffer = false;
+    private bool enemy_supered = false;
     private int attackType;
     private int pj = 0;     // pj selection number
 
@@ -30,15 +31,31 @@ public class battleJolaControl : MonoBehaviour
         {
             anim.Play("battleJola_parried2idle",-1,0f);
         }
-        if(tomatoControl.enemyUppered)
+        else if(tomatoControl.enemyUppered)
         {
             anim.Play("battleJola_uppered",-1,0f);
             enemyHurt.ParryBonus();
         }
-        if(tomatocontrol.enemyFreeze)
+        else
         {
-            anim.enabled = false;
+            if(tomatoControl.enemyFreeze)
+            {
+                tomatoControl.enemyFreeze = false;
+                anim.enabled = false;
+            }
+            else if(tomatocontrol.enemy_supered)
+            {
+                tomatocontrol.enemy_supered = false;
+                enemy_supered = true;
+
+                anim.enabled = true;
+                if(tomatocontrol.super == 1)
+                {
+                    anim.Play("battleJola_supered_chili",-1,0f);
+                }
+            }
         }
+        
     }
 
     void jolaAction()
@@ -48,7 +65,7 @@ public class battleJolaControl : MonoBehaviour
             action_afterSuffer = false;
             return;
         }
-        else if(!battleJola_parried.isParried && !battleJola_countered.enemy_countered && !battleJola_is_hurt.enemy_isPunched)
+        else if(!battleJola_parried.isParried && !battleJola_countered.enemy_countered && !battleJola_is_hurt.enemy_isPunched && !enemy_supered)
         {
             
             if((Random.value<= 0.1))
@@ -156,6 +173,12 @@ public class battleJolaControl : MonoBehaviour
     void upperRecover()
     {
         anim.Play("battleJola_upperRecover",-1,0f);
+    }
+
+    void superedRecover()
+    {
+        anim.Play("battleJola_upperRecover",-1,0f);
+        enemy_supered = false;
     }
 
     void projectileSpawn()
