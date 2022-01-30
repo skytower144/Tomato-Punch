@@ -1176,6 +1176,7 @@ MonoBehaviour:
   gaksung_objAnim: {fileID: 717893953}
   gaksung_anim: {fileID: 49061999}
   gaksung_OBJ: {fileID: 717893950}
+  hitbox: {fileID: 1426860820}
   tomato_LP: {fileID: 9153540378895875570, guid: 0fec72aa88abccc48a3670d09d0b2f30, type: 3}
   tomato_RP: {fileID: 7716932830166677569, guid: 63909ad01d6c5c3478cab85a19d5ce73, type: 3}
   tomato_G: {fileID: 1117059769}
@@ -3220,8 +3221,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1426860818}
-  - component: {fileID: 1426860823}
   - component: {fileID: 1426860819}
+  - component: {fileID: 1426860820}
   m_Layer: 0
   m_Name: tomato_hitbox
   m_TagString: Untagged
@@ -3260,7 +3261,7 @@ MonoBehaviour:
   tomatocontrol: {fileID: 449446693}
   tomatoguard: {fileID: 1117059771}
   healthBar: {fileID: 166534781}
---- !u!61 &1426860823
+--- !u!61 &1426860820
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3273,7 +3274,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.915619, y: -3.4230766}
+  m_Offset: {x: -3.915619, y: -3.423077}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3284,7 +3285,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2031822, y: 0.50989985}
+  m_Size: {x: 1.203182, y: 0.5098999}
   m_EdgeRadius: 0
 --- !u!1 &1446232912
 GameObject:

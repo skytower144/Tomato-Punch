@@ -110,6 +110,7 @@ public class battleJolaControl : MonoBehaviour
 
     void actionOver()
     {
+        enemy_supered = false;
         if(!battleJola_countered.enemy_countered && !battleJola_is_hurt.enemy_isPunched)
             anim.Play("battleJola_idle",-1,0f);
     }
@@ -177,8 +178,7 @@ public class battleJolaControl : MonoBehaviour
 
     void superedRecover()
     {
-        anim.Play("battleJola_upperRecover",-1,0f);
-        enemy_supered = false;
+        anim.Play("battleJola_superedRecover",-1,0f);
     }
 
     void projectileSpawn()

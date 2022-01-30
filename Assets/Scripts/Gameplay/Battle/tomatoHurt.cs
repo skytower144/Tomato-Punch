@@ -10,6 +10,8 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
+    
+    
     void Start()
     {
         anim = GetComponentInParent<Animator>();

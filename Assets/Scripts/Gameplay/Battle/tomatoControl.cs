@@ -20,6 +20,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] tomatoHurt tomato_hurt;
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
+    [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner;
     [SerializeField] private Transform Parent;
@@ -161,7 +162,6 @@ public class tomatoControl : MonoBehaviour
                         isAction = false;
                         downGamepad = false;
                         tomatoGuard.isParry = false;
-                        Destroy(_parryInstance);
                     }
                     else if((downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical")  == 0))
                     {
@@ -172,7 +172,6 @@ public class tomatoControl : MonoBehaviour
                         isAction = false;
                         downGamepad = false;
                         tomatoGuard.isParry = false;
-                        Destroy(_parryInstance);
                     }
                 }
             }
@@ -254,7 +253,7 @@ public class tomatoControl : MonoBehaviour
             downGamepad = false;
 
             tomatoGuard.isParry = false;
-            Destroy(_parryInstance);
+            //Destroy(_parryInstance);
         }
     }
     void tomatoHurtOver()
@@ -311,11 +310,13 @@ public class tomatoControl : MonoBehaviour
     void parryActivate()
     {
         _parryInstance = Instantiate (tomato_PRY, Parent);
+        hitbox.enabled = false;
+        Invoke("parryDeactivate",0.05f);
     }
 
     void parryDeactivate()
     {
-        Debug.Log("Destroy Parry");
+        hitbox.enabled = true;
         Destroy(_parryInstance);
     }
 
