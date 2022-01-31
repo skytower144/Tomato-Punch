@@ -6,8 +6,9 @@ public class EnemyControl : MonoBehaviour
 {
     private Animator anim;
     private GameObject counter_instance;
+    [SerializeField] private EnemyBase _base;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_Counter;
-    [SerializeField] private GameObject pj_1, pj_2, pj_3;
+    [SerializeField] private GameObject pj_hat, pj_2, pj_3;
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
@@ -16,7 +17,7 @@ public class EnemyControl : MonoBehaviour
     private bool action_afterSuffer = false;
     private bool enemy_supered = false;
     private int attackType;
-    private int pj = 0;     // pj selection number
+    private string pj;     // pj selection string
 
     
     void Start()
@@ -75,33 +76,33 @@ public class EnemyControl : MonoBehaviour
             
             else if((Random.value<= 0.25))
             {
-                attackType = -1;
-                isPhysical = true;
-                tomatoguard.damage = 5;
+                attackType = _base.EnemyAttack("LA").EnemyAttackType;
+                isPhysical = _base.EnemyAttack("LA").PhysicalAttack;
+                tomatoguard.damage = _base.EnemyAttack("LA").EnemyAttackDmg;
                 anim.Play("battleJola_LA");
             }
             else if((Random.value<= 0.25))
             {
-                attackType = 1;
-                isPhysical = true;
-                tomatoguard.damage = 5;
+                attackType = _base.EnemyAttack("RA").EnemyAttackType;
+                isPhysical = _base.EnemyAttack("RA").PhysicalAttack;
+                tomatoguard.damage = _base.EnemyAttack("RA").EnemyAttackDmg;
                 anim.Play("battleJola_RA");
             }
             
             else if((Random.value<= 0.2))
             {
-                attackType = 0;
-                isPhysical = true;
-                tomatoguard.damage = 8;
+                attackType = _base.EnemyAttack("DA").EnemyAttackType;
+                isPhysical = _base.EnemyAttack("DA").PhysicalAttack;
+                tomatoguard.damage = _base.EnemyAttack("DA").EnemyAttackDmg;
                 anim.Play("battleJola_DA");
             }
             
             else if((Random.value<= 0.2))
             {
-                attackType = -1;
-                isPhysical = false; 
-                pj = 1;
-                tomatoguard.damage = 3;
+                attackType = _base.EnemyAttack("HatAttack").EnemyAttackType;
+                isPhysical = _base.EnemyAttack("HatAttack").PhysicalAttack; 
+                pj = "HatAttack";
+                tomatoguard.damage = _base.EnemyAttack("HatAttack").EnemyAttackDmg;
                 anim.Play("battleJola_HatAttack");
             }
             
@@ -128,16 +129,16 @@ public class EnemyControl : MonoBehaviour
             anim.Play("battleJola_idle",-1,0f);
     }
 
-    void jolaCounterStart()
+    void enemyCounterStart()
     {
         counter_instance = Instantiate (enemy_Counter, Parent);
     }
-    void jolaCounterEnd()
+    void enemyCounterEnd()
     {
         Destroy(counter_instance);
     }
 
-    void jolaAttack() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.
+    void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.
                       // -1: left, 1: right, 0: down                
     {
         if(attackType == -1)
@@ -183,9 +184,9 @@ public class EnemyControl : MonoBehaviour
 
     void projectileSpawn()
     {
-        if(pj==1)
+        if(pj=="HatAttack")
         {
-            Instantiate(pj_1);
+            Instantiate(pj_hat);
         }
     }
 

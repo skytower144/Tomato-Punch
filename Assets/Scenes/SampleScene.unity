@@ -2300,7 +2300,7 @@ GameObject:
   - component: {fileID: 1045029402}
   - component: {fileID: 1045029404}
   m_Layer: 0
-  m_Name: battleJola
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2403,11 +2403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884f28d7af9bdf54089a11e029b2b262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _base: {fileID: 11400000, guid: f90d13b4be5c1dc419abbbef56f44eaf, type: 2}
   enemy_LA: {fileID: 1532408246453528815, guid: cd4dad395d738814882d5fb994b6e096, type: 3}
   enemy_RA: {fileID: 4425042731320507169, guid: bf90562c9f06cc74ea6b72a7736ce079, type: 3}
   enemy_DA: {fileID: 8950153196583877838, guid: 660fadfc80208034f82c3a00f49a1e3f, type: 3}
   enemy_Counter: {fileID: 8566184366384418792, guid: 9b92c681a976e9846a8ac668b512f5c9, type: 3}
-  pj_1: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
+  pj_hat: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
   pj_2: {fileID: 0}
   pj_3: {fileID: 0}
   Parent: {fileID: 1045029401}
@@ -3220,8 +3221,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1426860818}
-  - component: {fileID: 1426860819}
   - component: {fileID: 1426860820}
+  - component: {fileID: 1426860819}
   m_Layer: 0
   m_Name: tomato_hitbox
   m_TagString: Untagged
@@ -3448,7 +3449,7 @@ GameObject:
   - component: {fileID: 1508086783}
   - component: {fileID: 1508086782}
   m_Layer: 0
-  m_Name: battleJola_hitbox
+  m_Name: Enemy_hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
