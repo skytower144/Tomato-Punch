@@ -147,7 +147,7 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if(battleJola_parried.isParried && battleJolaControl.isPhysical)    // disable guard cancel
+                if(Enemy_parried.isParried && EnemyControl.isPhysical)    // disable guard cancel
                 {
                     downGamepad = false;
                 }
@@ -253,7 +253,6 @@ public class tomatoControl : MonoBehaviour
             downGamepad = false;
 
             tomatoGuard.isParry = false;
-            //Destroy(_parryInstance);
         }
     }
     void tomatoHurtOver()
@@ -277,7 +276,7 @@ public class tomatoControl : MonoBehaviour
     }
     void return_to_Guard()
     {
-        if(battleJola_parried.isParried && battleJolaControl.isPhysical)
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             ChangeAnimationState(TOMATO_GATLING);
         }
@@ -372,7 +371,7 @@ public class tomatoControl : MonoBehaviour
     {
         isGuard = false;
         tomatoGuard.isParry = false;
-        /**/ battleJola_parried.isParried = false; /**/
+        /**/ Enemy_parried.isParried = false; /**/
 
         BattleUI_Control.gatleCircle_once = false;
         BattleUI_Control.stopGatle = false;

@@ -6,7 +6,6 @@ public class superBanner : MonoBehaviour
 {
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Animator tomato_anim;
-    [SerializeField] private battleJolaControl battlejolacontrol;
 
     void superSelection()
     {

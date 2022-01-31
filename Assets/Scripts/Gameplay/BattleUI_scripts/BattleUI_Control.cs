@@ -13,7 +13,7 @@ public class BattleUI_Control : MonoBehaviour
 
     void Update()
     {
-        if(battleJola_parried.isParried && battleJolaControl.isPhysical)
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             if(!gatleCircle_once)
             {
@@ -33,7 +33,7 @@ public class BattleUI_Control : MonoBehaviour
                 gatleCircle.SetActive(false);
 
                 tomato_anim.Play("tomato_gatling2idle",-1,0f);
-                //enemy_anim.Play("battleJola_parried2idle",-1,0f); --> battleJolaControl
+                //play: enemy parried2idle animation --> Following code is situated in EnemyControl.cs
                 
                 anim.Play("fade_InOut",-1,0f);
                 button_anim_L.Play("gatleButton_L_blink",-1,0f);
@@ -42,7 +42,7 @@ public class BattleUI_Control : MonoBehaviour
                 tomatoControl.isGatle = false;
                 tomatoControl.isGuard = false;
                 tomatoGuard.isParry = false;
-                battleJola_parried.isParried = false;
+                Enemy_parried.isParried = false;
 
                 gatleCircle_once = false;
                 tomatoControl.gatleButton_once = false;
@@ -94,7 +94,7 @@ public class BattleUI_Control : MonoBehaviour
 
     void parryBg_Setup()
     {
-        if(battleJola_parried.isParried && battleJolaControl.isPhysical)
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             parryBg.SetActive(true);
             parry_Bar.SetActive(true);

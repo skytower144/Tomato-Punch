@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class battleJola_is_hurt : MonoBehaviour
+public class Enemy_is_hurt : MonoBehaviour
 {
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2;
     private Animator anim;
@@ -19,7 +19,7 @@ public class battleJola_is_hurt : MonoBehaviour
     } 
     void OnTriggerEnter2D(Collider2D col) 
     {
-        if(battleJola_parried.isParried && battleJolaControl.isPhysical)
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             //GATLING MODE
             tomatoParryBar.parryFill.fillAmount += 0.008f;

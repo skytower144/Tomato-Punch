@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class battleJola_countered : MonoBehaviour
+public class Enemy_countered : MonoBehaviour
 {
     private Animator anim;
     [SerializeField] private string string_countered;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
-    [HideInInspector] public static bool enemy_countered;
+    [HideInInspector] public static bool enemy_isCountered;
     private GameObject _instance1;
     void Start()
     {
@@ -24,8 +24,8 @@ public class battleJola_countered : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) 
     {
-        battleJola_is_hurt.enemy_isPunched = false;
-        enemy_countered = true;
+        Enemy_is_hurt.enemy_isPunched = false;
+        enemy_isCountered = true;
         if(col.gameObject.tag.Equals("tomato_LP") || (col.gameObject.tag.Equals("tomato_RP")))
         {
             Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);

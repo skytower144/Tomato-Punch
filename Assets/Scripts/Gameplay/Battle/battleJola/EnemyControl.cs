@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class battleJolaControl : MonoBehaviour
+public class EnemyControl : MonoBehaviour
 {
     private Animator anim;
     private GameObject counter_instance;
@@ -11,7 +11,7 @@ public class battleJolaControl : MonoBehaviour
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private battleJola_is_hurt enemyHurt;
+    [SerializeField] private Enemy_is_hurt enemyHurt;
     [HideInInspector] public static bool isPhysical = true;
     private bool action_afterSuffer = false;
     private bool enemy_supered = false;
@@ -65,7 +65,7 @@ public class battleJolaControl : MonoBehaviour
             action_afterSuffer = false;
             return;
         }
-        else if(!battleJola_parried.isParried && !battleJola_countered.enemy_countered && !battleJola_is_hurt.enemy_isPunched && !enemy_supered)
+        else if(!Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemy_supered)
         {
             
             if((Random.value<= 0.1))
@@ -111,20 +111,20 @@ public class battleJolaControl : MonoBehaviour
     void actionOver()
     {
         enemy_supered = false;
-        if(!battleJola_countered.enemy_countered && !battleJola_is_hurt.enemy_isPunched)
+        if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
             anim.Play("battleJola_idle",-1,0f);
     }
     void enemy_isPunchedEnd()
     {
-        battleJola_is_hurt.enemy_isPunched = false;
+        Enemy_is_hurt.enemy_isPunched = false;
     }
     void hurtOver()
     {
-        if(battleJola_parried.isParried && battleJolaControl.isPhysical)                        // punching jola when jola is parried
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)                             // punching enemy when enemy is parried
             anim.Play("battleJola_parriedAft",-1,0f);
-        else if(!battleJola_is_hurt.enemy_isPunched && battleJola_countered.enemy_countered)    // punching jola when jola is countered
+        else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
             anim.Play("battleJola_suffer",-1,0f);
-        else if(!battleJola_is_hurt.enemy_isPunched)                                            // go back to idle when player did not attack
+        else if(!Enemy_is_hurt.enemy_isPunched)                                            // go back to idle when player did not attack
             anim.Play("battleJola_idle",-1,0f);
     }
 
@@ -156,7 +156,7 @@ public class battleJolaControl : MonoBehaviour
     void beginSuffer()
     {
         Invoke("return_CounterToIdle", 3f);
-        if(!battleJola_is_hurt.enemy_isPunched)     // when enemy is hurt at the exact frame transitioning to the suffer animation, 
+        if(!Enemy_is_hurt.enemy_isPunched)     // when enemy is hurt at the exact frame transitioning to the suffer animation, 
             anim.Play("battleJola_suffer",-1,0f);   // the 'if' statement makes it prioritize the hurt animation.
     }
 
@@ -166,8 +166,8 @@ public class battleJolaControl : MonoBehaviour
     }
     void return_CounterToIdle()
     {
-        battleJola_is_hurt.enemy_isPunched = false;
-        battleJola_countered.enemy_countered = false;
+        Enemy_is_hurt.enemy_isPunched = false;
+        Enemy_countered.enemy_isCountered = false;
         action_afterSuffer = true;
     }
 

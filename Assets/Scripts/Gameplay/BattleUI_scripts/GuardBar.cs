@@ -25,7 +25,7 @@ public class GuardBar : MonoBehaviour
             }
         }
 
-        if(battleJola_parried.pjParried)
+        if(Enemy_parried.pjParried)
         {
             RestoreGuardBar();
         }

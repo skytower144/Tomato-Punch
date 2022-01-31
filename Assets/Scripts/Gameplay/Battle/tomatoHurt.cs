@@ -19,7 +19,7 @@ public class tomatoHurt : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) 
     {
-        if((!tomatoControl.isGuard || !battleJola_parried.isParried) && !tomatoGuard.preventDamageOverlap)
+        if((!tomatoControl.isGuard || !Enemy_parried.isParried) && !tomatoGuard.preventDamageOverlap)
         {
             isTomatoHurt = true;
             Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);

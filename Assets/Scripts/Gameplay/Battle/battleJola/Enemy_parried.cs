@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class battleJola_parried : MonoBehaviour
+public class Enemy_parried : MonoBehaviour
 {
     private Animator anim;
     [SerializeField] private string string_parried;
@@ -20,7 +20,7 @@ public class battleJola_parried : MonoBehaviour
         {
             Instantiate (parryEffect, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
 
-            if(battleJolaControl.isPhysical)    // if isParried True -> enemy cannot move
+            if(EnemyControl.isPhysical)    // if isParried True -> enemy cannot move
             {
                 isParried = true;
                 Instantiate (parryCircle, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);

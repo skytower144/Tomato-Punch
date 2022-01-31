@@ -6,9 +6,9 @@ public class DestroyAttack : MonoBehaviour
 {
     void Update()
     {
-        if(battleJola_parried.isParried || battleJola_parried.pjParried)
+        if(Enemy_parried.isParried || Enemy_parried.pjParried)
         {
-            battleJola_parried.pjParried = false;
+            Enemy_parried.pjParried = false;
             Destroy (gameObject);
         }
     }
