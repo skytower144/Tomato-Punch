@@ -6,7 +6,7 @@ public class battleJolaControl : MonoBehaviour
 {
     private Animator anim;
     private GameObject counter_instance;
-    [SerializeField] private GameObject jola_LA, jola_RA, jola_DA, jola_Counter;
+    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_Counter;
     [SerializeField] private GameObject pj_1, pj_2, pj_3;
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
@@ -130,7 +130,7 @@ public class battleJolaControl : MonoBehaviour
 
     void jolaCounterStart()
     {
-        counter_instance = Instantiate (jola_Counter, Parent);
+        counter_instance = Instantiate (enemy_Counter, Parent);
     }
     void jolaCounterEnd()
     {
@@ -142,15 +142,15 @@ public class battleJolaControl : MonoBehaviour
     {
         if(attackType == -1)
         {   
-            Instantiate (jola_LA, Parent);
+            Instantiate (enemy_LA, Parent);
         }
         else if(attackType == 1)
         {
-            Instantiate (jola_RA, Parent);
+            Instantiate (enemy_RA, Parent);
         }
         else if(attackType == 0)
         {
-            Instantiate (jola_DA, Parent);
+            Instantiate (enemy_DA, Parent);
         }
     }
     void beginSuffer()
