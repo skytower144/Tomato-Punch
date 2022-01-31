@@ -33,7 +33,7 @@ public class tomatoGuard : MonoBehaviour
     {
         if(!isParry)
         {
-            if(col.gameObject.tag.Equals("jola_LA") || (col.gameObject.tag.Equals("jola_RA"))) // + jola_DA
+            if(col.gameObject.tag.Equals("enemy_LA") || (col.gameObject.tag.Equals("enemy_RA")))
             {
                 guardDamageConversion();
                 if(tomatocontrol.current_guardPt >= reducedDamage)
@@ -51,7 +51,6 @@ public class tomatoGuard : MonoBehaviour
                     playGuard_BreakEffects();
                     TakeGuardDamage(reducedDamage);
 
-                    Debug.Log(leftoverDamage);
                     tomatohurt.TakeDamage(leftoverDamage);
                     anim.Play("tomato_L_hurt",-1,0f);
                 }

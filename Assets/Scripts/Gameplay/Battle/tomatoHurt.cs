@@ -23,17 +23,17 @@ public class tomatoHurt : MonoBehaviour
         {
             isTomatoHurt = true;
             Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);
-            if(col.gameObject.tag.Equals("jola_LA"))
+            if(col.gameObject.tag.Equals("enemy_LA"))
             {
                 anim.Play("tomato_L_hurt",-1,0f);
                 TakeDamage(tomatoguard.damage);
             }
-            else if(col.gameObject.tag.Equals("jola_RA"))
+            else if(col.gameObject.tag.Equals("enemy_RA"))
             {
                 anim.Play("tomato_R_hurt",-1,0f);
                 TakeDamage(tomatoguard.damage);
             }
-            else if(col.gameObject.tag.Equals("jola_DA"))
+            else if(col.gameObject.tag.Equals("enemy_DA"))
             {
                 anim.Play("tomato_D_hurt",-1,0f);
                 TakeDamage(tomatoguard.damage);

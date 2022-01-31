@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4425042731320507169
+--- !u!1 &8566184366384418792
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4425042731320507170}
-  - component: {fileID: 4425042731320507171}
-  - component: {fileID: -2259711990661928523}
-  - component: {fileID: 574475008232226608}
+  - component: {fileID: 1901433124544213238}
+  - component: {fileID: 4583090767619851921}
+  - component: {fileID: -3057714056400277588}
   m_Layer: 0
-  m_Name: battleJola_RA
-  m_TagString: jola_RA
+  m_Name: enemy_counterbox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4425042731320507170
+--- !u!4 &1901433124544213238
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425042731320507169}
+  m_GameObject: {fileID: 8566184366384418792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.300207, y: 0.4839741, z: -26.55758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4425042731320507171
+--- !u!61 &4583090767619851921
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425042731320507169}
+  m_GameObject: {fileID: 8566184366384418792}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.094425, y: -3.034354}
+  m_Offset: {x: 4.51585, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -57,32 +56,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7740288, y: 0.5908461}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-2259711990661928523
+--- !u!114 &-3057714056400277588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425042731320507169}
+  m_GameObject: {fileID: 8566184366384418792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61eea995df224e948bd03e16a89a312e, type: 3}
+  m_Script: {fileID: 11500000, guid: 104e29693fd7e7046a159997ea296f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &574475008232226608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425042731320507169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb451d5cac96e2749a46a56c7140be0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parryEffect: {fileID: 9053055208805594262, guid: df114912f5cf987419c0072f124dad98, type: 3}
-  parryCircle: {fileID: 2077910231142152067, guid: a888a4a6f04e08f4a99cbf6bc8be4633, type: 3}
-  string_parried: battleJola_parried
+  string_countered: battleJola_countered
+  counterEffect: {fileID: 2513154410385975804, guid: 9250bf104c0562346a019bade54342b9, type: 3}
+  counterPunch_effect: {fileID: 7512795930657710638, guid: ac2191624b32e044282bd58c21d73e46, type: 3}
+  screenFlash: {fileID: 1804978211366873740, guid: 631f7583c0f811e4eb393b14d35de388, type: 3}
