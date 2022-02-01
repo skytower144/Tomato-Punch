@@ -229,7 +229,10 @@ public class tomatoControl : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) || (Input.GetKeyDown("joystick button 0")))
         {
-            tomatoAnimator.Play("tomato_GLP",-1,0f);
+            if(gatleCircleControl.failUppercut == false)
+            {
+                tomatoAnimator.Play("tomato_GLP",-1,0f);
+            }
         }
         if(Input.GetMouseButtonDown(1) || (Input.GetKeyDown("joystick button 1")))
         {
@@ -308,15 +311,15 @@ public class tomatoControl : MonoBehaviour
 
     void parryActivate()
     {
-        _parryInstance = Instantiate (tomato_PRY, Parent);
         hitbox.enabled = false;
+        _parryInstance = Instantiate (tomato_PRY, Parent);
         Invoke("parryDeactivate",0.05f);
     }
 
     void parryDeactivate()
     {
-        hitbox.enabled = true;
         Destroy(_parryInstance);
+        hitbox.enabled = true;
     }
 
     void gatlingReady()

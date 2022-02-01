@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class JolaController : MonoBehaviour, Interactable
 {
+    [SerializeField] private EnemyControl enemyControl;
+    public EnemyBase enemyStats;
+    [SerializeField] private GameObject battleCircle, exclamation;
     private Animator playerAnimator;
     public GameObject playerObject;
     private float player_x, player_y;
-    [SerializeField] private GameObject battleCircle, exclamation;
+    
    
     public void Interact()
     {
@@ -15,6 +18,8 @@ public class JolaController : MonoBehaviour, Interactable
 
         playerAnimator = playerObject.GetComponent<Animator>();
         playerAnimator.SetBool("isWalking",false);
+
+        enemyControl._base = enemyStats;
 
         Instantiate (exclamation, new Vector2 (transform.position.x - 0.05f, transform.position.y + 3.1f), Quaternion.identity);
         Invoke("battleStart_ef", 0.4f);

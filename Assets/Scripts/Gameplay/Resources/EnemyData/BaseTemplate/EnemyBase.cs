@@ -7,20 +7,26 @@ public class EnemyBase : ScriptableObject
 {
     [SerializeField] private string enemyName;
     [SerializeField] private Sprite frontSprite;
-
-    // Base Stats
-    [SerializeField] private List <Enemy_NameDmg_Pair> enemyAttack;
-
-
-    public string EnemyName
+    [SerializeField] private string counteredAnimationString;
+    [SerializeField] private string parriedAnimationString;
+    [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
+    [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
+    public string CounteredAnimationString
     {
-        get { return enemyName; }
+        get { return counteredAnimationString; }
     }
-    
-    public Enemy_NameDmg_Pair EnemyAttack(string attackName)
+    public string ParriedAnimationString
+    {
+        get { return parriedAnimationString; }
+    }
+    // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: 0
+    public Enemy_AttackDetail EnemyAttack(string attackName)
     {
         return enemyAttack.Find( x=> x.EnemyAttackName == attackName);
     }
-    // LEFT: -1, RIGHT: 1, DOWN: 0
+    public Enemy_ProjectileDetail EnemyPjSelect(string pjName)
+    {
+        return projectiles.Find( x=> x.EnemyPjName == pjName);
+    }
 
 }

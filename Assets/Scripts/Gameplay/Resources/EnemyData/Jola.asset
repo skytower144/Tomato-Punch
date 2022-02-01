@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Jola
   frontSprite: {fileID: -2455346762637126573, guid: 49c443ad79bb3ba45b9276fb359ae3b1, type: 3}
+  counteredAnimationString: battleJola_countered
+  parriedAnimationString: battleJola_parried
+  projectiles:
+  - EnemyPjName: HatAttack
+    EnemyProjectile: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
   enemyAttack:
   - EnemyAttackName: LA
     EnemyAttackDmg: 5

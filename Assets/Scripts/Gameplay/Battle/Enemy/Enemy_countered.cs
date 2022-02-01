@@ -5,13 +5,15 @@ using UnityEngine;
 public class Enemy_countered : MonoBehaviour
 {
     private Animator anim;
-    [SerializeField] private string string_countered;
+    private string string_countered;
+    [SerializeField] private EnemyBase _enemyBase;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
     private GameObject _instance1;
     void Start()
     {
         anim = GetComponentInParent<Animator>();
+        string_countered = _enemyBase.CounteredAnimationString;
     }
 
     void Update()

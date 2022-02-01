@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy_parried : MonoBehaviour
 {
     private Animator anim;
-    [SerializeField] private string string_parried;
+    private string string_parried;
+    [SerializeField] private EnemyBase _enemyBase;
     [SerializeField] private GameObject parryEffect, parryCircle;
     [HideInInspector] public static bool isParried = false;
     [HideInInspector] public static bool pjParried = false;
@@ -13,6 +14,7 @@ public class Enemy_parried : MonoBehaviour
     void Start()
     {
         anim = GetComponentInParent<Animator>();
+        string_parried = _enemyBase.ParriedAnimationString;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
