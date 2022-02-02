@@ -11,6 +11,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private string parriedAnimationString;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
+
     public string CounteredAnimationString
     {
         get { return counteredAnimationString; }

@@ -23,6 +23,7 @@ public class EnemyControl : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         InvokeRepeating("jolaAction", 1f,2f);
+
     }
     
     void Update()

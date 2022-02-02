@@ -147,33 +147,33 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if(Enemy_parried.isParried && EnemyControl.isPhysical)    // disable guard cancel
+                if( !(Enemy_parried.isParried && EnemyControl.isPhysical) && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
                 {
-                    downGamepad = false;
-                }
-                else
-                {
-                    if((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow)))
-                    {
-                        guardRelease = true;
-                        
-                        ChangeAnimationState(TOMATO_IDLE);
-                        isGuard = false;
-                        isAction = false;
-                        downGamepad = false;
-                        tomatoGuard.isParry = false;
-                    }
-                    else if((downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical")  == 0))
-                    {
-                        guardRelease = true;
+                    Destroy(_parryInstance);
+                    hitbox.enabled = true;
 
-                        ChangeAnimationState(TOMATO_IDLE);
-                        isGuard = false;
-                        isAction = false;
-                        downGamepad = false;
-                        tomatoGuard.isParry = false;
-                    }
+                    guardRelease = true;
+                    
+                    ChangeAnimationState(TOMATO_IDLE);
+                    isGuard = false;
+                    isAction = false;
+                    downGamepad = false;
+                    tomatoGuard.isParry = false;
                 }
+                else if(!(Enemy_parried.isParried && EnemyControl.isPhysical) && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
+                {
+                    Destroy(_parryInstance);
+                    hitbox.enabled = true;
+
+                    guardRelease = true;
+
+                    ChangeAnimationState(TOMATO_IDLE);
+                    isGuard = false;
+                    isAction = false;
+                    downGamepad = false;
+                    tomatoGuard.isParry = false;
+                }
+                
             }
             
             else if(isPunch)
@@ -188,20 +188,20 @@ public class tomatoControl : MonoBehaviour
                 }
             }
             
-            if(!BattleUI_Control.stopGatle)
+            
+            
+            if((!BattleUI_Control.stopGatle) && tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GATLINGIDLE))
             {
-                if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GATLINGIDLE))
+                gatlePunch();
+            }
+            if(isGatle)
+            {
+                if((!BattleUI_Control.stopGatle) && (tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GLP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GRP)))
                 {
                     gatlePunch();
                 }
-                if(isGatle)
-                {
-                    if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GLP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GRP))
-                    {
-                        gatlePunch();
-                    }
-                }
             }
+            
         }
     }
 
@@ -311,15 +311,20 @@ public class tomatoControl : MonoBehaviour
 
     void parryActivate()
     {
-        hitbox.enabled = false;
-        _parryInstance = Instantiate (tomato_PRY, Parent);
-        Invoke("parryDeactivate",0.05f);
+        if(!tomato_hurt.isTomatoHurt)
+        {
+            hitbox.enabled = false;
+            _parryInstance = Instantiate (tomato_PRY, Parent);
+            Invoke("parryDeactivate",0.05f);
+        }
     }
 
     void parryDeactivate()
     {
         Destroy(_parryInstance);
-        hitbox.enabled = true;
+        if(!(Enemy_parried.isParried && EnemyControl.isPhysical)) {
+            hitbox.enabled = true;
+        }
     }
 
     void gatlingReady()
@@ -334,6 +339,7 @@ public class tomatoControl : MonoBehaviour
     void endGatle()
     {
         BattleUI_Control.stopGatle = false;
+        hitbox.enabled = true;
     }
 
     void gatlingPunch()
@@ -379,6 +385,8 @@ public class tomatoControl : MonoBehaviour
         BattleUI_Control.gatleCircle_once = false;
         BattleUI_Control.stopGatle = false;
         gatleButton_once = false;
+
+        hitbox.enabled = true;
     }
     void enemy_Uppered()
     {
