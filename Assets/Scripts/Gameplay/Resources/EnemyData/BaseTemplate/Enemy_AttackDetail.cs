@@ -6,8 +6,8 @@ using UnityEngine;
 public class Enemy_AttackDetail
 {
     public string EnemyAttackName;
-    public int EnemyAttackDmg;
     public bool PhysicalAttack;
+    public int EnemyAttackDmg;
     public int EnemyAttackType;
 
 }

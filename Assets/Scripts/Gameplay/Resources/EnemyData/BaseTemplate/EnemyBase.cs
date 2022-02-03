@@ -4,23 +4,66 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy", menuName = "Create Enemy Base Data")]
 public class EnemyBase : ScriptableObject
-{
+{   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: 0
     [SerializeField] private string enemyName;
-    [SerializeField] private Sprite frontSprite;
-    [SerializeField] private string counteredAnimationString;
-    [SerializeField] private string parriedAnimationString;
+    [SerializeField] private RuntimeAnimatorController animationController;
+    [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, hurtL, hurtR;
+    public List <string> EnemySuperedAnim;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
 
-    public string CounteredAnimationString
+    public string EnemyName
     {
-        get { return counteredAnimationString; }
+        get { return enemyName; }
     }
-    public string ParriedAnimationString
+    public RuntimeAnimatorController AnimationController
     {
-        get { return parriedAnimationString; }
+        get { return animationController; }
     }
-    // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: 0
+    public string Idle_AnimationString
+    {
+        get { return idle; }
+    }
+    public string Countered_AnimationString
+    {
+        get { return countered; }
+    }
+    public string Suffer_AnimationString
+    {
+        get { return suffer; }
+    }
+    public string Parried_AnimationString
+    {
+        get { return parried; }
+    }
+    public string ParriedToIdle_AnimationString
+    {
+        get { return parriedToIdle; }
+    }
+    public string ParriedAft_AnimationString
+    {
+        get { return parriedAft; }
+    }
+    public string Uppered_AnimationString
+    {
+        get { return uppered; }
+    }
+    public string UpperRecover_AnimationString
+    {
+        get { return upperRecover; }
+    }
+    public string SuperedRecover_AnimationString
+    {
+        get { return superedRecover; }
+    }
+    public string HurtL_AnimationString
+    {
+        get { return hurtL; }
+    }
+    public string HurtR_AnimationString
+    {
+        get { return hurtR; }
+    }
     public Enemy_AttackDetail EnemyAttack(string attackName)
     {
         return enemyAttack.Find( x=> x.EnemyAttackName == attackName);

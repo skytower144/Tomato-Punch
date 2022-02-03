@@ -1195,7 +1195,7 @@ MonoBehaviour:
   guardBar: {fileID: 1156247544}
   parryBar: {fileID: 1064597949}
   enemy_supered: 0
-  super: 1
+  tomatoSuper: 0
 --- !u!50 &449446694
 Rigidbody2D:
   serializedVersion: 4
@@ -1589,6 +1589,52 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &750718014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 750718015}
+  - component: {fileID: 750718016}
+  m_Layer: 0
+  m_Name: Enemy_AI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &750718015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750718014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1045029401}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &750718016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750718014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cdb008a58639f428d46246df900933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCtrl: {fileID: 1045029404}
+  battleAnim: {fileID: 1045029402}
+  tomatoguard: {fileID: 1117059771}
 --- !u!1 &821537645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,7 +2366,7 @@ Transform:
   m_LocalScale: {x: 45, y: 45, z: 45}
   m_Children:
   - {fileID: 1508086781}
-  - {fileID: 2134618896}
+  - {fileID: 750718015}
   m_Father: {fileID: 420362620}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2334,7 +2380,7 @@ Animator:
   m_GameObject: {fileID: 1045029400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2415,6 +2461,11 @@ MonoBehaviour:
   tomatoguard: {fileID: 1117059771}
   tomatocontrol: {fileID: 449446693}
   enemyHurt: {fileID: 1508086782}
+  action_afterSuffer: 0
+  enemy_supered: 0
+  attackType: 0
+  pjTag: 
+  enemyAIControl: {fileID: 750718016}
 --- !u!1 &1064597947
 GameObject:
   m_ObjectHideFlags: 0
@@ -3481,6 +3532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70b09cd4d3cb4741ad33cf3c0b652b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyControl: {fileID: 1045029404}
   hitEffect: {fileID: 7565940143884383686, guid: ceadbc591a62a1e468be21e46af61ac4, type: 3}
   gatHit1: {fileID: 8465389278089805006, guid: 0dd361062f419eb4fbc3427a19d63549, type: 3}
   gatHit2: {fileID: 865075623318641839, guid: 4fc4b085b81e92c45ad0be31126dafd2, type: 3}
@@ -10801,36 +10853,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080784144}
   m_CullTransparentMesh: 0
---- !u!1 &2134618895
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2134618896}
-  m_Layer: 0
-  m_Name: Enemy_AI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2134618896
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134618895}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1045029401}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6964922438206624107
 PrefabInstance:
   m_ObjectHideFlags: 0

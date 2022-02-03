@@ -13,26 +13,37 @@ MonoBehaviour:
   m_Name: Jola
   m_EditorClassIdentifier: 
   enemyName: Jola
-  frontSprite: {fileID: -2455346762637126573, guid: 49c443ad79bb3ba45b9276fb359ae3b1, type: 3}
-  counteredAnimationString: battleJola_countered
-  parriedAnimationString: battleJola_parried
+  animationController: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
+  idle: battleJola_idle
+  countered: battleJola_countered
+  suffer: battleJola_suffer
+  parried: battleJola_parried
+  parriedToIdle: battleJola_parried2idle
+  parriedAft: battleJola_parriedAft
+  uppered: battleJola_uppered
+  upperRecover: battleJola_upperRecover
+  superedRecover: battleJola_superedRecover
+  hurtL: battleJola_hurt_L
+  hurtR: battleJola_hurt_R
+  EnemySuperedAnim:
+  - battleJola_supered_chili
   projectiles:
-  - EnemyPjName: HatAttack
+  - EnemyPjName: battleJola_HatAttack
     EnemyProjectile: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
   enemyAttack:
-  - EnemyAttackName: LA
-    EnemyAttackDmg: 5
+  - EnemyAttackName: battleJola_LA
     PhysicalAttack: 1
+    EnemyAttackDmg: 5
     EnemyAttackType: -1
-  - EnemyAttackName: RA
+  - EnemyAttackName: battleJola_RA
+    PhysicalAttack: 1
     EnemyAttackDmg: 5
-    PhysicalAttack: 1
     EnemyAttackType: 1
-  - EnemyAttackName: DA
-    EnemyAttackDmg: 8
+  - EnemyAttackName: battleJola_DA
     PhysicalAttack: 1
+    EnemyAttackDmg: 8
     EnemyAttackType: 0
-  - EnemyAttackName: HatAttack
-    EnemyAttackDmg: 3
+  - EnemyAttackName: battleJola_HatAttack
     PhysicalAttack: 0
+    EnemyAttackDmg: 3
     EnemyAttackType: -1

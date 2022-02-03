@@ -10,7 +10,7 @@ public class superBanner : MonoBehaviour
     void superSelection()
     {
         tomato_anim.enabled = true;
-        if(tomatocontrol.super == 1)
+        if(tomatocontrol.tomatoSuper == 0)
         {
             tomato_anim.Play("tomato_super_chili",-1,0f);
         }

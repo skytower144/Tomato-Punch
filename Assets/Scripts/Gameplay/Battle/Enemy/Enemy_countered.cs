@@ -13,7 +13,7 @@ public class Enemy_countered : MonoBehaviour
     void Start()
     {
         anim = GetComponentInParent<Animator>();
-        string_countered = _enemyBase.CounteredAnimationString;
+        string_countered = _enemyBase.Countered_AnimationString;
     }
 
     void Update()

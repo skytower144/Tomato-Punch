@@ -14,7 +14,7 @@ public class Enemy_parried : MonoBehaviour
     void Start()
     {
         anim = GetComponentInParent<Animator>();
-        string_parried = _enemyBase.ParriedAnimationString;
+        string_parried = _enemyBase.Parried_AnimationString;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {

@@ -54,7 +54,7 @@ public class tomatoControl : MonoBehaviour
     [HideInInspector] public static bool enemyUppered = false;
     [HideInInspector] public static bool enemyFreeze = false;
     [HideInInspector] public bool enemy_supered = false;
-    [HideInInspector] public int super = 1;                         // which super indication
+    public int tomatoSuper;                         // which super indication
 
     void Start()
     {
