@@ -16,7 +16,7 @@ public class EnemyAIControl : MonoBehaviour
         enemyCtrl.attackType = EM.EnemyAttackType;
         battleAnim.Play(movename);
     }
-    public void Jola()
+    public void Jola() // function name must be exact as EnemyBase.EnemyName
     {
         if(enemyCtrl.action_afterSuffer)
         {
@@ -47,5 +47,10 @@ public class EnemyAIControl : MonoBehaviour
                 EnemyMove("battleJola_HatAttack");
             }
         }
+    }
+
+    public void Slime()
+    {
+        Debug.Log("slime is active!");
     }
 }
