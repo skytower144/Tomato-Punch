@@ -11,7 +11,7 @@ Development start : **_August 2021._**<br />
 >*_Temporary Battle Scene Example. Background image from Pokemon, will be replaced after further development._*
 <br />
 
-## Development Background 💻
+## Development Background
 
 I was first introduced to the "Punchout" game while playing "Enter the Gungeon".<br />
 Something sparked within me as I got smacked by the rat countless times.<br /><br />
