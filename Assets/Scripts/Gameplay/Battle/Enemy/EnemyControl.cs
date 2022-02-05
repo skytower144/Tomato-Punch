@@ -7,7 +7,7 @@ public class EnemyControl : MonoBehaviour
     public EnemyBase _base;
     private Animator anim;
     [SerializeField] private GameObject counterBox;
-    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_Counter;
+    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
@@ -89,7 +89,7 @@ public class EnemyControl : MonoBehaviour
     }
 
     void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.
-                      // -1: left, 1: right, 0: down                
+                      // -1: left, 1: right, -101: down, 0: center                
     {
         if(attackType == -1)
         {   
@@ -99,9 +99,13 @@ public class EnemyControl : MonoBehaviour
         {
             Instantiate (enemy_RA, Parent);
         }
-        else if(attackType == 0)
+        else if(attackType == -101)
         {
             Instantiate (enemy_DA, Parent);
+        }
+        else if(attackType == 0)
+        {
+            Instantiate (enemy_PJ, Parent);
         }
     }
     void beginSuffer()

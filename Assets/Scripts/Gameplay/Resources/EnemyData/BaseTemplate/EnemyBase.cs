@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy", menuName = "Create Enemy Base Data")]
 public class EnemyBase : ScriptableObject
-{   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: 0
+{   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
     [SerializeField] private string enemyName;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     [SerializeField] private RuntimeAnimatorController animationController;
