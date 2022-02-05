@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class GuardBar : MonoBehaviour
 {
     private const float GUARDBAR_WIDTH = 150.32f;
@@ -11,15 +12,25 @@ public class GuardBar : MonoBehaviour
     [SerializeField] private GameObject guardBar_shineEffect;
     [HideInInspector] public float regainGuardTimer = G_REGAINTIMER_MAX;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private TextMeshProUGUI GuardptText;
 
     private void Update()
     {
+        GuardptText.text = tomatocontrol.current_guardPt.ToString("F0");
+        if(tomatocontrol.current_guardPt == tomatocontrol.maxGuard)
+        {
+            GuardptText.color = new Color(194/255f , 215/255f, 233/255f);
+        }
+        else
+        {
+            GuardptText.color = Color.white;
+        }
         if(!tomatoControl.isGuard)
         {
             regainGuardTimer -= Time.deltaTime;
             if(regainGuardTimer < 0 && tomatocontrol.current_guardPt < tomatocontrol.maxGuard)
             {
-                float regainSpeed = 4f;
+                float regainSpeed = 2f;
                 guardFill.value += regainSpeed * Time.deltaTime;
                 tomatocontrol.current_guardPt = guardFill.value;
             }

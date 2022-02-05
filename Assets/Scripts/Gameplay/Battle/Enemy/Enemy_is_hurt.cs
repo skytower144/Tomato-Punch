@@ -11,7 +11,7 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2;
     [HideInInspector] public static bool enemy_isPunched;
-    private float Enemy_maxHealth, Enemy_currentHealth;
+    public float Enemy_maxHealth, Enemy_currentHealth;
     void Start()
     {
         anim = GetComponentInParent<Animator>();

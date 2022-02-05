@@ -25,6 +25,7 @@ public class EnemyAIControl : MonoBehaviour
         }
         else if(!Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
         {
+            
             if((Random.value<= 0.1))
             {
                 battleAnim.Play("battleJola_idle");
@@ -41,6 +42,7 @@ public class EnemyAIControl : MonoBehaviour
             {
                 EnemyMove("battleJola_DA");
             }
+            
             else if((Random.value<= 0.2))
             {
                 enemyCtrl.pjTag = "battleJola_HatAttack";

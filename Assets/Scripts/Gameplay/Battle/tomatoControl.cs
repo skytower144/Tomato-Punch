@@ -30,10 +30,9 @@ public class tomatoControl : MonoBehaviour
 
     //Tomato Info: ============================================================================================================
     //[System.NonSerialized] 
-    public float maxHealth; public float currentHealth;
-    public float maxGuard; public float current_guardPt;
-
-    public float dmg_normalPunch; public float dmg_gatlePunch; public float dmg_upperPunch; public float dmg_super_0;
+    public float maxHealth, currentHealth;
+    public float maxGuard, current_guardPt;
+    public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super_0;
 
     //Animation States: ======================================================================================================
     const string TOMATO_IDLE = "tomato_idle";
@@ -150,7 +149,7 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if( !Enemy_parried.isParried  && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
+                if( !Enemy_parried.isParried  && !tomato_hurt.isTomatoHurt && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
@@ -163,7 +162,7 @@ public class tomatoControl : MonoBehaviour
                     downGamepad = false;
                     tomatoGuard.isParry = false;
                 }
-                else if(!Enemy_parried.isParried && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
+                else if(!Enemy_parried.isParried && !tomato_hurt.isTomatoHurt && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;

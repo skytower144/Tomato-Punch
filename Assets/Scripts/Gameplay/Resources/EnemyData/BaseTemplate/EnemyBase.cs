@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyBase : ScriptableObject
 {   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
     [SerializeField] private string enemyName;
+    [SerializeField] private Sprite frontSprite;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     [SerializeField] private RuntimeAnimatorController animationController;
     [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, hurtL, hurtR;
