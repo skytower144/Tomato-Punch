@@ -29,8 +29,11 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private ParryBar parryBar;
 
     //Tomato Info: ============================================================================================================
-    [System.NonSerialized] public float maxHealth = 100; [System.NonSerialized] public float currentHealth = 100;
-    [System.NonSerialized] public float maxGuard = 35; [System.NonSerialized] public float current_guardPt = 35;
+    //[System.NonSerialized] 
+    public float maxHealth; public float currentHealth;
+    public float maxGuard; public float current_guardPt;
+
+    public float dmg_normalPunch; public float dmg_gatlePunch; public float dmg_upperPunch; public float dmg_super_0;
 
     //Animation States: ======================================================================================================
     const string TOMATO_IDLE = "tomato_idle";
@@ -147,27 +150,27 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if( !(Enemy_parried.isParried && EnemyControl.isPhysical) && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
+                if( !Enemy_parried.isParried  && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
 
                     guardRelease = true;
                     
-                    ChangeAnimationState(TOMATO_IDLE);
+                    tomatoAnimator.Play("tomato_idle",-1,0f);
                     isGuard = false;
                     isAction = false;
                     downGamepad = false;
                     tomatoGuard.isParry = false;
                 }
-                else if(!(Enemy_parried.isParried && EnemyControl.isPhysical) && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
+                else if(!Enemy_parried.isParried && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
 
                     guardRelease = true;
 
-                    ChangeAnimationState(TOMATO_IDLE);
+                    tomatoAnimator.Play("tomato_idle",-1,0f);
                     isGuard = false;
                     isAction = false;
                     downGamepad = false;
@@ -322,7 +325,7 @@ public class tomatoControl : MonoBehaviour
     void parryDeactivate()
     {
         Destroy(_parryInstance);
-        if(!(Enemy_parried.isParried && EnemyControl.isPhysical)) {
+        if(!Enemy_parried.isParried) {
             hitbox.enabled = true;
         }
     }

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-public class HealthBar : MonoBehaviour
+public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private Gradient gradient;
-    public const float HP_SHRINKTIMER_MAX = 1f;
-    public float hpShrinkTimer;
+    public float enemy_hpShrinkTimer;
     [SerializeField] private Image fill, damagedFill;
     
     private void Update(){
-        hpShrinkTimer -= Time.deltaTime; // count down timer
-        if (hpShrinkTimer < 0)
+        enemy_hpShrinkTimer -= Time.deltaTime; // count down timer
+        if (enemy_hpShrinkTimer < 0)
         {
             if (slider.normalizedValue < damagedFill.fillAmount)
             {
@@ -22,17 +20,15 @@ public class HealthBar : MonoBehaviour
             }
         }
     }
-    public void SetMaxHealth(float health)
+    public void Enemy_SetMaxHealth(float health)
     {
         slider.maxValue = health;
-        fill.color = gradient.Evaluate(1f); //  max health color setting
     }
-    public void SetHealth(float health)
+    public void Enemy_SetHealth(float health)
     {
         slider.value = health;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
     }
-    public void setDamageFill()
+    public void Enemy_setDamageFill()
     {
         damagedFill.fillAmount = slider.normalizedValue;
     }

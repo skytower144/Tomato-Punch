@@ -6,7 +6,7 @@ public class EnemyControl : MonoBehaviour
 {
     public EnemyBase _base;
     private Animator anim;
-    private GameObject counter_instance;
+    [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_Counter;
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
@@ -19,7 +19,6 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public int attackType;
     [HideInInspector] public string pjTag;     // pj selection string
     [SerializeField] private EnemyAIControl enemyAIControl;
-
     
     void Start()
     {
@@ -38,6 +37,7 @@ public class EnemyControl : MonoBehaviour
         {
             anim.Play(_base.Uppered_AnimationString,-1,0f);
             enemyHurt.ParryBonus();
+            enemyHurt.enemyHurtDamage(tomatocontrol.dmg_upperPunch);
         }
         else
         {
@@ -54,6 +54,7 @@ public class EnemyControl : MonoBehaviour
                 anim.enabled = true;
                 anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuper],-1,0f); 
                 // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
+                enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super_0);
             }
         }
         
@@ -80,11 +81,11 @@ public class EnemyControl : MonoBehaviour
 
     void enemyCounterStart()
     {
-        counter_instance = Instantiate (enemy_Counter, Parent);
+        counterBox.SetActive(true);
     }
     void enemyCounterEnd()
     {
-        Destroy(counter_instance);
+        counterBox.SetActive(false);
     }
 
     void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.
@@ -119,6 +120,7 @@ public class EnemyControl : MonoBehaviour
         Enemy_is_hurt.enemy_isPunched = false;
         Enemy_countered.enemy_isCountered = false;
         action_afterSuffer = true;
+        anim.Play(_base.Idle_AnimationString);
     }
 
     void upperRecover()

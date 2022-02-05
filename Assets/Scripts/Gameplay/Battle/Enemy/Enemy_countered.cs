@@ -7,6 +7,8 @@ public class Enemy_countered : MonoBehaviour
     private Animator anim;
     private string string_countered;
     [SerializeField] private EnemyBase _enemyBase;
+    [SerializeField] private Enemy_is_hurt enemy_is_hurt;
+    [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
     private GameObject _instance1;
@@ -20,7 +22,7 @@ public class Enemy_countered : MonoBehaviour
     {
         if(tomatoControl.enemyFreeze)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -36,7 +38,8 @@ public class Enemy_countered : MonoBehaviour
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
             
             anim.Play(string_countered,-1,0f);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+        enemy_is_hurt.enemyHurtDamage(tomatocontrol.dmg_normalPunch);
     }
 }
