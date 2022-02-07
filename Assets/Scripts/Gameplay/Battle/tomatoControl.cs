@@ -56,7 +56,8 @@ public class tomatoControl : MonoBehaviour
     [HideInInspector] public static bool enemyUppered = false;
     [HideInInspector] public static bool enemyFreeze = false;
     [HideInInspector] public bool enemy_supered = false;
-    public int tomatoSuper;                         // which super indication
+    [System.NonSerialized] public int tomatoes = 0;
+    public int tomatoSuper;                  // which super indication
 
     void Start()
     {
@@ -88,6 +89,7 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
             Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
+            Debug.Log(tomatoes);
         }
 
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
@@ -175,7 +177,6 @@ public class tomatoControl : MonoBehaviour
                     downGamepad = false;
                     tomatoGuard.isParry = false;
                 }
-                
             }
             
             else if(isPunch)
@@ -249,16 +250,20 @@ public class tomatoControl : MonoBehaviour
 
     void tomatoHurtStart()      //prevents from initiating action while hurt , reset all booleans except isAction
     {
-        if(!tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GUARD))
-        {
-            isPunch = false;
-            isAction = true;
+        
+        isPunch = false;
+        isAction = true;
 
-            isGuard = false;
-            downGamepad = false;
+        isGuard = false;
+        downGamepad = false;
 
+        if (tomatoGuard.isParry){
             tomatoGuard.isParry = false;
+            tomatoes = 0;
         }
+        else if(tomatoes>0)
+            tomatoes -= 1;
+        
     }
     void tomatoHurtOver()
     {

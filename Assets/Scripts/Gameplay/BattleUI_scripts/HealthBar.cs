@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour
     
     private void Update()
     {
-        healthText.text = tomatocontrol.currentHealth.ToString()+ "/" + tomatocontrol.maxHealth.ToString();
+        healthText.text = tomatocontrol.currentHealth.ToString("F0")+ "/" + tomatocontrol.maxHealth.ToString("F0");
         hpShrinkTimer -= Time.deltaTime; // count down timer
         if (hpShrinkTimer < 0)
         {

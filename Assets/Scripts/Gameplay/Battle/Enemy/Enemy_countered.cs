@@ -30,6 +30,8 @@ public class Enemy_countered : MonoBehaviour
     {
         Enemy_is_hurt.enemy_isPunched = false;
         enemy_isCountered = true;
+        if(tomatocontrol.tomatoes<5)
+            tomatocontrol.tomatoes += 1;
         if(col.gameObject.tag.Equals("tomato_LP") || (col.gameObject.tag.Equals("tomato_RP")))
         {
             Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
