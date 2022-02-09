@@ -21,6 +21,10 @@ public class GuardBar : MonoBehaviour
         {
             GuardptText.color = new Color(194/255f , 215/255f, 233/255f);
         }
+        else if(tomatocontrol.current_guardPt == 0)
+        {
+            GuardptText.color = new Color(255/255f , 114/255f, 114/255f);
+        }
         else
         {
             GuardptText.color = Color.white;

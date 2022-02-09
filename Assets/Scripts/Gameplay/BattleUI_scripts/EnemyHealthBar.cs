@@ -9,7 +9,7 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] Enemy_is_hurt enemy_is_hurt;
     [SerializeField] private Slider slider;
     public float enemy_hpShrinkTimer;
-    [SerializeField] private Image fill, damagedFill;
+    [SerializeField] private Image fill, damagedFill, enemy_whiteFill;
     [SerializeField] private TextMeshProUGUI healthText;
     
     private void Update(){
@@ -35,5 +35,14 @@ public class EnemyHealthBar : MonoBehaviour
     public void Enemy_setDamageFill()
     {
         damagedFill.fillAmount = slider.normalizedValue;
+    }
+    public void Enemy_setWhiteFill()
+    {
+        enemy_whiteFill.fillAmount = slider.normalizedValue;
+        enemy_whiteFill.enabled = true;
+    }
+    public void Enemy_WhiteFillOff()
+    {
+        enemy_whiteFill.enabled = false;
     }
 }

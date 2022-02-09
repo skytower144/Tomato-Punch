@@ -209,6 +209,11 @@ public class tomatoControl : MonoBehaviour
     }
 
     // FUNCTIONS ====================================================================================================================
+
+    void IdleState()
+    {
+        isAction = false;
+    }
     void actionStart()
     {
         isPunch = false;

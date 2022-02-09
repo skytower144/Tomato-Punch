@@ -81,6 +81,8 @@ public class Enemy_is_hurt : MonoBehaviour
 
         enemyHealthBar.Enemy_SetHealth(Enemy_currentHealth);
         enemyHealthBar.enemy_hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
+        enemyHealthBar.Invoke("Enemy_WhiteFillOff",0.05f);
+        enemyHealthBar.Enemy_setWhiteFill();
     }
     
 }
