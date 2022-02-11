@@ -6,7 +6,7 @@ using System;
 using TMPro;
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] tomatoControl tomatocontrol;
+    [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
     public const float HP_SHRINKTIMER_MAX = 0.5f;

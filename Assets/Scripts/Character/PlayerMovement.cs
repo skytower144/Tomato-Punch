@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D myRb;
     private Animator myAnim;
-    [SerializeField]
-    private float speed;
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private float speed;
     private Vector2 movement;
     public LayerMask interactableLayer;
     public static bool isBattle = false;
+    private bool isInteracting = false;
     public event Action BeginBattle;
 
     // Start is called before the first frame update
@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerInteract();
             }
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                inventory.SetActive(!inventory.activeSelf);
+                IsInteracting();
+            }
         }
         else if(isBattle)
         {
@@ -38,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
     {
-       if(!isBattle)
+       if(!isBattle && !isInteracting)
        {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
@@ -71,4 +76,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void IsInteracting()
+    {
+        isInteracting = !isInteracting;
+        myAnim.SetBool("isWalking",false);
+    }
 }
