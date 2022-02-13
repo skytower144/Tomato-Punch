@@ -32,7 +32,8 @@ public class tomatoControl : MonoBehaviour
     //[System.NonSerialized] 
     public float maxHealth, currentHealth;
     public float maxGuard, current_guardPt;
-    public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super_0;
+    public float tomatoAtk;
+    [System.NonSerialized] public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super_0;
 
     //Animation States: ======================================================================================================
     const string TOMATO_IDLE = "tomato_idle";
@@ -59,6 +60,13 @@ public class tomatoControl : MonoBehaviour
     [System.NonSerialized] public int tomatoes = 0;
     public int tomatoSuper;                  // which super indication
 
+    void Awake()
+    {
+        dmg_normalPunch = tomatoAtk;
+        dmg_gatlePunch = tomatoAtk * 0.2f + 0.1f;
+        dmg_upperPunch = tomatoAtk + 4;
+        dmg_super_0 = tomatoAtk + 14;
+    }
     void Start()
     {
         tomatoAnimator = GetComponent<Animator>();

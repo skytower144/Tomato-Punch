@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
        myRb = GetComponent<Rigidbody2D>();
        myAnim = GetComponent<Animator>();
+       //Cursor.visible = false;
     }
 
     public void HandleUpdate()
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 inventory.SetActive(!inventory.activeSelf);
                 IsInteracting();
+                //Cursor.visible = !Cursor.visible;
             }
         }
         else if(isBattle)
