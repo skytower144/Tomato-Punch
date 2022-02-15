@@ -6,7 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D myRb;
     private Animator myAnim;
-    [SerializeField] private GameObject inventory;
+    [SerializeField] iconNavigation iconnavigation;
+    [SerializeField] private GameObject playerUI;
+    [SerializeField] private List <GameObject> playerUIList;
     [SerializeField] private float speed;
     private Vector2 movement;
     public LayerMask interactableLayer;
@@ -32,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
             }
             if(Input.GetKeyDown(KeyCode.Return))
             {
-                inventory.SetActive(!inventory.activeSelf);
+                inventorySetUp();
+                iconnavigation.status_enableStart();
                 IsInteracting();
                 //Cursor.visible = !Cursor.visible;
             }
@@ -82,5 +85,14 @@ public class PlayerMovement : MonoBehaviour
     {
         isInteracting = !isInteracting;
         myAnim.SetBool("isWalking",false);
+    }
+
+    void inventorySetUp()
+    {
+        playerUI.SetActive(!playerUI.activeSelf);
+        playerUIList[0].SetActive(true);
+        playerUIList[1].SetActive(false);
+        playerUIList[2].SetActive(false);
+        playerUIList[3].SetActive(false);
     }
 }

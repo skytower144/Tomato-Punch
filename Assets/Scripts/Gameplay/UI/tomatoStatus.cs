@@ -19,6 +19,6 @@ public class tomatoStatus : MonoBehaviour
         text_heartpt.text =  status_heartpt.value.ToString("F0");
         text_atkpt.text = status_ATK.value.ToString("F0");
         text_defpt.text = status_DEF.value.ToString("F0");
-    }
 
+    }
 }
