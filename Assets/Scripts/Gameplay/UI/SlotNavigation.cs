@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+public class SlotNavigation : MonoBehaviour
+{
+    [SerializeField] private RectTransform pointer;
+    [SerializeField] private List <RectTransform> slotGrid;
+    [SerializeField] private List <GameObject> slotPage;
+    public int Last_pageNumber;
+    [SerializeField] private Image pointerImage, logoImage;
+    [SerializeField] private Sprite defaultLogo, highlightedLogo;
+    [SerializeField] private GameObject normal_Parent, super_Parent;
+    private int pageNumber, slotNumber, prevSlot;
+    //     8 .. logo
+    // 0  1  2  3  
+    // 4  5  6  7
+    void Start()
+    {
+        slotNumber = 0;
+        pageNumber = 0;
+        resetPage();
+
+        logoImage.sprite = defaultLogo;
+        pointerImage.enabled = true;
+        pointer.position = slotGrid[0].position;
+    }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(slotNumber == 8){
+                super_Parent.SetActive(true);
+                normal_Parent.SetActive(false);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            if ((slotNumber >= 0 && slotNumber <=2) || (slotNumber >=4 && slotNumber <= 6)) {
+                slotNumber += 1;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+            else if ((pageNumber < Last_pageNumber) && (slotNumber == 3 || slotNumber == 7)){
+                pageNumber += 1;
+                slotPage[pageNumber].SetActive(true);
+                slotPage[pageNumber-1].SetActive(false);
+                slotNumber -= 3;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.A))
+        {
+            if ((slotNumber >= 1 && slotNumber <= 3) || (slotNumber >= 5 && slotNumber <= 7)){
+                slotNumber -= 1;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+            else if ((pageNumber > 0) && (slotNumber == 0 || slotNumber == 4)){
+                pageNumber -= 1;
+                slotPage[pageNumber].SetActive(true);
+                slotPage[pageNumber+1].SetActive(false);
+                slotNumber += 3;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
+            if (slotNumber == 8){
+                pointerImage.enabled = true;
+
+                slotNumber = prevSlot;
+                pointer.position = slotGrid[slotNumber].position;
+                logoImage.sprite = defaultLogo;
+            }
+            else if (slotNumber >= 0 && slotNumber <= 3){
+                slotNumber += 4;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.W))
+        {
+            if (slotNumber >=0 && slotNumber <= 3){
+                pointerImage.enabled = false;
+                
+                prevSlot = slotNumber;
+                slotNumber = 8;
+                logoImage.sprite = highlightedLogo;
+            }
+            else if (slotNumber >= 4 && slotNumber <= 7){
+                slotNumber -= 4;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+    }
+    void OnDisable()
+    {
+        Start();
+    }
+    void resetPage()
+    {
+        slotPage[0].SetActive(true);
+        for(int i=1; i<=Last_pageNumber; i++)
+        {
+            if(slotPage[i].activeSelf){
+                slotPage[i].SetActive(false);
+            }
+        }
+    }
+}

@@ -33,7 +33,7 @@ public class iconNavigation : MonoBehaviour
             buttonHighlight(iconNumber);
             
         }
-        if(Input.GetKeyDown(KeyCode.Q))
+        else if(Input.GetKeyDown(KeyCode.Q))
         {
             buttonNormalize(iconNumber);
             uiBundle[iconNumber].SetActive(false);
