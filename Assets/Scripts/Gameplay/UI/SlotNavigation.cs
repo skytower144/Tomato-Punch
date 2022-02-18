@@ -10,7 +10,7 @@ public class SlotNavigation : MonoBehaviour
     public int Last_pageNumber;
     [SerializeField] private Image pointerImage, logoImage;
     [SerializeField] private Sprite defaultLogo, highlightedLogo;
-    [SerializeField] private GameObject normal_Parent, super_Parent;
+    [SerializeField] private GameObject normal_Parent, super_Parent, leftArrow, rightArrow;
     private int pageNumber, slotNumber, prevSlot;
     //     8 .. logo
     // 0  1  2  3  
@@ -27,6 +27,7 @@ public class SlotNavigation : MonoBehaviour
     }
     void Update()
     {
+        arrowControl();
         if(Input.GetKeyDown(KeyCode.E))
         {
             if(slotNumber == 8){
@@ -103,6 +104,22 @@ public class SlotNavigation : MonoBehaviour
             if(slotPage[i].activeSelf){
                 slotPage[i].SetActive(false);
             }
+        }
+    }
+
+    void arrowControl()
+    {
+        if (pageNumber == 0){
+            leftArrow.SetActive(false);
+            rightArrow.SetActive(true);
+        }
+        else if (pageNumber >0 && pageNumber < Last_pageNumber){
+            leftArrow.SetActive(true);
+            rightArrow.SetActive(true);
+        }
+        else if (pageNumber == Last_pageNumber){
+            leftArrow.SetActive(true);
+            rightArrow.SetActive(false);
         }
     }
 }

@@ -78,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
         if(collider != null)
         {
             collider.GetComponent<Interactable>()?.Interact();
+            // ? --> prevents crashing when GetComponent Fails.
         }
+
+        Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
     }
 
     void IsInteracting()
