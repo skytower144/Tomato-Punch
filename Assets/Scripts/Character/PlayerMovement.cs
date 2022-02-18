@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
        myRb = GetComponent<Rigidbody2D>();
        myAnim = GetComponent<Animator>();
-       //Cursor.visible = false;
     }
 
     public void HandleUpdate()
@@ -37,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
                 inventorySetUp();
                 iconnavigation.status_enableStart();
                 IsInteracting();
-                //Cursor.visible = !Cursor.visible;
             }
         }
         else if(isBattle)
@@ -72,7 +70,9 @@ public class PlayerMovement : MonoBehaviour
     void PlayerInteract()
     {
         var facingDir = new Vector3(myAnim.GetFloat("moveX"), myAnim.GetFloat("moveY"));
-        var interactPos = transform.position + facingDir;
+        var temp = new Vector3(transform.position.x, transform.position.y - 0.7f);
+        var interactPos = temp + facingDir*0.5f;
+        // var interactPos = transform.position + facingDir;
 
         var collider = Physics2D.OverlapPoint(interactPos, interactableLayer);
         if(collider != null)
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             // ? --> prevents crashing when GetComponent Fails.
         }
 
-        Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+        //Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
     }
 
     void IsInteracting()

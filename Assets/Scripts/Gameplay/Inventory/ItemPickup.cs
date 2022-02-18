@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour, Interactable
 {
+    [SerializeField] private Item item;
     public void Interact()
     {
-        Debug.Log("picked up item");
+        Debug.Log("picked up item : " + item.ItemName);
     }
 }
