@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isBattle)
         {
-            if(Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown("joystick button 0")))
+            if(!isInteracting && (Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown("joystick button 0"))))
             {
                 PlayerInteract();
             }

@@ -7,7 +7,6 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private EnemyControl enemyCtrl;
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
-
     void EnemyMove(string movename)
     {
         Enemy_AttackDetail EM = enemyCtrl._base.EnemyAttack(movename);
