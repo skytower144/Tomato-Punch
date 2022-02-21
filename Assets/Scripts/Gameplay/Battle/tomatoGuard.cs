@@ -20,9 +20,9 @@ public class tomatoGuard : MonoBehaviour
 
     void Update()
     {
-        if(tomatoControl.isGuard)
+        if(tomatoControl.isGuard && !tomatohurt.isTomatoHurt)
         {
-            if( (Input.GetMouseButtonDown(1)|| Input.GetKeyDown("joystick button 1")) )
+            if( (Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown("joystick button 1")) )
             {
                 isParry = true;
                 anim.Play("tomato_parry",-1,0f);

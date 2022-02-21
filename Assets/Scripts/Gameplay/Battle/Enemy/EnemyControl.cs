@@ -142,4 +142,13 @@ public class EnemyControl : MonoBehaviour
         Instantiate(_base.EnemyPjSelect(pjTag).EnemyProjectile);
     }
 
+    void disableBools()
+    {
+        Enemy_is_hurt.enemy_isPunched = false;
+        Enemy_countered.enemy_isCountered = false;
+        Enemy_parried.isParried = false;
+        enemy_supered = false;
+        
+        action_afterSuffer = true;
+    }
 }

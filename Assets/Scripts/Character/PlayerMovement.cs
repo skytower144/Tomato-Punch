@@ -27,11 +27,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isBattle)
         {
-            if(!isInteracting && (Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown("joystick button 0"))))
+            if(!isInteracting && (Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0"))))
             {
                 PlayerInteract();
             }
-            if(Input.GetKeyDown(KeyCode.Return))
+            else if(Input.GetKeyDown(KeyCode.Return))
+            {
+                inventorySetUp();
+                iconnavigation.status_enableStart();
+                IsInteracting();
+            }
+            else if(!SlotNavigation.isBusy && playerUI.activeSelf == true && Input.GetKeyDown(KeyCode.P))
             {
                 inventorySetUp();
                 iconnavigation.status_enableStart();
@@ -63,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(movement == Vector2.zero)
             {
-            myAnim.SetBool("isWalking", false);
+                myAnim.SetBool("isWalking", false);
             }
        }
     }

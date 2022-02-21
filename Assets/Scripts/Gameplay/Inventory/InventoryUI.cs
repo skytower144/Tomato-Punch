@@ -5,6 +5,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Transform slotParent;
     private InventorySlot[] normalSlots;
     private Inventory inventory;
+    private int selected_slotNumber = -1;
     public void activateUI()
     {
         inventory = Inventory.instance;
@@ -29,5 +30,15 @@ public class InventoryUI : MonoBehaviour
         }
         
     }
-    
+
+    public void AddColor(int num)
+    {
+        normalSlots[num].SelectSlot();
+        selected_slotNumber = num;
+    }
+    public void ClearColor()
+    {
+        if (selected_slotNumber != -1)
+            normalSlots[selected_slotNumber].normal_DeselectSlot();
+    }
 }

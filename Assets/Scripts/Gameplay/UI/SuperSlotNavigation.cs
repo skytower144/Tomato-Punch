@@ -22,7 +22,7 @@ public class SuperSlotNavigation : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.O))
         {
             if(slotNumber == 8){
                 super_Parent.SetActive(false);

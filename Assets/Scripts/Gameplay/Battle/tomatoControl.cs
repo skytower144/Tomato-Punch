@@ -21,12 +21,14 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
     [SerializeField] private BoxCollider2D hitbox;
-    [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY;
+    [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner;
     [SerializeField] private Transform Parent;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
+    private GameObject skillef, skillef_alt;
+    public List <Equip> tomatoEquip;
 
     //Tomato Info: ============================================================================================================
     //[System.NonSerialized] 
@@ -59,6 +61,8 @@ public class tomatoControl : MonoBehaviour
     [HideInInspector] public bool enemy_supered = false;
     [System.NonSerialized] public int tomatoes = 0;
     public int tomatoSuper;                  // which super indication
+    [System.NonSerialized] public bool skill1 = false;
+    [System.NonSerialized] public bool skill2 = false;
 
     void Awake()
     {
@@ -79,8 +83,10 @@ public class tomatoControl : MonoBehaviour
         guardBar.SetGuardbar(current_guardPt);
 
         parryBar.SetParryBar();
-    }
 
+        skillef = tomatoEquip[0].HitEffects[0];
+        skillef_alt = tomatoEquip[0].HitEffects[1];
+    }
 
     void ChangeAnimationState(string newState)
     {
@@ -88,7 +94,7 @@ public class tomatoControl : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("isAction : " + isAction);
             Debug.Log("isPunch : " + isPunch);
@@ -97,7 +103,7 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
             Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
-            Debug.Log(tomatoes);
+            Debug.Log("tomatoes : " + tomatoes);
         }
 
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
@@ -108,22 +114,22 @@ public class tomatoControl : MonoBehaviour
         {
             if(!isAction)
             {
-                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || ((Input.GetAxisRaw("LeftJoystickHorizontal") < 0) && x_GP == 0))
+                if(Input.GetKeyDown(KeyCode.A) ||  ((Input.GetAxisRaw("LeftJoystickHorizontal") < 0) && x_GP == 0))
                 {
                     x_GP = -1;
                     ChangeAnimationState(TOMATO_LEVADE);
                 }
-                else if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || ((Input.GetAxisRaw("LeftJoystickHorizontal") > 0) && x_GP == 0))
+                else if(Input.GetKeyDown(KeyCode.D) || ((Input.GetAxisRaw("LeftJoystickHorizontal") > 0) && x_GP == 0))
                 {
                     x_GP = 1;
                     ChangeAnimationState(TOMATO_REVADE);
                 }
-                else if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || ((Input.GetAxisRaw("LeftJoystickVertical") < 0) && y_GP == 0))
+                else if(Input.GetKeyDown(KeyCode.W) || ((Input.GetAxisRaw("LeftJoystickVertical") < 0) && y_GP == 0))
                 {
                     y_GP = 1;
                     ChangeAnimationState(TOMATO_JUMP);
                 }
-                else if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetAxisRaw("LeftJoystickVertical") > 0))
+                else if(Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("LeftJoystickVertical") > 0))
                 {
                     guardRelease = false;
                     if((Input.GetAxisRaw("LeftJoystickVertical") > 0))
@@ -133,11 +139,11 @@ public class tomatoControl : MonoBehaviour
                     ChangeAnimationState(TOMATO_GUARD);
                     tomato_G.SetActive(true);
                 }
-                else if(Input.GetMouseButtonDown(0) || (Input.GetKeyDown("joystick button 0")))
+                else if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
                 {
                     ChangeAnimationState(TOMATO_LP);
                 }
-                else if(Input.GetMouseButtonDown(1) || (Input.GetKeyDown("joystick button 1")))
+                else if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
                 {
                     ChangeAnimationState(TOMATO_RP);
                 }
@@ -155,11 +161,16 @@ public class tomatoControl : MonoBehaviour
                         tomatoAnimator.enabled = false;
                     }
                 }
+                else if(Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (skill1)
+                        tomatoAnimator.Play(tomatoEquip[0].SkillAnimation,-1,0f);
+                }
             }
         
             else if(isGuard)
             {
-                if( !Enemy_parried.isParried  && !tomato_hurt.isTomatoHurt && ((Input.GetKeyUp(KeyCode.S))||(Input.GetKeyUp(KeyCode.DownArrow))) )
+                if( !Enemy_parried.isParried  && !tomato_hurt.isTomatoHurt && (Input.GetKeyUp(KeyCode.S)) )
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
@@ -189,11 +200,11 @@ public class tomatoControl : MonoBehaviour
             
             else if(isPunch)
             {
-                if(Input.GetMouseButtonDown(0) || (Input.GetKeyDown("joystick button 0")))
+                if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
                 {
                     ChangeAnimationState(TOMATO_LP);
                 }
-                if(Input.GetMouseButtonDown(1) || (Input.GetKeyDown("joystick button 1")))
+                if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
                 {
                     ChangeAnimationState(TOMATO_RP);
                 }
@@ -221,6 +232,7 @@ public class tomatoControl : MonoBehaviour
     void IdleState()
     {
         isAction = false;
+        tomato_hurt.isTomatoHurt = false;
     }
     void actionStart()
     {
@@ -243,14 +255,14 @@ public class tomatoControl : MonoBehaviour
     }
     void gatlePunch()
     {
-        if(Input.GetMouseButtonDown(0) || (Input.GetKeyDown("joystick button 0")))
+        if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
         {
             if(gatleCircleControl.failUppercut == false)
             {
                 tomatoAnimator.Play("tomato_GLP",-1,0f);
             }
         }
-        if(Input.GetMouseButtonDown(1) || (Input.GetKeyDown("joystick button 1")))
+        if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
         {
             if(gatleCircleControl.uppercut_time)
             {
@@ -263,7 +275,6 @@ public class tomatoControl : MonoBehaviour
 
     void tomatoHurtStart()      //prevents from initiating action while hurt , reset all booleans except isAction
     {
-        
         isPunch = false;
         isAction = true;
 
@@ -309,10 +320,11 @@ public class tomatoControl : MonoBehaviour
             {
                 tomatoGuard.isParry = false;
                 tomato_G.SetActive(true);
+            }
+            if(Input.GetKey(KeyCode.S))
+            {
                 ChangeAnimationState(TOMATO_GUARD);
             }
-            else
-                ChangeAnimationState(TOMATO_GUARD);
         }
         
     }
@@ -490,6 +502,18 @@ public class tomatoControl : MonoBehaviour
             gaksung_OBJ.SetActive(true);
         }
     }
+// SKILL ATTACK =====================================================================================================================
+    void skill_knuckle()
+    {
+        Instantiate (tomato_S, Parent);
+        Instantiate (skillef, Parent);
+    }
+    void skill_knuckle1()
+    {
+        Instantiate (tomato_S, Parent);
+        Instantiate (skillef_alt, Parent);
+    }
+
 // SUPER ATTACK =====================================================================================================================
     void superAttack()
     {

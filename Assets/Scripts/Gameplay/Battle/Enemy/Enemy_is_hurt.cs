@@ -53,13 +53,15 @@ public class Enemy_is_hurt : MonoBehaviour
             {
                 Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
                 anim.Play(enemyControl._base.HurtL_AnimationString,-1,0f);
+                enemyHurtDamage(tomatocontrol.dmg_normalPunch);
             }
             else if(col.gameObject.tag.Equals("tomato_RP"))
             {
                 Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
                 anim.Play(enemyControl._base.HurtR_AnimationString,-1,0f);
+                enemyHurtDamage(tomatocontrol.dmg_normalPunch);
             }
-            enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+            
         }
     }
 

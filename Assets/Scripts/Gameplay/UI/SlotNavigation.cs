@@ -13,7 +13,8 @@ public class SlotNavigation : MonoBehaviour
     [SerializeField] private Sprite defaultLogo, highlightedLogo;
     [SerializeField] private GameObject normal_Parent, super_Parent, leftArrow, rightArrow, slotbox;
     private int pageNumber, slotNumber, prevSlot;
-    [System.NonSerialized] public bool isBusy;
+    [System.NonSerialized] public int invNumber;
+    [System.NonSerialized] static public bool isBusy;
     //     8 .. logo
     // 0  1  2  3  
     // 4  5  6  7
@@ -35,14 +36,14 @@ public class SlotNavigation : MonoBehaviour
         arrowControl();
         if (!isBusy)
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.O))
             {
                 if(slotNumber == 8){
                     super_Parent.SetActive(true);
                     normal_Parent.SetActive(false);
                 }
                 else{
-                    int invNumber = slotNumber + pageNumber*8;
+                    invNumber = slotNumber + pageNumber*8;
                     if (invNumber < inventory.normalEquip.Count){
                         slotbox.SetActive(true);
                         isBusy = true;

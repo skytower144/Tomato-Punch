@@ -6,7 +6,10 @@ public class normalSlotBox : MonoBehaviour
 {
     [SerializeField] private List <TextMeshProUGUI> textField;
     [SerializeField] private Color highLightedColor;
+    [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private SlotNavigation slotNavigation;
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryUI inventoryUI;
     private int textNum;
     private void Start()
     {
@@ -14,9 +17,26 @@ public class normalSlotBox : MonoBehaviour
     }
     private void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.O))
+        {   
+            if (textNum == 0){
+                tomatocontrol.skill1 = true;
+                tomatocontrol.tomatoEquip[0] = (Equip)inventory.normalEquip[slotNavigation.invNumber];
+                
+                // update left ui image icon
+                inventoryUI.ClearColor();
+                inventoryUI.AddColor(slotNavigation.invNumber);
+                
+                
+            }
+            else if (textNum == 1){
+                tomatocontrol.skill2 = true;
+                tomatocontrol.tomatoEquip[1] = (Equip)inventory.normalEquip[slotNavigation.invNumber];
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.P))
         {
-            slotNavigation.isBusy = false;
+            SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
         else if(Input.GetKeyDown(KeyCode.W))
@@ -35,15 +55,22 @@ public class normalSlotBox : MonoBehaviour
     {
         for (int i=0; i<3; i++)
         {
-            if (i==num)
+            if (i==num){
                 textField[i].color = highLightedColor;
-            else
+            }
+            else{
                 textField[i].color = Color.black;
+            }
         }
     }
 
     private void OnDisable()
     {
         Start();
+    }
+
+    private void AllocateSkill(int num)
+    {
+        
     }
 }
