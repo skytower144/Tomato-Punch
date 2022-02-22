@@ -1,11 +1,14 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
+    private Inventory inventory;
+    [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private Image left_equip1, left_equip2;
     [SerializeField] Transform slotParent;
     private InventorySlot[] normalSlots;
-    private Inventory inventory;
-    private int selected_slotNumber = -1;
+    private int selected_1 = -1;
+    private int selected_2 = -1;
     public void activateUI()
     {
         inventory = Inventory.instance;
@@ -28,17 +31,52 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
-        
     }
 
-    public void AddColor(int num)
+//EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------
+    public void AddColor_1(int num)
     {
+        if(selected_1>=0)
+        {
+            normalSlots[selected_1].normal_DeselectSlot();
+            tomatocontrol.tomatoEquip[0] = null;
+        }
+        if (num == selected_2)
+        {
+            selected_2 = -1;
+            tomatocontrol.tomatoEquip[1] = null;
+            left_equip2.enabled = false;
+        }
+            
         normalSlots[num].SelectSlot();
-        selected_slotNumber = num;
+        tomatocontrol.tomatoEquip[0] = (Equip)inventory.normalEquip[num];
+
+        left_equip1.enabled = true;
+        left_equip1.sprite = inventory.normalEquip[num].ItemIcon;
+
+        selected_1 = num;
     }
-    public void ClearColor()
+    public void AddColor_2(int num)
     {
-        if (selected_slotNumber != -1)
-            normalSlots[selected_slotNumber].normal_DeselectSlot();
+        if(selected_2>=0)
+        {
+            normalSlots[selected_2].normal_DeselectSlot();
+            tomatocontrol.tomatoEquip[1] = null;
+        }
+        if (num == selected_1){
+            selected_1 = -1;
+            tomatocontrol.tomatoEquip[0] = null;
+            left_equip1.enabled = false;
+        }
+        normalSlots[num].SelectSlot_2();
+        tomatocontrol.tomatoEquip[1] = (Equip)inventory.normalEquip[num];
+
+        left_equip2.enabled = true;
+        left_equip2.sprite = inventory.normalEquip[num].ItemIcon;
+
+        selected_2 = num;
     }
+
+    
+
 }

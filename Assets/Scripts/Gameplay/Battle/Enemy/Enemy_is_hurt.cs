@@ -47,8 +47,9 @@ public class Enemy_is_hurt : MonoBehaviour
         }
         else
         {
-            //NORMAL PUNCHES
             enemy_isPunched = true;
+
+            //NORMAL PUNCHES
             if(col.gameObject.tag.Equals("tomato_LP"))
             {
                 Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
@@ -61,7 +62,13 @@ public class Enemy_is_hurt : MonoBehaviour
                 anim.Play(enemyControl._base.HurtR_AnimationString,-1,0f);
                 enemyHurtDamage(tomatocontrol.dmg_normalPunch);
             }
-            
+            else if(col.gameObject.tag.Equals("tomato_SK"))
+            {
+                anim.Play(enemyControl._base.HurtL_AnimationString,-1,0f);
+                float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
+                Debug.Log(skillDmg);
+                enemyHurtDamage(skillDmg);
+            }
         }
     }
 
@@ -85,6 +92,11 @@ public class Enemy_is_hurt : MonoBehaviour
         enemyHealthBar.enemy_hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
         enemyHealthBar.Invoke("Enemy_WhiteFillOff",0.05f);
         enemyHealthBar.Enemy_setWhiteFill();
+    }
+
+    private float dmgCalculate(float skillDmg)
+    {
+        return tomatocontrol.tomatoAtk * skillDmg / 100 + 2f;
     }
     
 }

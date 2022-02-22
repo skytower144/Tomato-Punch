@@ -27,7 +27,6 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
-    private GameObject skillef, skillef_alt;
     public List <Equip> tomatoEquip;
 
     //Tomato Info: ============================================================================================================
@@ -61,8 +60,6 @@ public class tomatoControl : MonoBehaviour
     [HideInInspector] public bool enemy_supered = false;
     [System.NonSerialized] public int tomatoes = 0;
     public int tomatoSuper;                  // which super indication
-    [System.NonSerialized] public bool skill1 = false;
-    [System.NonSerialized] public bool skill2 = false;
 
     void Awake()
     {
@@ -84,8 +81,6 @@ public class tomatoControl : MonoBehaviour
 
         parryBar.SetParryBar();
 
-        skillef = tomatoEquip[0].HitEffects[0];
-        skillef_alt = tomatoEquip[0].HitEffects[1];
     }
 
     void ChangeAnimationState(string newState)
@@ -102,7 +97,6 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("isGuard : " + isGuard);
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
-            Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
             Debug.Log("tomatoes : " + tomatoes);
         }
 
@@ -163,7 +157,7 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if(Input.GetKeyDown(KeyCode.Q))
                 {
-                    if (skill1)
+                    if(tomatoEquip[0] != null)
                         tomatoAnimator.Play(tomatoEquip[0].SkillAnimation,-1,0f);
                 }
             }
@@ -503,15 +497,17 @@ public class tomatoControl : MonoBehaviour
         }
     }
 // SKILL ATTACK =====================================================================================================================
-    void skill_knuckle()
+    void skill()
     {
         Instantiate (tomato_S, Parent);
-        Instantiate (skillef, Parent);
     }
-    void skill_knuckle1()
+    void effect0()
     {
-        Instantiate (tomato_S, Parent);
-        Instantiate (skillef_alt, Parent);
+        Instantiate (tomatoEquip[0].HitEffects[0], Parent);
+    }
+    void effect1()
+    {
+        Instantiate (tomatoEquip[0].HitEffects[1], Parent);
     }
 
 // SUPER ATTACK =====================================================================================================================

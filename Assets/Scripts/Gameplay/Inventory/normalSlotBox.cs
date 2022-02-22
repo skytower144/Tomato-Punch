@@ -6,32 +6,24 @@ public class normalSlotBox : MonoBehaviour
 {
     [SerializeField] private List <TextMeshProUGUI> textField;
     [SerializeField] private Color highLightedColor;
-    [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private SlotNavigation slotNavigation;
-    [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI inventoryUI;
-    private int textNum;
-    private void Start()
+    private int textNum, slotNum;
+    private void OnEnable()
     {
         textNum = 0;
+        slotNum = slotNavigation.invNumber;
     }
     private void Update()
     {   
         if(Input.GetKeyDown(KeyCode.O))
         {   
             if (textNum == 0){
-                tomatocontrol.skill1 = true;
-                tomatocontrol.tomatoEquip[0] = (Equip)inventory.normalEquip[slotNavigation.invNumber];
-                
                 // update left ui image icon
-                inventoryUI.ClearColor();
-                inventoryUI.AddColor(slotNavigation.invNumber);
-                
-                
+                inventoryUI.AddColor_1(slotNum);
             }
             else if (textNum == 1){
-                tomatocontrol.skill2 = true;
-                tomatocontrol.tomatoEquip[1] = (Equip)inventory.normalEquip[slotNavigation.invNumber];
+                inventoryUI.AddColor_2(slotNum);
             }
         }
         else if(Input.GetKeyDown(KeyCode.P))
@@ -62,15 +54,5 @@ public class normalSlotBox : MonoBehaviour
                 textField[i].color = Color.black;
             }
         }
-    }
-
-    private void OnDisable()
-    {
-        Start();
-    }
-
-    private void AllocateSkill(int num)
-    {
-        
     }
 }
