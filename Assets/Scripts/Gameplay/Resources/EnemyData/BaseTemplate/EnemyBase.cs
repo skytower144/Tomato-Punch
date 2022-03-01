@@ -9,7 +9,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private Sprite frontSprite;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     [SerializeField] private RuntimeAnimatorController animationController;
-    [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, hurtL, hurtR;
+    [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
     public List <string> EnemySuperedAnim;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
@@ -65,6 +65,10 @@ public class EnemyBase : ScriptableObject
     public string SuperedRecover_AnimationString
     {
         get { return superedRecover; }
+    }
+    public string Guard_AnimationString
+    {
+        get { return guard; }
     }
     public string HurtL_AnimationString
     {

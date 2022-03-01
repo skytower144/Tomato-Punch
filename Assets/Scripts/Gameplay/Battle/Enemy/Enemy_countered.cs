@@ -9,6 +9,7 @@ public class Enemy_countered : MonoBehaviour
     [SerializeField] private EnemyBase _enemyBase;
     [SerializeField] private Enemy_is_hurt enemy_is_hurt;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
     private GameObject _instance1;
@@ -30,9 +31,10 @@ public class Enemy_countered : MonoBehaviour
     {
         Enemy_is_hurt.enemy_isPunched = false;
         enemy_isCountered = true;
-        if(tomatocontrol.tomatoes<5)
+        if(tomatocontrol.tomatoes<5){
             tomatocontrol.tomatoes += 1;
-        
+            counterTrack.CounterTracker();
+        }
         Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
         _instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
         Destroy(_instance1,0.38f);

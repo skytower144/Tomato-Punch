@@ -5,22 +5,31 @@ using UnityEngine;
 public class Enemy_is_hurt : MonoBehaviour
 {
     private Animator anim;
+    private EnemyBase enemyBase;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2;
     [HideInInspector] public static bool enemy_isPunched;
+    [System.NonSerialized] public bool guardUp;
+    [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
+    
     void Start()
     {
+        enemyBase = enemyControl._base;
+
         anim = GetComponentInParent<Animator>();
-        Enemy_maxHealth = enemyControl._base.EnemyMaxHealth;
-        Enemy_currentHealth = enemyControl._base.EnemyCurrentHealth;
+        Enemy_maxHealth = enemyBase.EnemyMaxHealth;
+        Enemy_currentHealth = enemyBase.EnemyCurrentHealth;
 
         enemyHealthBar.Enemy_SetMaxHealth(Enemy_maxHealth);
         enemyHealthBar.Enemy_SetHealth(Enemy_currentHealth);
         enemyHealthBar.Enemy_setDamageFill();
+
+        hitct = 0;
+        guardUp = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
@@ -42,32 +51,41 @@ public class Enemy_is_hurt : MonoBehaviour
                 Instantiate (gatHit1, new Vector2 (transform.position.x + 4f, transform.position.y - 0.2f), Quaternion.identity);
                 Instantiate (gatHit2, new Vector2 (transform.position.x + 6.5f, transform.position.y + 0.2f), Quaternion.identity);
             }
-            anim.Play(enemyControl._base.HurtL_AnimationString,-1,0f);
+            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
             enemyHurtDamage(tomatocontrol.dmg_gatlePunch);
         }
         else
         {
-            enemy_isPunched = true;
+            hitct += 1;
+            enemyReflex();
+            
+            if (guardUp)
+                minusTomatoStamina();
+        
+            if(!guardUp)
+            {
+                enemy_isPunched = true;
+                //NORMAL PUNCHES
+                if(col.gameObject.tag.Equals("tomato_LP"))
+                {
+                    Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
+                    anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                }
+                else if(col.gameObject.tag.Equals("tomato_RP"))
+                {
+                    Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
+                    anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
+                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                }
 
-            //NORMAL PUNCHES
-            if(col.gameObject.tag.Equals("tomato_LP"))
-            {
-                Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
-                anim.Play(enemyControl._base.HurtL_AnimationString,-1,0f);
-                enemyHurtDamage(tomatocontrol.dmg_normalPunch);
-            }
-            else if(col.gameObject.tag.Equals("tomato_RP"))
-            {
-                Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
-                anim.Play(enemyControl._base.HurtR_AnimationString,-1,0f);
-                enemyHurtDamage(tomatocontrol.dmg_normalPunch);
-            }
-            else if(col.gameObject.tag.Equals("tomato_SK"))
-            {
-                anim.Play(enemyControl._base.HurtL_AnimationString,-1,0f);
-                float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
-                Debug.Log(skillDmg);
-                enemyHurtDamage(skillDmg);
+                //SKILL
+                else if(col.gameObject.tag.Equals("tomato_SK"))
+                {
+                    anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+                    float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
+                    enemyHurtDamage(skillDmg);
+                }
             }
         }
     }
@@ -97,6 +115,32 @@ public class Enemy_is_hurt : MonoBehaviour
     private float dmgCalculate(float skillDmg)
     {
         return tomatocontrol.tomatoAtk * skillDmg / 100 + 2f;
+    }
+
+    private void enemyReflex()
+    {
+        if (guardUp || hitct >= 8)
+        {
+            anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            guardUp = true;
+            enemy_isPunched = false;
+            return;
+        }
+
+        int randct = Random.Range(5,8);
+        if (hitct == randct)
+        {
+            anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            guardUp = true;
+            enemy_isPunched = false;
+        }
+    }
+
+    void minusTomatoStamina()
+    {
+        tomatocontrol.currentStamina -= 3;
+        if (tomatocontrol.currentStamina < 0)
+            tomatocontrol.currentStamina = 0;
     }
     
 }

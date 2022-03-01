@@ -12,23 +12,10 @@ public class GuardBar : MonoBehaviour
     [SerializeField] private GameObject guardBar_shineEffect;
     [HideInInspector] public float regainGuardTimer = G_REGAINTIMER_MAX;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private TextMeshProUGUI GuardptText;
 
     private void Update()
     {
-        GuardptText.text = tomatocontrol.current_guardPt.ToString("F0");
-        if(tomatocontrol.current_guardPt == tomatocontrol.maxGuard)
-        {
-            GuardptText.color = new Color(194/255f , 215/255f, 233/255f);
-        }
-        else if(tomatocontrol.current_guardPt == 0)
-        {
-            GuardptText.color = new Color(255/255f , 114/255f, 114/255f);
-        }
-        else
-        {
-            GuardptText.color = Color.white;
-        }
+        
         if(!tomatoControl.isGuard)
         {
             regainGuardTimer -= Time.deltaTime;

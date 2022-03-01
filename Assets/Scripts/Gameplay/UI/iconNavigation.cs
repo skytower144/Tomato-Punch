@@ -22,7 +22,7 @@ public class iconNavigation : MonoBehaviour
     }
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.E))
         {
             buttonNormalize(iconNumber);
             uiBundle[iconNumber].SetActive(false);

@@ -11,8 +11,8 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Enemy_is_hurt enemyHurt;
-
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
     [HideInInspector] public bool enemy_supered = false;
@@ -54,6 +54,7 @@ public class EnemyControl : MonoBehaviour
                 anim.enabled = true;
                 anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuper],-1,0f); 
                 // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
+                
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super_0);
             }
         }
@@ -108,6 +109,17 @@ public class EnemyControl : MonoBehaviour
             Instantiate (enemy_PJ, Parent);
         }
     }
+
+    void detectEvasion()
+    {
+        if(tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Levade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Revade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_jump"))
+        {
+            tomatocontrol.currentStamina += 3;
+            if (tomatocontrol.currentStamina > tomatocontrol.maxStamina)
+                tomatocontrol.currentStamina = tomatocontrol.maxStamina;
+            
+        }
+    }
     void beginSuffer()
     {
         Invoke("return_CounterToIdle", 3f);
@@ -150,5 +162,11 @@ public class EnemyControl : MonoBehaviour
         enemy_supered = false;
         
         action_afterSuffer = true;
+    }
+
+    void guardDown() // apply to all enemy attack animations' first frame
+    {
+        enemyHurt.guardUp = false;
+        enemyHurt.hitct = 0;
     }
 }
