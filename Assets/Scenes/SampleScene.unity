@@ -1063,6 +1063,10 @@ MonoBehaviour:
   hpShrinkTimer: 0
   fill: {fileID: 905918113}
   damagedFill: {fileID: 882053282}
+  tomatoFace: {fileID: 1844185825}
+  face1: {fileID: 21300000, guid: d67b5ad25f9723441a25e42d534b7db6, type: 3}
+  face2: {fileID: 21300000, guid: e44c5c625d7e1a947814abd06bfde7fc, type: 3}
+  face3: {fileID: 21300000, guid: 71104f0c2dcea064595742a2f025a108, type: 3}
   healthText: {fileID: 1249611973}
 --- !u!1 &185501944
 GameObject:
@@ -3968,6 +3972,7 @@ MonoBehaviour:
   healthBar: {fileID: 166534781}
   guardBar: {fileID: 1156247544}
   parryBar: {fileID: 1064597949}
+  staminaIcon: {fileID: 1874515705}
   counterTrack: {fileID: 1534123369}
   tomatoEquip:
   - {fileID: 0}
@@ -8401,6 +8406,7 @@ MonoBehaviour:
   Parent: {fileID: 1045029401}
   tomatoguard: {fileID: 1117059771}
   tomatocontrol: {fileID: 449446693}
+  staminaIcon: {fileID: 1874515705}
   tomatoAnim: {fileID: 449446690}
   enemyHurt: {fileID: 1508086782}
   action_afterSuffer: 0
@@ -11503,13 +11509,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70b09cd4d3cb4741ad33cf3c0b652b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Parent: {fileID: 1045029401}
   enemyControl: {fileID: 1045029404}
   tomatocontrol: {fileID: 449446693}
   tomatoParryBar: {fileID: 1064597949}
+  staminaIcon: {fileID: 1874515705}
   enemyHealthBar: {fileID: 1580890586}
   hitEffect: {fileID: 7565940143884383686, guid: ceadbc591a62a1e468be21e46af61ac4, type: 3}
   gatHit1: {fileID: 8465389278089805006, guid: 0dd361062f419eb4fbc3427a19d63549, type: 3}
   gatHit2: {fileID: 865075623318641839, guid: 4fc4b085b81e92c45ad0be31126dafd2, type: 3}
+  enemy_guardEffect: {fileID: 3208083450466166980, guid: 63ce6fe7fe547a44b98755fe6ffe0f18, type: 3}
   Enemy_maxHealth: 0
   Enemy_currentHealth: 0
 --- !u!61 &1508086783
@@ -13952,6 +13961,7 @@ GameObject:
   - component: {fileID: 1874515702}
   - component: {fileID: 1874515704}
   - component: {fileID: 1874515703}
+  - component: {fileID: 1874515705}
   m_Layer: 0
   m_Name: StaminaIcon
   m_TagString: Untagged
@@ -14041,6 +14051,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874515701}
   m_CullTransparentMesh: 1
+--- !u!114 &1874515705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874515701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36d90933d4a94f4d81af072743d7090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tomatocontrol: {fileID: 449446693}
+  slider: {fileID: 1874515703}
+  staminaText: {fileID: 1029843399}
 --- !u!1 &1901734907
 GameObject:
   m_ObjectHideFlags: 0

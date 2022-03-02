@@ -11,6 +11,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Enemy_is_hurt enemyHurt;
     [HideInInspector] public static bool isPhysical = true;
@@ -114,10 +115,11 @@ public class EnemyControl : MonoBehaviour
     {
         if(tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Levade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Revade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_jump"))
         {
-            tomatocontrol.currentStamina += 3;
+            tomatocontrol.currentStamina += 5;
             if (tomatocontrol.currentStamina > tomatocontrol.maxStamina)
                 tomatocontrol.currentStamina = tomatocontrol.maxStamina;
             
+            staminaIcon.SetStamina(tomatocontrol.currentStamina);
         }
     }
     void beginSuffer()

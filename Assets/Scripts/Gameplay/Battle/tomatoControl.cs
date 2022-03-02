@@ -27,6 +27,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
+    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] CounterTrack counterTrack;
     public List <Equip> tomatoEquip;
 
@@ -84,6 +85,9 @@ public class tomatoControl : MonoBehaviour
         guardBar.SetGuardbar(current_guardPt);
 
         parryBar.SetParryBar();
+
+        staminaIcon.SetMaxStamina(maxStamina);
+        staminaIcon.SetStamina(currentStamina);
 
     }
 

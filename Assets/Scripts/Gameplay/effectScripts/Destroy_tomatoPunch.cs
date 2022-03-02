@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class Destroy_tomatoPunch : MonoBehaviour
 {
-    void Start()
+    private bool isHit = false;
+
+    void OnTriggerEnter2D(Collider2D col)
     {
-        Destroy (gameObject, 0.1f);
+        isHit = true;
+    }
+    void OnEnable()
+    {
+        Invoke("destroyPunch", 0.1f);
+    }
+    void destroyPunch()
+    {
+        if(!isHit && !tomatoGuard.isParry)
+            Debug.Log("miss");
+        Destroy(gameObject);
     }
 }

@@ -11,7 +11,8 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Gradient gradient;
     public const float HP_SHRINKTIMER_MAX = 0.5f;
     public float hpShrinkTimer;
-    [SerializeField] private Image fill, damagedFill;
+    [SerializeField] private Image fill, damagedFill, tomatoFace;
+    [SerializeField] private Sprite face1, face2, face3;
     [SerializeField] private TextMeshProUGUI healthText;
     
     private void Update()
@@ -38,9 +39,22 @@ public class HealthBar : MonoBehaviour
     {
         slider.value = health;
         fill.color = gradient.Evaluate(slider.normalizedValue);
+        faceChange();
     }
     public void setDamageFill()
     {
         damagedFill.fillAmount = slider.normalizedValue;
+    }
+    void faceChange()
+    {
+        if (slider.normalizedValue == 1){
+            tomatoFace.sprite = face1;
+        } 
+        else if(0.15f < slider.normalizedValue && slider.normalizedValue <= 0.5f){
+            tomatoFace.sprite = face2;
+        }
+        else if(slider.normalizedValue <= 0.15f){
+            tomatoFace.sprite = face3;
+        }
     }
 }

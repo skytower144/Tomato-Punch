@@ -6,11 +6,13 @@ public class Enemy_is_hurt : MonoBehaviour
 {
     private Animator anim;
     private EnemyBase enemyBase;
+    [SerializeField] private Transform Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private ParryBar tomatoParryBar;
+    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
-    [SerializeField] private GameObject hitEffect, gatHit1, gatHit2;
+    [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect;
     [HideInInspector] public static bool enemy_isPunched;
     [System.NonSerialized] public bool guardUp;
     [System.NonSerialized] public int hitct;
@@ -56,8 +58,10 @@ public class Enemy_is_hurt : MonoBehaviour
         }
         else
         {
-            hitct += 1;
-            enemyReflex();
+            if (!Enemy_countered.enemy_isCountered){
+                hitct += 1;
+                enemyReflex();
+            }
             
             if (guardUp)
                 minusTomatoStamina();
@@ -122,6 +126,7 @@ public class Enemy_is_hurt : MonoBehaviour
         if (guardUp || hitct >= 8)
         {
             anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
             return;
@@ -131,6 +136,7 @@ public class Enemy_is_hurt : MonoBehaviour
         if (hitct == randct)
         {
             anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
         }
@@ -141,6 +147,8 @@ public class Enemy_is_hurt : MonoBehaviour
         tomatocontrol.currentStamina -= 3;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
+
+        staminaIcon.SetStamina(tomatocontrol.currentStamina);
     }
     
 }
