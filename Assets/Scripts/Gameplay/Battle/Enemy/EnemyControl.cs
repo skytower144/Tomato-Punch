@@ -56,7 +56,7 @@ public class EnemyControl : MonoBehaviour
                 anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuper],-1,0f); 
                 // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
                 
-                enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super_0);
+                enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);
             }
         }
         

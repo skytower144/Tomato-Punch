@@ -28,7 +28,7 @@ public class InventorySlot : MonoBehaviour
     {
         thisSlotImage.sprite = selectedSlot2;
     }
-    public void normal_DeselectSlot()
+    public void DeselectSlot()
     {
         thisSlotImage.sprite = normal_defaultSlot;
     }

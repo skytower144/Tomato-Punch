@@ -23,8 +23,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [System.NonSerialized] public int itemType_num;
     public List<Item> normalEquip = new List<Item>();
+    public List<Item> superEquip = new List<Item>();
     
-
     private void Start()
     {
         inventoryUI.activateUI();
@@ -35,6 +35,13 @@ public class Inventory : MonoBehaviour
         {
             normalEquip.Add(item);
             itemType_num = 1;
+            if (onItemChangedCallback != null)
+                onItemChangedCallback.Invoke();
+        }
+        else if(item.itemType == ItemType.SuperEquip)
+        {
+            superEquip.Add(item);
+            itemType_num = 2;
             if (onItemChangedCallback != null)
                 onItemChangedCallback.Invoke();
         }

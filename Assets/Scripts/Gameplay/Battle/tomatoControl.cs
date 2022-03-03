@@ -29,15 +29,16 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] CounterTrack counterTrack;
+    public SuperEquip tomatoSuperEquip;
     public List <Equip> tomatoEquip;
-
+    
     //Tomato Info: ============================================================================================================
     //[System.NonSerialized] 
     public float maxHealth, currentHealth;
     public float maxGuard, current_guardPt;
     public float tomatoAtk;
     public int maxStamina, currentStamina;
-    [System.NonSerialized] public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super_0;
+    [System.NonSerialized] public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super;
 
     //Animation States: ======================================================================================================
     const string TOMATO_IDLE = "tomato_idle";
@@ -71,7 +72,7 @@ public class tomatoControl : MonoBehaviour
         dmg_normalPunch = tomatoAtk;
         dmg_gatlePunch = tomatoAtk * 0.2f + 0.1f;
         dmg_upperPunch = tomatoAtk + 4;
-        dmg_super_0 = tomatoAtk + 14;
+        dmg_super += tomatoAtk;
     }
     void Start()
     {
@@ -153,7 +154,7 @@ public class tomatoControl : MonoBehaviour
                     }
                     else if(Input.GetKeyDown(KeyCode.R))
                     {
-                        if(parryBar.gaksungOn)
+                        if((tomatoSuperEquip != null) && parryBar.gaksungOn)
                         {
                             parryBar.gaksungOn = false;
                             parryBar.parryFill.fillAmount = 0;

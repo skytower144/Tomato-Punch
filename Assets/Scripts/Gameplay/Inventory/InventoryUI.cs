@@ -4,17 +4,20 @@ public class InventoryUI : MonoBehaviour
 {
     private Inventory inventory;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private Image left_equip1, left_equip2;
-    [SerializeField] Transform slotParent;
+    [SerializeField] private Image left_equip1, left_equip2, left_super;
+    [SerializeField] Transform slotParent, super_slotParent;
     private InventorySlot[] normalSlots;
+    private InventorySlot[] superSlots;
     private int selected_1 = -1;
     private int selected_2 = -1;
+    private int selected_s = -1;
     public void activateUI()
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
 
         normalSlots = slotParent.GetComponentsInChildren<InventorySlot>(true);
+        superSlots = super_slotParent.GetComponentsInChildren<InventorySlot>(true);
         // "Should Components on inactive GameObjects be included in the found set?" -> (true)
     }
     void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> VISIBLE Update & Clear slots.
@@ -31,14 +34,24 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
+        else if (inventory.itemType_num == 2)
+        {
+            for (int i=0; i<superSlots.Length; i++)
+            {
+                if (i < inventory.superEquip.Count){
+                    superSlots[i].UpdateSlot(inventory.superEquip[i]);
+                }
+            }
+        }
     }
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------
+    //NORMAL SLOTS
     public void AddColor_1(int num)
     {
         if(selected_1>=0)
         {
-            normalSlots[selected_1].normal_DeselectSlot();
+            normalSlots[selected_1].DeselectSlot();
             tomatocontrol.tomatoEquip[0] = null;
         }
         if (num == selected_2)
@@ -60,7 +73,7 @@ public class InventoryUI : MonoBehaviour
     {
         if(selected_2>=0)
         {
-            normalSlots[selected_2].normal_DeselectSlot();
+            normalSlots[selected_2].DeselectSlot();
             tomatocontrol.tomatoEquip[1] = null;
         }
         if (num == selected_1){
@@ -77,6 +90,26 @@ public class InventoryUI : MonoBehaviour
         selected_2 = num;
     }
 
+    //SUPER SLOTS
+    public void AddColor_S(int num)
+    {
+        if(selected_s>=0){
+            superSlots[selected_s].DeselectSlot();
+            tomatocontrol.tomatoSuperEquip = null;
+        }
+    
+        superSlots[num].SelectSlot();
+        tomatocontrol.tomatoSuperEquip = (SuperEquip)inventory.superEquip[num];
+        tomatocontrol.tomatoSuper = tomatocontrol.tomatoSuperEquip.superNumber;
+        tomatocontrol.dmg_super = tomatocontrol.tomatoSuperEquip.superDamage;
+
+        if(!left_super.enabled)
+            left_super.enabled = true;
+        left_super.sprite = inventory.superEquip[num].ItemIcon;
+
+        selected_s = num;
+        
+    }
     
 
 }
