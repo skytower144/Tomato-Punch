@@ -17,7 +17,6 @@ public class tomatoControl : MonoBehaviour
 {
     private Animator tomatoAnimator;
     private GameObject _parryInstance;
-    [SerializeField] tomatoHurt tomato_hurt;
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
     [SerializeField] private BoxCollider2D hitbox;
@@ -106,14 +105,14 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("isGuard : " + isGuard);
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
-            Debug.Log("isHurt : " + tomato_hurt.isTomatoHurt);
+            Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
         }
 
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
             x_GP = 0;
         if((Input.GetAxisRaw("LeftJoystickVertical") == 0))
             y_GP = 0;
-        if(!tomato_hurt.isTomatoHurt)
+        if(!tomatoHurt.isTomatoHurt)
         {
             if(!isAction)
             {
@@ -179,7 +178,7 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if( !Enemy_parried.isParried  && !tomato_hurt.isTomatoHurt && (Input.GetKeyUp(KeyCode.S)) )
+                if( !Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && (Input.GetKeyUp(KeyCode.S)) )
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
@@ -192,7 +191,7 @@ public class tomatoControl : MonoBehaviour
                     downGamepad = false;
                     tomatoGuard.isParry = false;
                 }
-                else if(!Enemy_parried.isParried && !tomato_hurt.isTomatoHurt && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
+                else if(!Enemy_parried.isParried && !tomatoHurt.isTomatoHurt && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
                 {
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
@@ -241,7 +240,7 @@ public class tomatoControl : MonoBehaviour
     void IdleState()
     {
         isAction = false;
-        tomato_hurt.isTomatoHurt = false;
+        tomatoHurt.isTomatoHurt = false;
     }
     void actionStart()
     {
@@ -327,7 +326,7 @@ public class tomatoControl : MonoBehaviour
     {
         isPunch = false;
         isAction = false;
-        tomato_hurt.isTomatoHurt = false;
+        tomatoHurt.isTomatoHurt = false;
         tomatoGuard.preventDamageOverlap = false;
 
         if (currentStamina == 0){
@@ -385,7 +384,7 @@ public class tomatoControl : MonoBehaviour
 
     void parryActivate()
     {
-        if(!tomato_hurt.isTomatoHurt)
+        if(!tomatoHurt.isTomatoHurt)
         {
             hitbox.enabled = false;
             _parryInstance = Instantiate (tomato_PRY, Parent);

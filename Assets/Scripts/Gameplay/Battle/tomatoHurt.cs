@@ -5,12 +5,11 @@ using UnityEngine;
 public class tomatoHurt : MonoBehaviour
 {
     private Animator anim;
-    [HideInInspector] public bool isTomatoHurt = false;
+    [System.NonSerialized] static public bool isTomatoHurt = false;
     [SerializeField] private GameObject hurtEffect;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
-    
     
     void Start()
     {

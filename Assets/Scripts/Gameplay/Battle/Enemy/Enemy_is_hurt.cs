@@ -17,6 +17,7 @@ public class Enemy_is_hurt : MonoBehaviour
     [System.NonSerialized] public bool guardUp;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
+
     
     void Start()
     {
@@ -69,6 +70,7 @@ public class Enemy_is_hurt : MonoBehaviour
             if(!guardUp)
             {
                 enemy_isPunched = true;
+
                 //NORMAL PUNCHES
                 if(col.gameObject.tag.Equals("tomato_LP"))
                 {

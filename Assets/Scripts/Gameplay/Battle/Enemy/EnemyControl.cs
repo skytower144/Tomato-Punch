@@ -71,6 +71,7 @@ public class EnemyControl : MonoBehaviour
     {
         Enemy_is_hurt.enemy_isPunched = false;
     }
+
     void hurtOver()
     {
         if(Enemy_parried.isParried && EnemyControl.isPhysical)                             // punching enemy when enemy is parried
@@ -135,10 +136,10 @@ public class EnemyControl : MonoBehaviour
     }
     void return_CounterToIdle()
     {
-        Enemy_is_hurt.enemy_isPunched = false;
         Enemy_countered.enemy_isCountered = false;
+        Enemy_is_hurt.enemy_isPunched = false;
         action_afterSuffer = true;
-        anim.Play(_base.Idle_AnimationString);
+        anim.Play(_base.Idle_AnimationString); 
     }
 
     void upperRecover()

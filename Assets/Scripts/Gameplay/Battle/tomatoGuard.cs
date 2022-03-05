@@ -20,7 +20,7 @@ public class tomatoGuard : MonoBehaviour
 
     void Update()
     {
-        if(tomatoControl.isGuard && !tomatohurt.isTomatoHurt)
+        if(tomatoControl.isGuard && !tomatoHurt.isTomatoHurt)
         {
             if( (Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown("joystick button 1")) )
             {

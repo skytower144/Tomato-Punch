@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BattleUI_Control : MonoBehaviour
 {
-
     [SerializeField] private Animator anim, button_anim_L, button_anim_R, tomato_anim;
     [SerializeField] private GameObject gatleButtons, gatleCircle, upperCircle, tomatoRush_ef, parryBg, parry_Bar;
     [HideInInspector] static public bool gatleCircle_once = false;
@@ -75,6 +74,7 @@ public class BattleUI_Control : MonoBehaviour
             parry_Bar.SetActive(false);
             anim.Play("defaultUI",-1,0f);
         }
+        
     }
 
     void activate_GatleButton()
@@ -105,4 +105,5 @@ public class BattleUI_Control : MonoBehaviour
             parry_Bar.SetActive(false);
         }
     }
+
 }
