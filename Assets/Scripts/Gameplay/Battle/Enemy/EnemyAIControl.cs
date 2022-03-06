@@ -29,15 +29,15 @@ public class EnemyAIControl : MonoBehaviour
             {
                 battleAnim.Play("battleJola_idle");
             }
-            else if((Random.value<= 0.25))
+            else if((Random.value<= 0.45))
             {
                 EnemyMove("battleJola_LA");
             }
-            else if((Random.value<= 0.25))
+            else if((Random.value<= 0.35))
             {
                 EnemyMove("battleJola_RA");
             }
-            else if((Random.value<= 0.2))
+            else if((Random.value<= 0.35))
             {
                 EnemyMove("battleJola_DA");
             }

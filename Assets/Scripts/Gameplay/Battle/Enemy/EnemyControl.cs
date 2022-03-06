@@ -78,8 +78,10 @@ public class EnemyControl : MonoBehaviour
             anim.Play(_base.ParriedAft_AnimationString,-1,0f);
         else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
             anim.Play(_base.Suffer_AnimationString,-1,0f);
-        else if(!Enemy_is_hurt.enemy_isPunched)                                            // go back to idle when player did not attack
+        else if(!Enemy_is_hurt.enemy_isPunched){                                            // go back to idle when player did not attack
             anim.Play(_base.Idle_AnimationString,-1,0f);
+            enemyHurt.enemyIsHit = false;
+        }
     }
 
     void enemyCounterStart()
@@ -139,7 +141,9 @@ public class EnemyControl : MonoBehaviour
         Enemy_countered.enemy_isCountered = false;
         Enemy_is_hurt.enemy_isPunched = false;
         action_afterSuffer = true;
-        anim.Play(_base.Idle_AnimationString); 
+        if(!enemyHurt.enemyIsHit){
+            anim.Play(_base.Idle_AnimationString);
+        }
     }
 
     void upperRecover()

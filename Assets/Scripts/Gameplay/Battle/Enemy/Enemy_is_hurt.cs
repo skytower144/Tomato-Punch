@@ -14,7 +14,7 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect;
     [HideInInspector] public static bool enemy_isPunched;
-    [System.NonSerialized] public bool guardUp;
+    [System.NonSerialized] public bool guardUp, enemyIsHit;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
 
@@ -70,6 +70,7 @@ public class Enemy_is_hurt : MonoBehaviour
             if(!guardUp)
             {
                 enemy_isPunched = true;
+                enemyIsHit = true;           // Boolean to prevent enemyHurt anim and counter2idle anim happening at the same time
 
                 //NORMAL PUNCHES
                 if(col.gameObject.tag.Equals("tomato_LP"))

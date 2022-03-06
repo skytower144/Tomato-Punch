@@ -105,7 +105,7 @@ public class InventoryUI : MonoBehaviour
 
         if(!left_super.enabled)
             left_super.enabled = true;
-        left_super.sprite = inventory.superEquip[num].ItemIcon;
+        left_super.sprite = ((SuperEquip)inventory.superEquip[num]).superIcon;
 
         selected_s = num;
         
