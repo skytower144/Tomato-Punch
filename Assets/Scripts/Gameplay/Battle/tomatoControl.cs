@@ -246,15 +246,6 @@ public class tomatoControl : MonoBehaviour
     {
         isPunch = false;
         isAction = false;
-
-        if (currentStamina == 0){
-            tomatoAnimator.Play("tomato_tired",-1,0f);
-            isTired = true;
-        }
-        else{
-            isAction = true; // cascade boolean value
-                             // reason: isPunch interruption before action properly ending
-        }
     }
     void evadeStart()
     {
@@ -472,6 +463,22 @@ public class tomatoControl : MonoBehaviour
         Instantiate (upper_hitef);
         Instantiate (upperSmoke);
     }
+
+    void tiredStatusCheck()
+    {
+        if (currentStamina == 0){
+            isTired = true;
+        }
+    }
+    public void playTomatoKnockback()
+    {
+        Invoke("playKnockBack",0.1f);
+    }
+    private void playKnockBack()
+    {
+        tomatoAnimator.Play("tomato_knockback",-1,0f);
+    }
+
 // GAKSUNG CONTROLLER ===============================================================================================================
     void gaksung_def()
     {

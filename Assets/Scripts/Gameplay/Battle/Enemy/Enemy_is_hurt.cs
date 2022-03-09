@@ -147,11 +147,12 @@ public class Enemy_is_hurt : MonoBehaviour
 
     void minusTomatoStamina()
     {
-        tomatocontrol.currentStamina -= 3;
+        tomatocontrol.currentStamina -= 5;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
 
         staminaIcon.SetStamina(tomatocontrol.currentStamina);
+        tomatocontrol.playTomatoKnockback();
     }
     
 }
