@@ -245,7 +245,7 @@ public class tomatoControl : MonoBehaviour
     void actionStart()
     {
         isPunch = false;
-        isAction = false;
+        isAction = true;
     }
     void evadeStart()
     {
@@ -464,12 +464,6 @@ public class tomatoControl : MonoBehaviour
         Instantiate (upperSmoke);
     }
 
-    void tiredStatusCheck()
-    {
-        if (currentStamina == 0){
-            isTired = true;
-        }
-    }
     public void playTomatoKnockback()
     {
         Invoke("playKnockBack",0.1f);

@@ -126,7 +126,7 @@ public class Enemy_is_hurt : MonoBehaviour
 
     private void enemyReflex()
     {
-        if (guardUp || hitct >= 8)
+        if (guardUp || hitct >= 4)
         {
             anim.Play(enemyBase.Guard_AnimationString,-1,0f);
             Instantiate(enemy_guardEffect, Parent);
@@ -135,7 +135,7 @@ public class Enemy_is_hurt : MonoBehaviour
             return;
         }
 
-        int randct = Random.Range(5,8);
+        int randct = Random.Range(2,4);
         if (hitct == randct)
         {
             anim.Play(enemyBase.Guard_AnimationString,-1,0f);
