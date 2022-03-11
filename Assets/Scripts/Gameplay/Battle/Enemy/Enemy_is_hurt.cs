@@ -147,7 +147,7 @@ public class Enemy_is_hurt : MonoBehaviour
 
     void minusTomatoStamina()
     {
-        tomatocontrol.currentStamina -= 5;
+        tomatocontrol.currentStamina -= 3;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
 
