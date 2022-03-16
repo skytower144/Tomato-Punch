@@ -131,6 +131,24 @@ public class tomatoControl : MonoBehaviour
                     y_GP = 1;
                     ChangeAnimationState(TOMATO_JUMP);
                 }
+                else if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
+                {
+                    if(!isTired){
+                        ChangeAnimationState(TOMATO_LP);
+                    }
+                    else{
+                        tomatoAnimator.Play("tomato_tiredPunch_L",-1,0f);
+                    }
+                }
+                else if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
+                {
+                    if(!isTired){
+                        ChangeAnimationState(TOMATO_RP);
+                    }
+                    else{
+                        tomatoAnimator.Play("tomato_tiredPunch_R",-1,0f);
+                    }
+                }
                 else if(!isTired)
                 {
                     if(Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("LeftJoystickVertical") > 0))
@@ -142,14 +160,6 @@ public class tomatoControl : MonoBehaviour
                         }
                         ChangeAnimationState(TOMATO_GUARD);
                         tomato_G.SetActive(true);
-                    }
-                    else if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
-                    {
-                        ChangeAnimationState(TOMATO_LP);
-                    }
-                    else if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
-                    {
-                        ChangeAnimationState(TOMATO_RP);
                     }
                     else if(Input.GetKeyDown(KeyCode.R))
                     {
@@ -257,7 +267,7 @@ public class tomatoControl : MonoBehaviour
         isAction = false;
         isPunch = false;
 
-        if (currentStamina == 0){
+        if (currentStamina == 0 && !tomatoHurt.isTomatoHurt){
             tomatoAnimator.Play("tomato_tired",-1,0f);
             isTired = true;
         }
@@ -320,7 +330,7 @@ public class tomatoControl : MonoBehaviour
         tomatoHurt.isTomatoHurt = false;
         tomatoGuard.preventDamageOverlap = false;
 
-        if (currentStamina == 0){
+        if (currentStamina == 0 && !tomatoHurt.isTomatoHurt){
             tomatoAnimator.Play("tomato_tired",-1,0f);
             isTired = true;
         }
@@ -363,11 +373,11 @@ public class tomatoControl : MonoBehaviour
 
     void punchActivate()
     {
-        if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_LP))
+        if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_LP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName("tomato_tiredPunch_L"))
         {
             Instantiate (tomato_LP, Parent);
         }
-        else if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_RP))
+        else if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_RP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName("tomato_tiredPunch_R"))
         {
             Instantiate (tomato_RP, Parent);
         }
