@@ -8,6 +8,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private string enemyName;
     [SerializeField] private Sprite frontSprite;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
+    public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
     [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
     public List <string> EnemySuperedAnim;

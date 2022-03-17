@@ -480,7 +480,10 @@ public class tomatoControl : MonoBehaviour
     }
     private void playKnockBack()
     {
-        tomatoAnimator.Play("tomato_knockback",-1,0f);
+        if(isTired)
+            tomatoAnimator.Play("tomato_tiredKnockback",-1,0f);
+        else
+            tomatoAnimator.Play("tomato_knockback",-1,0f);
     }
 
 // GAKSUNG CONTROLLER ===============================================================================================================

@@ -116,7 +116,7 @@ public class EnemyControl : MonoBehaviour
 
     void detectEvasion()
     {
-        if(tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Levade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Revade") || tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_jump"))
+        if(!tomatoHurt.isTomatoHurt)
         {
             tomatocontrol.currentStamina += 5;
             if (tomatocontrol.currentStamina > tomatocontrol.maxStamina)
