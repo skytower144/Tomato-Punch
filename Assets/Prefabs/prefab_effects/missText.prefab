@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6326684395842180108}
   - component: {fileID: 8689652474906438334}
   - component: {fileID: 7834002375753666633}
-  - component: {fileID: -7265726804873105015}
+  - component: {fileID: -1671583032282789306}
   - component: {fileID: 5677800430156200853}
   - component: {fileID: 7087795951655678855}
   m_Layer: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &-7265726804873105015
+--- !u!114 &-1671583032282789306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1733493814909389476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e762e09abdc88f42a85c222c5641f50, type: 3}
+  m_Script: {fileID: 11500000, guid: adf7e25c36463434f863630bc9c8178e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5677800430156200853
@@ -185,9 +185,9 @@ MonoBehaviour:
   onComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -7265726804873105015}
-        m_TargetAssemblyTypeName: missText, Assembly-CSharp
-        m_MethodName: destroy_missText
+      - m_Target: {fileID: -1671583032282789306}
+        m_TargetAssemblyTypeName: Tween_DestoryObject, Assembly-CSharp
+        m_MethodName: destroyObject_AfterTween
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

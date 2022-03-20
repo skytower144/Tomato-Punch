@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class missText : MonoBehaviour
+public class Tween_DestoryObject : MonoBehaviour
 {
-    public void destroy_missText()
+    public void destroyObject_AfterTween()
     {
         Destroy(gameObject);
     }
-
-    
 }

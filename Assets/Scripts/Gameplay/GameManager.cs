@@ -47,6 +47,5 @@ public class GameManager : MonoBehaviour
         mainCamera.gameObject.SetActive(false);
         gameState = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
-        
     }
 }
