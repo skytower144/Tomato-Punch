@@ -7,6 +7,7 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private EnemyControl enemyCtrl;
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
+    [System.NonSerialized] public static bool enemy_isIntro = true;
     void EnemyMove(string movename)
     {
         Enemy_AttackDetail EM = enemyCtrl._base.EnemyAttack(movename);
@@ -17,35 +18,37 @@ public class EnemyAIControl : MonoBehaviour
     }
     public void Jola() // function name must be exact as EnemyBase.EnemyName
     {
-        if(enemyCtrl.action_afterSuffer)
-        {
-            enemyCtrl.action_afterSuffer = false;
-            return;
-        }
-        else if(!Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
-        {
-            
-            if((Random.value<= 0.1))
+        if(!enemy_isIntro) {
+            if(enemyCtrl.action_afterSuffer)
             {
-                battleAnim.Play("battleJola_idle");
+                enemyCtrl.action_afterSuffer = false;
+                return;
             }
-            else if((Random.value<= 0.45))
+            else if(!Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
             {
-                EnemyMove("battleJola_LA");
-            }
-            else if((Random.value<= 0.35))
-            {
-                EnemyMove("battleJola_RA");
-            }
-            else if((Random.value<= 0.35))
-            {
-                EnemyMove("battleJola_DA");
-            }
-            
-            else if((Random.value<= 0.2))
-            {
-                enemyCtrl.pjTag = "battleJola_HatAttack";
-                EnemyMove("battleJola_HatAttack");
+                
+                if((Random.value<= 0.1))
+                {
+                    battleAnim.Play("battleJola_idle");
+                }
+                else if((Random.value<= 0.45))
+                {
+                    EnemyMove("battleJola_LA");
+                }
+                else if((Random.value<= 0.35))
+                {
+                    EnemyMove("battleJola_RA");
+                }
+                else if((Random.value<= 0.35))
+                {
+                    EnemyMove("battleJola_DA");
+                }
+                
+                else if((Random.value<= 0.2))
+                {
+                    enemyCtrl.pjTag = "battleJola_HatAttack";
+                    EnemyMove("battleJola_HatAttack");
+                }
             }
         }
     }
