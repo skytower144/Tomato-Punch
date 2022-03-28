@@ -10,7 +10,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
-    [SerializeField] private string idle, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
+    [SerializeField] private string idle, intro, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
     public List <string> EnemySuperedAnim;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
@@ -34,6 +34,10 @@ public class EnemyBase : ScriptableObject
     public string Idle_AnimationString
     {
         get { return idle; }
+    }
+    public string Intro_AnimationString
+    {
+        get { return intro; }
     }
     public string Countered_AnimationString
     {

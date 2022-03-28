@@ -61,6 +61,11 @@ public class EnemyControl : MonoBehaviour
         }
         
     }
+
+    void enemyIntroOver()
+    {
+        anim.Play(_base.Idle_AnimationString,-1,0f);
+    }
     void actionOver()
     {
         enemy_supered = false;

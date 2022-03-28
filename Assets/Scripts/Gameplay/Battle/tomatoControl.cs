@@ -248,11 +248,16 @@ public class tomatoControl : MonoBehaviour
 
     // FUNCTIONS ====================================================================================================================
 
+    void IntroOver()
+    {
+        ChangeAnimationState(TOMATO_IDLE);
+    }
     void IdleState()
     {
         isAction = false;
         tomatoHurt.isTomatoHurt = false;
     }
+
     void actionStart()
     {
         isPunch = false;
