@@ -20,7 +20,7 @@ public class InventoryUI : MonoBehaviour
         superSlots = super_slotParent.GetComponentsInChildren<InventorySlot>(true);
         // "Should Components on inactive GameObjects be included in the found set?" -> (true)
     }
-    void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> VISIBLE Update & Clear slots.
+    void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> (VISIBLE) Update & Clear slots.
     {
         if (inventory.itemType_num == 1)
         {
