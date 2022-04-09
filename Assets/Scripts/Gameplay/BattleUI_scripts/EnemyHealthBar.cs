@@ -23,6 +23,7 @@ public class EnemyHealthBar : MonoBehaviour
                 damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount,slider.normalizedValue,shrinkSpeed);
             }
         }
+
     }
     public void Enemy_SetMaxHealth(float health)
     {

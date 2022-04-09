@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnemyControl : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyControl : MonoBehaviour
     private Animator anim;
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
+    [SerializeField] private GameObject defeatedEffect_pop;
     [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
@@ -180,5 +182,19 @@ public class EnemyControl : MonoBehaviour
     {
         enemyHurt.guardUp = false;
         enemyHurt.hitct = 0;
+    }
+
+    void freezeAnimation()
+    {
+        Invoke("UnFreeze", 0.6f);
+        anim.enabled = false;
+        tomatoAnim.enabled = false;
+    }
+    private void UnFreeze()
+    {
+        anim.enabled = true;
+        tomatoAnim.enabled = true;
+        Instantiate(defeatedEffect_pop);
+        DOTween.Play("CameraShake");
     }
 }

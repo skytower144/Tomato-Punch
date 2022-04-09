@@ -6,13 +6,13 @@ public class Enemy_is_hurt : MonoBehaviour
 {
     private Animator anim;
     private EnemyBase enemyBase;
-    [SerializeField] private Transform Parent;
+    [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
-    [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect;
+    [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
     [HideInInspector] public static bool enemy_isPunched;
     [System.NonSerialized] public bool guardUp, enemyIsHit;
     [System.NonSerialized] public int hitct;
@@ -75,23 +75,18 @@ public class Enemy_is_hurt : MonoBehaviour
                 //NORMAL PUNCHES
                 if(col.gameObject.tag.Equals("tomato_LP"))
                 {
-                    Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
-                    anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
-                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                    checkDefeat("L", tomatocontrol.dmg_normalPunch);
                 }
                 else if(col.gameObject.tag.Equals("tomato_RP"))
                 {
-                    Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
-                    anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
-                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                    checkDefeat("R", tomatocontrol.dmg_normalPunch);
                 }
 
                 //SKILL
                 else if(col.gameObject.tag.Equals("tomato_SK"))
                 {
-                    anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
                     float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
-                    enemyHurtDamage(skillDmg);
+                    checkDefeat("SK", skillDmg);
                 }
             }
         }
@@ -154,5 +149,29 @@ public class Enemy_is_hurt : MonoBehaviour
         staminaIcon.SetStamina(tomatocontrol.currentStamina);
         tomatocontrol.playTomatoKnockback();
     }
-    
+
+    private void checkDefeat(string animString, float dmg)
+    {
+        enemyHurtDamage(dmg);
+
+        if (Enemy_currentHealth == 0){
+            anim.Play(enemyBase.Defeated_AnimationString,-1,0f);
+            Instantiate(defeatedEffect_beam);
+            Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
+        }
+        else{
+            if (animString == "L"){
+                Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
+                anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+            }
+            else if (animString == "R"){
+                Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
+                anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
+            }
+            else if (animString == "SK"){
+                anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+            }
+        }
+    }
+
 }
