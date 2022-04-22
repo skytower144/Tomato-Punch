@@ -21,8 +21,8 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
     [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
-    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner;
-    [SerializeField] private Transform Parent;
+    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash;
+    [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
@@ -478,6 +478,12 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (upper_hitef);
         Instantiate (upperSmoke);
+    }
+
+    void screenFlash_KO()
+    {
+        if(Enemy_is_hurt.enemy_isDefeated)
+            Instantiate(screenFlash, BattleCanvas_Parent);
     }
 
     public void playTomatoKnockback()

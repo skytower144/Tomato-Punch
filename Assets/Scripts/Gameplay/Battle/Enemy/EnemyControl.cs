@@ -9,12 +9,12 @@ public class EnemyControl : MonoBehaviour
     private Animator anim;
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
-    [SerializeField] private GameObject defeatedEffect_pop;
-    [SerializeField] private Transform Parent;
+    [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash;
+    [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Animator tomatoAnim;
+    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Enemy_is_hurt enemyHurt;
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
@@ -32,7 +32,7 @@ public class EnemyControl : MonoBehaviour
     
     void Update()
     {
-        if(gatleCircleControl.failUppercut)
+        if(!Enemy_is_hurt.enemy_isDefeated && gatleCircleControl.failUppercut)
         {
             anim.Play(_base.ParriedToIdle_AnimationString,-1,0f);
         }
@@ -40,7 +40,11 @@ public class EnemyControl : MonoBehaviour
         {
             anim.Play(_base.Uppered_AnimationString,-1,0f);
             enemyHurt.ParryBonus();
+
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_upperPunch);
+            if (enemyHurt.Enemy_currentHealth == 0){
+                super_upper_KO();
+            }
         }
         else
         {
@@ -188,7 +192,6 @@ public class EnemyControl : MonoBehaviour
     {
         Invoke("UnFreeze", 0.6f);
         anim.enabled = false;
-        tomatoAnim.enabled = false;
     }
     private void UnFreeze()
     {
@@ -197,4 +200,12 @@ public class EnemyControl : MonoBehaviour
         Instantiate(defeatedEffect_pop);
         DOTween.Play("CameraShake");
     }
+
+    private void super_upper_KO() // if supered, uppered KO
+    {
+        Enemy_is_hurt.enemy_isDefeated = true;
+        Instantiate(defeatedEffect_beam);
+        Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
+    }
+
 }

@@ -79,12 +79,14 @@ public class BattleUI_Control : MonoBehaviour
 
     void activate_GatleButton()
     {
-        gatleButtons.SetActive(true);
+        if(!Enemy_is_hurt.enemy_isDefeated)
+            gatleButtons.SetActive(true);
     }
 
     void activate_GatleCircle()
     {
-        gatleCircle.SetActive(true);
+        if(!Enemy_is_hurt.enemy_isDefeated)
+            gatleCircle.SetActive(true);
     }
 
     void fade_InOut()

@@ -3843,7 +3843,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &444394832
 Canvas:
   m_ObjectHideFlags: 0
@@ -4257,7 +4257,9 @@ MonoBehaviour:
   upper_hitef2: {fileID: 5429044750237366342, guid: b3d13c75c71ee7c4096a41f8560923ca, type: 3}
   upperSmoke: {fileID: 917695271239518990, guid: 813a8097287be0f4da7dc867d543e068, type: 3}
   superBanner: {fileID: 1068151964}
+  screenFlash: {fileID: 8143716166433461514, guid: b7892ac4f5a9d5d43a48a7092970a20e, type: 3}
   Parent: {fileID: 449446692}
+  BattleCanvas_Parent: {fileID: 420362620}
   healthBar: {fileID: 166534781}
   guardBar: {fileID: 1156247544}
   parryBar: {fileID: 1064597949}
@@ -4793,7 +4795,7 @@ Camera:
   m_GameObject: {fileID: 554085940}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -4815,7 +4817,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4847,7 +4849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1038232372}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555567876
 GameObject:
@@ -5884,7 +5886,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6383,9 +6385,9 @@ RectTransform:
   - {fileID: 89037995}
   - {fileID: 262129261}
   - {fileID: 940715619}
+  - {fileID: 844576987}
   - {fileID: 1234156483}
   - {fileID: 1068151965}
-  - {fileID: 844576987}
   - {fileID: 444394828}
   m_Father: {fileID: 420362620}
   m_RootOrder: 3
@@ -6937,7 +6939,7 @@ RectTransform:
   - {fileID: 1003151019}
   - {fileID: 1580890584}
   m_Father: {fileID: 821537646}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6983,7 +6985,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &844576990
 Canvas:
   m_ObjectHideFlags: 0
@@ -7490,7 +7492,7 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8937,7 +8939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1038232372
 Transform:
   m_ObjectHideFlags: 0
@@ -8949,8 +8951,8 @@ Transform:
   m_LocalPosition: {x: -31.13, y: -0.17, z: -54.90856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1982043684}
   - {fileID: 554085943}
+  - {fileID: 1982043684}
   - {fileID: 420362620}
   m_Father: {fileID: 0}
   m_RootOrder: 17
@@ -9228,11 +9230,14 @@ MonoBehaviour:
   enemy_PJ: {fileID: 2426031716149107699, guid: 5fa3b70fa9b348a4f955312481be6c23, type: 3}
   enemy_Counter: {fileID: 8566184366384418792, guid: 9b92c681a976e9846a8ac668b512f5c9, type: 3}
   defeatedEffect_pop: {fileID: 795758294053743534, guid: 3c353bc7f298eb14eab850f09cc98681, type: 3}
+  defeatedEffect_beam: {fileID: 4926095398018033078, guid: 746d7ef6e69b4474a8df4678b17e8743, type: 3}
+  defeatedEffect_flash: {fileID: 8143716166433461514, guid: b7892ac4f5a9d5d43a48a7092970a20e, type: 3}
   Parent: {fileID: 1045029401}
+  BattleCanvas_Parent: {fileID: 420362620}
   tomatoguard: {fileID: 1117059771}
   tomatocontrol: {fileID: 449446693}
-  staminaIcon: {fileID: 1874515705}
   tomatoAnim: {fileID: 449446690}
+  staminaIcon: {fileID: 1874515705}
   enemyHurt: {fileID: 1508086782}
   action_afterSuffer: 0
   enemy_supered: 0
@@ -10248,7 +10253,7 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10408,7 +10413,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 513599482136330533, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 513599482136330533, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
       propertyPath: m_LocalScale.x
@@ -12493,6 +12498,7 @@ MonoBehaviour:
   BattleCanvas_Parent: {fileID: 420362620}
   enemyControl: {fileID: 1045029404}
   tomatocontrol: {fileID: 449446693}
+  tomatoAnim: {fileID: 449446690}
   tomatoParryBar: {fileID: 1064597949}
   staminaIcon: {fileID: 1874515705}
   enemyHealthBar: {fileID: 1580890586}
@@ -12500,7 +12506,7 @@ MonoBehaviour:
   gatHit1: {fileID: 8465389278089805006, guid: 0dd361062f419eb4fbc3427a19d63549, type: 3}
   gatHit2: {fileID: 865075623318641839, guid: 4fc4b085b81e92c45ad0be31126dafd2, type: 3}
   enemy_guardEffect: {fileID: 3208083450466166980, guid: 63ce6fe7fe547a44b98755fe6ffe0f18, type: 3}
-  defeatedEffect_flash: {fileID: 1631857073316722627, guid: b7892ac4f5a9d5d43a48a7092970a20e, type: 3}
+  defeatedEffect_flash: {fileID: 8143716166433461514, guid: b7892ac4f5a9d5d43a48a7092970a20e, type: 3}
   defeatedEffect_beam: {fileID: 4926095398018033078, guid: 746d7ef6e69b4474a8df4678b17e8743, type: 3}
   Enemy_maxHealth: 0
   Enemy_currentHealth: 0
@@ -14343,7 +14349,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4123129853213978947, guid: c93e66ddf3a64f24bb02e3465a50fe47, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4123129853213978947, guid: c93e66ddf3a64f24bb02e3465a50fe47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16036,7 +16042,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1038232372}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1982043685
 MonoBehaviour:
@@ -16084,8 +16090,8 @@ MonoBehaviour:
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
   delay: 0
-  duration: 0.5
-  easeType: 3
+  duration: 0.3
+  easeType: 6
   easeCurve:
     serializedVersion: 2
     m_Curve:
@@ -16127,7 +16133,7 @@ MonoBehaviour:
   autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0.8, y: 0, z: 0}
+  endValueV3: {x: 0.15, y: 0, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -16139,9 +16145,9 @@ MonoBehaviour:
     height: 0
   endValueTransform: {fileID: 0}
   optionalBool0: 0
-  optionalBool1: 1
-  optionalFloat0: 68.3
-  optionalInt0: 46
+  optionalBool1: 0
+  optionalFloat0: 78
+  optionalInt0: 48
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
@@ -16154,7 +16160,7 @@ Camera:
   m_GameObject: {fileID: 1982043683}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.9110178, g: 0.6630473, b: 0.9433962, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -16176,7 +16182,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -23458,7 +23464,7 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

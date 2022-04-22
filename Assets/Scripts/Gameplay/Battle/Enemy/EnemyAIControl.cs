@@ -24,7 +24,7 @@ public class EnemyAIControl : MonoBehaviour
                 enemyCtrl.action_afterSuffer = false;
                 return;
             }
-            else if(!Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
+            else if(!Enemy_is_hurt.enemy_isDefeated && !Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
             {
                 
                 if((Random.value<= 0.1))

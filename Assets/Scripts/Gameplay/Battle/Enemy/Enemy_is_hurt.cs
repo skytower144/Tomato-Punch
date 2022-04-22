@@ -9,11 +9,12 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private Animator tomatoAnim;
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
-    [HideInInspector] public static bool enemy_isPunched;
+    [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated;
     [System.NonSerialized] public bool guardUp, enemyIsHit;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
@@ -54,8 +55,7 @@ public class Enemy_is_hurt : MonoBehaviour
                 Instantiate (gatHit1, new Vector2 (transform.position.x + 4f, transform.position.y - 0.2f), Quaternion.identity);
                 Instantiate (gatHit2, new Vector2 (transform.position.x + 6.5f, transform.position.y + 0.2f), Quaternion.identity);
             }
-            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
-            enemyHurtDamage(tomatocontrol.dmg_gatlePunch);
+            checkDefeat("GP", tomatocontrol.dmg_gatlePunch);
         }
         else
         {
@@ -155,9 +155,17 @@ public class Enemy_is_hurt : MonoBehaviour
         enemyHurtDamage(dmg);
 
         if (Enemy_currentHealth == 0){
+            enemy_isDefeated = true;
+
+            tomatoAnim.enabled = false;
             anim.Play(enemyBase.Defeated_AnimationString,-1,0f);
+
             Instantiate(defeatedEffect_beam);
             Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
+
+            if (animString == "GP"){
+                gatleCircleControl.failUppercut = true;
+            }
         }
         else{
             if (animString == "L"){
@@ -168,7 +176,7 @@ public class Enemy_is_hurt : MonoBehaviour
                 Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
                 anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
             }
-            else if (animString == "SK"){
+            else if (animString == "SK" || animString == "GP"){
                 anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
             }
         }
