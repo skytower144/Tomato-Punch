@@ -10,7 +10,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash;
-    [SerializeField] private Transform Parent, BattleCanvas_Parent;
+    [SerializeField] private Transform Parent;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Animator tomatoAnim;
@@ -63,6 +63,9 @@ public class EnemyControl : MonoBehaviour
                 // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
                 
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);
+                if (enemyHurt.Enemy_currentHealth == 0){
+                    super_upper_KO();
+                }
             }
         }
         
@@ -159,12 +162,14 @@ public class EnemyControl : MonoBehaviour
 
     void upperRecover()
     {
-        anim.Play(_base.UpperRecover_AnimationString,-1,0f);
+        if(!Enemy_is_hurt.enemy_isDefeated)
+            anim.Play(_base.UpperRecover_AnimationString,-1,0f);
     }
 
     void superedRecover()
     {
-        anim.Play(_base.SuperedRecover_AnimationString,-1,0f);
+        if(!Enemy_is_hurt.enemy_isDefeated)
+            anim.Play(_base.SuperedRecover_AnimationString,-1,0f);
     }
 
     void projectileSpawn()
@@ -205,7 +210,6 @@ public class EnemyControl : MonoBehaviour
     {
         Enemy_is_hurt.enemy_isDefeated = true;
         Instantiate(defeatedEffect_beam);
-        Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
     }
 
 }
