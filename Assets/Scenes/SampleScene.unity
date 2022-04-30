@@ -3433,7 +3433,7 @@ RectTransform:
   - {fileID: 1045029401}
   - {fileID: 821537646}
   m_Father: {fileID: 1038232372}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4271,7 +4271,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 30
   maxGuard: 15
   current_guardPt: 15
   tomatoAtk: 1
@@ -4850,7 +4850,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1038232372}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555567876
 GameObject:
@@ -6354,6 +6354,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799974756}
   m_CullTransparentMesh: 1
+--- !u!1 &810053882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810053884}
+  - component: {fileID: 810053883}
+  m_Layer: 0
+  m_Name: BattleTimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &810053883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810053882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dba4c820e6a1e84586b2a95b2277877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &810053884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810053882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1038232372}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &821537645
 GameObject:
   m_ObjectHideFlags: 0
@@ -8952,6 +8995,7 @@ Transform:
   m_LocalPosition: {x: -31.13, y: -0.17, z: -54.90856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 810053884}
   - {fileID: 554085943}
   - {fileID: 1982043684}
   - {fileID: 420362620}
@@ -12196,9 +12240,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtEffect: {fileID: 6591653107828056527, guid: 8291993d08dc51847a178d4ae5e2c9a1, type: 3}
+  faintBurstEffect: {fileID: 2280391110547374306, guid: 7d714edae3c7dd945a93ea444ee10475, type: 3}
   tomatocontrol: {fileID: 449446693}
   tomatoguard: {fileID: 1117059771}
   healthBar: {fileID: 166534781}
+  battleTimeManager: {fileID: 810053883}
 --- !u!61 &1426860820
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16042,7 +16088,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1038232372}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1982043685
 MonoBehaviour:

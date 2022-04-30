@@ -58,6 +58,7 @@ public class tomatoControl : MonoBehaviour
     private int x_GP = 0, y_GP = 0;          // making left joystick act like a button trigger
 
     [System.NonSerialized] public static bool isIntro = true;
+    [System.NonSerialized] public static bool isFainted = false;
     [HideInInspector] public static bool gatleButton_once = false;  // play a line once
     [HideInInspector] public static bool uppercutYes = false;       // player succeeded uppercut
     [HideInInspector] public static bool enemyUppered = false;
@@ -114,7 +115,7 @@ public class tomatoControl : MonoBehaviour
             x_GP = 0;
         if((Input.GetAxisRaw("LeftJoystickVertical") == 0))
             y_GP = 0;
-        if(!tomatoHurt.isTomatoHurt && !isIntro)
+        if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted)
         {
             if(!isAction)
             {
