@@ -12,7 +12,7 @@ public class HealthBar : MonoBehaviour
     public const float HP_SHRINKTIMER_MAX = 0.5f;
     public float hpShrinkTimer;
     [SerializeField] private Image fill, damagedFill, tomatoFace;
-    [SerializeField] private Sprite face1, face2, face3;
+    [SerializeField] private Sprite face1, face2, face3, face4;
     [SerializeField] private TextMeshProUGUI healthText;
     
     private void Update()
@@ -47,14 +47,17 @@ public class HealthBar : MonoBehaviour
     }
     void faceChange()
     {
-        if (slider.normalizedValue == 1){
+        if (slider.normalizedValue >= 0.5f){
             tomatoFace.sprite = face1;
         } 
-        else if(0.15f < slider.normalizedValue && slider.normalizedValue <= 0.5f){
+        else if(0.15f <= slider.normalizedValue && slider.normalizedValue < 0.5f){
             tomatoFace.sprite = face2;
         }
-        else if(slider.normalizedValue <= 0.15f){
+        else if(0 < slider.normalizedValue &&  slider.normalizedValue < 0.15f){
             tomatoFace.sprite = face3;
+        }
+        else if(slider.normalizedValue == 0){
+            tomatoFace.sprite = face4;
         }
     }
 }

@@ -193,7 +193,7 @@ public class EnemyControl : MonoBehaviour
         enemyHurt.hitct = 0;
     }
 
-    void freezeAnimation()
+    void freezeAnimation() // when KO
     {
         Invoke("UnFreeze", 0.6f);
         anim.enabled = false;
