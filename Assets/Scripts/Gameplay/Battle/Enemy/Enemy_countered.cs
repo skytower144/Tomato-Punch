@@ -35,14 +35,17 @@ public class Enemy_countered : MonoBehaviour
             tomatocontrol.tomatoes += 1;
             counterTrack.CounterTracker();
         }
-        Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
-        _instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
-        Destroy(_instance1,0.38f);
-        Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
-        
-        anim.Play(string_countered,-1,0f);
-        gameObject.SetActive(false);
-        
+
         enemy_is_hurt.enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+        if(!enemy_is_hurt.checkDefeat("CTR"))
+        {
+            Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
+            _instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
+            Destroy(_instance1,0.38f);
+            Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
+            
+            anim.Play(string_countered,-1,0f);
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -28,7 +28,8 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
-    [SerializeField] CounterTrack counterTrack;
+    [SerializeField] private CounterTrack counterTrack;
+    [SerializeField] private TextSpawn textSpawn;
     public SuperEquip tomatoSuperEquip;
     public List <Equip> tomatoEquip;
     
@@ -58,6 +59,7 @@ public class tomatoControl : MonoBehaviour
     private int x_GP = 0, y_GP = 0;          // making left joystick act like a button trigger
 
     [System.NonSerialized] public static bool isIntro = true;
+    [System.NonSerialized] public static bool isVictory = false;
     [System.NonSerialized] public static bool isFainted = false;
     [HideInInspector] public static bool gatleButton_once = false;  // play a line once
     [HideInInspector] public static bool uppercutYes = false;       // player succeeded uppercut
@@ -115,7 +117,7 @@ public class tomatoControl : MonoBehaviour
             x_GP = 0;
         if((Input.GetAxisRaw("LeftJoystickVertical") == 0))
             y_GP = 0;
-        if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted)
+        if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory)
         {
             if(!isAction)
             {
@@ -487,8 +489,14 @@ public class tomatoControl : MonoBehaviour
         if(Enemy_is_hurt.enemy_isDefeated){
             Instantiate(screenFlash, BattleCanvas_Parent);
             Instantiate(defeatedEffect_pop);
+            textSpawn.spawn_KO_text();
             DOTween.Play("CameraShake");
         }
+    }
+
+    void playVictoryIdle()
+    {
+        tomatoAnimator.Play("tomato_victory_idle",-1,0f);
     }
 
     public void playTomatoKnockback()

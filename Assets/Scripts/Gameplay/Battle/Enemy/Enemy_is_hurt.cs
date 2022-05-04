@@ -55,7 +55,8 @@ public class Enemy_is_hurt : MonoBehaviour
                 Instantiate (gatHit1, new Vector2 (transform.position.x + 4f, transform.position.y - 0.2f), Quaternion.identity);
                 Instantiate (gatHit2, new Vector2 (transform.position.x + 6.5f, transform.position.y + 0.2f), Quaternion.identity);
             }
-            checkDefeat("GP", tomatocontrol.dmg_gatlePunch);
+            enemyHurtDamage(tomatocontrol.dmg_gatlePunch);
+            checkDefeat("GP");
         }
         else
         {
@@ -75,18 +76,21 @@ public class Enemy_is_hurt : MonoBehaviour
                 //NORMAL PUNCHES
                 if(col.gameObject.tag.Equals("tomato_LP"))
                 {
-                    checkDefeat("L", tomatocontrol.dmg_normalPunch);
+                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                    checkDefeat("L");
                 }
                 else if(col.gameObject.tag.Equals("tomato_RP"))
                 {
-                    checkDefeat("R", tomatocontrol.dmg_normalPunch);
+                    enemyHurtDamage(tomatocontrol.dmg_normalPunch);
+                    checkDefeat("R");
                 }
 
                 //SKILL
                 else if(col.gameObject.tag.Equals("tomato_SK"))
                 {
                     float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
-                    checkDefeat("SK", skillDmg);
+                    enemyHurtDamage(skillDmg);
+                    checkDefeat("SK");
                 }
             }
         }
@@ -150,10 +154,8 @@ public class Enemy_is_hurt : MonoBehaviour
         tomatocontrol.playTomatoKnockback();
     }
 
-    private void checkDefeat(string animString, float dmg)
+    public bool checkDefeat(string animString)
     {
-        enemyHurtDamage(dmg);
-
         if (Enemy_currentHealth == 0){
             enemy_isDefeated = true;
 
@@ -166,6 +168,7 @@ public class Enemy_is_hurt : MonoBehaviour
             if (animString == "GP"){
                 gatleCircleControl.failUppercut = true;
             }
+            return true;
         }
         else{
             if (animString == "L"){
@@ -179,6 +182,7 @@ public class Enemy_is_hurt : MonoBehaviour
             else if (animString == "SK" || animString == "GP"){
                 anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
             }
+            return false;
         }
     }
 

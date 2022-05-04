@@ -10,7 +10,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private StaminaIcon staminaIcon;
-    [SerializeField] private GameObject GetReadyText;
+    [SerializeField] private GameObject GetReadyText, KOText;
     
     private Vector3 randomPosition;
 
@@ -45,5 +45,16 @@ public class TextSpawn : MonoBehaviour
     {
         tomatoAnim.Play("tomato_intro",-1, 0f);
         enemyAnim.Play(enemyControl._base.Intro_AnimationString, -1, 0f);
+    }
+
+    public void spawn_KO_text()
+    {
+        GameObject KO = Instantiate(KOText, transform);
+        KO.GetComponent<InitiateVictory>().script_textSpawn = gameObject.GetComponent<TextSpawn>();
+    }
+
+    public void PlayVictory_Player()
+    {
+        tomatoAnim.Play("tomato_victory", -1, 0f);
     }
 }

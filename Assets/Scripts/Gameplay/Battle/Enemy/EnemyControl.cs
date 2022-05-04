@@ -16,6 +16,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Enemy_is_hurt enemyHurt;
+    [SerializeField] private TextSpawn textSpawn;
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
     [HideInInspector] public bool enemy_supered = false;
@@ -203,7 +204,9 @@ public class EnemyControl : MonoBehaviour
         anim.enabled = true;
         tomatoAnim.enabled = true;
         Instantiate(defeatedEffect_pop);
+        textSpawn.spawn_KO_text();
         DOTween.Play("CameraShake");
+
     }
 
     private void super_upper_KO() // if supered, uppered KO

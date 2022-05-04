@@ -1,15 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-6108503110530254511
+--- !u!21 &-8512884479482560519
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PressStart2P Material
+  m_Name: PressStart2P_KO Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: UNDERLAY_ON
+  m_ShaderKeywords: GLOW_ON UNDERLAY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 5387509177734405093}
+        m_Texture: {fileID: 2910462335698592853}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -54,10 +54,10 @@ Material:
     - _FaceDilate: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.477
-    - _GlowOffset: 1
-    - _GlowOuter: 0.321
-    - _GlowPower: 0.508
+    - _GlowInner: 0.172
+    - _GlowOffset: 0.16
+    - _GlowOuter: 0.079
+    - _GlowPower: 1
     - _GradientScale: 6
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
@@ -65,12 +65,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.223
+    - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
-    - _ScaleRatioB: 0.51255363
-    - _ScaleRatioC: 0.6770833
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.54603493
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -83,9 +83,9 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 512
     - _TextureWidth: 512
-    - _UnderlayDilate: 0
+    - _UnderlayDilate: 0.24
     - _UnderlayOffsetX: 1
-    - _UnderlayOffsetY: -1
+    - _UnderlayOffsetY: -0.7
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
@@ -95,9 +95,9 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0.17697582, g: 0.38679248, b: 0.21843226, a: 0.5}
+    - _GlowColor: {r: 0.87694734, g: 0.9528302, b: 0.57079923, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 1, g: 0.9640562, b: 0.6179246, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -113,11 +113,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: PressStart2P
+  m_Name: PressStart2P_KO
   m_EditorClassIdentifier: 
-  hashCode: 259326693
-  material: {fileID: -6108503110530254511}
-  materialHashCode: 1495067685
+  hashCode: -655571650
+  material: {fileID: -8512884479482560519}
+  materialHashCode: 1939331934
   m_Version: 1.1.0
   m_SourceFontFileGUID: 338ab3d1f3483ad4fa2ac389633363a1
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 338ab3d1f3483ad4fa2ac389633363a1, type: 3}
@@ -1893,7 +1893,7 @@ MonoBehaviour:
     m_GlyphIndex: 527
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 5387509177734405093}
+  - {fileID: 2910462335698592853}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -2450,13 +2450,13 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &5387509177734405093
+--- !u!28 &2910462335698592853
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PressStart2P Atlas
+  m_Name: PressStart2P_KO Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
