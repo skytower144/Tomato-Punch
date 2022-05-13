@@ -10,7 +10,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private StaminaIcon staminaIcon;
-    [SerializeField] private GameObject GetReadyText, KOText;
+    [SerializeField] private GameObject GetReadyText, KOText, resultCard;
     
     private Vector3 randomPosition;
 
@@ -56,5 +56,6 @@ public class TextSpawn : MonoBehaviour
     public void PlayVictory_Player()
     {
         tomatoAnim.Play("tomato_victory", -1, 0f);
+        Instantiate(resultCard, transform);
     }
 }
