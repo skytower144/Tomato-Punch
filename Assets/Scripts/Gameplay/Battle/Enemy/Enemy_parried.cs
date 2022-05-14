@@ -10,6 +10,7 @@ public class Enemy_parried : MonoBehaviour
     [SerializeField] private GameObject parryEffect, parryCircle;
     [HideInInspector] public static bool isParried = false;
     [HideInInspector] public static bool pjParried = false;
+    public static int totalParry = 0;
     
     void Start()
     {
@@ -20,6 +21,8 @@ public class Enemy_parried : MonoBehaviour
     {
         if(col.gameObject.tag.Equals("tomato_PRY"))
         {
+            totalParry += 1;
+
             Instantiate (parryEffect, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
 
             if(EnemyControl.isPhysical)    // if isParried True -> enemy cannot move

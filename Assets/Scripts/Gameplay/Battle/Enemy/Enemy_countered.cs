@@ -12,7 +12,8 @@ public class Enemy_countered : MonoBehaviour
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
-    private GameObject _instance1;
+    public int totalCounter = 0;
+    private GameObject instance1;
     void Start()
     {
         anim = GetComponentInParent<Animator>();
@@ -31,6 +32,9 @@ public class Enemy_countered : MonoBehaviour
     {
         Enemy_is_hurt.enemy_isPunched = false;
         enemy_isCountered = true;
+        
+        totalCounter += 1;
+
         if(tomatocontrol.tomatoes<5){
             tomatocontrol.tomatoes += 1;
             counterTrack.CounterTracker();
@@ -40,8 +44,8 @@ public class Enemy_countered : MonoBehaviour
         if(!enemy_is_hurt.checkDefeat("CTR"))
         {
             Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
-            _instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
-            Destroy(_instance1,0.38f);
+            instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
+            Destroy(instance1, 0.38f);
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
             
             anim.Play(string_countered,-1,0f);

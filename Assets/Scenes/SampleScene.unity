@@ -538,6 +538,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1901433124544213238, guid: 9b92c681a976e9846a8ac668b512f5c9, type: 3}
   m_PrefabInstance: {fileID: 133425042}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &69562769 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3057714056400277588, guid: 9b92c681a976e9846a8ac668b512f5c9, type: 3}
+  m_PrefabInstance: {fileID: 133425042}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69562767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104e29693fd7e7046a159997ea296f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &89037994 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6964922438253186497, guid: 673891f5f73b53346aa26c209a18f335, type: 3}
@@ -3801,11 +3812,14 @@ MonoBehaviour:
   missEffect: {fileID: 1733493814909389476, guid: 0a5b3b76418ebb3428f1a9b8f523e183, type: 3}
   tomatocontrol: {fileID: 449446693}
   enemyControl: {fileID: 1045029404}
+  enemy_Countered: {fileID: 69562769}
   tomatoAnim: {fileID: 449446690}
   enemyAnim: {fileID: 1045029402}
   staminaIcon: {fileID: 1874515705}
   GetReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
+  YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
+  dark_filter: {fileID: 4398293146802034871, guid: fbc2b628c73589f44b794293c514183d, type: 3}
   resultCard: {fileID: 8657701029009385914, guid: dd3188687dbade943b097a53a6366cde, type: 3}
 --- !u!114 &444394830
 MonoBehaviour:
@@ -3846,7 +3860,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &444394832
 Canvas:
   m_ObjectHideFlags: 0
@@ -4275,7 +4289,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   maxHealth: 100
-  currentHealth: 30
+  currentHealth: 100
   maxGuard: 15
   current_guardPt: 15
   tomatoAtk: 1
@@ -9293,6 +9307,7 @@ MonoBehaviour:
   attackType: 0
   pjTag: 
   enemyAIControl: {fileID: 750718016}
+  totalSuper: 0
 --- !u!1001 &1060537311
 PrefabInstance:
   m_ObjectHideFlags: 0

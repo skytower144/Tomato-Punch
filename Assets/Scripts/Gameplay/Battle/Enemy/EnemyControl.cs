@@ -23,6 +23,7 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public int attackType;
     [HideInInspector] public string pjTag;     // pj selection string
     [SerializeField] private EnemyAIControl enemyAIControl;
+    public int totalSuper = 0;
     
     void Start()
     {
@@ -56,6 +57,8 @@ public class EnemyControl : MonoBehaviour
             }
             else if(tomatocontrol.enemy_supered)
             {
+                totalSuper += 1;
+                
                 tomatocontrol.enemy_supered = false;
                 enemy_supered = true;
 
