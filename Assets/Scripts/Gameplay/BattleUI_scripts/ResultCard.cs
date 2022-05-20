@@ -8,42 +8,53 @@ public class ResultCard : MonoBehaviour
     private int totalCounter_ct, totalParry_ct, totalSuper_ct;
     private float temp_ct;
     private float TEXTSPEED = 14f;
-    [SerializeField] private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
-    private bool start_textChange_counter;
-    private bool start_textChange_parry;
-    private bool start_textChange_super;
+    public BattleSystem battleSystem;
+    [SerializeField] private GameObject battle_end_circle;
+    [SerializeField] private TextMeshProUGUI bottom_txt, totalCounter_txt, totalParry_txt, totalSuper_txt;
+    private bool start_textChange_counter, start_textChange_parry, start_textChange_super;
+    private bool score_isFinal = false;
 
     void Update()
     {
         if (start_textChange_counter && temp_ct <= (float)totalCounter_ct)
         {
             temp_ct += Time.deltaTime * TEXTSPEED;
-            totalCounter_txt.text = temp_ct.ToString("F0");
             if(CheckText(temp_ct, (float)totalCounter_ct))
             {
                 start_textChange_counter = false;
                 totalCounter_txt.color = new Color32(248, 131, 50, 255);
             }
+            totalCounter_txt.text = temp_ct.ToString("F0");
+            
         }
         else if (start_textChange_parry && temp_ct <= (float)totalParry_ct)
         {
             temp_ct += Time.deltaTime * TEXTSPEED;
-            totalParry_txt.text = temp_ct.ToString("F0");
             if(CheckText(temp_ct, (float)totalParry_ct))
             {
                 start_textChange_parry = false;
                 totalParry_txt.color = new Color32(248, 131, 50, 255);
             }
+            totalParry_txt.text = temp_ct.ToString("F0");
         }
         else if (start_textChange_super && temp_ct <= (float)totalSuper_ct)
         {
             temp_ct += Time.deltaTime * TEXTSPEED;
-            totalSuper_txt.text = temp_ct.ToString("F0");
             if(CheckText(temp_ct, (float)totalSuper_ct))
             {
                 start_textChange_super = false;
                 totalSuper_txt.color = new Color32(248, 131, 50, 255);
+
+                score_isFinal = true;
             }
+            totalSuper_txt.text = temp_ct.ToString("F0");
+        }
+
+        if (score_isFinal && Input.anyKey)
+        {
+            score_isFinal = false;
+            Destroy(Instantiate(battle_end_circle), 2f);
+            battleSystem.ExitBattle();
         }
     }
     public void ResultCard_Initialize(int counter_ct, int parry_ct, int super_ct)
@@ -91,5 +102,6 @@ public class ResultCard : MonoBehaviour
         }
         return false;
     }
+    
     
 }

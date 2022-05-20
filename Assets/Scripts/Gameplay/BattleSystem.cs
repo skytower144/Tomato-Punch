@@ -12,10 +12,14 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(battle_initiate_fade);
     }
-    public void HandleUpdate()
+    // public void HandleUpdate()
+    // {
+        
+        
+    // }
+    public void ExitBattle()
     {
-        
-        
+        OnBattleOver();
     }
 
 }

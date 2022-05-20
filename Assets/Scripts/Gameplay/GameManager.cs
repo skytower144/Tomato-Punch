@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera mainCamera;
-
+    [SerializeField] private GameObject battleCircle, exclamation;
+    public GameObject playerObject;
+    private Animator playerAnimator;
+    private float player_x, player_y;
     private void Start() //subscribing to an event
     {
         battleSystem.OnBattleOver += EndBattle;
@@ -22,10 +25,7 @@ public class GameManager : MonoBehaviour
 
     void EndBattle()
     {
-        gameState = GameState.FreeRoam;
-        battleSystem.gameObject.SetActive(false);
-        mainCamera.gameObject.SetActive(true);
-        PlayerMovement.isBattle = false;
+        StartCoroutine(BattleExit_Wait());
     }
 
     private void Update()
@@ -34,10 +34,28 @@ public class GameManager : MonoBehaviour
         {
             playerMovement.HandleUpdate();
         }
-        else if(gameState == GameState.Battle)
-        {
-            battleSystem.HandleUpdate();
-        }
+        // else if(gameState == GameState.Battle)
+        // {
+        //     battleSystem.HandleUpdate();
+        // }
+    }
+
+    public void Initiate_Battle()
+    {
+        PlayerMovement.isBattle = true;
+
+        playerAnimator = playerObject.GetComponent<Animator>();
+        playerAnimator.SetBool("isWalking",false);
+
+        player_x = GameObject.Find("Player").transform.position.x;
+        player_y = GameObject.Find("Player").transform.position.y;
+
+        Instantiate (exclamation, new Vector2 (player_x-0.05f, player_y+3f), Quaternion.identity);
+        Invoke("battleStart_ef", 0.4f);
+    }
+    public void battleStart_ef()
+    {
+        Destroy(Instantiate (battleCircle, new Vector2 (player_x-2.6f, player_y), Quaternion.identity),2f);
     }
 
     IEnumerator Wait()
@@ -48,4 +66,16 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
     }
+
+    IEnumerator BattleExit_Wait()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        battleSystem.gameObject.SetActive(false);
+        gameState = GameState.FreeRoam;
+        mainCamera.gameObject.SetActive(true);
+
+        PlayerMovement.isBattle = false;
+    }
+
 }

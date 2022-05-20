@@ -5,6 +5,7 @@ public class TextSpawn : MonoBehaviour
 {
     [SerializeField] private GameObject missEffect;
     [System.NonSerialized] static public bool isMiss = false;
+    [SerializeField] private BattleSystem textSpawn_BattleSystem;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
@@ -12,7 +13,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, dark_filter, resultCard;
-    
+
     private Vector3 randomPosition;
 
     private void OnEnable()
@@ -20,6 +21,7 @@ public class TextSpawn : MonoBehaviour
         Instantiate(GetReadyText, transform);
         Invoke("playIntro", 0.65f);
     }
+
     void Update()
     {
         if (isMiss)
@@ -62,6 +64,7 @@ public class TextSpawn : MonoBehaviour
         GameObject resultCard_obj = Instantiate(resultCard, transform);
 
         resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(enemy_Countered.totalCounter, Enemy_parried.totalParry, enemyControl.totalSuper);
+        resultCard_obj.GetComponent<ResultCard>().battleSystem = textSpawn_BattleSystem;
     }
 
     public void normalize_resultCard()

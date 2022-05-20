@@ -1980,6 +1980,7 @@ GameObject:
   - component: {fileID: 7747063359128945511}
   - component: {fileID: 1545557914462820411}
   - component: {fileID: 7252669261388878673}
+  - component: {fileID: 6551919413870225448}
   - component: {fileID: 8386101069396465645}
   - component: {fileID: 372030530523298717}
   m_Layer: 6
@@ -2061,6 +2062,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dd4c45ebb38ba04fa7e76c7b00b292f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleSystem: {fileID: 0}
+  battle_end_circle: {fileID: 6256539079404525266, guid: f3a5f37fd8d79a4418e1314a668b3a74, type: 3}
+  bottom_txt: {fileID: 4361889485915207709}
+  totalCounter_txt: {fileID: 0}
+  totalParry_txt: {fileID: 0}
+  totalSuper_txt: {fileID: 0}
+--- !u!114 &6551919413870225448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8657701029009385914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272e7d0f1180b6147a3facba5ec95768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8386101069396465645
