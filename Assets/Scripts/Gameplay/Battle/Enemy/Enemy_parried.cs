@@ -12,10 +12,12 @@ public class Enemy_parried : MonoBehaviour
     [HideInInspector] public static bool pjParried = false;
     public static int totalParry = 0;
     
-    void Start()
+    void OnEnable()
     {
         anim = GetComponentInParent<Animator>();
         string_parried = _enemyBase.Parried_AnimationString;
+
+        totalParry = 0;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {

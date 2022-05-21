@@ -71,29 +71,38 @@ public class tomatoControl : MonoBehaviour
     [System.NonSerialized] public int tomatoes = 0;
     public int tomatoSuper;                  // which super indication
 
-    void Awake()
+    void OnEnable()
     {
+        isIntro = true;
+        isTired = false;
+        isVictory = false;
+        isFainted = false;
+
         dmg_normalPunch = tomatoAtk;
         dmg_gatlePunch = tomatoAtk * 0.2f + 0.1f;
         dmg_upperPunch = tomatoAtk + 4;
         dmg_super += tomatoAtk;
-    }
-    void Start()
-    {
-        tomatoAnimator = GetComponent<Animator>();
 
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
         healthBar.setDamageFill();
 
         guardBar.SetMaxGuard(maxGuard);
+        current_guardPt = maxGuard;
         guardBar.SetGuardbar(current_guardPt);
 
         parryBar.SetParryBar();
 
         staminaIcon.SetMaxStamina(maxStamina);
+        currentStamina = maxStamina;
         staminaIcon.SetStamina(currentStamina);
 
+        tomatoes = 0;
+        counterTrack.CounterTracker();
+    }
+    void Start()
+    {
+        tomatoAnimator = GetComponent<Animator>();
     }
 
     void ChangeAnimationState(string newState)
@@ -111,6 +120,11 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
             Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
+
+            Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
+            Debug.Log("enemy_isParried : " + Enemy_parried.isParried);
+            Debug.Log("enemy_isCountered : " + Enemy_countered.enemy_isCountered);
+            Debug.Log("enemy_isPunched : " + Enemy_is_hurt.enemy_isPunched);
         }
 
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
@@ -172,7 +186,7 @@ public class tomatoControl : MonoBehaviour
                         {
                             parryBar.gaksungOn = false;
                             parryBar.parryFill.fillAmount = 0;
-                            parryBar.parryFillUp.SetActive(false);
+                            parryBar.parry_fullCharge.SetActive(false);
                             gaksung_OBJ.SetActive(false);
 
                             superBanner.SetActive(true);
@@ -413,7 +427,7 @@ public class tomatoControl : MonoBehaviour
 
     void gatlingReady()
     {
-        if(!gatleCircleControl.failUppercut && !uppercutYes)
+        if(!BattleUI_Control.stopGatle && !gatleCircleControl.failUppercut && !uppercutYes)
         {
             isGatle = false;
             tomatoAnimator.Play("tomato_gatlingIdle",-1,0f);

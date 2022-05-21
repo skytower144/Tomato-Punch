@@ -8,7 +8,6 @@ public class StaminaIcon : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI staminaText;
-
     void Update()
     {
         if(tomatocontrol.currentStamina == 0)

@@ -12,12 +12,19 @@ public class Enemy_countered : MonoBehaviour
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
+    [HideInInspector] public bool counter_is_initialized = false;
     public int totalCounter = 0;
     private GameObject instance1;
-    void Start()
+    void OnEnable()
     {
-        anim = GetComponentInParent<Animator>();
-        string_countered = _enemyBase.Countered_AnimationString;
+        if (!counter_is_initialized)
+        {
+            counter_is_initialized = true;
+
+            anim = GetComponentInParent<Animator>();
+            string_countered = _enemyBase.Countered_AnimationString;
+            totalCounter = 0;
+        }
     }
 
     void Update()

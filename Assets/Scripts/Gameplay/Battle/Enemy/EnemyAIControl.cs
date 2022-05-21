@@ -8,6 +8,10 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
+    void OnEnable()
+    {
+        enemy_isIntro = true;
+    }
     void EnemyMove(string movename)
     {
         Enemy_AttackDetail EM = enemyCtrl._base.EnemyAttack(movename);

@@ -73,8 +73,8 @@ public class ResultCard : MonoBehaviour
         totalSuper_txt = transform.GetChild(3).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
 
         Invoke("TextChange_counter", 2.5f);
-        Invoke("TextChange_parry", 3.8f);
-        Invoke("TextChange_super", 5.1f);
+        Invoke("TextChange_parry", 3.5f);
+        Invoke("TextChange_super", 4.5f);
     }
 
     private void TextChange_counter()

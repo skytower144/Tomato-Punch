@@ -18,9 +18,8 @@ public class Enemy_is_hurt : MonoBehaviour
     [System.NonSerialized] public bool guardUp, enemyIsHit;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
-
     
-    void Start()
+    void OnEnable()
     {
         enemyBase = enemyControl._base;
 
@@ -58,7 +57,7 @@ public class Enemy_is_hurt : MonoBehaviour
             enemyHurtDamage(tomatocontrol.dmg_gatlePunch);
             checkDefeat("GP");
         }
-        else
+        else if(!enemy_isDefeated)
         {
             if (!Enemy_countered.enemy_isCountered){
                 hitct += 1;
@@ -160,6 +159,7 @@ public class Enemy_is_hurt : MonoBehaviour
             enemy_isDefeated = true;
 
             tomatoAnim.enabled = false;
+            tomatoControl.isVictory = true;
             anim.Play(enemyBase.Defeated_AnimationString,-1,0f);
 
             Instantiate(defeatedEffect_beam);

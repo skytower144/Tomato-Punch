@@ -16,6 +16,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Enemy_is_hurt enemyHurt;
+    [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
@@ -24,12 +25,21 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public string pjTag;     // pj selection string
     [SerializeField] private EnemyAIControl enemyAIControl;
     public int totalSuper = 0;
-    
-    void Start()
+
+    void OnEnable()
     {
+        disableBools();
+        totalSuper = 0;
+
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;
         enemyAIControl.InvokeRepeating(_base.EnemyName,1f,2f);
+    }
+
+    void OnDisable()
+    {
+        enemy_Countered.counter_is_initialized = false;
+        enemyAIControl.CancelInvoke();
     }
     
     void Update()
@@ -134,7 +144,7 @@ public class EnemyControl : MonoBehaviour
 
     void detectEvasion()
     {
-        if(!tomatoHurt.isTomatoHurt)
+        if(!tomatoHurt.isTomatoHurt && !tomatoControl.isGuard)
         {
             tomatocontrol.currentStamina += 5;
             if (tomatocontrol.currentStamina > tomatocontrol.maxStamina)
@@ -184,11 +194,12 @@ public class EnemyControl : MonoBehaviour
     void disableBools()
     {
         Enemy_is_hurt.enemy_isPunched = false;
+        Enemy_is_hurt.enemy_isDefeated = false;
         Enemy_countered.enemy_isCountered = false;
         Enemy_parried.isParried = false;
         enemy_supered = false;
         
-        action_afterSuffer = true;
+        action_afterSuffer = false;
     }
 
     void guardDown() // apply to all enemy attack animations' first frame
@@ -208,8 +219,9 @@ public class EnemyControl : MonoBehaviour
         tomatoAnim.enabled = true;
         Instantiate(defeatedEffect_pop);
         textSpawn.spawn_KO_text();
-        DOTween.Play("CameraShake");
 
+        DOTween.Rewind("CameraShake");
+        DOTween.Play("CameraShake");
     }
 
     private void super_upper_KO() // if supered, uppered KO

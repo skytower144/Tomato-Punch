@@ -2426,6 +2426,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   battleCircle: {fileID: 5855777196679259577, guid: 62ecba09751ef914f82b224b3ab9759c, type: 3}
   exclamation: {fileID: 1128744471400820819, guid: 97498d9155afa6b48aa64a82f26194c7, type: 3}
+  fadeOut: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
   playerObject: {fileID: 1315878914}
 --- !u!4 &305310878
 Transform:
@@ -3806,7 +3807,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 1523571193
+  m_SortingLayerID: 1161205635
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &445686031
@@ -9091,6 +9092,7 @@ MonoBehaviour:
   tomatoAnim: {fileID: 449446690}
   staminaIcon: {fileID: 1874515705}
   enemyHurt: {fileID: 1508086782}
+  enemy_Countered: {fileID: 69562769}
   textSpawn: {fileID: 444394829}
   action_afterSuffer: 0
   enemy_supered: 0
@@ -9248,7 +9250,7 @@ MonoBehaviour:
   parryWhiteBar: {fileID: 467528714}
   parryWhiteBarFill: {fileID: 467528716}
   parryFill: {fileID: 877849028}
-  parryFillUp: {fileID: 1305938422}
+  parry_fullCharge: {fileID: 1305938422}
   parryBar: {fileID: 1283050084}
   gaksung: {fileID: 717893950}
 --- !u!1 &1068151964 stripped
@@ -15600,7 +15602,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
