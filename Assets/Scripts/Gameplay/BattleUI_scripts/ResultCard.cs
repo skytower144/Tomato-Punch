@@ -5,15 +5,29 @@ using TMPro;
 
 public class ResultCard : MonoBehaviour
 {
-    private int totalCounter_ct, totalParry_ct, totalSuper_ct;
+    public BattleSystem battleSystem;
+    public EnemyBase enemyBase;
+    private TypeEffect typeEffect;
+    private int totalCounter_ct, totalParry_ct, totalSuper_ct, inputCount, textIndex;
     private float temp_ct;
     private float TEXTSPEED = 14f;
-    public BattleSystem battleSystem;
     [SerializeField] private GameObject battle_end_circle;
-    [SerializeField] private TextMeshProUGUI bottom_txt, totalCounter_txt, totalParry_txt, totalSuper_txt;
-    private bool start_textChange_counter, start_textChange_parry, start_textChange_super;
-    private bool score_isFinal = false;
+    [SerializeField] private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
+    private string[] resultTexts;
+    private bool start_textChange_counter, start_textChange_parry, start_textChange_super, data_isReady, isExit;
 
+    void Start()
+    {
+        typeEffect = transform.GetChild(4).gameObject.GetComponent<TypeEffect>();
+    }
+
+    void OnEnable()
+    {
+        inputCount = 1;
+        textIndex = -1;
+        data_isReady = false;
+        isExit = false;
+    }
     void Update()
     {
         if (start_textChange_counter && temp_ct <= (float)totalCounter_ct)
@@ -45,23 +59,56 @@ public class ResultCard : MonoBehaviour
                 start_textChange_super = false;
                 totalSuper_txt.color = new Color32(248, 131, 50, 255);
 
-                score_isFinal = true;
+                inputCount += 1;
+                Invoke("CallText", 1f);
             }
             totalSuper_txt.text = temp_ct.ToString("F0");
         }
 
-        if (score_isFinal && Input.anyKey)
+        if(data_isReady && !isExit)
         {
-            score_isFinal = false;
-            Destroy(Instantiate(battle_end_circle), 2f);
-            battleSystem.ExitBattle();
+            if(Input.GetKeyDown(KeyCode.O))
+            {
+                CancelInvoke();
+                if (inputCount == 1){
+                    start_textChange_counter = false;
+                    start_textChange_parry = false;
+                    start_textChange_super = false;
+
+                    totalCounter_txt.text = totalCounter_ct.ToString("F0");
+                    totalParry_txt.text = totalParry_ct.ToString("F0");
+                    totalSuper_txt.text = totalSuper_ct.ToString("F0");
+
+                    totalCounter_txt.color = new Color32(248, 131, 50, 255);
+                    totalParry_txt.color = new Color32(248, 131, 50, 255);
+                    totalSuper_txt.color = new Color32(248, 131, 50, 255);
+
+                    inputCount += 1;
+                    Invoke("CallText", 1f);
+                }
+                else if (inputCount == 2){
+                    CallText();
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                ResultCard_Exit();
+            }
         }
     }
-    public void ResultCard_Initialize(int counter_ct, int parry_ct, int super_ct)
+    public void ResultCard_Initialize(int counter_ct, int parry_ct, int super_ct, BattleSystem battle_system, EnemyBase enemy_base)
     {
         totalCounter_ct = counter_ct;
         totalParry_ct = parry_ct;
         totalSuper_ct = super_ct;
+
+        battleSystem = battle_system;
+        enemyBase = enemy_base;
+
+        string expMessage = string.Format("Gained Total {0} Exp.", enemyBase.BattleExp);
+        string moneyMessage = string.Format("Obtained {0} Coins.", enemyBase.BattleCoin);
+        resultTexts = new string[] {expMessage, moneyMessage};
 
         ResultCard_GetScore();
     }
@@ -79,6 +126,8 @@ public class ResultCard : MonoBehaviour
 
     private void TextChange_counter()
     {
+        data_isReady = true; // Enables Player to Exit any moment.
+
         temp_ct = 0;
         start_textChange_counter = true;
     }
@@ -103,5 +152,28 @@ public class ResultCard : MonoBehaviour
         return false;
     }
     
+    private void CallText()
+    {
+        if(!typeEffect.isPrinting){
+            textIndex += 1;
+        }
+        
+        if (textIndex == resultTexts.Length)
+            ResultCard_Exit();
+        
+        else {
+            typeEffect.SetMessage(resultTexts[textIndex]);
+        }
+    }
+
+    private void ResultCard_Exit()
+    {
+        isExit = true;
+
+        CancelInvoke();
+        Destroy(Instantiate(battle_end_circle), 2f);
+        battleSystem.ExitBattle();
+        battleSystem.UpdatePlayerStatus(enemyBase.BattleExp, enemyBase.BattleCoin);
+    }
     
 }

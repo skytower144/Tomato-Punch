@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
+    [SerializeField] private tomatoStatus player_status;
     [SerializeField] private GameObject battle_initiate_fade;
     
     void OnEnable()
@@ -20,6 +21,11 @@ public class BattleSystem : MonoBehaviour
     public void ExitBattle()
     {
         OnBattleOver();
+    }
+
+    public void UpdatePlayerStatus(float exp, int coin)
+    {
+        player_status.playerMoney += coin;
     }
 
 }

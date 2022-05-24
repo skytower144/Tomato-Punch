@@ -21,6 +21,10 @@ public class TextSpawn : MonoBehaviour
         Instantiate(GetReadyText, transform);
         Invoke("playIntro", 0.65f);
     }
+    private void OnDisable()
+    {
+        normalize_resultCard();
+    }
 
     void Update()
     {
@@ -63,14 +67,13 @@ public class TextSpawn : MonoBehaviour
         Instantiate(dark_filter, transform);
         GameObject resultCard_obj = Instantiate(resultCard, transform);
 
-        resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(enemy_Countered.totalCounter, Enemy_parried.totalParry, enemyControl.totalSuper);
-        resultCard_obj.GetComponent<ResultCard>().battleSystem = textSpawn_BattleSystem;
+        resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(enemy_Countered.totalCounter, EnemyControl.totalParry, enemyControl.totalSuper, textSpawn_BattleSystem, enemyControl._base);
     }
 
     public void normalize_resultCard()
     {
         enemy_Countered.totalCounter = 0;
-        Enemy_parried.totalParry = 0;
+        EnemyControl.totalParry = 0;
         enemyControl.totalSuper = 0;
     }
 }

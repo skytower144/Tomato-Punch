@@ -23,7 +23,6 @@ public class Enemy_countered : MonoBehaviour
 
             anim = GetComponentInParent<Animator>();
             string_countered = _enemyBase.Countered_AnimationString;
-            totalCounter = 0;
         }
     }
 

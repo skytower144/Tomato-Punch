@@ -24,12 +24,12 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public int attackType;
     [HideInInspector] public string pjTag;     // pj selection string
     [SerializeField] private EnemyAIControl enemyAIControl;
+    public static int totalParry = 0;
     public int totalSuper = 0;
 
     void OnEnable()
     {
         disableBools();
-        totalSuper = 0;
 
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;

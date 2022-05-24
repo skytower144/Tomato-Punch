@@ -14,6 +14,8 @@ public class EnemyBase : ScriptableObject
     public List <string> EnemySuperedAnim;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
+    [SerializeField] private float battleExp;
+    [SerializeField] private int battleCoin;
 
     public string EnemyName
     {
@@ -94,6 +96,14 @@ public class EnemyBase : ScriptableObject
     public Enemy_ProjectileDetail EnemyPjSelect(string pjName)
     {
         return projectiles.Find( x=> x.EnemyPjName == pjName);
+    }
+    public float BattleExp
+    {
+        get { return battleExp; }
+    }
+    public int BattleCoin
+    {
+        get { return battleCoin; }
     }
 
 }
