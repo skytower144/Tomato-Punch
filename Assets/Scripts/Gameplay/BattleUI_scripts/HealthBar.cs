@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour
             if (slider.normalizedValue < damagedFill.fillAmount)
             {
                 float shrinkSpeed = 5f * Time.deltaTime;
-                damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount,slider.normalizedValue,shrinkSpeed);
+                damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount, slider.normalizedValue, shrinkSpeed);
                 //damagedFill.fillAmount -= shrinkSpeed * Time.deltaTime;
             }
         }

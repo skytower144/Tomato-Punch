@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ResultCard : MonoBehaviour
@@ -8,12 +9,14 @@ public class ResultCard : MonoBehaviour
     public BattleSystem battleSystem;
     public EnemyBase enemyBase;
     private TypeEffect typeEffect;
+    private ResultCard_ExpBar resultCard_ExpBar;
     private int totalCounter_ct, totalParry_ct, totalSuper_ct, inputCount, textIndex;
     private float temp_ct;
     private float TEXTSPEED = 14f;
     [SerializeField] private GameObject battle_end_circle;
     [SerializeField] private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
     private string[] resultTexts;
+    private ExpBundle expBundle;
     private bool start_textChange_counter, start_textChange_parry, start_textChange_super, data_isReady, isExit;
 
     void Start()
@@ -23,7 +26,7 @@ public class ResultCard : MonoBehaviour
 
     void OnEnable()
     {
-        inputCount = 1;
+        inputCount = 0;
         textIndex = -1;
         data_isReady = false;
         isExit = false;
@@ -39,7 +42,6 @@ public class ResultCard : MonoBehaviour
                 totalCounter_txt.color = new Color32(248, 131, 50, 255);
             }
             totalCounter_txt.text = temp_ct.ToString("F0");
-            
         }
         else if (start_textChange_parry && temp_ct <= (float)totalParry_ct)
         {
@@ -58,9 +60,6 @@ public class ResultCard : MonoBehaviour
             {
                 start_textChange_super = false;
                 totalSuper_txt.color = new Color32(248, 131, 50, 255);
-
-                inputCount += 1;
-                Invoke("CallText", 1f);
             }
             totalSuper_txt.text = temp_ct.ToString("F0");
         }
@@ -70,7 +69,9 @@ public class ResultCard : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.O))
             {
                 CancelInvoke();
+                inputCount += 1;
                 if (inputCount == 1){
+
                     start_textChange_counter = false;
                     start_textChange_parry = false;
                     start_textChange_super = false;
@@ -83,10 +84,9 @@ public class ResultCard : MonoBehaviour
                     totalParry_txt.color = new Color32(248, 131, 50, 255);
                     totalSuper_txt.color = new Color32(248, 131, 50, 255);
 
-                    inputCount += 1;
-                    Invoke("CallText", 1f);
+                    resultCard_ExpBar.DisplayExp();
                 }
-                else if (inputCount == 2){
+                else if (inputCount >= 2 && resultCard_ExpBar.DisplayExp_isOver()){
                     CallText();
                 }
             }
@@ -109,6 +109,10 @@ public class ResultCard : MonoBehaviour
         string expMessage = string.Format("Gained Total {0} Exp.", enemyBase.BattleExp);
         string moneyMessage = string.Format("Obtained {0} Coins.", enemyBase.BattleCoin);
         resultTexts = new string[] {expMessage, moneyMessage};
+
+        expBundle = battleSystem.GetExp();
+        resultCard_ExpBar = transform.GetChild(0).gameObject.GetComponent<ResultCard_ExpBar>();
+        resultCard_ExpBar.InitializeExpBar(expBundle.player_level, expBundle.player_max_exp, expBundle.player_current_exp, enemyBase.BattleExp);
 
         ResultCard_GetScore();
     }

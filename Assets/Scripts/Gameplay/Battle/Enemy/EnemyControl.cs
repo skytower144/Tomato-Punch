@@ -102,13 +102,13 @@ public class EnemyControl : MonoBehaviour
 
     void hurtOver()
     {
+        Enemy_is_hurt.enemyIsHit = false;
         if(Enemy_parried.isParried && EnemyControl.isPhysical)                             // punching enemy when enemy is parried
             anim.Play(_base.ParriedAft_AnimationString,-1,0f);
         else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
             anim.Play(_base.Suffer_AnimationString,-1,0f);
         else if(!Enemy_is_hurt.enemy_isPunched){                                            // go back to idle when player did not attack
             anim.Play(_base.Idle_AnimationString,-1,0f);
-            enemyHurt.enemyIsHit = false;
         }
     }
 
@@ -155,7 +155,7 @@ public class EnemyControl : MonoBehaviour
     }
     void beginSuffer()
     {
-        Invoke("return_CounterToIdle", 3f);
+        Invoke("return_CounterToIdle", 2f);
         if(!Enemy_is_hurt.enemy_isPunched)     // when enemy is hurt at the exact frame transitioning to the suffer animation, 
             anim.Play(_base.Suffer_AnimationString,-1,0f);   // the 'if' statement makes it prioritize the hurt animation.
     }
@@ -166,11 +166,14 @@ public class EnemyControl : MonoBehaviour
     }
     void return_CounterToIdle()
     {
-        Enemy_countered.enemy_isCountered = false;
-        Enemy_is_hurt.enemy_isPunched = false;
-        action_afterSuffer = true;
-        if(!enemyHurt.enemyIsHit){
-            anim.Play(_base.Idle_AnimationString);
+        if(!Enemy_is_hurt.enemy_isDefeated){
+            Enemy_countered.enemy_isCountered = false;
+            Enemy_is_hurt.enemy_isPunched = false;
+            
+            action_afterSuffer = true;
+            if(!Enemy_is_hurt.enemyIsHit){
+                anim.Play(_base.Idle_AnimationString);
+            }
         }
     }
 

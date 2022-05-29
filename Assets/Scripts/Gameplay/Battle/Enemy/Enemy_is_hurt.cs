@@ -14,8 +14,8 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
-    [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated;
-    [System.NonSerialized] public bool guardUp, enemyIsHit;
+    [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
+    [System.NonSerialized] public bool guardUp;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
     

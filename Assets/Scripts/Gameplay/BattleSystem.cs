@@ -7,6 +7,7 @@ public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
     [SerializeField] private tomatoStatus player_status;
+    [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private GameObject battle_initiate_fade;
     
     void OnEnable()
@@ -26,6 +27,16 @@ public class BattleSystem : MonoBehaviour
     public void UpdatePlayerStatus(float exp, int coin)
     {
         player_status.playerMoney += coin;
+    }
+
+    public ExpBundle GetExp()
+    {
+        ExpBundle expBundle = ScriptableObject.CreateInstance<ExpBundle>();
+        expBundle.player_level = tomatoLevel.playerLevel;
+        expBundle.player_max_exp = tomatoLevel.expFill.maxValue;
+        expBundle.player_current_exp = tomatoLevel.expFill.value;
+
+        return expBundle;
     }
 
 }
