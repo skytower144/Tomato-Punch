@@ -227,8 +227,9 @@ public class EnemyControl : MonoBehaviour
         DOTween.Play("CameraShake");
     }
 
-    private void super_upper_KO() // if supered, uppered KO
+    private void super_upper_KO() // if supered or uppered -> KO
     {
+        tomatoControl.isVictory = true;
         Enemy_is_hurt.enemy_isDefeated = true;
         Instantiate(defeatedEffect_beam);
     }

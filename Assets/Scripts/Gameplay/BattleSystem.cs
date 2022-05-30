@@ -24,8 +24,14 @@ public class BattleSystem : MonoBehaviour
         OnBattleOver();
     }
 
-    public void UpdatePlayerStatus(float exp, int coin)
+    public void UpdatePlayerStatus(int level, float maxExp, float currentExp, int coin)
     {
+        tomatoLevel.playerLevel = level;
+        tomatoLevel.levelText.text = string.Format("Lv {0}", level); 
+
+        tomatoLevel.expFill.maxValue = maxExp;
+        tomatoLevel.expFill.value = currentExp;
+
         player_status.playerMoney += coin;
     }
 

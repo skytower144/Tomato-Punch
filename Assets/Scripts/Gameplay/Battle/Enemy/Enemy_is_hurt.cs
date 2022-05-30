@@ -156,10 +156,10 @@ public class Enemy_is_hurt : MonoBehaviour
     public bool checkDefeat(string animString)
     {
         if (Enemy_currentHealth == 0){
+            tomatoControl.isVictory = true;
             enemy_isDefeated = true;
 
             tomatoAnim.enabled = false;
-            tomatoControl.isVictory = true;
             anim.Play(enemyBase.Defeated_AnimationString,-1,0f);
 
             Instantiate(defeatedEffect_beam);

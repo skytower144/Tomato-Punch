@@ -10,6 +10,8 @@ public class ResultCard : MonoBehaviour
     public EnemyBase enemyBase;
     private TypeEffect typeEffect;
     private ResultCard_ExpBar resultCard_ExpBar;
+    public int updateLevel;
+    public float max_exp, current_exp;
     private int totalCounter_ct, totalParry_ct, totalSuper_ct, inputCount, textIndex;
     private float temp_ct;
     private float TEXTSPEED = 14f;
@@ -19,13 +21,10 @@ public class ResultCard : MonoBehaviour
     private ExpBundle expBundle;
     private bool start_textChange_counter, start_textChange_parry, start_textChange_super, data_isReady, isExit;
 
-    void Start()
-    {
-        typeEffect = transform.GetChild(4).gameObject.GetComponent<TypeEffect>();
-    }
-
     void OnEnable()
     {
+        typeEffect = transform.GetChild(4).gameObject.GetComponent<TypeEffect>();
+
         inputCount = 0;
         textIndex = -1;
         data_isReady = false;
@@ -89,11 +88,6 @@ public class ResultCard : MonoBehaviour
                 else if (inputCount >= 2 && resultCard_ExpBar.DisplayExp_isOver()){
                     CallText();
                 }
-            }
-
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                ResultCard_Exit();
             }
         }
     }
@@ -177,7 +171,7 @@ public class ResultCard : MonoBehaviour
         CancelInvoke();
         Destroy(Instantiate(battle_end_circle), 2f);
         battleSystem.ExitBattle();
-        battleSystem.UpdatePlayerStatus(enemyBase.BattleExp, enemyBase.BattleCoin);
+        battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, enemyBase.BattleCoin);
     }
     
 }
