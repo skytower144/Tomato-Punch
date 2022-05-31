@@ -17,7 +17,8 @@ public class ResultCard : MonoBehaviour
     private float TEXTSPEED = 14f;
     [SerializeField] private GameObject battle_end_circle;
     [SerializeField] private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
-    private string[] resultTexts;
+    private List<string> resultTexts = new List<string>();
+    private List<RewardDetail> droppedItems = new List<RewardDetail>();
     private ExpBundle expBundle;
     private bool start_textChange_counter, start_textChange_parry, start_textChange_super, data_isReady, isExit;
 
@@ -101,8 +102,11 @@ public class ResultCard : MonoBehaviour
         enemyBase = enemy_base;
 
         string expMessage = string.Format("Gained Total {0} Exp.", enemyBase.BattleExp);
-        string moneyMessage = string.Format("Obtained {0} Coins.", enemyBase.BattleCoin);
-        resultTexts = new string[] {expMessage, moneyMessage};
+        string moneyMessage = string.Format("Earned {0} Coins.", enemyBase.BattleCoin);
+
+        resultTexts.Add(expMessage);
+        resultTexts.Add(moneyMessage);
+        DropItems();
 
         expBundle = battleSystem.GetExp();
         resultCard_ExpBar = transform.GetChild(0).gameObject.GetComponent<ResultCard_ExpBar>();
@@ -156,11 +160,25 @@ public class ResultCard : MonoBehaviour
             textIndex += 1;
         }
         
-        if (textIndex == resultTexts.Length)
+        if (textIndex == resultTexts.Count)
             ResultCard_Exit();
         
         else {
             typeEffect.SetMessage(resultTexts[textIndex]);
+        }
+    }
+
+    private void DropItems()
+    {
+        for (int i=0; i<enemyBase.ItemReward.Count; i++)
+        {
+            float dropChance = enemyBase.ItemReward[i].DropChance * 0.01f;
+            if(Random.Range(0f, 1f) <= dropChance)
+            {
+                string itemMessage = string.Format("Obtained {0}!", enemyBase.ItemReward[i].RewardItem.ItemName);
+                resultTexts.Add(itemMessage);
+                droppedItems.Add(enemyBase.ItemReward[i]);
+            }
         }
     }
 
@@ -171,7 +189,7 @@ public class ResultCard : MonoBehaviour
         CancelInvoke();
         Destroy(Instantiate(battle_end_circle), 2f);
         battleSystem.ExitBattle();
-        battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, enemyBase.BattleCoin);
+        battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, enemyBase.BattleCoin, droppedItems);
     }
     
 }

@@ -24,7 +24,7 @@ public class BattleSystem : MonoBehaviour
         OnBattleOver();
     }
 
-    public void UpdatePlayerStatus(int level, float maxExp, float currentExp, int coin)
+    public void UpdatePlayerStatus(int level, float maxExp, float currentExp, int coin, List<RewardDetail> dropList)
     {
         tomatoLevel.playerLevel = level;
         tomatoLevel.levelText.text = string.Format("Lv {0}", level); 
@@ -33,6 +33,11 @@ public class BattleSystem : MonoBehaviour
         tomatoLevel.expFill.value = currentExp;
 
         player_status.playerMoney += coin;
+
+        for (int i=0; i < dropList.Count; i++)
+        {
+            Inventory.instance.AddItem(dropList[i].RewardItem);
+        }
     }
 
     public ExpBundle GetExp()
