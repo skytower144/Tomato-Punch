@@ -7,7 +7,7 @@ public class Enemy_AttackDetail
 {
     public string EnemyAttackName;
     public bool PhysicalAttack;
-    public int EnemyAttackDmg;
+    public float EnemyAttackDmg;
     public int EnemyAttackType;
 
 }

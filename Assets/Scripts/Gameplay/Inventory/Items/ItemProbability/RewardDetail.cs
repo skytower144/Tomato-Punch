@@ -6,6 +6,8 @@ using UnityEngine;
 public class RewardDetail
 {
     public Item RewardItem;
+
+    [Range(0, 100)]
     public float DropChance;
     
 }

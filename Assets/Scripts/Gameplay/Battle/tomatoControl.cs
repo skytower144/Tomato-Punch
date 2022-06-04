@@ -29,6 +29,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private CounterTrack counterTrack;
+    [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
     public SuperEquip tomatoSuperEquip;
     public List <Equip> tomatoEquip;
@@ -78,10 +79,10 @@ public class tomatoControl : MonoBehaviour
         isVictory = false;
         isFainted = false;
 
-        dmg_normalPunch = tomatoAtk;
-        dmg_gatlePunch = tomatoAtk * 0.2f + 0.1f;
-        dmg_upperPunch = tomatoAtk + 4;
-        dmg_super += tomatoAtk;
+        dmg_normalPunch = tomatodamage.NormalPunch(tomatoAtk);
+        dmg_gatlePunch = tomatodamage.GatlePunch(tomatoAtk);
+        dmg_upperPunch = tomatodamage.UpperPunch(tomatoAtk);
+        dmg_super = tomatodamage.SuperAttack(tomatoAtk);
 
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);

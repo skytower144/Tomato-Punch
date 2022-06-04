@@ -9,6 +9,7 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
@@ -87,7 +88,7 @@ public class Enemy_is_hurt : MonoBehaviour
                 //SKILL
                 else if(col.gameObject.tag.Equals("tomato_SK"))
                 {
-                    float skillDmg = dmgCalculate(tomatocontrol.tomatoEquip[0].skillDamage);
+                    float skillDmg = tomatodamage.SkillAttack(tomatocontrol.tomatoAtk, tomatocontrol.tomatoEquip[0].skillDamage);
                     enemyHurtDamage(skillDmg);
                     checkDefeat("SK");
                 }
@@ -115,11 +116,6 @@ public class Enemy_is_hurt : MonoBehaviour
         enemyHealthBar.enemy_hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
         enemyHealthBar.Invoke("Enemy_WhiteFillOff",0.05f);
         enemyHealthBar.Enemy_setWhiteFill();
-    }
-
-    private float dmgCalculate(float skillDmg)
-    {
-        return tomatocontrol.tomatoAtk * skillDmg / 100 + 2f;
     }
 
     private void enemyReflex()

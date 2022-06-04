@@ -189,7 +189,7 @@ public class ResultCard : MonoBehaviour
         CancelInvoke();
         Destroy(Instantiate(battle_end_circle), 2f);
         battleSystem.ExitBattle();
-        battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, enemyBase.BattleCoin, droppedItems);
+        battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, enemyBase.BattleExp, enemyBase.BattleCoin, droppedItems);
     }
     
 }
