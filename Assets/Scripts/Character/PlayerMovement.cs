@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRb;
     private Animator myAnim;
     [SerializeField] iconNavigation iconnavigation;
+    [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] private GameObject playerUI;
     [SerializeField] private List <GameObject> playerUIList;
     [SerializeField] private float speed;
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
                 iconnavigation.status_enableStart();
                 IsInteracting();
             }
-            else if(!SlotNavigation.isBusy && playerUI.activeSelf == true && Input.GetKeyDown(KeyCode.P))
+            else if(!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 1")))
             {
                 inventorySetUp();
                 iconnavigation.status_enableStart();
@@ -103,5 +104,7 @@ public class PlayerMovement : MonoBehaviour
         playerUIList[1].SetActive(false);
         playerUIList[2].SetActive(false);
         playerUIList[3].SetActive(false);
+
+        statusNavigation.normalize_navigation();
     }
 }
