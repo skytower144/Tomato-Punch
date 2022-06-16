@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 public class tomatoStatus : MonoBehaviour
 {
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private TextMeshProUGUI text_maxHp, text_currentHp, text_atkpt, text_defpt, text_money, text_totalExp, text_leftExp, text_statPt;
-    [SerializeField] private GameObject statusArrow, status_up_effect;
+    [SerializeField] private GameObject statusArrow, status_up_effect, frameshine_effect;
     [SerializeField] private Transform spawnPoint;
     [System.NonSerialized] public float player_maxHp, player_currentHp, player_atk, player_def;
     [System.NonSerialized] public int STATPOINT = 3;
@@ -62,18 +62,27 @@ public class tomatoStatus : MonoBehaviour
                 tomatocontrol.currentHealth = Mathf.Ceil(player_maxHp * hp_ratio);
                 player_currentHp = tomatocontrol.currentHealth;
                 text_currentHp.text = player_currentHp.ToString("F0");
+
+                DOTween.Rewind("textshine_hp");
+                DOTween.Play("textshine_hp");
             }
             else if (number == 1)
             {
                 tomatocontrol.tomatoAtk += AtkIncrease;
                 player_atk = tomatocontrol.tomatoAtk;
                 text_atkpt.text = player_atk.ToString("F0");
+
+                DOTween.Rewind("textshine_atk");
+                DOTween.Play("textshine_atk");
             }
             else if (number == 0)
             {
                 tomatocontrol.maxGuard += DefIncrease;
                 player_def = tomatocontrol.maxGuard;
                 text_defpt.text = player_def.ToString("F0");
+
+                DOTween.Rewind("textshine_def");
+                DOTween.Play("textshine_def");
             }
         }
     }
@@ -93,6 +102,7 @@ public class tomatoStatus : MonoBehaviour
     private void SpawnStatEffect(int number)
     {
         GameObject effect = Instantiate(status_up_effect, spawnPoint);
+        Instantiate(frameshine_effect, spawnPoint);
 
         if (number == 2){ // HP
             effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 211.89f);
