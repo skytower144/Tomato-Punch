@@ -7,7 +7,8 @@ public class tomatoStatus : MonoBehaviour
 {
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private TextMeshProUGUI text_maxHp, text_currentHp, text_atkpt, text_defpt, text_money, text_totalExp, text_leftExp, text_statPt;
-    [SerializeField] private GameObject statusArrow;
+    [SerializeField] private GameObject statusArrow, status_up_effect;
+    [SerializeField] private Transform spawnPoint;
     [System.NonSerialized] public float player_maxHp, player_currentHp, player_atk, player_def;
     [System.NonSerialized] public int STATPOINT = 3;
     public float player_totalExp, player_leftExp;
@@ -48,11 +49,19 @@ public class tomatoStatus : MonoBehaviour
             text_statPt.text = player_statPt.ToString("F0");
             CheckStatPt();
 
+            SpawnStatEffect(number);
+
             if (number == 2)
             {
+                float hp_ratio = tomatocontrol.currentHealth / tomatocontrol.maxHealth;
+                
                 tomatocontrol.maxHealth += HpIncrease;
                 player_maxHp = tomatocontrol.maxHealth;
                 text_maxHp.text = player_maxHp.ToString("F0");
+
+                tomatocontrol.currentHealth = Mathf.Ceil(player_maxHp * hp_ratio);
+                player_currentHp = tomatocontrol.currentHealth;
+                text_currentHp.text = player_currentHp.ToString("F0");
             }
             else if (number == 1)
             {
@@ -79,5 +88,24 @@ public class tomatoStatus : MonoBehaviour
         {
             statusArrow.SetActive(false);
         }
+    }
+
+    private void SpawnStatEffect(int number)
+    {
+        GameObject effect = Instantiate(status_up_effect, spawnPoint);
+
+        if (number == 2){ // HP
+            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 211.89f);
+            effect.GetComponent<SpriteRenderer>().color = new Color32(102, 255, 142, 157);
+        }
+        else if (number == 1){ // ATK
+            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 126f);
+            effect.GetComponent<SpriteRenderer>().color = new Color32(255, 78, 100, 157);
+        }
+        else if (number == 0){ // DEF
+            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 43f);
+            effect.GetComponent<SpriteRenderer>().color = new Color32(100, 243, 255, 157);
+        }
+        
     }
 }
