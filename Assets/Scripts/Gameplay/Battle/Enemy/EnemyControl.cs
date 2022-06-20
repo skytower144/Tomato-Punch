@@ -7,14 +7,17 @@ public class EnemyControl : MonoBehaviour
 {
     public EnemyBase _base;
     private Animator anim;
-    [SerializeField] private GameObject counterBox;
+    private SpriteRenderer enemy_renderer;
+    private Material matDefault;
+    [SerializeField] private GameObject duplicate_r, counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash;
     [SerializeField] private Transform Parent;
+    [SerializeField] private Animator tomatoAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private Animator tomatoAnim;
     [SerializeField] private StaminaIcon staminaIcon;
+    [SerializeField] private EnemyAIControl enemyAIControl;
     [SerializeField] private Enemy_is_hurt enemyHurt;
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
@@ -23,13 +26,16 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public bool enemy_supered = false;
     [HideInInspector] public int attackType;
     [HideInInspector] public string pjTag;     // pj selection string
-    [SerializeField] private EnemyAIControl enemyAIControl;
+    
     public static int totalParry = 0;
     public int totalSuper = 0;
 
     void OnEnable()
     {
         disableBools();
+
+        enemy_renderer = GetComponent<SpriteRenderer>();
+        matDefault = enemy_renderer.material;
 
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;
@@ -110,6 +116,20 @@ public class EnemyControl : MonoBehaviour
         else if(!Enemy_is_hurt.enemy_isPunched){                                            // go back to idle when player did not attack
             anim.Play(_base.Idle_AnimationString,-1,0f);
         }
+    }
+
+    void enemyCounterFlash(float flashDuration)
+    {
+        Invoke("ResetFlash", flashDuration);
+        duplicate_r.GetComponent<DuplicateRenderer>().flashSpeed = (1 - flashDuration) * 0.001f;
+        duplicate_r.SetActive(true);
+        enemyCounterStart();
+    }
+    public void ResetFlash()
+    {
+        enemyCounterEnd();
+        enemy_renderer.material = matDefault;
+        duplicate_r.SetActive(false);
     }
 
     void enemyCounterStart()
