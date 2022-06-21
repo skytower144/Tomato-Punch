@@ -171,8 +171,10 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if(!isTired)
                 {
-                    if(Input.GetKeyDown(KeyCode.S) || (Input.GetAxisRaw("LeftJoystickVertical") > 0))
+                    if(Input.GetKeyDown(KeyCode.S) || ((Input.GetAxisRaw("LeftJoystickVertical") > 0) && y_GP == 0))
                     {
+                        y_GP = -1;
+
                         guardRelease = false;
                         if((Input.GetAxisRaw("LeftJoystickVertical") > 0))
                         {
@@ -210,6 +212,8 @@ public class tomatoControl : MonoBehaviour
             {
                 if( !Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && (Input.GetKeyUp(KeyCode.S)) )
                 {
+                    y_GP = 0;
+
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
 
@@ -223,6 +227,8 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if(!Enemy_parried.isParried && !tomatoHurt.isTomatoHurt && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
                 {
+                    y_GP = 0;
+
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
 
@@ -388,7 +394,7 @@ public class tomatoControl : MonoBehaviour
                 tomatoGuard.isParry = false;
                 tomato_G.SetActive(true);
             }
-            if(Input.GetKey(KeyCode.S))
+            if(Input.GetKey(KeyCode.S) || y_GP == -1)
             {
                 ChangeAnimationState(TOMATO_GUARD);
             }
