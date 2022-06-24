@@ -4669,19 +4669,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c23fc00cae2ac41ad68fc49440dee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missEffect: {fileID: 1733493814909389476, guid: 0a5b3b76418ebb3428f1a9b8f523e183, type: 3}
   textSpawn_BattleSystem: {fileID: 1038232373}
   tomatocontrol: {fileID: 449446693}
   enemyControl: {fileID: 1045029404}
   enemy_Countered: {fileID: 69562769}
+  staminaIcon: {fileID: 1874515705}
   tomatoAnim: {fileID: 449446690}
   enemyAnim: {fileID: 1045029402}
-  staminaIcon: {fileID: 1874515705}
   GetReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
   YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
+  YouLose_Text: {fileID: 3526224795657967158, guid: cc50164d4c18c8447a0a3305da0118bb, type: 3}
   dark_filter: {fileID: 4398293146802034871, guid: fbc2b628c73589f44b794293c514183d, type: 3}
+  missEffect: {fileID: 1733493814909389476, guid: 0a5b3b76418ebb3428f1a9b8f523e183, type: 3}
   resultCard: {fileID: 8657701029009385914, guid: dd3188687dbade943b097a53a6366cde, type: 3}
+  continueBundle: {fileID: 5424863117900159607, guid: 1c8b357d199aa11468e10c373e4f96ac, type: 3}
 --- !u!114 &444394830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5152,7 +5154,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   maxHealth: 10
-  currentHealth: 10
+  currentHealth: 1
   maxGuard: 4
   current_guardPt: 4
   tomatoAtk: 5
@@ -11077,7 +11079,7 @@ Animator:
   m_GameObject: {fileID: 1045029400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11126,7 +11128,7 @@ SpriteRenderer:
   m_SortingLayerID: 100956575
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2455346762637126573, guid: 49c443ad79bb3ba45b9276fb359ae3b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11134,7 +11136,7 @@ SpriteRenderer:
   m_Size: {x: 18.045113, y: 10.150375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1045029404
@@ -14732,6 +14734,7 @@ MonoBehaviour:
   tomatoguard: {fileID: 1117059771}
   healthBar: {fileID: 166534781}
   battleTimeManager: {fileID: 810053883}
+  textSpawn: {fileID: 444394829}
 --- !u!61 &1426860820
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -20,6 +20,11 @@ public class EnemyAIControl : MonoBehaviour
         enemyCtrl.attackType = EM.EnemyAttackType;
         battleAnim.Play(movename);
     }
+
+    private bool ShouldActivate()
+    {
+        return (!tomatoControl.isFainted && !Enemy_is_hurt.enemy_isDefeated && !Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered);
+    }
     public void Jola() // function name must be exact as EnemyBase.EnemyName
     {
         if(!enemy_isIntro) {
@@ -28,16 +33,12 @@ public class EnemyAIControl : MonoBehaviour
                 enemyCtrl.action_afterSuffer = false;
                 return;
             }
-            else if(!Enemy_is_hurt.enemy_isDefeated && !Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered)
+            else if(ShouldActivate())
             {
                 
                 if((Random.value<= 0.1))
                 {
                     battleAnim.Play("battleJola_idle");
-                }
-                else if((Random.value<= 0.5))
-                {
-                    EnemyMove("battleJola_DA");
                 }
                 else if((Random.value<= 0.45))
                 {
@@ -47,8 +48,10 @@ public class EnemyAIControl : MonoBehaviour
                 {
                     EnemyMove("battleJola_RA");
                 }
-                
-                
+                else if((Random.value<= 0.5))
+                {
+                    EnemyMove("battleJola_DA");
+                }
                 else if((Random.value<= 0.2))
                 {
                     enemyCtrl.pjTag = "battleJola_HatAttack";

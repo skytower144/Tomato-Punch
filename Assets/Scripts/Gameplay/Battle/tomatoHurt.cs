@@ -11,6 +11,7 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private BattleTimeManager battleTimeManager;
+    [SerializeField] private TextSpawn textSpawn;
     
     void Start()
     {
@@ -51,9 +52,14 @@ public class tomatoHurt : MonoBehaviour
         healthBar.hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
 
         if(tomatocontrol.currentHealth == 0){
+            textSpawn.Invoke("AskContinue", 1.8f);
+
             tomatoControl.isFainted = true;
+
             anim.Play("tomato_faint",-1,0f);
             Instantiate(faintBurstEffect);
+
+            battleTimeManager.SetSlowSetting(0.01f, 0.8f);
             battleTimeManager.DoSlowmotion();
         }
     }

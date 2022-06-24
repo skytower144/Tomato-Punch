@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 public class TextSpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject missEffect;
     [System.NonSerialized] static public bool isMiss = false;
     [SerializeField] private BattleSystem textSpawn_BattleSystem;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
+    [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
-    [SerializeField] private StaminaIcon staminaIcon;
-    [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, dark_filter, resultCard;
+    [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, YouLose_Text, dark_filter, missEffect, resultCard, continueBundle;
 
     private Vector3 randomPosition;
 
@@ -57,7 +56,7 @@ public class TextSpawn : MonoBehaviour
     public void spawn_KO_text()
     {
         GameObject KO = Instantiate(KOText, transform);
-        KO.GetComponent<InitiateVictory>().script_textSpawn = gameObject.GetComponent<TextSpawn>();
+        KO.GetComponent<CheckBattleResult>().script_textSpawn = gameObject.GetComponent<TextSpawn>();
     }
 
     public void PlayVictory_Player()
@@ -70,10 +69,21 @@ public class TextSpawn : MonoBehaviour
         resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(enemy_Countered.totalCounter, EnemyControl.totalParry, enemyControl.totalSuper, textSpawn_BattleSystem, enemyControl._base);
     }
 
+    public void PlayDefeated_Player()
+    {
+        Instantiate(YouLose_Text, transform);
+    }
+
     public void normalize_resultCard()
     {
         enemy_Countered.totalCounter = 0;
         EnemyControl.totalParry = 0;
         enemyControl.totalSuper = 0;
+    }
+
+    public void AskContinue()
+    {
+        GameObject battle_continue = Instantiate(continueBundle, transform);
+        battle_continue.GetComponent<BattleContinue>().Continue_InitializeData(textSpawn_BattleSystem, KOText);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BattleTimeManager : MonoBehaviour
 {
-    private float slowdownFactor = 0.01f; // 0.5f = 2x slower
+    private float slowdownFactor = 0.01f; // 0.5f = 2x slower // lower the number: slower
     private float slowdownLength = 0.8f;
     void Update()
     {
@@ -20,5 +20,11 @@ public class BattleTimeManager : MonoBehaviour
         Time.timeScale = slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * .02f;
         // fixedUpdate to run every 0.02 seconds
+    }
+
+    public void SetSlowSetting(float factor, float length)
+    {
+        slowdownFactor = factor;
+        slowdownLength = length;
     }
 }

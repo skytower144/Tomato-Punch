@@ -55,4 +55,9 @@ public class BattleSystem : MonoBehaviour
         return expBundle;
     }
 
+    public int GetPlayerMoney()
+    {
+        return player_status.playerMoney;
+    }
+
 }

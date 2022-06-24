@@ -73,8 +73,10 @@ public class GameManager : MonoBehaviour
 
         battleSystem.gameObject.SetActive(false);
         gameState = GameState.FreeRoam;
+
         GameObject fadeInstance = Instantiate(fadeOut, new Vector2 (player_x, player_y - 0.05f), Quaternion.identity);
         fadeInstance.transform.localScale = new Vector2(2f, 2f);
+        
         mainCamera.gameObject.SetActive(true);
 
         PlayerMovement.isBattle = false;

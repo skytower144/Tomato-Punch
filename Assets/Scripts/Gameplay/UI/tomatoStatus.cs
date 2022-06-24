@@ -19,7 +19,7 @@ public class tomatoStatus : MonoBehaviour
     private int AtkIncrease = 2;
     private int DefIncrease = 5;
 
-    public int playerMoney = 0;
+    public int playerMoney;
     private void OnEnable()
     {
         player_maxHp  = tomatocontrol.maxHealth;
