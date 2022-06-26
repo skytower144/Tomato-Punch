@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 958475783318416748}
   - component: {fileID: 958475783318416751}
-  - component: {fileID: 1285028607054395612}
+  - component: {fileID: 6836317529373119629}
   - component: {fileID: 958475783318416750}
   m_Layer: 0
   m_Name: Battle_FadeOut
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1285028607054395612
+--- !u!114 &6836317529373119629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 958475783318416753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adf7e25c36463434f863630bc9c8178e, type: 3}
+  m_Script: {fileID: 11500000, guid: 272e7d0f1180b6147a3facba5ec95768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &958475783318416750
@@ -132,7 +132,7 @@ MonoBehaviour:
   onComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1285028607054395612}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Tween_DestoryObject, Assembly-CSharp
         m_MethodName: destroyObject_AfterTween
         m_Mode: 1

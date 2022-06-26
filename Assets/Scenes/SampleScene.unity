@@ -3284,7 +3284,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   battleCircle: {fileID: 5855777196679259577, guid: 62ecba09751ef914f82b224b3ab9759c, type: 3}
   exclamation: {fileID: 1128744471400820819, guid: 97498d9155afa6b48aa64a82f26194c7, type: 3}
-  fadeOut: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
+  fadeIn: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
   playerObject: {fileID: 1315878914}
 --- !u!4 &305310878
 Transform:
@@ -4673,6 +4673,7 @@ MonoBehaviour:
   tomatocontrol: {fileID: 449446693}
   enemyControl: {fileID: 1045029404}
   enemy_Countered: {fileID: 69562769}
+  anim: {fileID: 1045029402}
   staminaIcon: {fileID: 1874515705}
   tomatoAnim: {fileID: 449446690}
   enemyAnim: {fileID: 1045029402}
@@ -4723,7 +4724,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &444394832
 Canvas:
   m_ObjectHideFlags: 0
@@ -10897,6 +10898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_status: {fileID: 866104961}
   tomatoLevel: {fileID: 810603416}
+  enemyControl: {fileID: 1045029404}
   battle_initiate_fade: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
 --- !u!1 &1039060919
 GameObject:
@@ -11079,7 +11081,7 @@ Animator:
   m_GameObject: {fileID: 1045029400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11128,7 +11130,7 @@ SpriteRenderer:
   m_SortingLayerID: 100956575
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2455346762637126573, guid: 49c443ad79bb3ba45b9276fb359ae3b1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11136,7 +11138,7 @@ SpriteRenderer:
   m_Size: {x: 18.045113, y: 10.150375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1045029404

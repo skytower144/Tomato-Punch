@@ -8,6 +8,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
+    public Animator anim;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
@@ -71,7 +72,8 @@ public class TextSpawn : MonoBehaviour
 
     public void PlayDefeated_Player()
     {
-        Instantiate(YouLose_Text, transform);
+        GameObject you_lose = Instantiate(YouLose_Text, transform);
+        you_lose.GetComponent<DefeatedText>().battleSystem = textSpawn_BattleSystem;
     }
 
     public void normalize_resultCard()

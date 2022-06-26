@@ -8,6 +8,7 @@ public class BattleSystem : MonoBehaviour
     public event Action OnBattleOver;
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
+    [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private GameObject battle_initiate_fade;
     
     void OnEnable()
@@ -22,6 +23,7 @@ public class BattleSystem : MonoBehaviour
     public void ExitBattle()
     {
         OnBattleOver();
+        enemyControl.ClearAnimation();
     }
 
     public void UpdatePlayerStatus(int level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)

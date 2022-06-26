@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] Camera mainCamera;
-    [SerializeField] private GameObject battleCircle, exclamation, fadeOut;
+    [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
     public GameObject playerObject;
     private Animator playerAnimator;
     private float player_x, player_y;
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
         gameState = GameState.FreeRoam;
 
-        GameObject fadeInstance = Instantiate(fadeOut, new Vector2 (player_x, player_y - 0.05f), Quaternion.identity);
+        GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (player_x, player_y - 0.05f), Quaternion.identity);
         fadeInstance.transform.localScale = new Vector2(2f, 2f);
         
         mainCamera.gameObject.SetActive(true);

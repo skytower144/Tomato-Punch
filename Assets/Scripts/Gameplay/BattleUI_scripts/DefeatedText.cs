@@ -5,6 +5,7 @@ using UnityEngine;
 public class DefeatedText : MonoBehaviour
 {
     private TypeEffect typeEffect;
+    public BattleSystem battleSystem;
     private GameObject battle_text, text_box, cursor;
     [SerializeField] private GameObject fadeOut;
     private List<string> textList = new List<string>();
@@ -31,6 +32,11 @@ public class DefeatedText : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        Destroy(gameObject);
+    }
+
     private void SpawnTextBox()
     {
         battle_text.SetActive(true);
@@ -43,7 +49,7 @@ public class DefeatedText : MonoBehaviour
     private void InitializeText()
     {
         string moneyMessage = "You lost ? coins.";
-        string ExitMessage = "Immense fatigue overwhelms you...";
+        string ExitMessage = "Fatigue overwhelms you...";
 
         textList.Add(moneyMessage);
         textList.Add(ExitMessage);
@@ -57,8 +63,12 @@ public class DefeatedText : MonoBehaviour
         
         if (textIndex == textList.Count-1){
             startText = false;
+
+            SlowText();
             typeEffect.SetMessage(textList[textIndex]);
-            Invoke("ScreenFadeOut", 0.75f);
+
+            Invoke("ScreenFadeOut", 1.1f);
+            Invoke("ExitBattle", 2f);
         }
         
         else {
@@ -69,5 +79,15 @@ public class DefeatedText : MonoBehaviour
     private void ScreenFadeOut()
     {
         Instantiate(fadeOut, transform.parent);
+    }
+
+    private void SlowText()
+    {
+        text_box.GetComponent<TypeEffect>().CharPerSeconds = 13;
+    }
+    private void ExitBattle()
+    {
+        typeEffect.CancelInvoke();
+        battleSystem.ExitBattle();
     }
 }

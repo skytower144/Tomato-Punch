@@ -33,12 +33,10 @@ public class BattleContinue : MonoBehaviour
             }
             else
             {
-                timerIsRunning = false;
+                ExitContinue();
+            }
 
-                continue_group.SetActive(false);
-                insert_coin.SetActive(false);
-                Instantiate(ko_obj, transform.parent);
-
+            if(Input.GetKeyDown(KeyCode.P)){
                 ExitContinue();
             }
         }
@@ -81,6 +79,13 @@ public class BattleContinue : MonoBehaviour
 
     private void ExitContinue()
     {
+        timerIsRunning = false;
+
+        continue_group.SetActive(false);
+        insert_coin.SetActive(false);
+        Instantiate(ko_obj, transform.parent);
+
         Destroy(gameObject);
     }
+
 }

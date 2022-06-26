@@ -254,4 +254,9 @@ public class EnemyControl : MonoBehaviour
         Instantiate(defeatedEffect_beam);
     }
 
+    public void ClearAnimation()
+    {
+        anim.runtimeAnimatorController = null;
+    }
+
 }

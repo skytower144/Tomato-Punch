@@ -121,11 +121,14 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("downGamepad : " + downGamepad);
             Debug.Log("isParry : " + tomatoGuard.isParry);
             Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
+            Debug.Log("isFainted : " + isFainted);
 
             Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
             Debug.Log("enemy_isParried : " + Enemy_parried.isParried);
             Debug.Log("enemy_isCountered : " + Enemy_countered.enemy_isCountered);
             Debug.Log("enemy_isPunched : " + Enemy_is_hurt.enemy_isPunched);
+            Debug.Log("enemy_isHit : " + Enemy_is_hurt.enemyIsHit);
+            Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
         }
 
         if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
@@ -302,7 +305,7 @@ public class tomatoControl : MonoBehaviour
             tomatoAnimator.Play("tomato_tired",-1,0f);
             isTired = true;
         }
-        else{
+        else if (!tomatoHurt.isTomatoHurt && !isFainted){
             ChangeAnimationState(TOMATO_IDLE);
             isTired = false;
         }
