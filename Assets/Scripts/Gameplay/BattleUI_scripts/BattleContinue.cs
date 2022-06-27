@@ -12,12 +12,16 @@ public class BattleContinue : MonoBehaviour
     private float TIMER_SPEED = 0.8f;
     private float timeRemaining;
     private bool timerIsRunning = false;
+    private int reviveCost;
 
     void Start()
     {
         timeRemaining = 9;
 
+        DetermineCost();
+
         DOTween.Play("insert_coin");
+        battle_system.GetEnemyAnim().Play("battleJola_wait", -1, 0f);
     }
 
     void Update()
@@ -55,6 +59,16 @@ public class BattleContinue : MonoBehaviour
         money_text.text = battle_system.GetPlayerMoney().ToString("F0");
 
         timerIsRunning = true;
+    }
+
+    private void DetermineCost()
+    {
+        reviveCost = Mathf.FloorToInt(battle_system.GetEnemyBase().BattleCoin / 3);
+        
+        if (reviveCost == 0)
+            reviveCost = 1;
+        
+        Debug.Log("revive cost: " + reviveCost);
     }
 
     private void DisplayTime(float previous_time, float display_time)

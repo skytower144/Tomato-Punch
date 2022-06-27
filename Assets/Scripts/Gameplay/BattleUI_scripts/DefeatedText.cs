@@ -9,7 +9,7 @@ public class DefeatedText : MonoBehaviour
     private GameObject battle_text, text_box, cursor;
     [SerializeField] private GameObject fadeOut;
     private List<string> textList = new List<string>();
-    private int textIndex;
+    private int textIndex, giveUpCost;
     private bool startText = false;
     void Start()
     {
@@ -17,9 +17,12 @@ public class DefeatedText : MonoBehaviour
         text_box = battle_text.transform.GetChild(0).gameObject;
         cursor = text_box.transform.GetChild(0).gameObject;
 
+        giveUpCost = battleSystem.GetEnemyBase().BattleCoin;
+
         typeEffect = text_box.GetComponent<TypeEffect>();
         textIndex = -1;
-
+        
+        battleSystem.GetEnemyAnim().Play("battleJola_victory", -1, 0f);
         Invoke("SpawnTextBox", 1.5f);
     }
 
@@ -36,7 +39,6 @@ public class DefeatedText : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
     private void SpawnTextBox()
     {
         battle_text.SetActive(true);
@@ -48,7 +50,7 @@ public class DefeatedText : MonoBehaviour
 
     private void InitializeText()
     {
-        string moneyMessage = "You lost ? coins.";
+        string moneyMessage = string.Format("You lost {0} coins.", giveUpCost);
         string ExitMessage = "Fatigue overwhelms you...";
 
         textList.Add(moneyMessage);
@@ -75,7 +77,6 @@ public class DefeatedText : MonoBehaviour
             typeEffect.SetMessage(textList[textIndex]);
         }
     }
-
     private void ScreenFadeOut()
     {
         Instantiate(fadeOut, transform.parent);
@@ -88,6 +89,7 @@ public class DefeatedText : MonoBehaviour
     private void ExitBattle()
     {
         typeEffect.CancelInvoke();
+        battleSystem.UpdatePlayerMoney(giveUpCost);
         battleSystem.ExitBattle();
     }
 }

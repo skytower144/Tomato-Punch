@@ -9,6 +9,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl;
+    [SerializeField] private Animator enemyAnim;
     [SerializeField] private GameObject battle_initiate_fade;
     
     void OnEnable()
@@ -62,4 +63,21 @@ public class BattleSystem : MonoBehaviour
         return player_status.playerMoney;
     }
 
+    public EnemyBase GetEnemyBase()
+    {
+        return enemyControl._base;
+    }
+
+    public void UpdatePlayerMoney(int lostCoins)
+    {
+        if (player_status.playerMoney < lostCoins)
+            lostCoins = player_status.playerMoney;
+        
+        player_status.playerMoney -= lostCoins;
+    }
+
+    public Animator GetEnemyAnim()
+    {
+        return enemyAnim;
+    }
 }

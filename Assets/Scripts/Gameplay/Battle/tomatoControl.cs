@@ -22,7 +22,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
     [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
-    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop;
+    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
@@ -523,6 +523,15 @@ public class tomatoControl : MonoBehaviour
         tomatoAnimator.Play("tomato_victory_idle",-1,0f);
     }
 
+    void spawnFaintStars()
+    {
+        Invoke("createStars", 0.8f);
+    }
+    private void createStars()
+    {
+        Instantiate(faintStars, transform);
+    }
+
     public void playTomatoKnockback()
     {
         Invoke("playKnockBack",0.1f);
@@ -534,6 +543,7 @@ public class tomatoControl : MonoBehaviour
         else
             tomatoAnimator.Play("tomato_knockback",-1,0f);
     }
+
 
 // GAKSUNG CONTROLLER ===============================================================================================================
     void gaksung_def()

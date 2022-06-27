@@ -4724,7 +4724,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &444394832
 Canvas:
   m_ObjectHideFlags: 0
@@ -5141,6 +5141,7 @@ MonoBehaviour:
   superBanner: {fileID: 1068151964}
   screenFlash: {fileID: 8143716166433461514, guid: b7892ac4f5a9d5d43a48a7092970a20e, type: 3}
   defeatedEffect_pop: {fileID: 795758294053743534, guid: 3c353bc7f298eb14eab850f09cc98681, type: 3}
+  faintStars: {fileID: 4576703409326335794, guid: 8702b7bdc505c4c48807a3859bd809e8, type: 3}
   Parent: {fileID: 449446692}
   BattleCanvas_Parent: {fileID: 420362620}
   healthBar: {fileID: 166534781}
@@ -10899,6 +10900,7 @@ MonoBehaviour:
   player_status: {fileID: 866104961}
   tomatoLevel: {fileID: 810603416}
   enemyControl: {fileID: 1045029404}
+  enemyAnim: {fileID: 1045029402}
   battle_initiate_fade: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
 --- !u!1 &1039060919
 GameObject:
@@ -11081,7 +11083,7 @@ Animator:
   m_GameObject: {fileID: 1045029400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
