@@ -17,12 +17,14 @@ public class DefeatedText : MonoBehaviour
         text_box = battle_text.transform.GetChild(0).gameObject;
         cursor = text_box.transform.GetChild(0).gameObject;
 
-        giveUpCost = battleSystem.GetEnemyBase().BattleCoin;
-
         typeEffect = text_box.GetComponent<TypeEffect>();
         textIndex = -1;
+
+        giveUpCost = battleSystem.GetEnemyBase().BattleCoin;
         
-        battleSystem.GetEnemyAnim().Play("battleJola_victory", -1, 0f);
+        string victoryAnimation = battleSystem.GetEnemyBase().Victory;
+        battleSystem.GetEnemyAnim().Play(victoryAnimation, -1, 0f);
+
         Invoke("SpawnTextBox", 1.5f);
     }
 
