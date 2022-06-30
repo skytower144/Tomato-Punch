@@ -9,8 +9,9 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl;
-    [SerializeField] private Animator enemyAnim;
-    [SerializeField] private GameObject battle_initiate_fade;
+    [SerializeField] private Animator tomatoAnim, enemyAnim;
+    [SerializeField] private Transform battleCanvas_transform, tomato_transform;
+    [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip;
     
     void OnEnable()
     {
@@ -79,5 +80,22 @@ public class BattleSystem : MonoBehaviour
     public Animator GetEnemyAnim()
     {
         return enemyAnim;
+    }
+
+    public Animator GetTomatoAnim()
+    {
+        return tomatoAnim;
+    }
+
+    public void CoinFlip()
+    {
+        Destroy(tomato_transform.GetChild(3).gameObject);
+        Instantiate(darkScreen, battleCanvas_transform);
+        Instantiate(coinFlip, tomato_transform);
+    }
+
+    public void ScreenFlash()
+    {
+        battleCanvas_transform.GetChild(4).gameObject.GetComponent<Animator>().Play("dark_screen");
     }
 }

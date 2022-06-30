@@ -7,16 +7,20 @@ using TMPro;
 public class BattleContinue : MonoBehaviour
 {
     private BattleSystem battle_system;
-    private GameObject continue_group, insert_coin, ko_obj;
-    private TextMeshProUGUI countdown_text, money_text;
+    private GameObject continue_group, insert_coin, ko_obj, revive_obj;
+    private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
+    private int reviveCost, left_playerMoney;
+    private float playerMoney;
     private float TIMER_SPEED = 0.8f;
+    private float DECREASE_SPEED = 90f;
     private float timeRemaining;
     private bool timerIsRunning = false;
-    private int reviveCost;
+    private bool runMoneyTimer;
 
     void Start()
     {
         timeRemaining = 9;
+        runMoneyTimer = false;
 
         DetermineCost();
 
@@ -45,6 +49,13 @@ public class BattleContinue : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.P)){
                 ExitContinue();
             }
+            else if(Input.GetKeyDown(KeyCode.O)){
+                Revive();
+            }
+        }
+        else if (runMoneyTimer)
+        {
+            DecreaseMoney();
         }
     }
 
@@ -55,10 +66,14 @@ public class BattleContinue : MonoBehaviour
 
         continue_group = transform.GetChild(0).gameObject;
         insert_coin = transform.GetChild(1).gameObject;
+        revive_obj = transform.GetChild(2).gameObject;
         
         countdown_text = continue_group.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
         money_text = insert_coin.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
-        money_text.text = battle_system.GetPlayerMoney().ToString("F0");
+        reviveCost_text = revive_obj.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+
+        playerMoney = battle_system.GetPlayerMoney();
+        money_text.text = playerMoney.ToString("F0");
 
         timerIsRunning = true;
     }
@@ -67,10 +82,12 @@ public class BattleContinue : MonoBehaviour
     {
         reviveCost = Mathf.FloorToInt(battle_system.GetEnemyBase().BattleCoin / 3);
         
+        left_playerMoney = (int)playerMoney - reviveCost;
+
         if (reviveCost == 0)
             reviveCost = 1;
         
-        Debug.Log("revive cost: " + reviveCost);
+        reviveCost_text.text = reviveCost.ToString("F0");
     }
 
     private void DisplayTime(float previous_time, float display_time)
@@ -99,9 +116,51 @@ public class BattleContinue : MonoBehaviour
 
         continue_group.SetActive(false);
         insert_coin.SetActive(false);
+        revive_obj.SetActive(false);
         Instantiate(ko_obj, transform.parent);
 
         Destroy(gameObject);
     }
 
+    private void Revive()
+    {
+        timerIsRunning = false;
+
+        Invoke("ReviveTomato", 1f);
+
+        continue_group.SetActive(false);
+        insert_coin.transform.GetChild(0).gameObject.SetActive(false);
+        revive_obj.SetActive(false);
+
+        battle_system.CoinFlip();
+
+        money_text.color = new Color32(207, 58, 68, 255);
+        runMoneyTimer = true;
+    }
+
+    private void DecreaseMoney()
+    {
+        playerMoney -= Time.deltaTime * DECREASE_SPEED;
+
+        if (playerMoney <= left_playerMoney)
+        {
+            runMoneyTimer = false;
+            playerMoney = left_playerMoney;
+            battle_system.UpdatePlayerMoney(reviveCost);
+
+            money_text.color = new Color32(128, 79, 69, 255);
+
+            DOTween.Rewind("coin_inserted");
+            DOTween.Play("coin_inserted");
+        }
+
+        money_text.text = playerMoney.ToString("F0");
+    }
+
+    private void ReviveTomato()
+    {
+        battle_system.GetTomatoAnim().Play("tomato_revive", -1, 0f);
+        battle_system.ScreenFlash();
+        Destroy(gameObject, 1f);
+    }
 }

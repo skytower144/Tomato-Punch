@@ -508,6 +508,12 @@ public class tomatoControl : MonoBehaviour
         Instantiate (upperSmoke);
     }
 
+    void player_revive()
+    {
+        ChangeAnimationState(TOMATO_IDLE);
+        isFainted = false;
+    }
+
     void KO_effect()
     {
         if(Enemy_is_hurt.enemy_isDefeated){

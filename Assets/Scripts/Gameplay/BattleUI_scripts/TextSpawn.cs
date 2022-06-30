@@ -13,9 +13,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, YouLose_Text, dark_filter, missEffect, resultCard, continueBundle;
-
     private Vector3 randomPosition;
-
     private void OnEnable()
     {
         Instantiate(GetReadyText, transform);
