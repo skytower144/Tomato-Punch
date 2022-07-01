@@ -4,9 +4,15 @@ public class ExitFightText : MonoBehaviour
 {
     void UnleashCharacters()
     {
-        DOTween.Play("intro");
-        tomatoControl.isIntro = false;
-        EnemyAIControl.enemy_isIntro = false;
+        if(!tomatoControl.isFainted){
+            DOTween.Play("intro");
+            tomatoControl.isIntro = false;
+            EnemyAIControl.enemy_isIntro = false;
+        }
+        else{
+            tomatoControl.isFainted = false;
+        }
+
         Destroy(gameObject);
     }
 }

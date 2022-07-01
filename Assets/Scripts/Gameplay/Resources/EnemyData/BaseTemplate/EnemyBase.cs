@@ -11,7 +11,7 @@ public class EnemyBase : ScriptableObject
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
     [SerializeField] private string idle, intro, defeated, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
-    [SerializeField] private string wait, victory;
+    [SerializeField] private string wait, reEngage, victory;
     public List <string> EnemySuperedAnim;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
@@ -94,6 +94,10 @@ public class EnemyBase : ScriptableObject
     public string Wait
     {
         get { return wait; }
+    }
+    public string ReEngage
+    {
+        get { return reEngage; }
     }
     public string Victory
     {

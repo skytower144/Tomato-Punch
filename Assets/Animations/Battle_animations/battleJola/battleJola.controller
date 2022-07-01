@@ -40,52 +40,52 @@ AnimatorStateMachine:
     m_Position: {x: 50, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9103884937830636791}
-    m_Position: {x: 50, y: 220, z: 0}
+    m_Position: {x: 50, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7278851960171104944}
-    m_Position: {x: 260, y: 220, z: 0}
+    m_Position: {x: 260, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4325606922350911390}
-    m_Position: {x: 50, y: 440, z: 0}
+    m_Position: {x: 50, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8700934537445548487}
-    m_Position: {x: 260, y: 440, z: 0}
+    m_Position: {x: 260, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1154608864434696888}
-    m_Position: {x: 260, y: 270, z: 0}
+    m_Position: {x: 260, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4775337633002883504}
-    m_Position: {x: 50, y: 270, z: 0}
+    m_Position: {x: 50, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -506595694715550570}
-    m_Position: {x: 50, y: 320, z: 0}
+    m_Position: {x: 50, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7949504877534130559}
-    m_Position: {x: 260, y: 320, z: 0}
+    m_Position: {x: 260, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2829849797026155766}
-    m_Position: {x: 470, y: 320, z: 0}
+    m_Position: {x: 470, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6149955582046122383}
-    m_Position: {x: 50, y: 370, z: 0}
+    m_Position: {x: 50, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3436893566756128078}
-    m_Position: {x: 260, y: 370, z: 0}
+    m_Position: {x: 260, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4796911063742385397}
-    m_Position: {x: 470, y: 440, z: 0}
+    m_Position: {x: 470, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3561220680037708613}
-    m_Position: {x: 50, y: 490, z: 0}
+    m_Position: {x: 50, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6136707689193662467}
-    m_Position: {x: 890, y: 270, z: 0}
+    m_Position: {x: 800, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7390870159836164517}
-    m_Position: {x: 890, y: 220, z: 0}
+    m_Position: {x: 800, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -167155161785006853}
-    m_Position: {x: 470, y: 220, z: 0}
+    m_Position: {x: 470, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1570581396552448636}
     m_Position: {x: 260, y: 170, z: 0}
@@ -94,10 +94,13 @@ AnimatorStateMachine:
     m_Position: {x: 470, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7145668038774031937}
-    m_Position: {x: 680, y: 170, z: 0}
+    m_Position: {x: 50, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2073171716685728644}
-    m_Position: {x: 890, y: 170, z: 0}
+    m_Position: {x: 470, y: 220, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -495004986480385547}
+    m_Position: {x: 260, y: 220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -311,6 +314,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 10ebace9aab7d3c45b24e225911d6495, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-495004986480385547
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: battleJola_reEngage
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e95a89ee525755e44bf6cfa0e652d314, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

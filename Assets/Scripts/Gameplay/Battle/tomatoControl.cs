@@ -24,6 +24,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
+    [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
@@ -511,7 +512,10 @@ public class tomatoControl : MonoBehaviour
     void player_revive()
     {
         ChangeAnimationState(TOMATO_IDLE);
-        isFainted = false;
+        textSpawn.spawn_FIGHT_text();
+
+        string enemyReEngage = battleSystem.GetEnemyBase().ReEngage;
+        battleSystem.GetEnemyAnim().Play(enemyReEngage);
     }
 
     void KO_effect()

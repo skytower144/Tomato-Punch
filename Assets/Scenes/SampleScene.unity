@@ -5056,6 +5056,7 @@ MonoBehaviour:
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
   YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
   YouLose_Text: {fileID: 3526224795657967158, guid: cc50164d4c18c8447a0a3305da0118bb, type: 3}
+  FIGHT_Text: {fileID: 612117501084407712, guid: ca535c3361a9928409c88349e67ffc84, type: 3}
   dark_filter: {fileID: 4398293146802034871, guid: fbc2b628c73589f44b794293c514183d, type: 3}
   missEffect: {fileID: 1733493814909389476, guid: 0a5b3b76418ebb3428f1a9b8f523e183, type: 3}
   resultCard: {fileID: 8657701029009385914, guid: dd3188687dbade943b097a53a6366cde, type: 3}
@@ -5519,6 +5520,7 @@ MonoBehaviour:
   faintStars: {fileID: 4576703409326335794, guid: 8702b7bdc505c4c48807a3859bd809e8, type: 3}
   Parent: {fileID: 449446692}
   BattleCanvas_Parent: {fileID: 420362620}
+  battleSystem: {fileID: 1038232373}
   healthBar: {fileID: 166534781}
   guardBar: {fileID: 1156247544}
   parryBar: {fileID: 1064597949}
@@ -11688,7 +11690,7 @@ Animator:
   m_GameObject: {fileID: 1045029400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36f07e5459d4481458e175c5e2a85208, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

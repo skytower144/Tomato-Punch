@@ -12,7 +12,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
-    [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, YouLose_Text, dark_filter, missEffect, resultCard, continueBundle;
+    [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
     private void OnEnable()
     {
@@ -56,6 +56,11 @@ public class TextSpawn : MonoBehaviour
     {
         GameObject KO = Instantiate(KOText, transform);
         KO.GetComponent<CheckBattleResult>().script_textSpawn = gameObject.GetComponent<TextSpawn>();
+    }
+
+    public void spawn_FIGHT_text()
+    {
+        Instantiate(FIGHT_Text, transform);
     }
 
     public void PlayVictory_Player()

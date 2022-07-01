@@ -89,13 +89,13 @@ public class BattleSystem : MonoBehaviour
 
     public void CoinFlip()
     {
-        Destroy(tomato_transform.GetChild(3).gameObject);
         Instantiate(darkScreen, battleCanvas_transform);
         Instantiate(coinFlip, tomato_transform);
     }
 
     public void ScreenFlash()
     {
+        Destroy(tomato_transform.GetChild(3).gameObject);
         battleCanvas_transform.GetChild(4).gameObject.GetComponent<Animator>().Play("dark_screen");
     }
 }
