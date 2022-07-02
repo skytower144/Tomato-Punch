@@ -54,8 +54,7 @@ public class TextSpawn : MonoBehaviour
 
     public void spawn_KO_text()
     {
-        GameObject KO = Instantiate(KOText, transform);
-        KO.GetComponent<CheckBattleResult>().script_textSpawn = gameObject.GetComponent<TextSpawn>();
+        Instantiate(KOText, transform);
     }
 
     public void spawn_FIGHT_text()
@@ -88,7 +87,15 @@ public class TextSpawn : MonoBehaviour
 
     public void AskContinue()
     {
-        GameObject battle_continue = Instantiate(continueBundle, transform);
-        battle_continue.GetComponent<BattleContinue>().Continue_InitializeData(textSpawn_BattleSystem, KOText);
+        int revive_cost = textSpawn_BattleSystem.ReviveCostFormula();
+        int player_money = textSpawn_BattleSystem.GetPlayerMoney();
+
+        if (player_money >= revive_cost){
+            GameObject battle_continue = Instantiate(continueBundle, transform);
+            battle_continue.GetComponent<BattleContinue>().Continue_InitializeData(textSpawn_BattleSystem, KOText);
+        }
+        else{
+            spawn_KO_text();
+        }
     }
 }

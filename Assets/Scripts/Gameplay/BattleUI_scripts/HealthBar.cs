@@ -6,6 +6,7 @@ using System;
 using TMPro;
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
@@ -14,10 +15,24 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image fill, damagedFill, tomatoFace;
     [SerializeField] private Sprite face1, face2, face3, face4;
     [SerializeField] private TextMeshProUGUI healthText;
-    
     private void Update()
     {
         healthText.text = tomatocontrol.currentHealth.ToString("F0")+ "/" + tomatocontrol.maxHealth.ToString("F0");
+
+        if(battleSystem.resetPlayerHealth) // Reset Health after player revive
+        {
+            float increased_hp = slider.value + (slider.maxValue * 1.5f) * Time.deltaTime;
+
+            if (increased_hp > slider.maxValue){
+                battleSystem.resetPlayerHealth = false;
+                increased_hp = slider.maxValue;
+                setDamageFill();
+            }
+
+            tomatocontrol.currentHealth = increased_hp;
+            SetHealth(increased_hp);
+        }
+
         hpShrinkTimer -= Time.deltaTime; // count down timer
         if (hpShrinkTimer < 0)
         {
@@ -28,7 +43,6 @@ public class HealthBar : MonoBehaviour
                 //damagedFill.fillAmount -= shrinkSpeed * Time.deltaTime;
             }
         }
-        
     }
     public void SetMaxHealth(float health)
     {
@@ -45,7 +59,7 @@ public class HealthBar : MonoBehaviour
     {
         damagedFill.fillAmount = slider.normalizedValue;
     }
-    void faceChange()
+    private void faceChange()
     {
         if (slider.normalizedValue >= 0.5f){
             tomatoFace.sprite = face1;

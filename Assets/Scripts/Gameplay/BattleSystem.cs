@@ -12,7 +12,12 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip;
-    
+    [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
+    void Start()
+    {
+        resetPlayerHealth = false;
+        resetEnemyHealth = false;
+    }
     void OnEnable()
     {
         Instantiate(battle_initiate_fade);
@@ -97,5 +102,10 @@ public class BattleSystem : MonoBehaviour
     {
         Destroy(tomato_transform.GetChild(3).gameObject);
         battleCanvas_transform.GetChild(4).gameObject.GetComponent<Animator>().Play("dark_screen");
+    }
+
+    public int ReviveCostFormula()
+    {
+        return Mathf.FloorToInt(GetEnemyBase().BattleCoin / 3);
     }
 }

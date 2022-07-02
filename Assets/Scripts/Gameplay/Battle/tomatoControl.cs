@@ -516,6 +516,13 @@ public class tomatoControl : MonoBehaviour
 
         string enemyReEngage = battleSystem.GetEnemyBase().ReEngage;
         battleSystem.GetEnemyAnim().Play(enemyReEngage);
+
+        battleSystem.resetPlayerHealth = true;
+        battleSystem.resetEnemyHealth = true;
+
+        currentStamina = maxStamina;
+        staminaIcon.SetStamina(maxStamina);
+        isTired = false;
     }
 
     void KO_effect()

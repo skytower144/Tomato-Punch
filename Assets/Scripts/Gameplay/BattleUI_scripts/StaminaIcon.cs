@@ -12,8 +12,6 @@ public class StaminaIcon : MonoBehaviour
     {
         if(tomatocontrol.currentStamina == 0)
             staminaText.color = new Color32(255, 100, 111,255);
-        else
-            staminaText.color = new Color32(255, 255, 160,255);
     }
 
     public void SetMaxStamina(int stamina)
@@ -24,5 +22,6 @@ public class StaminaIcon : MonoBehaviour
     {
         slider.value = stamina;
         staminaText.text = tomatocontrol.currentStamina.ToString();
+        staminaText.color = new Color32(255, 255, 160,255);
     }
 }

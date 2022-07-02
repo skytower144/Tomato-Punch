@@ -22,8 +22,6 @@ public class BattleContinue : MonoBehaviour
         timeRemaining = 9;
         runMoneyTimer = false;
 
-        DetermineCost();
-
         DOTween.Play("insert_coin");
 
         string waitAnimation = battle_system.GetEnemyBase().Wait;
@@ -75,12 +73,14 @@ public class BattleContinue : MonoBehaviour
         playerMoney = battle_system.GetPlayerMoney();
         money_text.text = playerMoney.ToString("F0");
 
+        DetermineCost();
+        
         timerIsRunning = true;
     }
 
     private void DetermineCost()
     {
-        reviveCost = Mathf.FloorToInt(battle_system.GetEnemyBase().BattleCoin / 3);
+        reviveCost = battle_system.ReviveCostFormula();
         
         left_playerMoney = (int)playerMoney - reviveCost;
 
@@ -135,7 +135,8 @@ public class BattleContinue : MonoBehaviour
         battle_system.CoinFlip();
 
         money_text.color = new Color32(207, 58, 68, 255);
-        runMoneyTimer = true;
+
+        runMoneyTimer = true; // Begins DecreaseMoney() in Update
     }
 
     private void DecreaseMoney()

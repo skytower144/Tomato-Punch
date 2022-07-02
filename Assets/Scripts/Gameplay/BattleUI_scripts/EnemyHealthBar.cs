@@ -6,14 +6,35 @@ using System;
 using TMPro;
 public class EnemyHealthBar : MonoBehaviour
 {
+    [SerializeField] private BattleSystem battleSystem;
     [SerializeField] Enemy_is_hurt enemy_is_hurt;
     [SerializeField] private Slider slider;
     public float enemy_hpShrinkTimer;
-    [SerializeField] private Image fill, damagedFill, enemy_whiteFill;
+    [SerializeField] private Image enemyFace, fill, damagedFill, enemy_whiteFill;
     [SerializeField] private TextMeshProUGUI healthText;
+    private float INCREASE_SPEED = 1;
+    private bool checkOnce = false;
     
     private void Update(){
         healthText.text = enemy_is_hurt.Enemy_currentHealth.ToString("F0")+ "/" + enemy_is_hurt.Enemy_maxHealth.ToString("F0");
+
+        if (battleSystem.resetEnemyHealth)
+        {
+            INCREASE_SPEED = EqualizeSpeed();
+            float increased_hp = slider.value + (INCREASE_SPEED * 1.5f) * Time.deltaTime;
+
+            if (increased_hp > slider.maxValue){
+                battleSystem.resetEnemyHealth = false;
+                checkOnce = false;
+
+                increased_hp = slider.maxValue;
+                Enemy_setDamageFill();
+            }
+
+            enemy_is_hurt.Enemy_currentHealth = increased_hp;
+            Enemy_SetHealth(increased_hp);
+        }
+
         enemy_hpShrinkTimer -= Time.deltaTime; // count down timer
         if (enemy_hpShrinkTimer < 0)
         {
@@ -23,7 +44,6 @@ public class EnemyHealthBar : MonoBehaviour
                 damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount,slider.normalizedValue,shrinkSpeed);
             }
         }
-
     }
     public void Enemy_SetMaxHealth(float health)
     {
@@ -32,6 +52,7 @@ public class EnemyHealthBar : MonoBehaviour
     public void Enemy_SetHealth(float health)
     {
         slider.value = health;
+        faceChange();
     }
     public void Enemy_setDamageFill()
     {
@@ -45,5 +66,31 @@ public class EnemyHealthBar : MonoBehaviour
     public void Enemy_WhiteFillOff()
     {
         enemy_whiteFill.enabled = false;
+    }
+
+    public void Enemy_SetFace(Sprite frontSprite)
+    {
+        enemyFace.sprite = frontSprite;
+    }
+    private void faceChange()
+    {
+        if (slider.normalizedValue >= 0.3f){
+            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(1);
+        }
+        else if(0 < slider.normalizedValue && slider.normalizedValue < 0.3f){
+            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(2);
+        }
+        else if(slider.normalizedValue == 0){
+            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(3);
+        }
+    }
+
+    private float EqualizeSpeed()
+    {
+        if(!checkOnce){
+            checkOnce = true;
+            INCREASE_SPEED = slider.maxValue - slider.value;
+        }
+        return INCREASE_SPEED;
     }
 }

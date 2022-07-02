@@ -5,14 +5,15 @@ using DG.Tweening;
 
 public class CheckBattleResult : MonoBehaviour
 {
-    public TextSpawn script_textSpawn;
+    private TextSpawn script_textSpawn;
     private void WinOrLose()
     {
+        InitializeTextSpawn();
+
         if (tomatoControl.isVictory){
             script_textSpawn.PlayVictory_Player();
         }
         else if (tomatoControl.isFainted){
-            InitializeTextSpawn();
             script_textSpawn.PlayDefeated_Player();
         }
 

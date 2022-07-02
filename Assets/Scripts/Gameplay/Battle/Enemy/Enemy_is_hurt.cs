@@ -28,6 +28,7 @@ public class Enemy_is_hurt : MonoBehaviour
         Enemy_maxHealth = enemyBase.EnemyMaxHealth;
         Enemy_currentHealth = enemyBase.EnemyCurrentHealth;
 
+        enemyHealthBar.Enemy_SetFace(enemyBase.EnemyFace(1));
         enemyHealthBar.Enemy_SetMaxHealth(Enemy_maxHealth);
         enemyHealthBar.Enemy_SetHealth(Enemy_currentHealth);
         enemyHealthBar.Enemy_setDamageFill();
