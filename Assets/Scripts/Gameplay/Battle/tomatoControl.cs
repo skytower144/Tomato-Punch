@@ -509,7 +509,7 @@ public class tomatoControl : MonoBehaviour
         Instantiate (upperSmoke);
     }
 
-    void player_revive()
+    void revive_to_idle()
     {
         ChangeAnimationState(TOMATO_IDLE);
         textSpawn.spawn_FIGHT_text();
@@ -552,6 +552,12 @@ public class tomatoControl : MonoBehaviour
             tomatoAnimator.Play("tomato_tiredKnockback",-1,0f);
         else
             tomatoAnimator.Play("tomato_knockback",-1,0f);
+    }
+
+    void ScreenShake()
+    {
+        DOTween.Rewind("CameraRumble");
+        DOTween.Play("CameraRumble");
     }
 
 
