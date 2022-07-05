@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
             {
                 SelectMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+            else if(Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.P) && !option_control.activeSelf))
             {
                 playerMovement.HitMenu();
             }

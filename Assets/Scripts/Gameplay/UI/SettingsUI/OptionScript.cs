@@ -40,7 +40,6 @@ public class OptionScript : MonoBehaviour
         DOTween.Rewind("close_option");
         DOTween.Play("close_option");
     }
-
     public void TurnoffOption()
     {
         optionList[optionNumber].SetActive(false);
