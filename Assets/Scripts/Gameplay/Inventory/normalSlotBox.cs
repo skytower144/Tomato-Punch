@@ -25,6 +25,8 @@ public class normalSlotBox : MonoBehaviour
             else if (textNum == 1){
                 inventoryUI.AddColor_2(slotNum);
             }
+            SlotNavigation.isBusy = false;
+            gameObject.SetActive(false);
         }
         else if(Input.GetKeyDown(KeyCode.P))
         {

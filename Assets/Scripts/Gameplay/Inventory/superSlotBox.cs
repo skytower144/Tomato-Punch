@@ -21,6 +21,8 @@ public class superSlotBox : MonoBehaviour
             if (textNum == 0){
                 inventoryUI.AddColor_S(slotNum);
             }
+            SlotNavigation.isBusy = false;
+            gameObject.SetActive(false);
         }
         else if(Input.GetKeyDown(KeyCode.P))
         {

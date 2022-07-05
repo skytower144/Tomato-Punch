@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class iconNavigation : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List <Sprite> SelectedIconSprite;
     [SerializeField] private List <Sprite> defaultIconSprite;
     [SerializeField] private List <Image> buttonImage;
@@ -42,6 +43,10 @@ public class iconNavigation : MonoBehaviour
             button[iconNumber].Select();
             uiBundle[iconNumber].SetActive(true);
             buttonHighlight(iconNumber);
+        }
+        else if(Input.GetKeyDown(KeyCode.Return))
+        {
+            playerMovement.HitStatus();
         }
     }
 

@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator myAnim;
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
-    [SerializeField] private GameObject playerUI;
+    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] private GameObject playerUI, canvas;
     [SerializeField] private List <GameObject> playerUIList;
     [SerializeField] private float speed;
     private Vector2 movement;
@@ -32,17 +33,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerInteract();
             }
-            else if(Input.GetKeyDown(KeyCode.Return))
+            else if(!isInteracting && Input.GetKeyDown(KeyCode.Return))
             {
-                inventorySetUp();
-                iconnavigation.status_enableStart();
-                IsInteracting();
+                HitStatus();
             }
             else if(!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 1")))
             {
-                inventorySetUp();
-                iconnavigation.status_enableStart();
-                IsInteracting();
+                HitStatus();
+            }
+            else if(!isInteracting && Input.GetKeyDown(KeyCode.Escape))
+            {
+                HitMenu();
             }
         }
         else if(isBattle)
@@ -106,5 +107,17 @@ public class PlayerMovement : MonoBehaviour
         playerUIList[3].SetActive(false);
 
         statusNavigation.normalize_navigation();
+    }
+    public void HitStatus()
+    {
+        inventorySetUp();
+        iconnavigation.status_enableStart();
+        IsInteracting();
+    }
+    public void HitMenu()
+    {
+        canvas.SetActive(!canvas.activeSelf);
+        pauseMenu.SpawnPauseMenu(canvas.activeSelf);
+        IsInteracting();
     }
 }
