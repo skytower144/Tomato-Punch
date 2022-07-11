@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private OptionScript optionScript;
     [SerializeField] private List <TextMeshProUGUI> menuList;
-    [SerializeField] private GameObject option_control;
+    [SerializeField] private GameObject option_bundle;
     private int menuNumber;
     void OnEnable()
     {
@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
             {
                 SelectMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.P) && !option_control.activeSelf))
+            else if(Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.P) && !option_bundle.activeSelf))
             {
                 playerMovement.HitMenu();
             }
