@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     GameState gameState;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
+    [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
     public GameObject playerObject;
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     private float player_x, player_y;
     private void Start() //subscribing to an event
     {
+        resolutionMenu.SetupGraphic();
+
         battleSystem.OnBattleOver += EndBattle;
         playerMovement.BeginBattle += StartBattle;
     }

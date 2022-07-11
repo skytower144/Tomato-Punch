@@ -50,8 +50,8 @@ public class OptionScript : MonoBehaviour
     {
         is_busy_option = true;
 
-        UncolorText();
-        optionList[optionNumber].SetActive(false);
+        UncolorText(); // turn off last opened option text
+        optionList[optionNumber].SetActive(false); // turn off last opened option
         optionLine.GetComponent<RectTransform>().transform.localPosition = new Vector3(-523.4996f, 455.4f); // optionLine original place
 
         optionNumber = 0;

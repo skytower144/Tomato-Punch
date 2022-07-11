@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class TestCanvas : MonoBehaviour
+using TMPro;
+public class ResolutionMenu : MonoBehaviour
 {
-    public Dropdown resolutionDropdown;
+    public TMP_Dropdown resolutionDropdown;
     private List<(int, int)> resolutions;
     private int currentResolutionIndex;
-    void Start()
+    public void SetupGraphic()
     {
         resolutionDropdown.ClearOptions();
 
@@ -24,22 +25,17 @@ public class TestCanvas : MonoBehaviour
 
         resolutionDropdown.AddOptions(optionList);
 
-        resolutionDropdown.value = 1;
-        SetResolution(1);
+        resolutionDropdown.value = 0;
+        SetResolution(0);
+        SetFullScreen(true);
     }
     public void SetFullScreen (bool isFullscreen)
     {
-        if (isFullscreen){
-            Screen.SetResolution(resolutions[0].Item1, resolutions[0].Item2, true);
-        }
-        else {
-            SetResolution(currentResolutionIndex);
-        }
+        Screen.fullScreen = isFullscreen;
     }
-
     public void SetResolution (int index)
     {
         currentResolutionIndex = index;
-        Screen.SetResolution(resolutions[index].Item1, resolutions[index].Item2, false);
+        Screen.SetResolution(resolutions[index].Item1, resolutions[index].Item2, Screen.fullScreen);
     }
 }
