@@ -14,6 +14,7 @@ public class OptionScript : MonoBehaviour
     [SerializeField] private List <Sprite> illustrationList;
     [SerializeField] private List <TextMeshProUGUI> optionTexts;
     [SerializeField] private List <GameObject> optionList;
+    [SerializeField] private CanvasGroup firstMenu;
     [System.NonSerialized] public bool is_busy_option;
     private int optionNumber;
     private bool canNavigate = false;
@@ -63,6 +64,9 @@ public class OptionScript : MonoBehaviour
 
         DOTween.Rewind("option_fade");
         DOTween.Play("option_fade");
+
+        firstMenu.DOFade(1, 0.15f).SetDelay(0.3f);
+
         DOTween.Rewind("option_text_fade");
         DOTween.Play("option_text_fade");
 
@@ -73,6 +77,7 @@ public class OptionScript : MonoBehaviour
         canNavigate = false;
         
         DOTween.Complete("option_fade");
+
         DOTween.Rewind("option_clear");
         DOTween.Play("option_clear");
         bgAnimator.Play("rollOption");
@@ -145,8 +150,12 @@ public class OptionScript : MonoBehaviour
         ColorText();
         illustration.sprite = illustrationList[optionNumber];
         optionList[optionNumber].SetActive(true);
+
         DOTween.Rewind("option_fade");
         DOTween.Play("option_fade");
+        
+        if (optionNumber == 0)
+            firstMenu.DOFade(1, 0.15f);
 
         canNavigate = true;
     }

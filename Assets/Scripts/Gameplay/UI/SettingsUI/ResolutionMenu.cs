@@ -8,6 +8,17 @@ public class ResolutionMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     private List<(int, int)> resolutions;
     private int currentResolutionIndex;
+    [SerializeField] private List <GameObject> menuList;
+    private int menuNumber;
+    private void OnEnable()
+    {
+        menuNumber = 0;
+        menuList[0].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().color = new Color32(97, 125, 97, 255);
+    }
+    private void OnDisable()
+    {
+        gameObject.GetComponent<CanvasGroup>().alpha = 0;
+    }
     public void SetupGraphic()
     {
         resolutionDropdown.ClearOptions();
