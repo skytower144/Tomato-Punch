@@ -51,6 +51,8 @@ public class OptionScript : MonoBehaviour
     {
         is_busy_option = true;
 
+        firstMenu.alpha = 0;
+
         UncolorText(); // turn off last opened option text
         optionList[optionNumber].SetActive(false); // turn off last opened option
         optionLine.GetComponent<RectTransform>().transform.localPosition = new Vector3(-523.4996f, 455.4f); // optionLine original place
@@ -156,6 +158,8 @@ public class OptionScript : MonoBehaviour
         
         if (optionNumber == 0)
             firstMenu.DOFade(1, 0.15f);
+        else
+            firstMenu.alpha = 0;
 
         canNavigate = true;
     }

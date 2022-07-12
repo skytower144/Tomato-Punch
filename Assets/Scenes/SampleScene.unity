@@ -1788,6 +1788,7 @@ GameObject:
   - component: {fileID: 136030116}
   - component: {fileID: 136030119}
   - component: {fileID: 136030118}
+  - component: {fileID: 136030120}
   - component: {fileID: 136030117}
   m_Layer: 5
   m_Name: Dropdown
@@ -1840,9 +1841,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.62352943, g: 0.35686275, b: 0.35686275, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.9528302, g: 0.74158955, b: 0.74158955, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1903,7 +1904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.59607846, g: 0.56078434, b: 0.44705883, a: 0.4627451}
+  m_Color: {r: 0.7264151, g: 0.70288056, b: 0.627047, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1928,6 +1929,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136030115}
   m_CullTransparentMesh: 1
+--- !u!114 &136030120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136030115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7054dd6f5c5b14189f31b22d212e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionMenu: {fileID: 952913419}
+  toggle_list: []
 --- !u!1 &138195386
 GameObject:
   m_ObjectHideFlags: 0
@@ -13066,7 +13081,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cb9ec17627fa945897fcff62194ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropDownControl: {fileID: 136030120}
   resolutionDropdown: {fileID: 136030117}
+  resolutionToggle: {fileID: 276761369}
+  toggleObj_text: {fileID: 1154118056}
+  dropdownObj_text: {fileID: 1848212469}
+  toggleImg: {fileID: 77447636}
+  dropdownImg: {fileID: 136030118}
   menuList:
   - {fileID: 276761367}
   - {fileID: 136030115}
@@ -16334,6 +16355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1154118055}
   - component: {fileID: 1154118057}
+  - component: {fileID: 1154118058}
   - component: {fileID: 1154118056}
   m_Layer: 5
   m_Name: fullscreen_txt
@@ -16358,8 +16380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126.949974, y: 1.5625076}
-  m_SizeDelta: {x: 164.08, y: 30.92}
+  m_AnchoredPosition: {x: -97.828, y: 1.5625076}
+  m_SizeDelta: {x: 222.32, y: 30.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154118056
 MonoBehaviour:
@@ -16458,6 +16480,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154118054}
   m_CullTransparentMesh: 1
+--- !u!114 &1154118058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154118054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548fe32719b21d54fb2bad7bfbf3e5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionMenu: {fileID: 952913419}
+  dropDownBox: {fileID: 136030118}
 --- !u!1 &1156247541
 GameObject:
   m_ObjectHideFlags: 0

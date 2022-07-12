@@ -5,19 +5,42 @@ using UnityEngine.UI;
 using TMPro;
 public class ResolutionMenu : MonoBehaviour
 {
+    [SerializeField] private DropDown dropDownControl;
     public TMP_Dropdown resolutionDropdown;
+    public Toggle resolutionToggle;
     private List<(int, int)> resolutions;
     private int currentResolutionIndex;
-    [SerializeField] private List <GameObject> menuList;
-    private int menuNumber;
+    [SerializeField] private TextMeshProUGUI toggleObj_text, dropdownObj_text;
+    [SerializeField] private Image toggleImg, dropdownImg;
+    [SerializeField] private List<GameObject> menuList;
+    [System.NonSerialized] public int graphicMenuNumber;
+    [System.NonSerialized] public bool dropPointer_pressed = false;
     private void OnEnable()
     {
-        menuNumber = 0;
-        menuList[0].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().color = new Color32(97, 125, 97, 255);
+        NormalizeMenu();
+        graphicMenuNumber = 0;
+        HighlightMenu();
     }
-    private void OnDisable()
+    void Update()
     {
-        gameObject.GetComponent<CanvasGroup>().alpha = 0;
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            NormalizeMenu();
+            graphicMenuNumber += 1;
+            graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+            HighlightMenu();
+        }
+        else if(Input.GetKeyDown(KeyCode.W))
+        {
+            NormalizeMenu();
+            graphicMenuNumber -= 1;
+            graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+            HighlightMenu();
+        }
+        else if(Input.GetKeyDown(KeyCode.O))
+        {
+            InteractMenu();
+        }
     }
     public void SetupGraphic()
     {
@@ -48,5 +71,50 @@ public class ResolutionMenu : MonoBehaviour
     {
         currentResolutionIndex = index;
         Screen.SetResolution(resolutions[index].Item1, resolutions[index].Item2, Screen.fullScreen);
+    }
+
+    public void NormalizeMenu()
+    {
+        if (graphicMenuNumber == 0)
+        {
+            toggleObj_text.color = new Color32(112, 82, 75, 255);
+            toggleImg.color = new Color32(233, 199, 199, 255);
+        }
+        else if (graphicMenuNumber == 1)
+        {
+            dropdownObj_text.color = new Color32(112, 82, 75, 255);
+            dropdownImg.color =  new Color32(185, 179, 160, 255);
+            resolutionDropdown.Hide();
+
+            dropDownControl.ClearResolutionList();
+        }
+    }
+    public void HighlightMenu()
+    {
+        if (graphicMenuNumber == 0)
+        {
+            toggleObj_text.color = new Color32(97, 125, 97, 255);
+            toggleImg.color = new Color32(201, 233, 199, 255);
+        }
+        else if (graphicMenuNumber == 1)
+        {
+            dropdownObj_text.color = new Color32(97, 125, 97, 255);
+            dropdownImg.color = new Color32(134, 166, 134, 255);
+        }
+    }
+
+    private void InteractMenu()
+    {
+        if (graphicMenuNumber == 0)
+        {
+            resolutionToggle.isOn = !resolutionToggle.isOn;
+        }
+        else if (graphicMenuNumber == 1)
+        {
+            dropPointer_pressed = true;
+            resolutionDropdown.Show();
+            
+            dropDownControl.GatherResolution();
+        }
     }
 }
