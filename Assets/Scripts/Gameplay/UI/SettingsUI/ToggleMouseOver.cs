@@ -11,7 +11,8 @@ public class ToggleMouseOver : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        resolutionMenu.dropPointer_pressed = false;
+        resolutionMenu.drop_isActive = false;
+        
         dropDownBox.color = new Color32(185, 179, 160, 255);
 
         resolutionMenu.NormalizeMenu();

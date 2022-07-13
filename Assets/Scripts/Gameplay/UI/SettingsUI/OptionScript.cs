@@ -8,6 +8,7 @@ using DG.Tweening;
 public class OptionScript : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private GameObject optionBase, optionLine;
     [SerializeField] private Animator bgAnimator;
     [SerializeField] private Image illustration;
@@ -29,7 +30,7 @@ public class OptionScript : MonoBehaviour
                 is_busy_option = false;
                 playerMovement.HitMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.P))
+            else if(!resolutionMenu.drop_isActive && Input.GetKeyDown(KeyCode.P))
             {
                 CloseOptions();
             }
@@ -60,6 +61,7 @@ public class OptionScript : MonoBehaviour
         optionNumber = 0;
         ColorText();
         illustration.sprite = illustrationList[0];
+        // ---------------------------------------------------------- //
         
         optionList[0].SetActive(true);
         optionBase.SetActive(true);
@@ -158,9 +160,9 @@ public class OptionScript : MonoBehaviour
         
         if (optionNumber == 0)
             firstMenu.DOFade(1, 0.15f);
-        else
+        else{
             firstMenu.alpha = 0;
-
+        }
         canNavigate = true;
     }
 }

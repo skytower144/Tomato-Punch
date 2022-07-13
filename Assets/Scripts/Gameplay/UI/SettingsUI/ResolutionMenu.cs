@@ -14,7 +14,7 @@ public class ResolutionMenu : MonoBehaviour
     [SerializeField] private Image toggleImg, dropdownImg;
     [SerializeField] private List<GameObject> menuList;
     [System.NonSerialized] public int graphicMenuNumber;
-    [System.NonSerialized] public bool dropPointer_pressed = false;
+    [System.NonSerialized] public bool drop_isActive = false;
     private void OnEnable()
     {
         NormalizeMenu();
@@ -23,23 +23,26 @@ public class ResolutionMenu : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (!drop_isActive)
         {
-            NormalizeMenu();
-            graphicMenuNumber += 1;
-            graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
-            HighlightMenu();
-        }
-        else if(Input.GetKeyDown(KeyCode.W))
-        {
-            NormalizeMenu();
-            graphicMenuNumber -= 1;
-            graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
-            HighlightMenu();
-        }
-        else if(Input.GetKeyDown(KeyCode.O))
-        {
-            InteractMenu();
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                NormalizeMenu();
+                graphicMenuNumber += 1;
+                graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+                HighlightMenu();
+            }
+            else if(Input.GetKeyDown(KeyCode.W))
+            {
+                NormalizeMenu();
+                graphicMenuNumber -= 1;
+                graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+                HighlightMenu();
+            }
+            else if(Input.GetKeyDown(KeyCode.O))
+            {
+                InteractMenu();
+            }
         }
     }
     public void SetupGraphic()
@@ -84,9 +87,6 @@ public class ResolutionMenu : MonoBehaviour
         {
             dropdownObj_text.color = new Color32(112, 82, 75, 255);
             dropdownImg.color =  new Color32(185, 179, 160, 255);
-            resolutionDropdown.Hide();
-
-            dropDownControl.ClearResolutionList();
         }
     }
     public void HighlightMenu()
@@ -111,9 +111,7 @@ public class ResolutionMenu : MonoBehaviour
         }
         else if (graphicMenuNumber == 1)
         {
-            dropPointer_pressed = true;
             resolutionDropdown.Show();
-            
             dropDownControl.GatherResolution();
         }
     }

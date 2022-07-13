@@ -187,7 +187,7 @@ public class tomatoControl : MonoBehaviour
                         ChangeAnimationState(TOMATO_GUARD);
                         tomato_G.SetActive(true);
                     }
-                    else if(Input.GetKeyDown(KeyCode.R))
+                    else if(Input.GetKeyDown(KeyCode.Return))
                     {
                         if((tomatoSuperEquip != null) && parryBar.gaksungOn)
                         {

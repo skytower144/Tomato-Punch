@@ -7,10 +7,36 @@ using UnityEngine.EventSystems;
 public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 {
     [SerializeField] private ResolutionMenu resolutionMenu;
-    [SerializeField] private List<GameObject> toggle_list;
+    [SerializeField] private List<Toggle> toggle_list;
+    private Transform temp_content;
+    private int listNumber = 0;
+    void Update()
+    {
+        if(resolutionMenu.drop_isActive)
+        {
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                IncreaseNumber();
+            }
+            else if(Input.GetKeyDown(KeyCode.W))
+            {
+                DecreaseNumber();
+            }
+            else if(Input.GetKeyDown(KeyCode.O))
+            {
+                resolutionMenu.resolutionDropdown.value = listNumber;
+                resolutionMenu.SetResolution(resolutionMenu.resolutionDropdown.value);
+                ExitDropDown();
+            }
+            else if(Input.GetKeyDown(KeyCode.P))
+            {
+                ExitDropDown();
+            }
+        }
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!resolutionMenu.dropPointer_pressed)
+        if (!resolutionMenu.drop_isActive)
         {
             resolutionMenu.NormalizeMenu();
             resolutionMenu.graphicMenuNumber = 1;
@@ -22,7 +48,7 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        resolutionMenu.dropPointer_pressed = true;
+        resolutionMenu.drop_isActive = true;
 
         resolutionMenu.NormalizeMenu();
         resolutionMenu.graphicMenuNumber = 1;
@@ -36,18 +62,63 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     public void GatherResolution()
     {
         toggle_list.Clear();
-        GameObject temp_content = transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
+
+        GameObject tempObj = transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
+        temp_content = tempObj.transform;
+
         for (int i = 1; i <= 8; i++)
         {
-            toggle_list.Add(temp_content.transform.GetChild(i).gameObject);
+            toggle_list.Add(temp_content.GetChild(i).gameObject.GetComponent<Toggle>());
         }
+
+        listNumber = resolutionMenu.resolutionDropdown.value;
+        if (listNumber >= 6)
+            temp_content.localPosition = new Vector3(temp_content.localPosition.x, 25.16801f);
+
+        Invoke("ActivateDropDown", 0.15f);
+    }
+    private void ActivateDropDown()
+    {
+        resolutionMenu.drop_isActive = true;
     }
     public void ClearResolutionList()
     {
         toggle_list.Clear();
-        for (int i = 0; i < 8; i++)
+        temp_content = null;
+        resolutionMenu.resolutionDropdown.Hide();
+    }
+    private void IncreaseNumber()
+    {
+        listNumber += 1;
+
+        if (listNumber < 8)
         {
-            toggle_list.Add(null);
+            toggle_list[listNumber].Select();
+
+            if (listNumber == 6)
+                temp_content.localPosition = new Vector3(temp_content.localPosition.x, 25.16801f);
         }
+        else
+            listNumber -= 1;
+    }
+    private void DecreaseNumber()
+    {
+        listNumber -= 1;
+
+        if (listNumber > -1)
+        {
+            toggle_list[listNumber].Select();
+
+            if (listNumber == 1)
+                temp_content.localPosition = new Vector3(temp_content.localPosition.x, 0);
+        }
+        else
+            listNumber += 1;
+    }
+
+    private void ExitDropDown()
+    {
+        resolutionMenu.drop_isActive = false;
+        ClearResolutionList();
     }
 }
