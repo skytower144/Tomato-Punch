@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public class superSlotBox : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List <TextMeshProUGUI> textField;
     [SerializeField] private Color highLightedColor;
     [SerializeField] private SuperSlotNavigation superSlotNavigation;
@@ -16,7 +17,7 @@ public class superSlotBox : MonoBehaviour
     }
     private void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.O))
+        if(playerMovement.Press_Key("Interact"))
         {   
             if (textNum == 0){
                 inventoryUI.AddColor_S(slotNum);
@@ -24,16 +25,16 @@ public class superSlotBox : MonoBehaviour
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
-        else if(Input.GetKeyDown(KeyCode.P))
+        else if(playerMovement.Press_Key("Cancel"))
         {
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
-        else if(Input.GetKeyDown(KeyCode.W))
+        else if(playerMovement.Press_Direction("UP"))
         {
             textNum += 1;
         }
-        else if(Input.GetKeyDown(KeyCode.S))
+        else if(playerMovement.Press_Direction("DOWN"))
         {
             textNum -= 1;
         }

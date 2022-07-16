@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public class normalSlotBox : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List <TextMeshProUGUI> textField;
     [SerializeField] private Color highLightedColor;
     [SerializeField] private SlotNavigation slotNavigation;
@@ -16,7 +17,7 @@ public class normalSlotBox : MonoBehaviour
     }
     private void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.O))
+        if(playerMovement.Press_Key("Interact"))
         {   
             if (textNum == 0){
                 // update left ui image icon
@@ -28,16 +29,16 @@ public class normalSlotBox : MonoBehaviour
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
-        else if(Input.GetKeyDown(KeyCode.P))
+        else if(playerMovement.Press_Key("Cancel"))
         {
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
-        else if(Input.GetKeyDown(KeyCode.W))
+        else if(playerMovement.Press_Direction("UP"))
         {
             textNum += 1;
         }
-        else if(Input.GetKeyDown(KeyCode.S))
+        else if(playerMovement.Press_Direction("DOWN"))
         {
             textNum -= 1;
         }

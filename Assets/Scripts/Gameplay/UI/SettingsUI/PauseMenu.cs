@@ -22,21 +22,21 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         if(!optionScript.is_busy_option){
-            if(Input.GetKeyDown(KeyCode.S))
+            if(playerMovement.Press_Direction("DOWN"))
             {
                 Scroll("DOWN");
                 HighlightText();
             }
-            else if(Input.GetKeyDown(KeyCode.W))
+            else if(playerMovement.Press_Direction("UP"))
             {
                 Scroll("UP");
                 HighlightText();
             }
-            else if(Input.GetKeyDown(KeyCode.O))
+            else if(playerMovement.Press_Key("Interact"))
             {
                 SelectMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) || (Input.GetKeyDown(KeyCode.P) && !option_bundle.activeSelf))
+            else if(playerMovement.Press_Key("Pause") || (playerMovement.Press_Key("Cancel") && !option_bundle.activeSelf))
             {
                 playerMovement.HitMenu();
             }

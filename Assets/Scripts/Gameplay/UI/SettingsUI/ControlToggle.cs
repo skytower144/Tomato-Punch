@@ -6,8 +6,10 @@ using UnityEngine.EventSystems;
 public class ControlToggle : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private ControlScroll controlScroll;
+    [SerializeField] private RebindKey rebindKey;
     public void OnPointerDown(PointerEventData eventData)
     {
-        controlScroll.ControlInteractMenu();
+        if(!rebindKey.isBinding)
+            controlScroll.ControlInteractMenu();
     }    
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class ResolutionMenu : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private DropDown dropDownControl;
     public TMP_Dropdown resolutionDropdown;
     public Toggle resolutionToggle;
@@ -25,21 +26,21 @@ public class ResolutionMenu : MonoBehaviour
     {
         if (!drop_isActive)
         {
-            if(Input.GetKeyDown(KeyCode.S))
+            if(playerMovement.Press_Direction("DOWN"))
             {
                 NormalizeMenu();
                 graphicMenuNumber += 1;
                 graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
                 HighlightMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.W))
+            else if(playerMovement.Press_Direction("UP"))
             {
                 NormalizeMenu();
                 graphicMenuNumber -= 1;
                 graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
                 HighlightMenu();
             }
-            else if(Input.GetKeyDown(KeyCode.O))
+            else if(playerMovement.Press_Key("Interact"))
             {
                 InteractMenu();
             }

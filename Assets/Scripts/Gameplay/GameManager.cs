@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu;
+    [SerializeField] ControlScroll controlScroll;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
     public GameObject playerObject;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
         battleSystem.OnBattleOver += EndBattle;
         playerMovement.BeginBattle += StartBattle;
+
+        InvokeRepeating("DetectGamepad", 0f, 1f);
     }
     void StartBattle()
     {
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameState == GameState.FreeRoam)
+        if (gameState == GameState.FreeRoam)
         {
             playerMovement.HandleUpdate();
         }
@@ -85,4 +88,12 @@ public class GameManager : MonoBehaviour
         PlayerMovement.isBattle = false;
     }
 
+    private void DetectGamepad()
+    {
+        string [] names = Input.GetJoystickNames();
+        if(string.IsNullOrEmpty(names[0]))
+            controlScroll.ChangeControlScheme(true);
+        else
+            controlScroll.ChangeControlScheme(false);
+    }
 }

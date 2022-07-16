@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private List<Toggle> toggle_list;
     private Transform temp_content;
@@ -14,21 +15,21 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     {
         if(resolutionMenu.drop_isActive)
         {
-            if(Input.GetKeyDown(KeyCode.S))
+            if(playerMovement.Press_Direction("DOWN"))
             {
                 IncreaseNumber();
             }
-            else if(Input.GetKeyDown(KeyCode.W))
+            else if(playerMovement.Press_Direction("UP"))
             {
                 DecreaseNumber();
             }
-            else if(Input.GetKeyDown(KeyCode.O))
+            else if(playerMovement.Press_Key("Interact"))
             {
                 resolutionMenu.resolutionDropdown.value = listNumber;
                 resolutionMenu.SetResolution(resolutionMenu.resolutionDropdown.value);
                 ExitDropDown();
             }
-            else if(Input.GetKeyDown(KeyCode.P))
+            else if(playerMovement.Press_Key("Cancel"))
             {
                 ExitDropDown();
             }

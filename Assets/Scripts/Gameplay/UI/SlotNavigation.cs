@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SlotNavigation : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private Inventory inventory;
     [SerializeField] private List <RectTransform> slotGrid;
@@ -36,7 +37,7 @@ public class SlotNavigation : MonoBehaviour
         arrowControl();
         if (!isBusy)
         {
-            if(Input.GetKeyDown(KeyCode.O))
+            if(playerMovement.Press_Key("Interact"))
             {
                 if(slotNumber == 8){
                     super_Parent.SetActive(true);
@@ -50,7 +51,7 @@ public class SlotNavigation : MonoBehaviour
                     }
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.D))
+            else if(playerMovement.Press_Direction("RIGHT"))
             {
                 if ((slotNumber >= 0 && slotNumber <=2) || (slotNumber >=4 && slotNumber <= 6)) {
                     slotNumber += 1;
@@ -64,7 +65,7 @@ public class SlotNavigation : MonoBehaviour
                     pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.A))
+            else if(playerMovement.Press_Direction("LEFT"))
             {
                 if ((slotNumber >= 1 && slotNumber <= 3) || (slotNumber >= 5 && slotNumber <= 7)){
                     slotNumber -= 1;
@@ -78,7 +79,7 @@ public class SlotNavigation : MonoBehaviour
                     pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.S))
+            else if(playerMovement.Press_Direction("DOWN"))
             {
                 if (slotNumber == 8){
                     pointerImage.enabled = true;
@@ -92,7 +93,7 @@ public class SlotNavigation : MonoBehaviour
                     pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.W))
+            else if(playerMovement.Press_Direction("UP"))
             {
                 if (slotNumber >=0 && slotNumber <= 3){
                     pointerImage.enabled = false;

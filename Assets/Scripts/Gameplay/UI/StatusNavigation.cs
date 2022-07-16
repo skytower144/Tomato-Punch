@@ -5,6 +5,7 @@ using UnityEngine;
 public class StatusNavigation : MonoBehaviour
 {
     [SerializeField] tomatoStatus tomatostatus;
+    [SerializeField] PlayerMovement playerMovement;
     [SerializeField] private GameObject pointBase, pointFrame;
     [System.NonSerialized] public bool navigating_status;
     private RectTransform pointBaseTransform;
@@ -24,34 +25,33 @@ public class StatusNavigation : MonoBehaviour
     }
     void Update()
     {
-        if(!navigating_status && Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown("joystick button 0"))
+        if(!navigating_status && playerMovement.Press_Key("Interact"))
         {
             activate_navigation();
         }
 
         else if(navigating_status)
         {
-            if(Input.GetKeyDown(KeyCode.W) && BoundaryCheck("UP"))
+            if( playerMovement.Press_Direction("UP") && BoundaryCheck("UP"))
             {
                 IncreaseNumber();
                 pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y + 87f);
             }
-            else if( Input.GetKeyDown(KeyCode.S) && BoundaryCheck("DOWN"))
+            else if( playerMovement.Press_Direction("DOWN") && BoundaryCheck("DOWN"))
             {
                 DecreaseNumber();
                 pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y - 87f);
             }
-            else if((Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown("joystick button 0")))
+            else if(playerMovement.Press_Key("Interact"))
             {
                 tomatostatus.IncreaseStat(statusNumber);
             }
-            else if((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 1")))
+            else if(playerMovement.Press_Key("Cancel"))
             {
                 normalize_navigation();
             }
         }
     }
-
     private void activate_navigation()
     {
         navigating_status = true;

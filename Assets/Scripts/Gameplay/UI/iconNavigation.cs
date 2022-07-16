@@ -23,7 +23,7 @@ public class iconNavigation : MonoBehaviour
     }
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(playerMovement.Press_Key("RightPage"))
         {
             buttonNormalize(iconNumber);
             uiBundle[iconNumber].SetActive(false);
@@ -34,7 +34,7 @@ public class iconNavigation : MonoBehaviour
             buttonHighlight(iconNumber);
             
         }
-        else if(Input.GetKeyDown(KeyCode.Q))
+        else if(playerMovement.Press_Key("LeftPage"))
         {
             buttonNormalize(iconNumber);
             uiBundle[iconNumber].SetActive(false);
@@ -44,7 +44,7 @@ public class iconNavigation : MonoBehaviour
             uiBundle[iconNumber].SetActive(true);
             buttonHighlight(iconNumber);
         }
-        else if(Input.GetKeyDown(KeyCode.Return))
+        else if(playerMovement.Press_Key("Status"))
         {
             playerMovement.HitStatus();
         }

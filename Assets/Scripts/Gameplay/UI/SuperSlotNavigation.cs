@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SuperSlotNavigation : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private Inventory inventory;
     [SerializeField] private List <RectTransform> slotGrid;
@@ -32,7 +33,7 @@ public class SuperSlotNavigation : MonoBehaviour
     {
         if(!SlotNavigation.isBusy)
         {
-            if(Input.GetKeyDown(KeyCode.O))
+            if(playerMovement.Press_Key("Interact"))
             {
                 if(slotNumber == 8){
                     super_Parent.SetActive(false);
@@ -46,21 +47,21 @@ public class SuperSlotNavigation : MonoBehaviour
                         }
                     }
             }
-            else if(Input.GetKeyDown(KeyCode.D))
+            else if(playerMovement.Press_Direction("RIGHT"))
             {
                 if (slotNumber >=0 && slotNumber <= 2){
                     slotNumber += 1;
                     pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.A))
+            else if(playerMovement.Press_Direction("LEFT"))
             {
                 if (slotNumber >=1 && slotNumber <= 3){
                     slotNumber -= 1;
                     pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.S))
+            else if(playerMovement.Press_Direction("DOWN"))
             {
                 if (slotNumber == 8){
                     pointerImage.enabled = true;
@@ -70,7 +71,7 @@ public class SuperSlotNavigation : MonoBehaviour
                     logoAnim.Play("superLogo_default");
                 }
             }
-            else if(Input.GetKeyDown(KeyCode.W))
+            else if(playerMovement.Press_Direction("UP"))
             {
                 if (slotNumber >= 0 && slotNumber <= 3){
                     pointerImage.enabled = false;
@@ -86,5 +87,4 @@ public class SuperSlotNavigation : MonoBehaviour
     {
         Start();
     }
-
 }

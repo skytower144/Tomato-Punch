@@ -23,22 +23,22 @@ public class OptionScript : MonoBehaviour
     {
         if(is_busy_option && canNavigate)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(playerMovement.Press_Key("Pause"))
             {
                 canNavigate = false;
                 optionBase.SetActive(false);
                 is_busy_option = false;
                 playerMovement.HitMenu();
             }
-            else if(!resolutionMenu.drop_isActive && Input.GetKeyDown(KeyCode.P))
+            else if(!resolutionMenu.drop_isActive && playerMovement.Press_Key("Cancel"))
             {
                 CloseOptions();
             }
-            else if(Input.GetKeyDown(KeyCode.Q))
+            else if(playerMovement.Press_Key("LeftPage"))
             {
                 SwitchOption("-");
             }
-            else if(Input.GetKeyDown(KeyCode.E))
+            else if(playerMovement.Press_Key("RightPage"))
             {
                 SwitchOption("+");
             }

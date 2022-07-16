@@ -2,46 +2,53 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D myRb;
     private Animator myAnim;
+    private PlayerInput playerInput;
+    public PlayerInput PlayerInput => playerInput;
+
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] private GameObject playerUI, canvas;
     [SerializeField] private List <GameObject> playerUIList;
+
     [SerializeField] private float speed;
     private Vector2 movement;
+
     public LayerMask interactableLayer;
+
     public static bool isBattle = false;
     private bool isInteracting = false;
     public event Action BeginBattle;
 
-    // Start is called before the first frame update
     void Start()
     {
        myRb = GetComponent<Rigidbody2D>();
        myAnim = GetComponent<Animator>();
+       playerInput = GetComponent<PlayerInput>();
     }
 
     public void HandleUpdate()
     {
         if(!isBattle)
         {
-            if(!isInteracting && (Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0"))))
+            if(!isInteracting && Press_Key("Interact"))
             {
                 PlayerInteract();
             }
-            else if(!isInteracting && Input.GetKeyDown(KeyCode.Return))
+            else if(!isInteracting && Press_Key("Status"))
             {
                 HitStatus();
             }
-            else if(!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown("joystick button 1")))
+            else if(!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && Press_Key("Cancel"))
             {
-                HitStatus();
+                HitStatus(); // BREAK OUT OF STATUS
             }
-            else if(!isInteracting && Input.GetKeyDown(KeyCode.Escape))
+            else if(!isInteracting && Press_Key("Pause"))
             {
                 HitMenu();
             }
@@ -56,9 +63,11 @@ public class PlayerMovement : MonoBehaviour
     {
        if(!isBattle && !isInteracting)
        {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
-            movement = movement.normalized;
+            // movement.x = Input.GetAxisRaw("Horizontal");
+            // movement.y = Input.GetAxisRaw("Vertical");
+
+            //movement = movement.normalized;
+            movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
             if(movement != Vector2.zero)
             {
@@ -119,5 +128,27 @@ public class PlayerMovement : MonoBehaviour
         canvas.SetActive(!canvas.activeSelf);
         pauseMenu.SpawnPauseMenu(canvas.activeSelf);
         IsInteracting();
+    }
+
+    public bool Press_Key(string input_tag)
+    {
+        return playerInput.actions[input_tag].triggered;
+    }
+
+    public bool Press_Direction(string direction)
+    {
+        if(Press_Key("Move"))
+        {
+            if(direction == "UP")
+                return (playerInput.actions["Move"].ReadValue<Vector2>().y > 0);
+            else if(direction == "DOWN")
+                return (playerInput.actions["Move"].ReadValue<Vector2>().y < 0);
+            else if(direction == "LEFT")
+                return (playerInput.actions["Move"].ReadValue<Vector2>().x < 0);
+            else if(direction == "RIGHT")
+                return (playerInput.actions["Move"].ReadValue<Vector2>().x > 0);
+        }
+        
+        return false;
     }
 }

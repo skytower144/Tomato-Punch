@@ -6,20 +6,31 @@ using TMPro;
 
 public class ControlScroll : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private RebindKey rebindKey;
     [SerializeField] private Transform contentTransform;
     [SerializeField] private Animator ToggleAnim;
     [SerializeField] private Image key_or_pad, roam_or_battle;
+    [SerializeField] private GameObject DisplayKeyboard, DisplayGamepad;
     [SerializeField] private List<Sprite> icons;
     [SerializeField] private TextMeshProUGUI mode_text;
     [SerializeField] private List<TextMeshProUGUI> controlTextList;
-    private int menuNumber;
+    [SerializeField] private List<TextMeshProUGUI> bindingDisplayText_key;
+    [SerializeField] private List<TextMeshProUGUI> bindingDisplayText_pad;
+    
+    private int menuNumber, totalMenuNumber;
+    public int InputMenuNumber => menuNumber;
     private float current_scroll_y;
-    private bool isKeyBoard = true;
+    public bool isKeyBoard = true;
     private bool isModeRoam = true;
+    void Start()
+    {
+        totalMenuNumber = controlTextList.Count - 1;
+    }
     void OnEnable()
     {
         UncolorMenu();
-        menuNumber = -2;
+        menuNumber = -1;
         ColorMenu();
 
         current_scroll_y = 0;
@@ -27,19 +38,19 @@ public class ControlScroll : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if(playerMovement.Press_Direction("DOWN"))
         {
             UncolorMenu();
             IncreaseNumber();
             ColorMenu();
         }
-        else if(Input.GetKeyDown(KeyCode.W))
+        else if(playerMovement.Press_Direction("UP"))
         {
             UncolorMenu();
             DecreaseNumber();
             ColorMenu();
         }
-        else if(Input.GetKeyDown(KeyCode.O))
+        else if(playerMovement.Press_Key("Interact"))
         {
             ControlInteractMenu();
         }
@@ -47,43 +58,39 @@ public class ControlScroll : MonoBehaviour
     private void IncreaseNumber()
     {
         menuNumber += 1;
-        menuNumber = Mathf.Clamp(menuNumber, -2, 9);
+        menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
         MoveScroll("+");    
     }
     private void DecreaseNumber()
     {
         menuNumber -= 1;
-        menuNumber = Mathf.Clamp(menuNumber, -2, 9);
+        menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
         MoveScroll("-");
     }
     private void ColorMenu()
     {
-        if (menuNumber == -2)
-        {
-            key_or_pad.color = new Color32(97, 125, 97, 255);
-        }
-        else if (menuNumber == -1)
+        if (menuNumber == -1)
         {
             roam_or_battle.color = new Color32(112, 255, 158, 194);
         }
         else if (menuNumber >= 0)
         {
             controlTextList[menuNumber].color = new Color32(97, 125, 97, 255);
+            bindingDisplayText_key[menuNumber].color = new Color32(97, 125, 97, 255);
+            bindingDisplayText_pad[menuNumber].color = new Color32(97, 125, 97, 255);
         }
     }
     private void UncolorMenu()
     {
-        if (menuNumber == -2)
-        {
-            key_or_pad.color = new Color32(96, 87, 84, 255);
-        }
-        else if (menuNumber == -1)
+        if (menuNumber == -1)
         {
             roam_or_battle.color = new Color32(255, 255, 255, 255);
         }
         else if (menuNumber >= 0)
         {
             controlTextList[menuNumber].color = new Color32(112, 82, 75, 255);
+            bindingDisplayText_key[menuNumber].color = new Color32(112, 82, 75, 255);
+            bindingDisplayText_pad[menuNumber].color = new Color32(112, 82, 75, 255);
         }
     }
     private void MoveScroll(string direction)
@@ -105,27 +112,31 @@ public class ControlScroll : MonoBehaviour
 
     public void ControlMouseSelect(int index)
     {
-        current_scroll_y = contentTransform.localPosition.y;
+        if(!rebindKey.isBinding){
+            current_scroll_y = contentTransform.localPosition.y;
 
-        UncolorMenu();
-        menuNumber = index;
-        ColorMenu();
+            UncolorMenu();
+            menuNumber = index;
+            ColorMenu();
+        }
     }
-
+    public void ChangeControlScheme(bool state)
+    {
+        isKeyBoard = state;
+        if(isKeyBoard){
+            key_or_pad.sprite = icons[0];
+            DisplayKeyboard.SetActive(true);
+            DisplayGamepad.SetActive(false);
+        }
+        else{
+            key_or_pad.sprite = icons[1];
+            DisplayKeyboard.SetActive(false);
+            DisplayGamepad.SetActive(true);
+        }
+    }
     public void ControlInteractMenu()
     {
-        if(menuNumber == -2)
-        {
-            if(isKeyBoard){
-                isKeyBoard = false;
-                key_or_pad.sprite = icons[1];
-            }
-            else {
-                isKeyBoard = true;
-                key_or_pad.sprite = icons[0];
-            }
-        }
-        else if(menuNumber == -1)
+        if(menuNumber == -1)
         {
             if(isModeRoam)
             {
@@ -138,8 +149,15 @@ public class ControlScroll : MonoBehaviour
             }
             SwitchModeText();
         }
+        else if(menuNumber >= 0)
+        {
+            rebindKey.StartRebinding();
+        }
     }
-
+    public List<TextMeshProUGUI> bindingDisplayText
+    {
+        get { return isKeyBoard ? bindingDisplayText_key : bindingDisplayText_pad; }
+    }
     private void SwitchModeText()
     {
         if(isModeRoam){
@@ -154,7 +172,6 @@ public class ControlScroll : MonoBehaviour
             controlTextList[6].text = "* Left Page";
             controlTextList[7].text = "* Right Page";
             controlTextList[8].text = "* Status";
-            controlTextList[9].text = "* Pause Menu";
         }
         else {
             mode_text.text = "BATTLE";
@@ -168,7 +185,6 @@ public class ControlScroll : MonoBehaviour
             controlTextList[6].text = "* 1st Equip";
             controlTextList[7].text = "* 2nd Equip";
             controlTextList[8].text = "* Super";
-            controlTextList[9].text = "-";
         }
     }
 }
