@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerUI, canvas;
     [SerializeField] private List <GameObject> playerUIList;
 
-    [SerializeField] private float speed;
+    [SerializeField] private float speed, stickSensitivity;
     private Vector2 movement;
 
     public LayerMask interactableLayer;
@@ -65,11 +65,12 @@ public class PlayerMovement : MonoBehaviour
        {
             // movement.x = Input.GetAxisRaw("Horizontal");
             // movement.y = Input.GetAxisRaw("Vertical");
-
             //movement = movement.normalized;
+
             movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
-            if(movement != Vector2.zero)
+            //if(movement != Vector2.zero)
+            if(PlayerMoveDetect(movement))
             {
                 myAnim.SetBool("isWalking", true);
                 myAnim.SetFloat("moveX", movement.x);
@@ -78,11 +79,15 @@ public class PlayerMovement : MonoBehaviour
                 myRb.MovePosition(myRb.position + movement * speed * Time.fixedDeltaTime);
 
             }
-            else if(movement == Vector2.zero)
+            else if(!PlayerMoveDetect(movement))
             {
                 myAnim.SetBool("isWalking", false);
             }
        }
+    }
+    private bool PlayerMoveDetect(Vector2 move)
+    {
+        return (move.x >= stickSensitivity || move.x <= -stickSensitivity || move.y >= stickSensitivity || move.y <= -stickSensitivity);
     }
     void PlayerInteract()
     {
@@ -139,14 +144,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Press_Key("Move"))
         {
+            movement = playerInput.actions["Move"].ReadValue<Vector2>();
+
             if(direction == "UP")
-                return (playerInput.actions["Move"].ReadValue<Vector2>().y > 0);
+                return (movement.y > stickSensitivity);
             else if(direction == "DOWN")
-                return (playerInput.actions["Move"].ReadValue<Vector2>().y < 0);
+                return (movement.y < -stickSensitivity);
             else if(direction == "LEFT")
-                return (playerInput.actions["Move"].ReadValue<Vector2>().x < 0);
+                return (movement.x < -stickSensitivity);
             else if(direction == "RIGHT")
-                return (playerInput.actions["Move"].ReadValue<Vector2>().x > 0);
+                return (movement.x > stickSensitivity);
         }
         
         return false;
