@@ -10,20 +10,21 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     public PlayerInput PlayerInput => playerInput;
 
+    [SerializeField] GameManager gameManager;
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] private GameObject playerUI, canvas;
     [SerializeField] private List <GameObject> playerUIList;
 
-    [SerializeField] private float speed, stickSensitivity;
+    [SerializeField] private float speed;
     private Vector2 movement;
 
     public LayerMask interactableLayer;
 
     public static bool isBattle = false;
     private bool isInteracting = false;
-    public event Action BeginBattle;
+    // public event Action BeginBattle;
 
     void Start()
     {
@@ -53,10 +54,6 @@ public class PlayerMovement : MonoBehaviour
                 HitMenu();
             }
         }
-        else if(isBattle)
-        {
-            BeginBattle();
-        }
     }
     // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
@@ -70,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
             //if(movement != Vector2.zero)
-            if(PlayerMoveDetect(movement))
+            if(InputDetection(movement))
             {
                 myAnim.SetBool("isWalking", true);
                 myAnim.SetFloat("moveX", movement.x);
@@ -79,15 +76,19 @@ public class PlayerMovement : MonoBehaviour
                 myRb.MovePosition(myRb.position + movement * speed * Time.fixedDeltaTime);
 
             }
-            else if(!PlayerMoveDetect(movement))
+            else if(!InputDetection(movement))
             {
                 myAnim.SetBool("isWalking", false);
             }
        }
     }
-    private bool PlayerMoveDetect(Vector2 move)
+    public bool InputDetection(Vector2 move)
     {
-        return (move.x >= stickSensitivity || move.x <= -stickSensitivity || move.y >= stickSensitivity || move.y <= -stickSensitivity);
+        return (move.x >= gameManager.stickSensitivity || move.x <= -gameManager.stickSensitivity|| move.y >= gameManager.stickSensitivity || move.y <= -gameManager.stickSensitivity);
+    }
+    public Vector2 ReturnMoveVector()
+    {
+        return playerInput.actions["Move"].ReadValue<Vector2>();
     }
     void PlayerInteract()
     {
@@ -139,23 +140,27 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerInput.actions[input_tag].triggered;
     }
-
-    public bool Press_Direction(string direction)
+    public bool CheckKeyboardControl()
     {
-        if(Press_Key("Move"))
-        {
-            movement = playerInput.actions["Move"].ReadValue<Vector2>();
+        return playerInput.actions["Interact"].controls[0].ToString().Contains("Keyboard");
+    }
 
-            if(direction == "UP")
-                return (movement.y > stickSensitivity);
-            else if(direction == "DOWN")
-                return (movement.y < -stickSensitivity);
-            else if(direction == "LEFT")
-                return (movement.x < -stickSensitivity);
-            else if(direction == "RIGHT")
-                return (movement.x > stickSensitivity);
-        }
+    public string Press_Direction()
+    {
+        movement = playerInput.actions["Move"].ReadValue<Vector2>();
+
+        if((movement.y >= gameManager.stickSensitivity))
+            return "UP";
+
+        else if(movement.y <= -gameManager.stickSensitivity)
+            return "DOWN";
         
-        return false;
+        else if(movement.x >= gameManager.stickSensitivity)
+            return "RIGHT";
+        
+        else if( (movement.x <= -gameManager.stickSensitivity))
+            return "LEFT";
+        
+        return "";
     }
 }

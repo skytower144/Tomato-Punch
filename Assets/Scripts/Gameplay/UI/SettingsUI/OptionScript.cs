@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using DG.Tweening;
+using TMPro;
 
 public class OptionScript : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class OptionScript : MonoBehaviour
     [SerializeField] private List <Sprite> illustrationList;
     [SerializeField] private List <TextMeshProUGUI> optionTexts;
     [SerializeField] private List <GameObject> optionList;
-    [SerializeField] private CanvasGroup firstMenu;
+    [SerializeField] private CanvasGroup firstMenu, leftGuide, rightGuide;
     [System.NonSerialized] public bool is_busy_option;
     private int optionNumber;
     private bool canNavigate = false;
@@ -61,6 +61,9 @@ public class OptionScript : MonoBehaviour
         optionNumber = 0;
         ColorText();
         illustration.sprite = illustrationList[0];
+
+        leftGuide.alpha = 0;
+        rightGuide.alpha = 1;
         // ---------------------------------------------------------- //
         
         optionList[0].SetActive(true);
@@ -101,6 +104,9 @@ public class OptionScript : MonoBehaviour
                 
                 DOTween.Rewind("option_0_1");
                 DOTween.Play("option_0_1");
+
+                DOTween.Rewind("left_guide_in");
+                DOTween.Play("left_guide_in");
             }
             else if (optionNumber == 1)
             {
@@ -108,6 +114,9 @@ public class OptionScript : MonoBehaviour
                 
                 DOTween.Rewind("option_1_2");
                 DOTween.Play("option_1_2");
+
+                DOTween.Rewind("right_guide_out");
+                DOTween.Play("right_guide_out");
             }
             if (optionNumber < 2)
                 ClearOption();
@@ -122,6 +131,9 @@ public class OptionScript : MonoBehaviour
                 
                 DOTween.Rewind("option_2_1");
                 DOTween.Play("option_2_1");
+
+                DOTween.Rewind("right_guide_in");
+                DOTween.Play("right_guide_in");
             }
             else if (optionNumber == 1)
             {
@@ -129,6 +141,9 @@ public class OptionScript : MonoBehaviour
                 
                 DOTween.Rewind("option_1_0");
                 DOTween.Play("option_1_0");
+
+                DOTween.Rewind("left_guide_out");
+                DOTween.Play("left_guide_out");
             }
             if (optionNumber > 0)
                 ClearOption();

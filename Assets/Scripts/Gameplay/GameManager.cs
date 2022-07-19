@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum GameState { FreeRoam, Battle }
 public class GameManager : MonoBehaviour
@@ -10,17 +11,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] ControlScroll controlScroll;
+    [SerializeField] UIControl uiControl;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
     public GameObject playerObject;
     private Animator playerAnimator;
+
+    public float stickSensitivity;
+
+    [System.NonSerialized] public float holdStartTime = float.MaxValue;
+    [SerializeField] private float holdTimer;
+    [SerializeField] private float intervalTime;
+    private float delayTimer;
+    public bool WasHolding => holdStartTime < Time.time;
+
     private float player_x, player_y;
     private void Start() //subscribing to an event
     {
         resolutionMenu.SetupGraphic();
 
         battleSystem.OnBattleOver += EndBattle;
-        playerMovement.BeginBattle += StartBattle;
+        //playerMovement.BeginBattle += StartBattle;
 
         InvokeRepeating("DetectGamepad", 0f, 1f);
     }
@@ -58,6 +69,7 @@ public class GameManager : MonoBehaviour
 
         Instantiate (exclamation, new Vector2 (player_x-0.05f, player_y+3f), Quaternion.identity);
         Invoke("battleStart_ef", 0.4f);
+        StartBattle();
     }
     public void battleStart_ef()
     {
@@ -91,9 +103,55 @@ public class GameManager : MonoBehaviour
     private void DetectGamepad()
     {
         string [] names = Input.GetJoystickNames();
+
+        if (names.Length == 0){ // preventing index error
+            uiControl.UI_Update(true); // true => Activate Keyboard
+            return;
+        }
+        
         if(string.IsNullOrEmpty(names[0]))
-            controlScroll.ChangeControlScheme(true);
+            uiControl.UI_Update(true);
+        
         else
-            controlScroll.ChangeControlScheme(false);
+            uiControl.UI_Update(false);
+    }
+
+    public void DetectHolding(Action callback)
+    {
+        if (WasHolding)
+        {
+            if (Time.time - holdStartTime > holdTimer)
+            {
+                delayTimer -= Time.deltaTime;
+                if (delayTimer <= 0)
+                {
+                    delayTimer = intervalTime;
+
+                    callback?.Invoke();
+                }
+            }
+
+            // Allowing Button fast navigation
+            else if(playerMovement.Press_Key("Move"))
+            {
+                string currentScheme = playerMovement.PlayerInput.actions["Move"].activeControl.ToString();
+
+                if  (
+                    (!currentScheme.Contains("leftStick") && !currentScheme.Contains("rightStick")) &&
+                    (Mathf.Abs(playerMovement.ReturnMoveVector().x) == 1 || Mathf.Abs(playerMovement.ReturnMoveVector().y) == 1)
+                    )
+                {
+                    callback?.Invoke();
+                    Debug.Log(currentScheme);
+                }
+            }
+        }
+        else
+        {
+            delayTimer = intervalTime;
+            holdStartTime = Time.time;
+
+            callback?.Invoke();
+        }
     }
 }

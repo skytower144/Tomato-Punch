@@ -36,7 +36,7 @@ public class RebindKey : MonoBehaviour
             cachePath = current_action.bindings[bindingIndex].effectivePath;
 
             if(controlScroll.isKeyBoard){
-                rebindingOperation = current_action.PerformInteractiveRebinding()
+                rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Gamepad>")
                     .WithControlsExcluding("<keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
@@ -52,7 +52,7 @@ public class RebindKey : MonoBehaviour
                     .Start();
             }
             else {
-                rebindingOperation = current_action.PerformInteractiveRebinding()
+                rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Keyboard>")
 
                     .WithExpectedControlType("Button")
@@ -71,7 +71,7 @@ public class RebindKey : MonoBehaviour
             cachePath = current_action.bindings[bindingIndex].effectivePath;
 
             if(controlScroll.isKeyBoard){
-                rebindingOperation = current_action.PerformInteractiveRebinding()
+                rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Gamepad>")
                     .WithControlsExcluding("<keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
@@ -84,7 +84,7 @@ public class RebindKey : MonoBehaviour
                     .Start();
             }
             else {
-                rebindingOperation = current_action.PerformInteractiveRebinding()
+                rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Keyboard>")
 
                     .OnMatchWaitForAnother(0.1f)
@@ -153,13 +153,13 @@ public class RebindKey : MonoBehaviour
         }
         else {
             if (menuNumber == 0)
-                return "<Gamepad>/dpad/up";
+                return "<Gamepad>/leftStick/up";
             else if(menuNumber == 1)
-                return "<Gamepad>/dpad/down";
+                return "<Gamepad>/leftStick/down";
             else if(menuNumber == 2)
-                return "<Gamepad>/dpad/left";
+                return "<Gamepad>/leftStick/left";
             else if(menuNumber == 3)
-                return "<Gamepad>/dpad/right";
+                return "<Gamepad>/leftStick/right";
         }
         return "";
     }
@@ -188,10 +188,91 @@ public class RebindKey : MonoBehaviour
         }
         return count;
     }
-    private void UpdateText(InputAction targetAction, int binding_idx, int text_idx)
+    private void UpdateText(InputAction targetAction, int binding_idx, int menu_idx)
     {
-        controlScroll.bindingDisplayText[text_idx].text = InputControlPath.ToHumanReadableString(
-            targetAction.bindings[binding_idx].effectivePath,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
+        if(controlScroll.isKeyBoard)
+        {
+            controlScroll.bindingDisplayText_key[menu_idx].text = InputControlPath.ToHumanReadableString(
+                targetAction.bindings[binding_idx].effectivePath,
+                InputControlPath.HumanReadableStringOptions.OmitDevice);
+        }
+        else
+        {
+            LinkSprite(menu_idx, targetAction.bindings[binding_idx].effectivePath);
+        }
+    }
+    private void LinkSprite(int menu_idx, string path)
+    {
+        if (path == "<Gamepad>/start")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[0];
+
+        else if(path == "<Gamepad>/select")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[1];
+        
+        else if(path == "<Gamepad>/dpad/up")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[2];
+        
+        else if(path == "<Gamepad>/dpad/down")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[3];
+
+        else if(path == "<Gamepad>/dpad/left")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[4];
+        
+        else if(path == "<Gamepad>/dpad/right")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[5];
+
+        else if(path == "<Gamepad>/buttonEast")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[6];
+
+        else if(path == "<Gamepad>/buttonNorth")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[7];
+        
+        else if(path == "<Gamepad>/buttonWest")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[8];
+        
+        else if(path == "<Gamepad>/buttonSouth")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[9];
+        
+        else if(path == "<Gamepad>/leftTrigger")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[10];
+
+        else if(path == "<Gamepad>/rightTrigger")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[11];
+        
+        else if(path == "<Gamepad>/leftShoulder")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[12];
+        
+        else if(path == "<Gamepad>/rightShoulder")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[13];
+        
+        else if(path == "<Gamepad>/leftStickPress")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[14];
+        
+        else if(path == "<Gamepad>/rightStickPress")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[15];
+        
+        else if(path == "<Gamepad>/rightStick/left")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[16];
+        
+        else if(path == "<Gamepad>/rightStick/right")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[17];
+        
+        else if(path == "<Gamepad>/rightStick/down")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[18];
+        
+        else if(path == "<Gamepad>/rightStick/up")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[19];
+
+        else if(path == "<Gamepad>/leftStick/left")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[20];
+        
+        else if(path == "<Gamepad>/leftStick/right")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[21];
+        
+        else if(path == "<Gamepad>/leftStick/down")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[22];
+        
+        else if(path == "<Gamepad>/leftStick/up")
+            controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[23];
     }
 }

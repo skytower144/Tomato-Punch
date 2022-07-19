@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ControlScroll : MonoBehaviour
+public class ControlScroll : MonoBehaviour, CanToggleIcon
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private Transform contentTransform;
@@ -13,16 +14,29 @@ public class ControlScroll : MonoBehaviour
     [SerializeField] private Image key_or_pad, roam_or_battle;
     [SerializeField] private GameObject DisplayKeyboard, DisplayGamepad;
     [SerializeField] private List<Sprite> icons;
+    public List<Sprite> gamePadIcons;
+
     [SerializeField] private TextMeshProUGUI mode_text;
+    [Header("ACTION NAME")]
     [SerializeField] private List<TextMeshProUGUI> controlTextList;
-    [SerializeField] private List<TextMeshProUGUI> bindingDisplayText_key;
-    [SerializeField] private List<TextMeshProUGUI> bindingDisplayText_pad;
+
+    [Header("KEYBOARD")]
+    [SerializeField] private List<TextMeshProUGUI> roam_bindingDisplayText_key;
+    [SerializeField] private List<TextMeshProUGUI> battle_bindingDisplayText_key;
+
+    [Header("GAMEPAD")]
+    [SerializeField] private List<Image> roam_bindingDisplayText_pad;
+    [SerializeField] private List<Image> battle_bindingDisplayText_pad;
     
     private int menuNumber, totalMenuNumber;
     public int InputMenuNumber => menuNumber;
+
+    private int showingNumber_top, showingNumber_bot;
     private float current_scroll_y;
+
     public bool isKeyBoard = true;
     private bool isModeRoam = true;
+
     void Start()
     {
         totalMenuNumber = controlTextList.Count - 1;
@@ -33,39 +47,58 @@ public class ControlScroll : MonoBehaviour
         menuNumber = -1;
         ColorMenu();
 
+        showingNumber_top = 0;
+        showingNumber_bot = 3;
+
         current_scroll_y = 0;
         contentTransform.localPosition = new Vector3(contentTransform.localPosition.x, 0);
     }
     void Update()
     {
-        if(playerMovement.Press_Direction("DOWN"))
+        RefreshTopBot();
+
+        if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
         {
-            UncolorMenu();
-            IncreaseNumber();
-            ColorMenu();
+           gameManager.DetectHolding(UINavigate);
         }
-        else if(playerMovement.Press_Direction("UP"))
+        else if (gameManager.WasHolding)
         {
-            UncolorMenu();
-            DecreaseNumber();
-            ColorMenu();
+            gameManager.holdStartTime = float.MaxValue;
         }
         else if(playerMovement.Press_Key("Interact"))
         {
-            ControlInteractMenu();
+            // Prevent Keyboard input rebind when viewing Controller input list.
+            if(!(playerMovement.CheckKeyboardControl() && !isKeyBoard))
+                ControlInteractMenu();
         }
+    }
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        UncolorMenu();
+        if (direction == "UP")
+            DecreaseNumber();
+        
+        else if (direction == "DOWN")
+            IncreaseNumber();
+        ColorMenu();
     }
     private void IncreaseNumber()
     {
         menuNumber += 1;
         menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
-        MoveScroll("+");    
+
+        if(menuNumber > showingNumber_bot)
+            MoveScroll("+");  
     }
     private void DecreaseNumber()
     {
         menuNumber -= 1;
         menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
-        MoveScroll("-");
+
+        if(menuNumber < showingNumber_top)
+            MoveScroll("-");
     }
     private void ColorMenu()
     {
@@ -76,8 +109,8 @@ public class ControlScroll : MonoBehaviour
         else if (menuNumber >= 0)
         {
             controlTextList[menuNumber].color = new Color32(97, 125, 97, 255);
-            bindingDisplayText_key[menuNumber].color = new Color32(97, 125, 97, 255);
-            bindingDisplayText_pad[menuNumber].color = new Color32(97, 125, 97, 255);
+            if(isKeyBoard)
+                bindingDisplayText_key[menuNumber].color = new Color32(97, 125, 97, 255);
         }
     }
     private void UncolorMenu()
@@ -89,25 +122,49 @@ public class ControlScroll : MonoBehaviour
         else if (menuNumber >= 0)
         {
             controlTextList[menuNumber].color = new Color32(112, 82, 75, 255);
-            bindingDisplayText_key[menuNumber].color = new Color32(112, 82, 75, 255);
-            bindingDisplayText_pad[menuNumber].color = new Color32(112, 82, 75, 255);
+            if(isKeyBoard)
+                bindingDisplayText_key[menuNumber].color = new Color32(112, 82, 75, 255);
         }
     }
     private void MoveScroll(string direction)
     {
         if(direction == "+")
         {
-            if(menuNumber >= 4)
-                current_scroll_y += 105f;
+            current_scroll_y += 100f;
+
+            showingNumber_top += 1;
+            showingNumber_bot += 1;
+            showingNumber_top = Mathf.Clamp(showingNumber_top, 0, totalMenuNumber-4+1);
+            showingNumber_bot = Mathf.Clamp(showingNumber_bot, 3, totalMenuNumber);
         }
         else if(direction == "-")
         {
-            if(menuNumber >= 0 && menuNumber <= 5)
-                current_scroll_y -= 105f;
+            current_scroll_y -= 100f;
+
+            showingNumber_top -= 1;
+            showingNumber_bot -= 1;
+            showingNumber_top = Mathf.Clamp(showingNumber_top, 0, totalMenuNumber-4+1);
+            showingNumber_bot = Mathf.Clamp(showingNumber_bot, 3, totalMenuNumber);
         }
-        current_scroll_y = Mathf.Clamp(current_scroll_y, 0, 599.9f);
+
+        // Must change clamp max value according to content size.
+        current_scroll_y = Mathf.Clamp(current_scroll_y, 0, 499.9f); 
 
         contentTransform.localPosition = new Vector3(contentTransform.localPosition.x, current_scroll_y);
+    }
+    private void RefreshTopBot()
+    {
+        for (int i = 1; i <= totalMenuNumber - 3; i++)
+        {
+            if (contentTransform.localPosition.y < 100 * i - 0.2f)
+            {
+                showingNumber_top = (i-1);
+                showingNumber_bot = showingNumber_top + 3;
+                return;
+            }
+        }
+        showingNumber_top = totalMenuNumber - 3;
+        showingNumber_bot = showingNumber_top + 3;
     }
 
     public void ControlMouseSelect(int index)
@@ -120,9 +177,8 @@ public class ControlScroll : MonoBehaviour
             ColorMenu();
         }
     }
-    public void ChangeControlScheme(bool state)
+    public void ToggleIcon()
     {
-        isKeyBoard = state;
         if(isKeyBoard){
             key_or_pad.sprite = icons[0];
             DisplayKeyboard.SetActive(true);
@@ -154,9 +210,13 @@ public class ControlScroll : MonoBehaviour
             rebindKey.StartRebinding();
         }
     }
-    public List<TextMeshProUGUI> bindingDisplayText
+    public List<TextMeshProUGUI> bindingDisplayText_key
     {
-        get { return isKeyBoard ? bindingDisplayText_key : bindingDisplayText_pad; }
+        get { return isModeRoam ? roam_bindingDisplayText_key : battle_bindingDisplayText_key;}
+    }
+    public List<Image> bindingDisplayText_pad
+    {
+        get { return isModeRoam ? roam_bindingDisplayText_pad : battle_bindingDisplayText_pad;}
     }
     private void SwitchModeText()
     {

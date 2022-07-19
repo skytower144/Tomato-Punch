@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StatusNavigation : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] tomatoStatus tomatostatus;
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] private GameObject pointBase, pointFrame;
@@ -32,15 +33,13 @@ public class StatusNavigation : MonoBehaviour
 
         else if(navigating_status)
         {
-            if( playerMovement.Press_Direction("UP") && BoundaryCheck("UP"))
+            if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                IncreaseNumber();
-                pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y + 87f);
+                gameManager.DetectHolding(UINavigate);
             }
-            else if( playerMovement.Press_Direction("DOWN") && BoundaryCheck("DOWN"))
+            else if (gameManager.WasHolding)
             {
-                DecreaseNumber();
-                pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y - 87f);
+                gameManager.holdStartTime = float.MaxValue;
             }
             else if(playerMovement.Press_Key("Interact"))
             {
@@ -50,6 +49,21 @@ public class StatusNavigation : MonoBehaviour
             {
                 normalize_navigation();
             }
+        }
+    }
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        if( direction == "UP" && BoundaryCheck("UP"))
+        {
+            IncreaseNumber();
+            pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y + 87f);
+        }
+        else if( direction == "DOWN" && BoundaryCheck("DOWN"))
+        {
+            DecreaseNumber();
+            pointBaseTransform.anchoredPosition = new Vector3(pointBaseTransform.anchoredPosition.x, + pointBaseTransform.anchoredPosition.y - 87f);
         }
     }
     private void activate_navigation()

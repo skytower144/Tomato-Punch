@@ -5,15 +5,20 @@ using DG.Tweening;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private OptionScript optionScript;
     [SerializeField] private List <TextMeshProUGUI> menuList;
     [SerializeField] private GameObject option_bundle;
+    [SerializeField] private Transform arrowTransform;
+
     private int menuNumber;
+    private int maxMenuIndex = 2;
     void OnEnable()
     {
         menuNumber = 0;
         HighlightText();
+        MoveArrow();
     }
     void OnDisable()
     {
@@ -22,15 +27,13 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         if(!optionScript.is_busy_option){
-            if(playerMovement.Press_Direction("DOWN"))
+            if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                Scroll("DOWN");
-                HighlightText();
+                gameManager.DetectHolding(UINavigate);
             }
-            else if(playerMovement.Press_Direction("UP"))
+            else if (gameManager.WasHolding)
             {
-                Scroll("UP");
-                HighlightText();
+                gameManager.holdStartTime = float.MaxValue;
             }
             else if(playerMovement.Press_Key("Interact"))
             {
@@ -43,6 +46,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        if (direction == "UP")
+            Scroll("UP");
+        
+        else if (direction == "DOWN")
+            Scroll("DOWN");
+        HighlightText();
+    }
+
     public void SpawnPauseMenu(bool state)
     {
         gameObject.SetActive(state);
@@ -53,13 +68,18 @@ public class PauseMenu : MonoBehaviour
     {
         NormalizeText();
 
-        if(direction == "DOWN")
+        if(direction == "DOWN"){
             menuNumber += 1;
+            if (menuNumber > maxMenuIndex)
+                menuNumber = 0;
+        }
         
-        else if(direction == "UP")
+        else if(direction == "UP"){
             menuNumber -= 1;
-  
-        menuNumber = Mathf.Clamp(menuNumber, 0, 2);
+            if(menuNumber < 0)
+                menuNumber = maxMenuIndex;
+        }
+        MoveArrow();
     }
     private void HighlightText()
     {
@@ -79,5 +99,16 @@ public class PauseMenu : MonoBehaviour
         {
             optionScript.OpenOptions();
         }
+    }
+    private void MoveArrow()
+    {
+        if(menuNumber == 0)
+            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -17.6f);
+            
+        else if(menuNumber == 1)
+            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -87.53f);
+
+        else if(menuNumber == 2)
+            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -158f);
     }
 }

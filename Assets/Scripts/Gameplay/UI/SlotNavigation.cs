@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SlotNavigation : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private Inventory inventory;
@@ -51,61 +52,74 @@ public class SlotNavigation : MonoBehaviour
                     }
                 }
             }
-            else if(playerMovement.Press_Direction("RIGHT"))
+            else if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                if ((slotNumber >= 0 && slotNumber <=2) || (slotNumber >=4 && slotNumber <= 6)) {
-                    slotNumber += 1;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
-                else if ((pageNumber < Last_pageNumber) && (slotNumber == 3 || slotNumber == 7)){
-                    pageNumber += 1;
-                    slotPage[pageNumber].SetActive(true);
-                    slotPage[pageNumber-1].SetActive(false);
-                    slotNumber -= 3;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
+                gameManager.DetectHolding(UINavigate);
             }
-            else if(playerMovement.Press_Direction("LEFT"))
+            else if (gameManager.WasHolding)
             {
-                if ((slotNumber >= 1 && slotNumber <= 3) || (slotNumber >= 5 && slotNumber <= 7)){
-                    slotNumber -= 1;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
-                else if ((pageNumber > 0) && (slotNumber == 0 || slotNumber == 4)){
-                    pageNumber -= 1;
-                    slotPage[pageNumber].SetActive(true);
-                    slotPage[pageNumber+1].SetActive(false);
-                    slotNumber += 3;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
+                gameManager.holdStartTime = float.MaxValue;
             }
-            else if(playerMovement.Press_Direction("DOWN"))
-            {
-                if (slotNumber == 8){
-                    pointerImage.enabled = true;
+        }
+    }
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
 
-                    slotNumber = prevSlot;
-                    pointer.position = slotGrid[slotNumber].position;
-                    logoImage.sprite = defaultLogo;
-                }
-                else if (slotNumber >= 0 && slotNumber <= 3){
-                    slotNumber += 4;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
+        if(direction == "RIGHT")
+        {
+            if ((slotNumber >= 0 && slotNumber <=2) || (slotNumber >=4 && slotNumber <= 6)) {
+                slotNumber += 1;
+                pointer.position = slotGrid[slotNumber].position;
             }
-            else if(playerMovement.Press_Direction("UP"))
-            {
-                if (slotNumber >=0 && slotNumber <= 3){
-                    pointerImage.enabled = false;
-                    
-                    prevSlot = slotNumber;
-                    slotNumber = 8;
-                    logoImage.sprite = highlightedLogo;
-                }
-                else if (slotNumber >= 4 && slotNumber <= 7){
-                    slotNumber -= 4;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
+            else if ((pageNumber < Last_pageNumber) && (slotNumber == 3 || slotNumber == 7)){
+                pageNumber += 1;
+                slotPage[pageNumber].SetActive(true);
+                slotPage[pageNumber-1].SetActive(false);
+                slotNumber -= 3;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(direction == "LEFT")
+        {
+            if ((slotNumber >= 1 && slotNumber <= 3) || (slotNumber >= 5 && slotNumber <= 7)){
+                slotNumber -= 1;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+            else if ((pageNumber > 0) && (slotNumber == 0 || slotNumber == 4)){
+                pageNumber -= 1;
+                slotPage[pageNumber].SetActive(true);
+                slotPage[pageNumber+1].SetActive(false);
+                slotNumber += 3;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(direction == "DOWN")
+        {
+            if (slotNumber == 8){
+                pointerImage.enabled = true;
+
+                slotNumber = prevSlot;
+                pointer.position = slotGrid[slotNumber].position;
+                logoImage.sprite = defaultLogo;
+            }
+            else if (slotNumber >= 0 && slotNumber <= 3){
+                slotNumber += 4;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(direction == "UP")
+        {
+            if (slotNumber >=0 && slotNumber <= 3){
+                pointerImage.enabled = false;
+                
+                prevSlot = slotNumber;
+                slotNumber = 8;
+                logoImage.sprite = highlightedLogo;
+            }
+            else if (slotNumber >= 4 && slotNumber <= 7){
+                slotNumber -= 4;
+                pointer.position = slotGrid[slotNumber].position;
             }
         }
     }

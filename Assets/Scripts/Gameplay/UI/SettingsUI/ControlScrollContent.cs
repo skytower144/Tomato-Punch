@@ -14,7 +14,7 @@ public class ControlScrollContent : MonoBehaviour, IPointerEnterHandler, IPointe
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(!rebindKey.isBinding)
+        if(!rebindKey.isBinding && controllScroll.isKeyBoard)
             rebindKey.StartRebinding();
     }
 }

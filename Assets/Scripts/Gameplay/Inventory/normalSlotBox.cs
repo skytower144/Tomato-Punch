@@ -4,15 +4,17 @@ using UnityEngine;
 using TMPro;
 public class normalSlotBox : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List <TextMeshProUGUI> textField;
-    [SerializeField] private Color highLightedColor;
+    [SerializeField] private List <Color> highLightedColor;
     [SerializeField] private SlotNavigation slotNavigation;
     [SerializeField] private InventoryUI inventoryUI;
     private int textNum, slotNum;
     private void OnEnable()
     {
         textNum = 0;
+        HighLightText(textNum);
         slotNum = slotNavigation.invNumber;
     }
     private void Update()
@@ -34,24 +36,40 @@ public class normalSlotBox : MonoBehaviour
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
         }
-        else if(playerMovement.Press_Direction("UP"))
+        else if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
         {
-            textNum += 1;
+            gameManager.DetectHolding(UINavigate);
         }
-        else if(playerMovement.Press_Direction("DOWN"))
+        else if (gameManager.WasHolding)
         {
-            textNum -= 1;
+            gameManager.holdStartTime = float.MaxValue;
         }
-        textNum = Mathf.Clamp(textNum,0,2);
-        HighLightText(textNum);
     }
 
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        if(direction == "UP")
+        {
+            textNum += 1;
+            if (textNum > 2)
+                textNum = 0;
+        }
+        else if(direction == "DOWN")
+        {
+            textNum -= 1;
+            if (textNum < 0)
+                textNum = 2;
+        }
+        HighLightText(textNum);
+    }
     private void HighLightText(int num)
     {
         for (int i=0; i<3; i++)
         {
             if (i==num){
-                textField[i].color = highLightedColor;
+                textField[i].color = highLightedColor[i];
             }
             else{
                 textField[i].color = Color.black;

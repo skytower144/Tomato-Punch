@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class ResolutionMenu : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private DropDown dropDownControl;
     public TMP_Dropdown resolutionDropdown;
@@ -16,6 +17,7 @@ public class ResolutionMenu : MonoBehaviour
     [SerializeField] private List<GameObject> menuList;
     [System.NonSerialized] public int graphicMenuNumber;
     [System.NonSerialized] public bool drop_isActive = false;
+
     private void OnEnable()
     {
         NormalizeMenu();
@@ -26,25 +28,34 @@ public class ResolutionMenu : MonoBehaviour
     {
         if (!drop_isActive)
         {
-            if(playerMovement.Press_Direction("DOWN"))
+            if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                NormalizeMenu();
-                graphicMenuNumber += 1;
-                graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
-                HighlightMenu();
+                gameManager.DetectHolding(UINavigate);
             }
-            else if(playerMovement.Press_Direction("UP"))
+            else if (gameManager.WasHolding)
             {
-                NormalizeMenu();
-                graphicMenuNumber -= 1;
-                graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
-                HighlightMenu();
+                gameManager.holdStartTime = float.MaxValue;
             }
             else if(playerMovement.Press_Key("Interact"))
             {
                 InteractMenu();
             }
         }
+    }
+
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        NormalizeMenu();
+        if(direction == "DOWN")
+            graphicMenuNumber += 1;
+
+        else if(direction == "UP")
+            graphicMenuNumber -= 1;
+            
+        graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+        HighlightMenu();
     }
     public void SetupGraphic()
     {

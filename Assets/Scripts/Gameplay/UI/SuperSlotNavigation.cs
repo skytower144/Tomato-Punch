@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SuperSlotNavigation : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private Inventory inventory;
@@ -33,53 +34,66 @@ public class SuperSlotNavigation : MonoBehaviour
     {
         if(!SlotNavigation.isBusy)
         {
-            if(playerMovement.Press_Key("Interact"))
+            if (playerMovement.Press_Key("Interact"))
             {
                 if(slotNumber == 8){
                     super_Parent.SetActive(false);
                     normal_Parent.SetActive(true);
                 }
-                else{
-                        s_invNumber = slotNumber + pageNumber*4;
-                        if (s_invNumber < inventory.superEquip.Count){
-                            slotbox.SetActive(true);
-                            SlotNavigation.isBusy = true;
-                        }
+                else {
+                    s_invNumber = slotNumber + pageNumber*4;
+                    if (s_invNumber < inventory.superEquip.Count){
+                        slotbox.SetActive(true);
+                        SlotNavigation.isBusy = true;
                     }
-            }
-            else if(playerMovement.Press_Direction("RIGHT"))
-            {
-                if (slotNumber >=0 && slotNumber <= 2){
-                    slotNumber += 1;
-                    pointer.position = slotGrid[slotNumber].position;
                 }
             }
-            else if(playerMovement.Press_Direction("LEFT"))
+            else if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                if (slotNumber >=1 && slotNumber <= 3){
-                    slotNumber -= 1;
-                    pointer.position = slotGrid[slotNumber].position;
-                }
+                gameManager.DetectHolding(UINavigate);
             }
-            else if(playerMovement.Press_Direction("DOWN"))
+            else if (gameManager.WasHolding)
             {
-                if (slotNumber == 8){
-                    pointerImage.enabled = true;
+                gameManager.holdStartTime = float.MaxValue;
+            }
+        }
+    }
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
 
-                    slotNumber = prevSlot;
-                    pointer.position = slotGrid[slotNumber].position;
-                    logoAnim.Play("superLogo_default");
-                }
+        if(direction == "RIGHT")
+        {
+            if (slotNumber >=0 && slotNumber <= 2){
+                slotNumber += 1;
+                pointer.position = slotGrid[slotNumber].position;
             }
-            else if(playerMovement.Press_Direction("UP"))
-            {
-                if (slotNumber >= 0 && slotNumber <= 3){
-                    pointerImage.enabled = false;
+        }
+        else if(direction == "LEFT")
+        {
+            if (slotNumber >=1 && slotNumber <= 3){
+                slotNumber -= 1;
+                pointer.position = slotGrid[slotNumber].position;
+            }
+        }
+        else if(direction == "DOWN")
+        {
+            if (slotNumber == 8){
+                pointerImage.enabled = true;
 
-                    prevSlot = slotNumber;
-                    slotNumber = 8;
-                    logoAnim.Play("superLogo_highlighted");
-                }
+                slotNumber = prevSlot;
+                pointer.position = slotGrid[slotNumber].position;
+                logoAnim.Play("superLogo_default");
+            }
+        }
+        else if(direction == "UP")
+        {
+            if (slotNumber >= 0 && slotNumber <= 3){
+                pointerImage.enabled = false;
+
+                prevSlot = slotNumber;
+                slotNumber = 8;
+                logoAnim.Play("superLogo_highlighted");
             }
         }
     }

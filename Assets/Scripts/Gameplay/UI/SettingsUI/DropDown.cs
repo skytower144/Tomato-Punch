@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 {
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private List<Toggle> toggle_list;
@@ -15,13 +16,13 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     {
         if(resolutionMenu.drop_isActive)
         {
-            if(playerMovement.Press_Direction("DOWN"))
+            if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                IncreaseNumber();
+                gameManager.DetectHolding(UINavigate);
             }
-            else if(playerMovement.Press_Direction("UP"))
+            else if (gameManager.WasHolding)
             {
-                DecreaseNumber();
+                gameManager.holdStartTime = float.MaxValue;
             }
             else if(playerMovement.Press_Key("Interact"))
             {
@@ -34,6 +35,16 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
                 ExitDropDown();
             }
         }
+    }
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+
+        if(direction == "DOWN")
+            IncreaseNumber();
+        
+        else if(direction == "UP")
+            DecreaseNumber();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
