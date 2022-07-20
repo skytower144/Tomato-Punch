@@ -62,5 +62,10 @@ public class tomatoHurt : MonoBehaviour
             battleTimeManager.SetSlowSetting(0.01f, 0.8f);
             battleTimeManager.DoSlowmotion();
         }
+
+        else if (tomatocontrol.current_guardPt == 0)
+        {
+            anim.Play("tomato_L_hurt",-1,0f);
+        }
     }
 }

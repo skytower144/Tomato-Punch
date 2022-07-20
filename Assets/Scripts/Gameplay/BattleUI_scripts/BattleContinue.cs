@@ -44,10 +44,10 @@ public class BattleContinue : MonoBehaviour
                 ExitContinue();
             }
 
-            if(Input.GetKeyDown(KeyCode.P)){
+            if (battle_system.Press_Key("RightPunch")){
                 ExitContinue();
             }
-            else if(Input.GetKeyDown(KeyCode.O)){
+            else if (battle_system.Press_Key("LeftPunch")){
                 Revive();
             }
         }

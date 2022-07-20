@@ -69,7 +69,13 @@ public class TextSpawn : MonoBehaviour
         Instantiate(dark_filter, transform);
         GameObject resultCard_obj = Instantiate(resultCard, transform);
 
-        resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(enemy_Countered.totalCounter, EnemyControl.totalParry, enemyControl.totalSuper, textSpawn_BattleSystem, enemyControl._base);
+        resultCard_obj.GetComponent<ResultCard>().ResultCard_Initialize(
+            enemy_Countered.totalCounter, 
+            EnemyControl.totalParry, 
+            enemyControl.totalSuper, 
+            textSpawn_BattleSystem, 
+            enemyControl._base
+            );
     }
 
     public void PlayDefeated_Player()

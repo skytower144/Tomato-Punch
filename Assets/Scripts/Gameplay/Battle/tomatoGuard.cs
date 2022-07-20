@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class tomatoGuard : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class tomatoGuard : MonoBehaviour
     {
         if(tomatoControl.isGuard && !tomatoHurt.isTomatoHurt)
         {
-            if( (Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown("joystick button 1")) )
+            if (tomatocontrol.PressKey("RightPunch"))
             {
                 isParry = true;
                 anim.Play("tomato_parry",-1,0f);
@@ -52,7 +53,6 @@ public class tomatoGuard : MonoBehaviour
                     TakeGuardDamage(reducedDamage);
 
                     tomatohurt.TakeDamage(leftoverDamage);
-                    anim.Play("tomato_L_hurt",-1,0f);
                 }
                 else
                 {
@@ -62,7 +62,6 @@ public class tomatoGuard : MonoBehaviour
                     playGuard_BreakEffects();
 
                     tomatohurt.TakeDamage(damage);
-                    anim.Play("tomato_L_hurt",-1,0f);
                 }
             }
         }

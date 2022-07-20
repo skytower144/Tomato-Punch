@@ -67,7 +67,7 @@ public class ResultCard : MonoBehaviour
 
         if(data_isReady && !isExit)
         {
-            if(Input.GetKeyDown(KeyCode.O))
+            if (battleSystem.Press_Key("LeftPunch"))
             {
                 CancelInvoke();
                 inputCount += 1;

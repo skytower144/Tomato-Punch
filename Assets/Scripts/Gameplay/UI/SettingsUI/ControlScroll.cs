@@ -42,7 +42,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     private float current_scroll_y;
 
     public bool isKeyBoard = true;
-    private bool isModeRoam = true;
+    public bool isModeRoam = true;
 
     void OnEnable()
     {
@@ -216,8 +216,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         }
         else if(menuNumber >= 0)
         {
-            rebindKey.StartRebinding();
+            Invoke("DelayRebind", 0.15f);
         }
+    }
+    private void DelayRebind()
+    {
+        rebindKey.StartRebinding();
     }
     public List<TextMeshProUGUI> bindingDisplayText_key
     {

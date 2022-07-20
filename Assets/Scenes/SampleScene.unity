@@ -9197,7 +9197,6 @@ GameObject:
   - component: {fileID: 449446692}
   - component: {fileID: 449446691}
   - component: {fileID: 449446690}
-  - component: {fileID: 449446696}
   - component: {fileID: 449446695}
   - component: {fileID: 449446693}
   - component: {fileID: 449446694}
@@ -9307,6 +9306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec328b460764f7e4bbc6cac0d2e6c30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tomatoInput: {fileID: 1315878922}
   gatleButton_anim_L: {fileID: 98451525}
   gatleButton_anim_R: {fileID: 1295974248}
   gaksung_objAnim: {fileID: 717893953}
@@ -9384,100 +9384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6770274f2856b91439ff982808a810f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &449446696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449446689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e8e08132-7317-4abb-858d-05ce847e3327
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/a,/Keyboard/s,/Keyboard/d,/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ce0f69aa-5d03-45ec-9181-5dde22865e59
-    m_ActionName: Player/Interact[/Keyboard/o,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1a3e3f0c-5f3c-4ec7-80c8-4ad420015169
-    m_ActionName: Player/Cancel[/Keyboard/p,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fcccaec4-3996-4b1a-a816-90a71579a9df
-    m_ActionName: Player/Status[/Keyboard/enter,/XInputControllerWindows/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 87dd0201-0547-4fd0-b512-d89b94b46f4e
-    m_ActionName: Player/LeftPage[/Keyboard/q,/XInputControllerWindows/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9e7c7480-8959-4f9b-b761-b99e28f05eb7
-    m_ActionName: Player/RightPage[/Keyboard/e,/XInputControllerWindows/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dcbdc9ce-bace-4fea-b361-0dd805746ac4
-    m_ActionName: Player/Pause[/Keyboard/escape,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2f19e870-73df-4b11-b8f0-05888d8fb125
-    m_ActionName: Battle/Jump[/Keyboard/w,/XInputControllerWindows/leftStick/up]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 668f4197-084d-4ff9-abde-9e6807a7d4ba
-    m_ActionName: Battle/Guard[/Keyboard/s,/XInputControllerWindows/leftStick/down]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5ba1fc1d-9f70-486f-b287-adc7eb6f00d8
-    m_ActionName: Battle/LeftEvade[/Keyboard/a,/XInputControllerWindows/leftStick/left]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dd72c917-1f7a-45ce-a5a3-b0ca76f448f4
-    m_ActionName: Battle/RightEvade[/Keyboard/d,/XInputControllerWindows/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5074837d-76a5-43a9-b756-38cb1337a80f
-    m_ActionName: Battle/LeftPunch[/Keyboard/o,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 39700f19-7fd2-4486-b35a-e423461d675b
-    m_ActionName: Battle/RightPunch[/Keyboard/p,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 068dc64c-3d2b-4ac1-9c28-06a198b8ed9a
-    m_ActionName: Battle/FirstEquip[/Keyboard/q,/XInputControllerWindows/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: aa01755f-352b-4dba-b172-c36ce2bfa9ac
-    m_ActionName: Battle/SecondEquip[/Keyboard/e,/XInputControllerWindows/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 88084549-ab2d-4422-bb08-ddb8c16e7217
-    m_ActionName: Battle/SuperSkill[/Keyboard/enter,/XInputControllerWindows/buttonNorth]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Battle
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &456246049
 GameObject:
   m_ObjectHideFlags: 0
@@ -13820,7 +13726,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16338,7 +16244,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &844576990
 Canvas:
   m_ObjectHideFlags: 0
@@ -16877,7 +16783,7 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -17906,7 +17812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &952913418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19943,7 +19849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1038232372
 Transform:
   m_ObjectHideFlags: 0
@@ -19974,6 +19880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b785d9b4fce8847bc2a66cac13b4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tomatocontrol: {fileID: 449446693}
   player_status: {fileID: 866104961}
   tomatoLevel: {fileID: 810603416}
   enemyControl: {fileID: 1045029404}
@@ -21882,7 +21789,7 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31337,6 +31244,7 @@ MonoBehaviour:
   - {fileID: 2132404717}
   - {fileID: 1928321299}
   isKeyBoard: 1
+  isModeRoam: 1
 --- !u!114 &1710769544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31467,7 +31375,7 @@ MonoBehaviour:
   uIControl: {fileID: 305310879}
   playerMovement: {fileID: 1315878915}
   controlScroll: {fileID: 1710769543}
-  actionList:
+  actionList_roam:
   - {fileID: -9035249432604961833, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
   - {fileID: -9035249432604961833, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
   - {fileID: -9035249432604961833, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
@@ -31477,6 +31385,16 @@ MonoBehaviour:
   - {fileID: 9000030360658503387, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
   - {fileID: -3181650220158449483, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
   - {fileID: 4266679506542897668, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  actionList_battle:
+  - {fileID: 8388715168317437630, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 1131823594409638316, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 4404034415024627048, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 8725903784291316957, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: -5347384841666586246, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 7773594232145029558, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: -986147136512064579, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 5517624127654189700, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
+  - {fileID: 8980595054548168853, guid: 52e2765841f24bd47aad1fe5ba1d7594, type: 3}
   waitCover:
   - {fileID: 1691063124}
   - {fileID: 596551701}
@@ -43188,7 +43106,7 @@ RectTransform:
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

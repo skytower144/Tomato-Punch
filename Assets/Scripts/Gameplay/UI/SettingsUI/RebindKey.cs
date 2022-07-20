@@ -9,7 +9,8 @@ public class RebindKey : MonoBehaviour
     [SerializeField] UIControl uIControl;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ControlScroll controlScroll;
-    [SerializeField] private List<InputActionReference> actionList;
+    [SerializeField] private List<InputActionReference> actionList_roam;
+    [SerializeField] private List<InputActionReference> actionList_battle;
     [SerializeField] private List<GameObject> waitCover;
     private InputAction current_action = null;
     private int bindingIndex, sameIndex;
@@ -19,6 +20,12 @@ public class RebindKey : MonoBehaviour
     [System.NonSerialized] public bool isBinding = false;
     
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
+
+    private List<InputActionReference> actionList
+    {
+        get { return controlScroll.isModeRoam ? actionList_roam : actionList_battle;}
+    }
+
     public void StartRebinding()
     {
         isBinding = true;
@@ -28,8 +35,8 @@ public class RebindKey : MonoBehaviour
 
         current_action = actionList[controlScroll.InputMenuNumber].action;
 
-        // WASD composite input //
-        if (controlScroll.InputMenuNumber <= 3)
+        // WASD composite input // Only applied for Freeroam controls
+        if (controlScroll.InputMenuNumber <= 3 && controlScroll.isModeRoam)
         {
             isComposite = true;
 

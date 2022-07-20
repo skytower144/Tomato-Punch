@@ -31,7 +31,7 @@ public class DefeatedText : MonoBehaviour
     void Update()
     {
         if (startText){
-            if(Input.GetKeyDown(KeyCode.O)){
+            if (battleSystem.Press_Key("LeftPunch")){
                 CallText();
             }
         }

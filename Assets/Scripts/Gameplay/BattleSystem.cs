@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
+    [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl;
@@ -107,5 +108,10 @@ public class BattleSystem : MonoBehaviour
     public int ReviveCostFormula()
     {
         return Mathf.FloorToInt(GetEnemyBase().BattleCoin / 3);
+    }
+
+    public bool Press_Key(string moveName)
+    {
+        return tomatocontrol.PressKey(moveName);
     }
 }

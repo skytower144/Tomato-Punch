@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
+
 /* DEFAULT DEBUG CODE
 if(Input.GetKeyDown(KeyCode.P))
     {
@@ -16,6 +18,7 @@ if(Input.GetKeyDown(KeyCode.P))
 */
 public class tomatoControl : MonoBehaviour
 {
+    [SerializeField] private PlayerInput tomatoInput;
     private Animator tomatoAnimator;
     private GameObject _parryInstance;
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
@@ -57,8 +60,6 @@ public class tomatoControl : MonoBehaviour
 
     [HideInInspector] public static bool isGuard = false;
     private bool guardRelease;               // prevent multiple animations trying to play at a single frame (esp during animation transition)
-    private bool downGamepad = false;        // diffrentiate keyboard input and gamepad input
-    private int x_GP = 0, y_GP = 0;          // making left joystick act like a button trigger
 
     [System.NonSerialized] public static bool isIntro = true;
     [System.NonSerialized] public static bool isVictory = false;
@@ -101,6 +102,12 @@ public class tomatoControl : MonoBehaviour
 
         tomatoes = 0;
         counterTrack.CounterTracker();
+
+        tomatoInput.SwitchCurrentActionMap("Battle");
+    }
+    void OnDisable()
+    {
+        tomatoInput.SwitchCurrentActionMap("Player");
     }
     void Start()
     {
@@ -119,7 +126,7 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("isPunch : " + isPunch);
             Debug.Log("isGatle : " + isGatle);
             Debug.Log("isGuard : " + isGuard);
-            Debug.Log("downGamepad : " + downGamepad);
+
             Debug.Log("isParry : " + tomatoGuard.isParry);
             Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
             Debug.Log("isFainted : " + isFainted);
@@ -132,62 +139,50 @@ public class tomatoControl : MonoBehaviour
             Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
         }
 
-        if((Input.GetAxisRaw("LeftJoystickHorizontal") == 0))
-            x_GP = 0;
-        if((Input.GetAxisRaw("LeftJoystickVertical") == 0))
-            y_GP = 0;
         if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory)
         {
             if(!isAction)
             {
-                if(Input.GetKeyDown(KeyCode.A) ||  ((Input.GetAxisRaw("LeftJoystickHorizontal") < 0) && x_GP == 0))
+                if (PressKey("LeftEvade"))
                 {
-                    x_GP = -1;
                     ChangeAnimationState(TOMATO_LEVADE);
                 }
-                else if(Input.GetKeyDown(KeyCode.D) || ((Input.GetAxisRaw("LeftJoystickHorizontal") > 0) && x_GP == 0))
+                else if (PressKey("RightEvade"))
                 {
-                    x_GP = 1;
                     ChangeAnimationState(TOMATO_REVADE);
                 }
-                else if(Input.GetKeyDown(KeyCode.W) || ((Input.GetAxisRaw("LeftJoystickVertical") < 0) && y_GP == 0))
+                else if (PressKey("Jump"))
                 {
-                    y_GP = 1;
                     ChangeAnimationState(TOMATO_JUMP);
                 }
-                else if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
+                else if (PressKey("LeftPunch"))
                 {
-                    if(!isTired){
+                    if (!isTired){
                         ChangeAnimationState(TOMATO_LP);
                     }
-                    else{
+                    else {
                         tomatoAnimator.Play("tomato_tiredPunch_L",-1,0f);
                     }
                 }
-                else if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
+                else if (PressKey("RightPunch"))
                 {
-                    if(!isTired){
+                    if (!isTired){
                         ChangeAnimationState(TOMATO_RP);
                     }
-                    else{
+                    else {
                         tomatoAnimator.Play("tomato_tiredPunch_R",-1,0f);
                     }
                 }
-                else if(!isTired)
+                else if (!isTired)
                 {
-                    if(Input.GetKeyDown(KeyCode.S) || ((Input.GetAxisRaw("LeftJoystickVertical") > 0) && y_GP == 0))
+                    if (PressKey("Guard"))
                     {
-                        y_GP = -1;
-
                         guardRelease = false;
-                        if((Input.GetAxisRaw("LeftJoystickVertical") > 0))
-                        {
-                            downGamepad = true;
-                        }
+
                         ChangeAnimationState(TOMATO_GUARD);
                         tomato_G.SetActive(true);
                     }
-                    else if(Input.GetKeyDown(KeyCode.Return))
+                    else if (PressKey("SuperSkill"))
                     {
                         if((tomatoSuperEquip != null) && parryBar.gaksungOn)
                         {
@@ -201,7 +196,7 @@ public class tomatoControl : MonoBehaviour
                             tomatoAnimator.enabled = false;
                         }
                     }
-                    else if(Input.GetKeyDown(KeyCode.Q))
+                    else if (PressKey("FirstEquip"))
                     {
                         if((tomatoEquip[0] != null) && tomatoes > 0){
                             tomatoAnimator.Play(tomatoEquip[0].SkillAnimation,-1,0f);
@@ -214,10 +209,8 @@ public class tomatoControl : MonoBehaviour
         
             else if(isGuard)
             {
-                if( !Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && (Input.GetKeyUp(KeyCode.S)) )
+                if (!Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && tomatoInput.actions["Guard"].WasReleasedThisFrame())
                 {
-                    y_GP = 0;
-
                     Destroy(_parryInstance);
                     hitbox.enabled = true;
 
@@ -226,39 +219,22 @@ public class tomatoControl : MonoBehaviour
                     tomatoAnimator.Play("tomato_idle",-1,0f);
                     isGuard = false;
                     isAction = false;
-                    downGamepad = false;
-                    tomatoGuard.isParry = false;
-                }
-                else if(!Enemy_parried.isParried && !tomatoHurt.isTomatoHurt && (downGamepad == true) && (Input.GetAxisRaw("LeftJoystickVertical") == 0))
-                {
-                    y_GP = 0;
 
-                    Destroy(_parryInstance);
-                    hitbox.enabled = true;
-
-                    guardRelease = true;
-
-                    tomatoAnimator.Play("tomato_idle",-1,0f);
-                    isGuard = false;
-                    isAction = false;
-                    downGamepad = false;
                     tomatoGuard.isParry = false;
                 }
             }
             
-            else if(isPunch)
+            else if (isPunch)
             {
-                if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
+                if (PressKey("LeftPunch"))
                 {
                     ChangeAnimationState(TOMATO_LP);
                 }
-                if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
+                if (PressKey("RightPunch"))
                 {
                     ChangeAnimationState(TOMATO_RP);
                 }
             }
-            
-            
             
             if((!BattleUI_Control.stopGatle) && tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GATLINGIDLE))
             {
@@ -321,14 +297,14 @@ public class tomatoControl : MonoBehaviour
     }
     void gatlePunch()
     {
-        if(Input.GetKeyDown(KeyCode.O) || (Input.GetKeyDown("joystick button 0")))
+        if (PressKey("LeftPunch"))
         {
             if(gatleCircleControl.failUppercut == false)
             {
                 tomatoAnimator.Play("tomato_GLP",-1,0f);
             }
         }
-        if(Input.GetKeyDown(KeyCode.P) || (Input.GetKeyDown("joystick button 1")))
+        if (PressKey("RightPunch"))
         {
             if(gatleCircleControl.uppercut_time)
             {
@@ -345,7 +321,6 @@ public class tomatoControl : MonoBehaviour
         isAction = true;
 
         isGuard = false;
-        downGamepad = false;
 
         if (tomatoGuard.isParry){
             tomatoGuard.isParry = false;
@@ -398,7 +373,7 @@ public class tomatoControl : MonoBehaviour
                 tomatoGuard.isParry = false;
                 tomato_G.SetActive(true);
             }
-            if(Input.GetKey(KeyCode.S) || y_GP == -1)
+            if(tomatoInput.actions["Guard"].IsPressed())
             {
                 ChangeAnimationState(TOMATO_GUARD);
             }
@@ -525,7 +500,7 @@ public class tomatoControl : MonoBehaviour
         isTired = false;
     }
 
-    void KO_effect()
+    private void KO_effect()
     {
         if(Enemy_is_hurt.enemy_isDefeated){
             Instantiate(screenFlash, BattleCanvas_Parent);
@@ -535,7 +510,7 @@ public class tomatoControl : MonoBehaviour
         }
     }
 
-    void playVictoryIdle()
+    private void playVictoryIdle()
     {
         tomatoAnimator.Play("tomato_victory_idle",-1,0f);
     }
@@ -561,10 +536,15 @@ public class tomatoControl : MonoBehaviour
             tomatoAnimator.Play("tomato_knockback",-1,0f);
     }
 
-    void ScreenShake()
+    private void ScreenShake()
     {
         DOTween.Rewind("CameraRumble");
         DOTween.Play("CameraRumble");
+    }
+
+    public bool PressKey(string moveName)
+    {
+        return tomatoInput.actions[moveName].WasPressedThisFrame();
     }
 
 
