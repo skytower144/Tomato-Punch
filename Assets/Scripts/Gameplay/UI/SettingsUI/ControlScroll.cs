@@ -12,13 +12,20 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private Transform contentTransform;
     [SerializeField] private Animator ToggleAnim;
     [SerializeField] private Image key_or_pad, roam_or_battle;
-    [SerializeField] private GameObject DisplayKeyboard, DisplayGamepad;
+
+    [Header("ROAM or BATTLE")]
+    [SerializeField] private GameObject display_roam; 
+    [SerializeField] private GameObject display_battle;
+
+    [SerializeField] private GameObject DisplayKeyboard_roam, DisplayKeyboard_battle, DisplayGamepad_roam, DisplayGamepad_battle;
+
     [SerializeField] private List<Sprite> icons;
     public List<Sprite> gamePadIcons;
 
     [SerializeField] private TextMeshProUGUI mode_text;
     [Header("ACTION NAME")]
-    [SerializeField] private List<TextMeshProUGUI> controlTextList;
+    [SerializeField] private List<TextMeshProUGUI> roam_actionText;
+    [SerializeField] private List<TextMeshProUGUI> battle_actionText;
 
     [Header("KEYBOARD")]
     [SerializeField] private List<TextMeshProUGUI> roam_bindingDisplayText_key;
@@ -28,7 +35,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private List<Image> roam_bindingDisplayText_pad;
     [SerializeField] private List<Image> battle_bindingDisplayText_pad;
     
-    private int menuNumber, totalMenuNumber;
+    private int menuNumber;
     public int InputMenuNumber => menuNumber;
 
     private int showingNumber_top, showingNumber_bot;
@@ -37,10 +44,6 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     public bool isKeyBoard = true;
     private bool isModeRoam = true;
 
-    void Start()
-    {
-        totalMenuNumber = controlTextList.Count - 1;
-    }
     void OnEnable()
     {
         UncolorMenu();
@@ -179,15 +182,21 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     }
     public void ToggleIcon()
     {
-        if(isKeyBoard){
-            key_or_pad.sprite = icons[0];
-            DisplayKeyboard.SetActive(true);
-            DisplayGamepad.SetActive(false);
+        if(isKeyBoard)
+        {
+            DisplayKeyboard_roam.SetActive(true);
+            DisplayGamepad_roam.SetActive(false);
+            
+            DisplayKeyboard_battle.SetActive(true);
+            DisplayGamepad_battle.SetActive(false);
         }
-        else{
-            key_or_pad.sprite = icons[1];
-            DisplayKeyboard.SetActive(false);
-            DisplayGamepad.SetActive(true);
+        else
+        {
+            DisplayKeyboard_roam.SetActive(false);
+            DisplayGamepad_roam.SetActive(true);
+            
+            DisplayKeyboard_battle.SetActive(false);
+            DisplayGamepad_battle.SetActive(true);
         }
     }
     public void ControlInteractMenu()
@@ -218,33 +227,24 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     {
         get { return isModeRoam ? roam_bindingDisplayText_pad : battle_bindingDisplayText_pad;}
     }
+
+    private List<TextMeshProUGUI> controlTextList
+    {
+        get { return isModeRoam ? roam_actionText : battle_actionText;}
+    }
+    private int totalMenuNumber
+    {
+        get { return isModeRoam ? roam_bindingDisplayText_key.Count - 1: battle_bindingDisplayText_key.Count - 1;}
+    }
+
     private void SwitchModeText()
     {
-        if(isModeRoam){
+        display_roam.SetActive(!display_roam.activeSelf);
+        display_battle.SetActive(!display_battle.activeSelf);
+
+        if(display_roam.activeSelf)
             mode_text.text = "FREEROAM";
-
-            controlTextList[0].text = "* Move Up";
-            controlTextList[1].text = "* Move Down";
-            controlTextList[2].text = "* Move Left";
-            controlTextList[3].text = "* Move Right";
-            controlTextList[4].text = "* Interact";
-            controlTextList[5].text = "* Cancel";
-            controlTextList[6].text = "* Left Page";
-            controlTextList[7].text = "* Right Page";
-            controlTextList[8].text = "* Status";
-        }
-        else {
+        else
             mode_text.text = "BATTLE";
-
-            controlTextList[0].text = "* Jump";
-            controlTextList[1].text = "* Guard";
-            controlTextList[2].text = "* Evade Left";
-            controlTextList[3].text = "* Evade Right";
-            controlTextList[4].text = "* Left Punch";
-            controlTextList[5].text = "* Right Punch";
-            controlTextList[6].text = "* 1st Equip";
-            controlTextList[7].text = "* 2nd Equip";
-            controlTextList[8].text = "* Super";
-        }
     }
 }

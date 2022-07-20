@@ -330,6 +330,284 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""Battle"",
+            ""id"": ""5f6b4b2d-daac-4dce-830d-0bd660a5ce11"",
+            ""actions"": [
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f19e870-73df-4b11-b8f0-05888d8fb125"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""668f4197-084d-4ff9-abde-9e6807a7d4ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftEvade"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ba1fc1d-9f70-486f-b287-adc7eb6f00d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightEvade"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd72c917-1f7a-45ce-a5a3-b0ca76f448f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftPunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""5074837d-76a5-43a9-b756-38cb1337a80f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightPunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""39700f19-7fd2-4486-b35a-e423461d675b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""FirstEquip"",
+                    ""type"": ""Button"",
+                    ""id"": ""068dc64c-3d2b-4ac1-9c28-06a198b8ed9a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecondEquip"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa01755f-352b-4dba-b172-c36ce2bfa9ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SuperSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""88084549-ab2d-4422-bb08-ddb8c16e7217"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""56e8a293-438e-40ea-8ce7-f68a74e3af24"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e13f933-06eb-4a94-82b6-9d0aef25b07d"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84be4c3b-ab8a-4906-9625-14a31773b76f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""121ff21f-1132-401a-a8e8-cd228a1bec33"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49bda800-1179-493e-8799-5a5d167d518f"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LeftEvade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3082a08d-cbf6-4ec9-b90c-f64e31f2e698"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftEvade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a0b5643-e648-4a62-934c-ed9e3abb57b6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightEvade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""afc6fbbf-3830-424d-bead-482f0d4c63ad"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightEvade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cfda4ae2-1e98-48d3-9987-c79cbe014851"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LeftPunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be71c34b-8d15-4ade-a8eb-3021a5e7da1a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftPunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2548dcf-f104-4094-83af-ddadf36c4846"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightPunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d325945c-0573-4888-ab95-e4875b4322ba"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightPunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7dcbdd35-eebe-4029-b664-ec7fe3dfbf30"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""FirstEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b493f68-d457-4434-8526-f493ac4affb8"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""FirstEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31d27d8d-54f8-477a-af47-278e1e603594"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SecondEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23cb3061-1039-4b74-8bc1-1e86d206e8fe"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SecondEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1522521-db86-44cb-bc1b-40147ebc9214"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SuperSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e512363e-6900-45ba-a3e2-c91f56597e80"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SuperSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Menu"",
             ""id"": ""83e1c5b9-50c0-4abc-9dd9-359dc71195a9"",
             ""actions"": [],
@@ -408,6 +686,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_LeftPage = m_Player.FindAction("LeftPage", throwIfNotFound: true);
         m_Player_RightPage = m_Player.FindAction("RightPage", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        // Battle
+        m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
+        m_Battle_Jump = m_Battle.FindAction("Jump", throwIfNotFound: true);
+        m_Battle_Guard = m_Battle.FindAction("Guard", throwIfNotFound: true);
+        m_Battle_LeftEvade = m_Battle.FindAction("LeftEvade", throwIfNotFound: true);
+        m_Battle_RightEvade = m_Battle.FindAction("RightEvade", throwIfNotFound: true);
+        m_Battle_LeftPunch = m_Battle.FindAction("LeftPunch", throwIfNotFound: true);
+        m_Battle_RightPunch = m_Battle.FindAction("RightPunch", throwIfNotFound: true);
+        m_Battle_FirstEquip = m_Battle.FindAction("FirstEquip", throwIfNotFound: true);
+        m_Battle_SecondEquip = m_Battle.FindAction("SecondEquip", throwIfNotFound: true);
+        m_Battle_SuperSkill = m_Battle.FindAction("SuperSkill", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
     }
@@ -547,6 +836,103 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
+    // Battle
+    private readonly InputActionMap m_Battle;
+    private IBattleActions m_BattleActionsCallbackInterface;
+    private readonly InputAction m_Battle_Jump;
+    private readonly InputAction m_Battle_Guard;
+    private readonly InputAction m_Battle_LeftEvade;
+    private readonly InputAction m_Battle_RightEvade;
+    private readonly InputAction m_Battle_LeftPunch;
+    private readonly InputAction m_Battle_RightPunch;
+    private readonly InputAction m_Battle_FirstEquip;
+    private readonly InputAction m_Battle_SecondEquip;
+    private readonly InputAction m_Battle_SuperSkill;
+    public struct BattleActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public BattleActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Jump => m_Wrapper.m_Battle_Jump;
+        public InputAction @Guard => m_Wrapper.m_Battle_Guard;
+        public InputAction @LeftEvade => m_Wrapper.m_Battle_LeftEvade;
+        public InputAction @RightEvade => m_Wrapper.m_Battle_RightEvade;
+        public InputAction @LeftPunch => m_Wrapper.m_Battle_LeftPunch;
+        public InputAction @RightPunch => m_Wrapper.m_Battle_RightPunch;
+        public InputAction @FirstEquip => m_Wrapper.m_Battle_FirstEquip;
+        public InputAction @SecondEquip => m_Wrapper.m_Battle_SecondEquip;
+        public InputAction @SuperSkill => m_Wrapper.m_Battle_SuperSkill;
+        public InputActionMap Get() { return m_Wrapper.m_Battle; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BattleActions set) { return set.Get(); }
+        public void SetCallbacks(IBattleActions instance)
+        {
+            if (m_Wrapper.m_BattleActionsCallbackInterface != null)
+            {
+                @Jump.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnJump;
+                @Guard.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnGuard;
+                @LeftEvade.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftEvade;
+                @LeftEvade.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftEvade;
+                @LeftEvade.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftEvade;
+                @RightEvade.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightEvade;
+                @RightEvade.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightEvade;
+                @RightEvade.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightEvade;
+                @LeftPunch.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftPunch;
+                @LeftPunch.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftPunch;
+                @LeftPunch.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnLeftPunch;
+                @RightPunch.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightPunch;
+                @RightPunch.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightPunch;
+                @RightPunch.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnRightPunch;
+                @FirstEquip.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnFirstEquip;
+                @FirstEquip.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnFirstEquip;
+                @FirstEquip.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnFirstEquip;
+                @SecondEquip.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnSecondEquip;
+                @SecondEquip.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnSecondEquip;
+                @SecondEquip.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnSecondEquip;
+                @SuperSkill.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
+                @SuperSkill.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
+                @SuperSkill.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
+            }
+            m_Wrapper.m_BattleActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Guard.started += instance.OnGuard;
+                @Guard.performed += instance.OnGuard;
+                @Guard.canceled += instance.OnGuard;
+                @LeftEvade.started += instance.OnLeftEvade;
+                @LeftEvade.performed += instance.OnLeftEvade;
+                @LeftEvade.canceled += instance.OnLeftEvade;
+                @RightEvade.started += instance.OnRightEvade;
+                @RightEvade.performed += instance.OnRightEvade;
+                @RightEvade.canceled += instance.OnRightEvade;
+                @LeftPunch.started += instance.OnLeftPunch;
+                @LeftPunch.performed += instance.OnLeftPunch;
+                @LeftPunch.canceled += instance.OnLeftPunch;
+                @RightPunch.started += instance.OnRightPunch;
+                @RightPunch.performed += instance.OnRightPunch;
+                @RightPunch.canceled += instance.OnRightPunch;
+                @FirstEquip.started += instance.OnFirstEquip;
+                @FirstEquip.performed += instance.OnFirstEquip;
+                @FirstEquip.canceled += instance.OnFirstEquip;
+                @SecondEquip.started += instance.OnSecondEquip;
+                @SecondEquip.performed += instance.OnSecondEquip;
+                @SecondEquip.canceled += instance.OnSecondEquip;
+                @SuperSkill.started += instance.OnSuperSkill;
+                @SuperSkill.performed += instance.OnSuperSkill;
+                @SuperSkill.canceled += instance.OnSuperSkill;
+            }
+        }
+    }
+    public BattleActions @Battle => new BattleActions(this);
+
     // Menu
     private readonly InputActionMap m_Menu;
     private IMenuActions m_MenuActionsCallbackInterface;
@@ -625,6 +1011,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnLeftPage(InputAction.CallbackContext context);
         void OnRightPage(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IBattleActions
+    {
+        void OnJump(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
+        void OnLeftEvade(InputAction.CallbackContext context);
+        void OnRightEvade(InputAction.CallbackContext context);
+        void OnLeftPunch(InputAction.CallbackContext context);
+        void OnRightPunch(InputAction.CallbackContext context);
+        void OnFirstEquip(InputAction.CallbackContext context);
+        void OnSecondEquip(InputAction.CallbackContext context);
+        void OnSuperSkill(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
