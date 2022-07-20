@@ -1,6 +1,6 @@
 # Tomato-Punch
 
-Punchout inspired RPG game on development. <br /><br />
+Punchout inspired RPG game in development. <br /><br />
 >Developing with **_Unity._**<br />
 Development start : **_August 2021._**<br />
 <br/>
