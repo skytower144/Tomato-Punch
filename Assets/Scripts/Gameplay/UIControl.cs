@@ -20,4 +20,20 @@ public class UIControl : MonoBehaviour
             ui_bundle[i].GetComponent<CanToggleIcon>()?.ToggleIcon();
         }
     }
+
+    public void UI_Update_Text(string changedText, string oldPath,string newPath)
+    {
+        for (int i = 0; i < ui_bundle.Count; i++)
+        {
+            ui_bundle[i].GetComponent<RebindChangeUI>()?.RebindUI_text(changedText, oldPath, newPath);
+        }
+    }
+
+    public void UI_Update_Sprite(Sprite changedSprite, string oldPath, string newPath)
+    {
+        for (int i = 0; i < ui_bundle.Count; i++)
+        {
+            ui_bundle[i].GetComponent<RebindChangeUI>()?.RebindUI_sprite(changedSprite, oldPath, newPath);
+        }
+    }
 }

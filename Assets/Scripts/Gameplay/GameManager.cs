@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu;
+    [SerializeField] RebindKey rebindKey;
     [SerializeField] ControlScroll controlScroll;
     [SerializeField] UIControl uiControl;
     [SerializeField] Camera mainCamera;
@@ -102,18 +103,21 @@ public class GameManager : MonoBehaviour
 
     private void DetectGamepad()
     {
-        string [] names = Input.GetJoystickNames();
+        if (!rebindKey.isBinding)
+        {
+            string [] names = Input.GetJoystickNames();
 
-        if (names.Length == 0){ // preventing index error
-            uiControl.UI_Update(true); // true => Activate Keyboard
-            return;
+            if (names.Length == 0){ // preventing index error
+                uiControl.UI_Update(true); // true => Activate Keyboard
+                return;
+            }
+            
+            if(string.IsNullOrEmpty(names[0]))
+                uiControl.UI_Update(true);
+            
+            else
+                uiControl.UI_Update(false);
         }
-        
-        if(string.IsNullOrEmpty(names[0]))
-            uiControl.UI_Update(true);
-        
-        else
-            uiControl.UI_Update(false);
     }
 
     public void DetectHolding(Action callback)
@@ -142,7 +146,6 @@ public class GameManager : MonoBehaviour
                     )
                 {
                     callback?.Invoke();
-                    Debug.Log(currentScheme);
                 }
             }
         }

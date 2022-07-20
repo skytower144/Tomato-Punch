@@ -5201,8 +5201,8 @@ GameObject:
   - component: {fileID: 276649995}
   - component: {fileID: 276649990}
   - component: {fileID: 276649992}
-  - component: {fileID: 276649994}
   - component: {fileID: 276649993}
+  - component: {fileID: 276649994}
   m_Layer: 5
   m_Name: guide_right
   m_TagString: Untagged
@@ -5532,9 +5532,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   loopType: 0
   loops: 1
-  id: right_guide_in
+  id: right_guide_out
   isRelative: 0
-  isFrom: 1
+  isFrom: 0
   isIndependentUpdate: 0
   autoKill: 0
   autoGenerate: 1
@@ -5639,9 +5639,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   loopType: 0
   loops: 1
-  id: right_guide_out
+  id: right_guide_in
   isRelative: 0
-  isFrom: 1
+  isFrom: 0
   isIndependentUpdate: 0
   autoKill: 0
   autoGenerate: 1
@@ -5684,8 +5684,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae16d7bc619c3924aa9ef9e60bd0251e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard_linked_path: <Keyboard>/e
+  gamepad_linked_path: <Gamepad>/rightShoulder
   keyboard_display: {fileID: 778477862}
   gamepad_display: {fileID: 807429550}
+  keyboard_rebind_text: {fileID: 778477864}
+  gamepad_rebind_image: {fileID: 807429553}
 --- !u!1 &276761367
 GameObject:
   m_ObjectHideFlags: 0
@@ -6022,6 +6026,7 @@ MonoBehaviour:
   playerMovement: {fileID: 1315878915}
   battleSystem: {fileID: 1038232373}
   resolutionMenu: {fileID: 952913419}
+  rebindKey: {fileID: 1710769546}
   controlScroll: {fileID: 1710769543}
   uiControl: {fileID: 305310879}
   mainCamera: {fileID: 519420031}
@@ -24306,8 +24311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae16d7bc619c3924aa9ef9e60bd0251e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyboard_linked_path: <Keyboard>/q
+  gamepad_linked_path: <Gamepad>/leftShoulder
   keyboard_display: {fileID: 265085290}
   gamepad_display: {fileID: 54952186}
+  keyboard_rebind_text: {fileID: 265085292}
+  gamepad_rebind_image: {fileID: 54952189}
 --- !u!1 &1374758760
 GameObject:
   m_ObjectHideFlags: 0
@@ -27864,6 +27873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeecc0100af125140a40bd7603d3815c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIControl: {fileID: 305310879}
   playerMovement: {fileID: 1315878915}
   controlScroll: {fileID: 1710769543}
   actionList:
@@ -40076,6 +40086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1315878915}
   resolutionMenu: {fileID: 952913419}
+  rebindKey: {fileID: 1710769546}
   optionBase: {fileID: 419368067}
   optionLine: {fileID: 1213322784}
   bgAnimator: {fileID: 1038975137}

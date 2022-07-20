@@ -9,6 +9,7 @@ public class OptionScript : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ResolutionMenu resolutionMenu;
+    [SerializeField] private RebindKey rebindKey;
     [SerializeField] private GameObject optionBase, optionLine;
     [SerializeField] private Animator bgAnimator;
     [SerializeField] private Image illustration;
@@ -23,7 +24,7 @@ public class OptionScript : MonoBehaviour
     {
         if(is_busy_option && canNavigate)
         {
-            if(playerMovement.Press_Key("Pause"))
+            if(!rebindKey.isBinding && playerMovement.Press_Key("Pause"))
             {
                 canNavigate = false;
                 optionBase.SetActive(false);

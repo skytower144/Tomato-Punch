@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.UI;
 
 public class RebindKey : MonoBehaviour
 {
+    [SerializeField] UIControl uIControl;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ControlScroll controlScroll;
     [SerializeField] private List<InputActionReference> actionList;
@@ -35,29 +36,39 @@ public class RebindKey : MonoBehaviour
             bindingIndex = current_action.bindings.IndexOf(x => x.isPartOfComposite && x.path == InputPath(controlScroll.InputMenuNumber));
             cachePath = current_action.bindings[bindingIndex].effectivePath;
 
+            // KEYBOARD
             if(controlScroll.isKeyBoard){
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Gamepad>")
-                    .WithControlsExcluding("<keyboard>/anyKey")
+                    .WithControlsExcluding("<Keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
                     .WithControlsExcluding("<Keyboard>/printScreen")
                     .WithControlsExcluding("<Keyboard>/scrollLock")
                     .WithControlsExcluding("<Keyboard>/pause")
 
+                    .WithTimeout(5f)
                     .WithExpectedControlType("Button")
                     .WithTargetBinding(bindingIndex)
                     .OnMatchWaitForAnother(.1f) // delay
-                    .OnCancel(operation => {rebindingOperation.Dispose(); StartRebinding();})
+
+                    .OnCancel(operation => {ExitBind();})
                     .OnComplete(operation => RebindComplete())
                     .Start();
             }
+            // GAMEPAD
             else {
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Keyboard>")
+                    .WithControlsExcluding("<Gamepad>/start")
 
+                    .WithCancelingThrough("<Gamepad>/start")
+
+                    .WithTimeout(5f)
                     .WithExpectedControlType("Button")
                     .WithTargetBinding(bindingIndex)
                     .OnMatchWaitForAnother(.1f)
+
+                    .OnCancel(operation => {ExitBind();})
                     .OnComplete(operation => RebindComplete())
                     .Start();
             }
@@ -73,21 +84,32 @@ public class RebindKey : MonoBehaviour
             if(controlScroll.isKeyBoard){
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Gamepad>")
-                    .WithControlsExcluding("<keyboard>/anyKey")
+                    .WithControlsExcluding("<Keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
                     .WithControlsExcluding("<Keyboard>/printScreen")
                     .WithControlsExcluding("<Keyboard>/scrollLock")
                     .WithControlsExcluding("<Keyboard>/pause")
+
+                    .WithCancelingThrough("<Keyboard>/escape")
                     
+                    .WithTimeout(5f)
                     .OnMatchWaitForAnother(0.1f)
+
+                    .OnCancel(operation => {ExitBind();})
                     .OnComplete(operation => RebindComplete())
                     .Start();
             }
             else {
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsExcluding("<Keyboard>")
+                    .WithControlsExcluding("<Gamepad>/start")
 
+                    .WithCancelingThrough("<Gamepad>/start")
+
+                    .WithTimeout(5f)
                     .OnMatchWaitForAnother(0.1f)
+
+                    .OnCancel(operation => {ExitBind();})
                     .OnComplete(operation => RebindComplete())
                     .Start();
             }
@@ -96,8 +118,8 @@ public class RebindKey : MonoBehaviour
 
     private void RebindComplete()
     {
-        if (CheckDuplicateBind(current_action, bindingIndex, isComposite)){
-
+        if (CheckDuplicateBind(current_action, bindingIndex, isComposite))
+        {
             //REVERT BINDING
             current_action.RemoveBindingOverride(bindingIndex);
             current_action.ApplyBindingOverride(bindingIndex, cachePath);
@@ -171,6 +193,11 @@ public class RebindKey : MonoBehaviour
         waitCover[controlScroll.InputMenuNumber].SetActive(false);
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
 
+        Invoke("ReleaseBind", 0.2f);
+    }
+
+    private void ReleaseBind()
+    {
         isBinding = false;
     }
 
@@ -190,18 +217,25 @@ public class RebindKey : MonoBehaviour
     }
     private void UpdateText(InputAction targetAction, int binding_idx, int menu_idx)
     {
+        string changed_path = targetAction.bindings[binding_idx].effectivePath;
+
         if(controlScroll.isKeyBoard)
         {
             controlScroll.bindingDisplayText_key[menu_idx].text = InputControlPath.ToHumanReadableString(
-                targetAction.bindings[binding_idx].effectivePath,
+                changed_path,
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
+            
+            string changed_text = controlScroll.bindingDisplayText_key[menu_idx].text;
+            uIControl.UI_Update_Text(changed_text, cachePath, changed_path);
         }
         else
         {
-            LinkSprite(menu_idx, targetAction.bindings[binding_idx].effectivePath);
+            Sprite changed_sprite = LinkSprite(menu_idx, changed_path);
+            uIControl.UI_Update_Sprite(changed_sprite, cachePath, changed_path);
         }
     }
-    private void LinkSprite(int menu_idx, string path)
+
+    private Sprite LinkSprite(int menu_idx, string path)
     {
         if (path == "<Gamepad>/start")
             controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[0];
@@ -274,5 +308,7 @@ public class RebindKey : MonoBehaviour
         
         else if(path == "<Gamepad>/leftStick/up")
             controlScroll.bindingDisplayText_pad[menu_idx].sprite = controlScroll.gamePadIcons[23];
+        
+        return controlScroll.bindingDisplayText_pad[menu_idx].sprite;
     }
 }
