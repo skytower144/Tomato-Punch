@@ -9,7 +9,7 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ResolutionMenu resolutionMenu;
-    [SerializeField] private List<Toggle> toggle_list;
+    [SerializeField] private List<Toggle> toggle_list = new List<Toggle>();
     private Transform temp_content;
     private int listNumber = 0;
     void Update()

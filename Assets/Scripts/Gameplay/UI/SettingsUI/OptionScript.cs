@@ -10,6 +10,7 @@ public class OptionScript : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private RebindKey rebindKey;
+    [SerializeField] private ControlScroll controlScroll;
     [SerializeField] private GameObject optionBase, optionLine;
     [SerializeField] private Animator bgAnimator;
     [SerializeField] private Image illustration;
@@ -22,7 +23,7 @@ public class OptionScript : MonoBehaviour
     private bool canNavigate = false;
     void Update()
     {
-        if(is_busy_option && canNavigate)
+        if(is_busy_option && !controlScroll.isPrompt && canNavigate)
         {
             if(!rebindKey.isBinding && playerMovement.Press_Key("Pause"))
             {

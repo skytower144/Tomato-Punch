@@ -21,9 +21,23 @@ public class RebindKey : MonoBehaviour
     
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
-    private List<InputActionReference> actionList
+    private void OnDisable()
+    {
+        if(rebindingOperation != null)
+            rebindingOperation.Dispose();
+    }
+    public List<InputActionReference> actionList
     {
         get { return controlScroll.isModeRoam ? actionList_roam : actionList_battle;}
+    }
+
+    public List<InputActionReference> GetActionList(string mode_name)
+    {
+        if (mode_name == "FREEROAM")
+            return actionList_roam;
+        else if (mode_name == "BATTLE")
+            return actionList_battle;
+        return null;
     }
 
     public void StartRebinding()
@@ -40,7 +54,7 @@ public class RebindKey : MonoBehaviour
         {
             isComposite = true;
 
-            bindingIndex = current_action.bindings.IndexOf(x => x.isPartOfComposite && x.path == InputPath(controlScroll.InputMenuNumber));
+            bindingIndex = current_action.bindings.IndexOf(x => x.isPartOfComposite && x.path == InputPath(controlScroll.InputMenuNumber, ""));
             cachePath = current_action.bindings[bindingIndex].effectivePath;
 
             // KEYBOARD
@@ -86,6 +100,7 @@ public class RebindKey : MonoBehaviour
             isComposite = false;
 
             bindingIndex = current_action.GetBindingIndexForControl(current_action.controls[0]);
+
             cachePath = current_action.bindings[bindingIndex].effectivePath;
 
             if(controlScroll.isKeyBoard){
@@ -131,11 +146,11 @@ public class RebindKey : MonoBehaviour
             current_action.RemoveBindingOverride(bindingIndex);
             current_action.ApplyBindingOverride(bindingIndex, cachePath);
             
-            UpdateText(current_action, bindingIndex, controlScroll.InputMenuNumber);
+            RebindUpdateText(current_action, bindingIndex, controlScroll.InputMenuNumber, cachePath, controlScroll.isKeyBoard);
             ExitBind();
             return;
         } 
-        UpdateText(current_action, bindingIndex, controlScroll.InputMenuNumber);
+        RebindUpdateText(current_action, bindingIndex, controlScroll.InputMenuNumber, cachePath, controlScroll.isKeyBoard);
         ExitBind();
     }
 
@@ -168,9 +183,10 @@ public class RebindKey : MonoBehaviour
 
         return false;
     }
-    private string InputPath(int menuNumber)
+    public string InputPath(int menuNumber, string current_scheme)
     {
-        if (controlScroll.isKeyBoard){
+        if (controlScroll.isKeyBoard || (current_scheme == "KEY"))
+        {
             if (menuNumber == 0)
                 return "<Keyboard>/w";
             else if(menuNumber == 1)
@@ -180,7 +196,8 @@ public class RebindKey : MonoBehaviour
             else if(menuNumber == 3)
                 return "<Keyboard>/d";
         }
-        else {
+        else
+        {
             if (menuNumber == 0)
                 return "<Gamepad>/leftStick/up";
             else if(menuNumber == 1)
@@ -200,7 +217,7 @@ public class RebindKey : MonoBehaviour
         waitCover[controlScroll.InputMenuNumber].SetActive(false);
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
 
-        Invoke("ReleaseBind", 0.2f);
+        Invoke("ReleaseBind", 0.25f);
     }
 
     private void ReleaseBind()
@@ -222,23 +239,23 @@ public class RebindKey : MonoBehaviour
         }
         return count;
     }
-    private void UpdateText(InputAction targetAction, int binding_idx, int menu_idx)
+    public void RebindUpdateText(InputAction targetAction, int binding_idx, int menu_idx, string cached_path, bool is_keyboard)
     {
         string changed_path = targetAction.bindings[binding_idx].effectivePath;
 
-        if(controlScroll.isKeyBoard)
+        if(is_keyboard)
         {
             controlScroll.bindingDisplayText_key[menu_idx].text = InputControlPath.ToHumanReadableString(
                 changed_path,
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
             
             string changed_text = controlScroll.bindingDisplayText_key[menu_idx].text;
-            uIControl.UI_Update_Text(changed_text, cachePath, changed_path);
+            uIControl.UI_Update_Text(changed_text, cached_path, changed_path);
         }
         else
         {
             Sprite changed_sprite = LinkSprite(menu_idx, changed_path);
-            uIControl.UI_Update_Sprite(changed_sprite, cachePath, changed_path);
+            uIControl.UI_Update_Sprite(changed_sprite, cached_path, changed_path);
         }
     }
 

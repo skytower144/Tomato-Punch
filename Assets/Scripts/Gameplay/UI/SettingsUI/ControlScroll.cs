@@ -9,9 +9,14 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private RebindKey rebindKey;
+    [SerializeField] private ResetBindings resetBindings;
     [SerializeField] private Transform contentTransform;
     [SerializeField] private Animator ToggleAnim;
-    [SerializeField] private Image key_or_pad, roam_or_battle;
+    [SerializeField] private Image key_or_pad, roam_or_battle, reset_arrow;
+
+    [Header("PROMPT")]
+    [SerializeField] private GameObject reset_prompt;
+    [SerializeField] private Transform promptTransform;
 
     [Header("ROAM or BATTLE")]
     [SerializeField] private GameObject display_roam; 
@@ -43,6 +48,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 
     public bool isKeyBoard = true;
     public bool isModeRoam = true;
+    public bool isPrompt = false;
 
     void OnEnable()
     {
@@ -58,21 +64,24 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     }
     void Update()
     {
-        RefreshTopBot();
+        if (!isPrompt)
+        {
+            RefreshTopBot();
 
-        if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
-        {
-           gameManager.DetectHolding(UINavigate);
-        }
-        else if (gameManager.WasHolding)
-        {
-            gameManager.holdStartTime = float.MaxValue;
-        }
-        else if(playerMovement.Press_Key("Interact"))
-        {
-            // Prevent Keyboard input rebind when viewing Controller input list.
-            if(!(playerMovement.CheckKeyboardControl() && !isKeyBoard))
-                ControlInteractMenu();
+            if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
+            {
+            gameManager.DetectHolding(UINavigate);
+            }
+            else if (gameManager.WasHolding)
+            {
+                gameManager.holdStartTime = float.MaxValue;
+            }
+            else if(playerMovement.Press_Key("Interact"))
+            {
+                // Prevent Keyboard input rebind when viewing Controller input list.
+                if(!(playerMovement.CheckKeyboardControl() && !isKeyBoard))
+                    ControlInteractMenu();
+            }
         }
     }
     private void UINavigate()
@@ -80,17 +89,25 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         string direction = playerMovement.Press_Direction();
 
         UncolorMenu();
-        if (direction == "UP")
+
+        if ((menuNumber == -1) && (direction == "LEFT")) // in reset button
             DecreaseNumber();
         
-        else if (direction == "DOWN")
+        else if ((menuNumber == -2) && (direction == "RIGHT")) // out reset button
             IncreaseNumber();
+
+        else if ((menuNumber != -1) && direction == "UP")
+            DecreaseNumber();
+        
+        else if ((menuNumber != -2) && direction == "DOWN")
+            IncreaseNumber();
+        
         ColorMenu();
     }
     private void IncreaseNumber()
     {
         menuNumber += 1;
-        menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
+        menuNumber = Mathf.Clamp(menuNumber, -2, totalMenuNumber);
 
         if(menuNumber > showingNumber_bot)
             MoveScroll("+");  
@@ -98,14 +115,18 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     private void DecreaseNumber()
     {
         menuNumber -= 1;
-        menuNumber = Mathf.Clamp(menuNumber, -1, totalMenuNumber);
+        menuNumber = Mathf.Clamp(menuNumber, -2, totalMenuNumber);
 
         if(menuNumber < showingNumber_top)
             MoveScroll("-");
     }
     private void ColorMenu()
     {
-        if (menuNumber == -1)
+        if (menuNumber == -2)
+        {
+            reset_arrow.color = new Color32(97, 125, 97, 255);
+        }
+        else if (menuNumber == -1)
         {
             roam_or_battle.color = new Color32(112, 255, 158, 194);
         }
@@ -118,6 +139,10 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     }
     private void UncolorMenu()
     {
+        if (menuNumber == -2)
+        {
+            reset_arrow.color = new Color32(106, 94, 91, 255);
+        }
         if (menuNumber == -1)
         {
             roam_or_battle.color = new Color32(255, 255, 255, 255);
@@ -184,6 +209,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     {
         if(isKeyBoard)
         {
+            key_or_pad.sprite = icons[0];
             DisplayKeyboard_roam.SetActive(true);
             DisplayGamepad_roam.SetActive(false);
             
@@ -192,6 +218,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         }
         else
         {
+            key_or_pad.sprite = icons[1];
             DisplayKeyboard_roam.SetActive(false);
             DisplayGamepad_roam.SetActive(true);
             
@@ -201,7 +228,14 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     }
     public void ControlInteractMenu()
     {
-        if(menuNumber == -1)
+        if (menuNumber == -2)
+        {
+            isPrompt = true;
+            GameObject prompt = Instantiate(reset_prompt, promptTransform);
+            prompt.GetComponent<BindingResetPrompt>().InitalizeBindPrompt(gameManager, playerMovement, resetBindings, gameObject.GetComponent<ControlScroll>());
+        }
+
+        else if (menuNumber == -1)
         {
             if(isModeRoam)
             {
@@ -225,20 +259,29 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     }
     public List<TextMeshProUGUI> bindingDisplayText_key
     {
-        get { return isModeRoam ? roam_bindingDisplayText_key : battle_bindingDisplayText_key;}
+        get { return (isModeRoam || resetBindings.demand_displayList == "FREEEROAM") ? roam_bindingDisplayText_key : battle_bindingDisplayText_key;}
     }
     public List<Image> bindingDisplayText_pad
     {
-        get { return isModeRoam ? roam_bindingDisplayText_pad : battle_bindingDisplayText_pad;}
+        get { return (isModeRoam || resetBindings.demand_displayList == "FREEROAM") ? roam_bindingDisplayText_pad : battle_bindingDisplayText_pad;}
     }
 
     private List<TextMeshProUGUI> controlTextList
     {
         get { return isModeRoam ? roam_actionText : battle_actionText;}
     }
-    private int totalMenuNumber
+    public int totalMenuNumber
     {
         get { return isModeRoam ? roam_bindingDisplayText_key.Count - 1: battle_bindingDisplayText_key.Count - 1;}
+    }
+
+    public int GetMenuNumbers(string mode_name)
+    {
+        if (mode_name == "FREEROAM")
+            return roam_actionText.Count;
+        else if (mode_name == "BATTLE")
+            return battle_actionText.Count;
+        return 0;
     }
 
     private void SwitchModeText()
