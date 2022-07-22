@@ -15,4 +15,9 @@ public class DisableOption : MonoBehaviour
     {
         optionScript.EnableNavigation();
     }
+
+    private void PushupFinish()
+    {
+        optionScript.optionDrawing.enabled = true;
+    }
 }

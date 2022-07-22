@@ -33,17 +33,20 @@ public class GameManager : MonoBehaviour
 
         battleSystem.OnBattleOver += EndBattle;
         //playerMovement.BeginBattle += StartBattle;
-
+    
         InvokeRepeating("DetectGamepad", 0f, 1f);
     }
+
     void StartBattle()
     {
         StartCoroutine(Wait());
+        CancelInvoke("DetectGamepad");
     }
 
     void EndBattle()
     {
         StartCoroutine(BattleExit_Wait());
+        InvokeRepeating("DetectGamepad", 0f, 1f);
     }
 
     private void Update()

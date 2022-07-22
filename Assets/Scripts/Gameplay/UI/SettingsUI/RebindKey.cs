@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using TMPro;
 
 public class RebindKey : MonoBehaviour
 {
     [SerializeField] UIControl uIControl;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ControlScroll controlScroll;
+    [SerializeField] private OptionScript optionScript;
     [SerializeField] private List<InputActionReference> actionList_roam;
     [SerializeField] private List<InputActionReference> actionList_battle;
-    [SerializeField] private List<GameObject> waitCover;
+    [SerializeField] private GameObject waitCover, bindFail;
+    [SerializeField] private Transform listenTransform;
     private InputAction current_action = null;
     private int bindingIndex, sameIndex;
     private string cachePath;
@@ -40,15 +42,18 @@ public class RebindKey : MonoBehaviour
         
         return null;
     }
-
     public void StartRebinding()
     {
         isBinding = true;
 
-        waitCover[controlScroll.InputMenuNumber].SetActive(true);
+        MoveCover();
+        waitCover.SetActive(true);
+
         playerMovement.PlayerInput.SwitchCurrentActionMap("Menu");
 
         current_action = actionList[controlScroll.InputMenuNumber].action;
+
+        optionScript.RebindPushUp();
 
         // WASD composite input // Only applied for Freeroam controls
         if (controlScroll.InputMenuNumber <= 3 && controlScroll.isModeRoam)
@@ -164,7 +169,7 @@ public class RebindKey : MonoBehaviour
                 continue;
             }
             if (binding.effectivePath == newBinding.effectivePath){
-                Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
+                ShootCaution(newBinding.effectivePath);
                 return true;
             }
         }
@@ -176,7 +181,7 @@ public class RebindKey : MonoBehaviour
                     continue;
                 
                 if (action.bindings[i].effectivePath == newBinding.effectivePath) {
-                    Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
+                    ShootCaution(newBinding.effectivePath);
                     return true;
                 }
             }
@@ -229,7 +234,9 @@ public class RebindKey : MonoBehaviour
     {
         rebindingOperation.Dispose(); // stop allocating memory space
 
-        waitCover[controlScroll.InputMenuNumber].SetActive(false);
+        waitCover.SetActive(false);
+        optionScript.RebindPushupFinish();
+
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
 
         Invoke("ReleaseBind", 0.25f);
@@ -240,9 +247,20 @@ public class RebindKey : MonoBehaviour
         isBinding = false;
     }
 
-    private void ShootCaution()
+    private void MoveCover()
     {
-        Debug.Log("Duplicate binding found");
+        float move_y = (-100f * (controlScroll.InputMenuNumber)) - 50f; // local position.x starts form -50.0f
+
+        waitCover.transform.localPosition = new Vector3(waitCover.transform.localPosition.x, move_y);
+    }
+
+    private void ShootCaution(string duplicatePath)
+    {
+        string duplicateName = duplicatePath.Split("/"[0])[1].ToUpper();
+        
+        GameObject bind_fail = Instantiate(bindFail, listenTransform);
+        bind_fail.transform.localPosition = new Vector3(bind_fail.transform.localPosition.x, waitCover.transform.localPosition.y);
+        bind_fail.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Already in use! : " + duplicateName;
     }
 
     private int ActionArrayLength(InputAction action)
@@ -258,7 +276,7 @@ public class RebindKey : MonoBehaviour
     {
         string changed_path = targetAction.bindings[binding_idx].effectivePath;
 
-        if(is_keyboard)
+        if(is_keyboard) // KEYBOARD
         {
             controlScroll.bindingDisplayText_key()[menu_idx].text = InputControlPath.ToHumanReadableString(
                 changed_path,
@@ -267,7 +285,7 @@ public class RebindKey : MonoBehaviour
             string changed_text = controlScroll.bindingDisplayText_key()[menu_idx].text;
             uIControl.UI_Update_Text(changed_text, cached_path, changed_path);
         }
-        else
+        else // GAMEPAD
         {
             Sprite changed_sprite = LinkSprite(menu_idx, changed_path);
             uIControl.UI_Update_Sprite(changed_sprite, cached_path, changed_path);

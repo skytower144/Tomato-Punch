@@ -8,6 +8,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private OptionScript optionScript;
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private ResetBindings resetBindings;
     [SerializeField] private Transform contentTransform;
@@ -212,6 +213,8 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         if(isKeyBoard)
         {
             key_or_pad.sprite = icons[0];
+            optionScript.OptionToggleDrawing("KEY");
+
             DisplayKeyboard_roam.SetActive(true);
             DisplayGamepad_roam.SetActive(false);
             
@@ -221,6 +224,8 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         else
         {
             key_or_pad.sprite = icons[1];
+            optionScript.OptionToggleDrawing("PAD");
+
             DisplayKeyboard_roam.SetActive(false);
             DisplayGamepad_roam.SetActive(true);
             

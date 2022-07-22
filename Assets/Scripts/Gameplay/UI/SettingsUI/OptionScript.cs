@@ -14,6 +14,7 @@ public class OptionScript : MonoBehaviour
     [SerializeField] private GameObject optionBase, optionLine;
     [SerializeField] private Animator bgAnimator;
     [SerializeField] private Image illustration;
+    public Image optionDrawing => illustration;
     [SerializeField] private List <Sprite> illustrationList;
     [SerializeField] private List <TextMeshProUGUI> optionTexts;
     [SerializeField] private List <GameObject> optionList;
@@ -169,7 +170,12 @@ public class OptionScript : MonoBehaviour
     public void DisplayOption() // OnComplete: option_1_0 DOTween
     {
         ColorText();
-        illustration.sprite = illustrationList[optionNumber];
+
+        if (optionNumber == 1 && !controlScroll.isKeyBoard)
+            illustration.sprite = illustrationList[3]; // Gamepad bg sprite
+        
+        else
+            illustration.sprite = illustrationList[optionNumber];
         optionList[optionNumber].SetActive(true);
 
         DOTween.Rewind("option_fade");
@@ -181,5 +187,25 @@ public class OptionScript : MonoBehaviour
             firstMenu.alpha = 0;
         }
         canNavigate = true;
+    }
+
+    public void RebindPushUp()
+    {
+        illustration.enabled = false;
+        bgAnimator.Play("rebind_pushup",-1,0f);
+    }
+    public void RebindPushupFinish()
+    {
+        bgAnimator.Play("optionBg_default",-1,0f);
+        illustration.enabled = true;
+    }
+
+    public void OptionToggleDrawing(string current_scheme)
+    {
+        if (current_scheme == "KEY")
+            illustration.sprite = illustrationList[1];
+        
+        else if (current_scheme == "PAD")
+             illustration.sprite = illustrationList[3];
     }
 }

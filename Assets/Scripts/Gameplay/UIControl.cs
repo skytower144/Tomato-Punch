@@ -13,7 +13,7 @@ public class UIControl : MonoBehaviour
             return;
         }
         
-        controlScroll.isKeyBoard = state;
+        controlScroll.isKeyBoard = state; // update the state of current control scheme
         
         for (int i = 0; i < ui_bundle.Count; i++)
         {
