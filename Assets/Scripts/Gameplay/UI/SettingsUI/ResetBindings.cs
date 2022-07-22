@@ -63,6 +63,7 @@ public class ResetBindings : MonoBehaviour
         int total_menu = controlScroll.GetMenuNumbers("FREEROAM");
         List<InputActionReference> action_list = rebindKey.GetActionList("FREEROAM");
         
+        
         for (int i = 0; i < total_menu; i++)
         {
             target_action = action_list[i].action;
@@ -72,35 +73,33 @@ public class ResetBindings : MonoBehaviour
                 pad_bindingIndex = target_action.bindings.IndexOf(x => x.isPartOfComposite && x.path == rebindKey.InputPath(i, "PAD"));
             }
             else {
-                key_bindingIndex = target_action.GetBindingIndexForControl(target_action.controls[0]);
+                key_bindingIndex = target_action.bindings.IndexOf(x => x.path.Contains("Keyboard"));
                 pad_bindingIndex = target_action.bindings.IndexOf(x => x.path.Contains("Gamepad"));
             }
             
             demand_displayList = "FREEROAM";
             rebindKey.RebindUpdateText(target_action, key_bindingIndex, i, target_action.bindings[key_bindingIndex].path, true); // KEYBOARD
-
-            demand_displayList = "BATTLE";
             rebindKey.RebindUpdateText(target_action, pad_bindingIndex, i, target_action.bindings[pad_bindingIndex].path, false); // GAMEPAD
         }
-
+        
+        // DO NOT CLEAR LIST ... with shallow copy it will effect the original list.
+        
         total_menu = controlScroll.GetMenuNumbers("BATTLE");
-        action_list.Clear();
         action_list = rebindKey.GetActionList("BATTLE");
 
         for (int i = 0; i < total_menu; i++)
         {
             target_action = action_list[i].action;
 
-            key_bindingIndex = target_action.GetBindingIndexForControl(target_action.controls[0]);
+            key_bindingIndex = target_action.bindings.IndexOf(x => x.path.Contains("Keyboard"));
             pad_bindingIndex = target_action.bindings.IndexOf(x => x.path.Contains("Gamepad"));
             
-            demand_displayList = "FREEROAM";
-            rebindKey.RebindUpdateText(target_action, key_bindingIndex, i, target_action.bindings[key_bindingIndex].path, true);
-
             demand_displayList = "BATTLE";
+            rebindKey.RebindUpdateText(target_action, key_bindingIndex, i, target_action.bindings[key_bindingIndex].path, true);
             rebindKey.RebindUpdateText(target_action, pad_bindingIndex, i, target_action.bindings[pad_bindingIndex].path, false);
 
             demand_displayList = "none";
         }
+        
     }
 }

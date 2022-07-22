@@ -35,10 +35,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [Header("KEYBOARD")]
     [SerializeField] private List<TextMeshProUGUI> roam_bindingDisplayText_key;
     [SerializeField] private List<TextMeshProUGUI> battle_bindingDisplayText_key;
+    
 
     [Header("GAMEPAD")]
     [SerializeField] private List<Image> roam_bindingDisplayText_pad;
     [SerializeField] private List<Image> battle_bindingDisplayText_pad;
+
     
     private int menuNumber;
     public int InputMenuNumber => menuNumber;
@@ -134,7 +136,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         {
             controlTextList[menuNumber].color = new Color32(97, 125, 97, 255);
             if(isKeyBoard)
-                bindingDisplayText_key[menuNumber].color = new Color32(97, 125, 97, 255);
+                bindingDisplayText_key()[menuNumber].color = new Color32(97, 125, 97, 255);
         }
     }
     private void UncolorMenu()
@@ -151,7 +153,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         {
             controlTextList[menuNumber].color = new Color32(112, 82, 75, 255);
             if(isKeyBoard)
-                bindingDisplayText_key[menuNumber].color = new Color32(112, 82, 75, 255);
+                bindingDisplayText_key()[menuNumber].color = new Color32(112, 82, 75, 255);
         }
     }
     private void MoveScroll(string direction)
@@ -257,14 +259,36 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     {
         rebindKey.StartRebinding();
     }
-    public List<TextMeshProUGUI> bindingDisplayText_key
+    
+    public List<TextMeshProUGUI> bindingDisplayText_key()
     {
-        get { return (isModeRoam || resetBindings.demand_displayList == "FREEEROAM") ? roam_bindingDisplayText_key : battle_bindingDisplayText_key;}
+        if (resetBindings.demand_displayList == "FREEROAM")
+            return roam_bindingDisplayText_key;
+
+        else if (resetBindings.demand_displayList == "BATTLE")
+            return battle_bindingDisplayText_key;
+        
+        else if (isModeRoam)
+            return roam_bindingDisplayText_key;
+        
+        else
+            return battle_bindingDisplayText_key;
     }
-    public List<Image> bindingDisplayText_pad
+    public List<Image> bindingDisplayText_pad()
     {
-        get { return (isModeRoam || resetBindings.demand_displayList == "FREEROAM") ? roam_bindingDisplayText_pad : battle_bindingDisplayText_pad;}
+        if (resetBindings.demand_displayList == "FREEROAM")
+            return roam_bindingDisplayText_pad;
+        
+        else if (resetBindings.demand_displayList == "BATTLE")
+            return battle_bindingDisplayText_pad;
+        
+        else if (isModeRoam)
+            return  roam_bindingDisplayText_pad;
+        
+        else
+            return battle_bindingDisplayText_pad;
     }
+    
 
     private List<TextMeshProUGUI> controlTextList
     {
@@ -281,6 +305,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             return roam_actionText.Count;
         else if (mode_name == "BATTLE")
             return battle_actionText.Count;
+        
         return 0;
     }
 

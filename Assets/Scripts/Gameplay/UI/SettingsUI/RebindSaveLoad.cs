@@ -6,16 +6,13 @@ public class RebindSaveLoad : MonoBehaviour
     public InputActionAsset actions;
     [SerializeField] private ResetBindings resetBindings;
 
-    private void Start()
-    {
-        //resetBindings.Load_UpdateUI();
-    }
-
     public void OnEnable()
     {
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds))
             actions.LoadBindingOverridesFromJson(rebinds);
+
+        resetBindings.Load_UpdateUI();
     }
 
     public void OnDisable()
