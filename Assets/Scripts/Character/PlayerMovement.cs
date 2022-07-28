@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     public static bool isBattle = false;
     private bool isInteracting = false;
+
     // public event Action BeginBattle;
 
     void Start()
@@ -32,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
        myAnim = GetComponent<Animator>();
        playerInput = GetComponent<PlayerInput>();
     }
-
     public void HandleUpdate()
     {
         if(!isBattle)
@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
             else if(!InputDetection(movement))
             {
                 myAnim.SetBool("isWalking", false);
+                myRb.velocity = Vector3.zero;
             }
        }
     }
