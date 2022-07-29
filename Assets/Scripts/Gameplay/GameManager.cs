@@ -7,15 +7,18 @@ public enum GameState { FreeRoam, Battle }
 public class GameManager : MonoBehaviour
 {
     GameState gameState;
+
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey;
     [SerializeField] ControlScroll controlScroll;
     [SerializeField] UIControl uiControl;
+
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
-    public GameObject playerObject;
+
+    public GameObject playerObject, levelHolder;
     private Animator playerAnimator;
 
     public float stickSensitivity;
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
     public bool WasHolding => holdStartTime < Time.time;
 
     private float player_x, player_y;
+    
     private void Start() //subscribing to an event
     {
         resolutionMenu.SetupGraphic();
@@ -87,11 +91,15 @@ public class GameManager : MonoBehaviour
         mainCamera.gameObject.SetActive(false);
         gameState = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
+
+        DisableLevelHolder();
     }
 
     IEnumerator BattleExit_Wait()
     {
         yield return new WaitForSeconds(1.5f);
+
+        levelHolder.SetActive(true);
 
         battleSystem.gameObject.SetActive(false);
         gameState = GameState.FreeRoam;
@@ -102,6 +110,12 @@ public class GameManager : MonoBehaviour
         mainCamera.gameObject.SetActive(true);
 
         PlayerMovement.isBattle = false;
+    }
+
+    private void DisableLevelHolder()
+    {
+        levelHolder = GameObject.FindGameObjectWithTag("LevelHolder");
+        levelHolder.SetActive(false);
     }
 
     private void DetectGamepad()
