@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Animator myAnim;
     private Rigidbody2D myRb;
-    private Animator myAnim;
     private PlayerInput playerInput;
     public PlayerInput PlayerInput => playerInput;
-
+    
     [SerializeField] GameManager gameManager;
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
        myRb = GetComponent<Rigidbody2D>();
-       myAnim = GetComponent<Animator>();
        playerInput = GetComponent<PlayerInput>();
     }
     public void HandleUpdate()
@@ -94,8 +93,9 @@ public class PlayerMovement : MonoBehaviour
     void PlayerInteract()
     {
         var facingDir = new Vector3(myAnim.GetFloat("moveX"), myAnim.GetFloat("moveY"));
-        var temp = new Vector3(transform.position.x, transform.position.y - 0.7f);
-        var interactPos = temp + facingDir*0.5f;
+        var temp = new Vector3(transform.position.x, transform.position.y + 0.25f);
+        
+        var interactPos = temp + facingDir * 0.5f;
         // var interactPos = transform.position + facingDir;
 
         var collider = Physics2D.OverlapPoint(interactPos, interactableLayer);
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
             // ? --> prevents crashing when GetComponent Fails.
         }
 
-        //Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
+        // Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
     }
 
     void IsInteracting()

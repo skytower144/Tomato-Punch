@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 
-    public GameObject playerObject, levelHolder;
-    private Animator playerAnimator;
+    public GameObject levelHolder;
+    [SerializeField] private Animator playerAnimator;
 
     public float stickSensitivity;
 
@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerMovement.isBattle = true;
 
-        playerAnimator = playerObject.GetComponent<Animator>();
         playerAnimator.SetBool("isWalking",false);
 
         player_x = GameObject.Find("Player").transform.position.x;
