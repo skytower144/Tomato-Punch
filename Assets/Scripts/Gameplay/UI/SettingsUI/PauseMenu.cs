@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour
         HighlightText();
         MoveArrow();
     }
+
     void OnDisable()
     {
         NormalizeText();
