@@ -16,13 +16,14 @@ public class PauseMenu : MonoBehaviour
     private int maxMenuIndex = 2;
     void OnEnable()
     {
+        Time.timeScale = 0;
         menuNumber = 0;
         HighlightText();
         MoveArrow();
     }
-
     void OnDisable()
     {
+        Time.timeScale = 1;
         NormalizeText();
     }
     void Update()

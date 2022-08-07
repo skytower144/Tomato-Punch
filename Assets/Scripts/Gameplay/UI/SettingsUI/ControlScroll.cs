@@ -257,11 +257,13 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         }
         else if(menuNumber >= 0)
         {
-            Invoke("DelayRebind", 0.15f);
+            StartCoroutine(DelayRebind(0.15f));
         }
     }
-    private void DelayRebind()
+
+    IEnumerator DelayRebind(float waitTime)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         rebindKey.StartRebinding();
     }
     

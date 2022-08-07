@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
                 myAnim.SetFloat("moveY", movement.y);
 
                 myRb.MovePosition(myRb.position + movement * speed * Time.fixedDeltaTime);
-
             }
             else if(!InputDetection(movement))
             {
@@ -81,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
                 myRb.velocity = Vector3.zero;
             }
        }
+       else
+        myRb.velocity = Vector3.zero;
     }
     public bool InputDetection(Vector2 move)
     {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -130,7 +131,7 @@ public class BindingResetPrompt : MonoBehaviour
         if (selectNumber == 0)
         {
             reset_bindings.ResetAllBindings(control_scroll.isModeRoam);
-            Invoke("ExitPrompt", 0.15f);
+            StartCoroutine(Exit_Prompt(0.15f));
         }
         else if (selectNumber == 1)
         {
@@ -141,6 +142,12 @@ public class BindingResetPrompt : MonoBehaviour
     {
         control_scroll.isPrompt = false;
         Destroy(gameObject);
+    }
+
+    IEnumerator Exit_Prompt(float waitTime)
+    {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        ExitPrompt();
     }
 
     public void PromptMouseHover(int index)

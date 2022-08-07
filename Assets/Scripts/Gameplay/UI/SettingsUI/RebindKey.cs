@@ -239,11 +239,12 @@ public class RebindKey : MonoBehaviour
 
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
 
-        Invoke("ReleaseBind", 0.25f);
+        StartCoroutine(ReleaseBind(0.25f));
     }
 
-    private void ReleaseBind()
+    IEnumerator ReleaseBind(float waitTime)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         isBinding = false;
     }
 

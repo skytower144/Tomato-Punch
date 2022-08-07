@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6964922437046300172}
   - component: {fileID: 6964922437046300162}
   - component: {fileID: 6964922437046300163}
-  m_Layer: 0
+  - component: {fileID: 1417769719}
+  m_Layer: 6
   m_Name: gatleButton_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,6 +103,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1417769719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964922437046300173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d1e26c2ec11924bb761a877392460b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gatleButton_anim_R: {fileID: 6964922437046300163}
+  gatleButtons: {fileID: 6964922438253186497}
 --- !u!1 &6964922438253186497
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6964922438253186496}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: gatleButton_LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +165,8 @@ GameObject:
   - component: {fileID: 6964922438260511023}
   - component: {fileID: 6964922438260511021}
   - component: {fileID: 6964922438260511022}
-  m_Layer: 0
+  - component: {fileID: 854250698}
+  m_Layer: 6
   m_Name: gatleButton_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +206,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,3 +257,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &854250698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964922438260511016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878098729da94cc479ebf81cb3a0facd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gatleButton_anim_L: {fileID: 6964922438260511022}
+  gatleButtons: {fileID: 6964922438253186497}

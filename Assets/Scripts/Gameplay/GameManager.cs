@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float holdTimer;
     [SerializeField] private float intervalTime;
     private float delayTimer;
-    public bool WasHolding => holdStartTime < Time.time;
+    public bool WasHolding => holdStartTime < Time.unscaledTime;
 
     private float player_x, player_y;
     
@@ -37,20 +37,16 @@ public class GameManager : MonoBehaviour
 
         battleSystem.OnBattleOver += EndBattle;
         //playerMovement.BeginBattle += StartBattle;
-    
-        InvokeRepeating("DetectGamepad", 0f, 1f);
     }
 
     void StartBattle()
     {
         StartCoroutine(Wait());
-        CancelInvoke("DetectGamepad");
     }
 
     void EndBattle()
     {
         StartCoroutine(BattleExit_Wait());
-        InvokeRepeating("DetectGamepad", 0f, 1f);
     }
 
     private void Update()
@@ -58,6 +54,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.FreeRoam)
         {
             playerMovement.HandleUpdate();
+            DetectGamepad();
         }
         // else if(gameState == GameState.Battle)
         // {
@@ -140,9 +137,10 @@ public class GameManager : MonoBehaviour
     {
         if (WasHolding)
         {
-            if (Time.time - holdStartTime > holdTimer)
+            if (Time.unscaledTime - holdStartTime > holdTimer)
             {
-                delayTimer -= Time.deltaTime;
+                delayTimer -= Time.unscaledDeltaTime;
+    
                 if (delayTimer <= 0)
                 {
                     delayTimer = intervalTime;
@@ -150,7 +148,7 @@ public class GameManager : MonoBehaviour
                     callback?.Invoke();
                 }
             }
-
+            
             // Allowing Button fast navigation
             else if(playerMovement.Press_Key("Move"))
             {
@@ -164,11 +162,12 @@ public class GameManager : MonoBehaviour
                     callback?.Invoke();
                 }
             }
+            
         }
         else
         {
             delayTimer = intervalTime;
-            holdStartTime = Time.time;
+            holdStartTime = Time.unscaledTime;
 
             callback?.Invoke();
         }
