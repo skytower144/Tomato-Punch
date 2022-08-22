@@ -20,8 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     private Vector2 movement;
 
+    public string current_portalID;
     public LayerMask interactableLayer;
-
+    
     public static bool isBattle = false;
     private bool isInteracting = false;
 

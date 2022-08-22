@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] BattleSystem battleSystem;
+    [SerializeField] EnemyControl enemyControl;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey;
     [SerializeField] ControlScroll controlScroll;
@@ -30,7 +31,19 @@ public class GameManager : MonoBehaviour
     public bool WasHolding => holdStartTime < Time.unscaledTime;
 
     private float player_x, player_y;
-    
+
+// ================================================================
+    public static GameManager gm_instance;
+    void Awake()
+    {
+        if (gm_instance != null)
+        {
+            return;
+        }
+
+        gm_instance = this;
+    }
+// ================================================================
     private void Start() //subscribing to an event
     {
         resolutionMenu.SetupGraphic();
@@ -62,16 +75,18 @@ public class GameManager : MonoBehaviour
         // }
     }
 
-    public void Initiate_Battle()
+    public void Initiate_Battle(EnemyBase enemy_base)
     {
         PlayerMovement.isBattle = true;
 
         playerAnimator.SetBool("isWalking",false);
 
-        player_x = GameObject.Find("Player").transform.position.x;
-        player_y = GameObject.Find("Player").transform.position.y;
+        enemyControl._base = enemy_base;
 
-        Instantiate (exclamation, new Vector2 (player_x-0.05f, player_y+3f), Quaternion.identity);
+        player_x = playerMovement.transform.position.x;
+        player_y = playerMovement.transform.position.y;
+
+        Instantiate (exclamation, new Vector2 (player_x, player_y + 3.8f), Quaternion.identity);
         Invoke("battleStart_ef", 0.4f);
         StartBattle();
     }

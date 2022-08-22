@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Enemy3rd_Controller : MonoBehaviour, Interactable
 {
-    [SerializeField] private EnemyControl enemyControl;
     public EnemyBase enemyStats;
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.gm_instance;
+    }
 
     public void Interact()
     {
-        gameManager.Initiate_Battle();
-        enemyControl._base = enemyStats;
+        gameManager.Initiate_Battle(enemyStats);
     }
 
 }

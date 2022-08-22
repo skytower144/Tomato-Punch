@@ -75,7 +75,7 @@ public class OptionScript : MonoBehaviour
         DOTween.Rewind("option_fade");
         DOTween.Play("option_fade");
 
-        firstMenu.DOFade(1, 0.15f).SetDelay(0.3f);
+        firstMenu.DOFade(1, 0.15f).SetDelay(0.3f).SetUpdate(true);
 
         DOTween.Rewind("option_text_fade");
         DOTween.Play("option_text_fade");
@@ -182,7 +182,7 @@ public class OptionScript : MonoBehaviour
         DOTween.Play("option_fade");
         
         if (optionNumber == 0)
-            firstMenu.DOFade(1, 0.15f);
+            firstMenu.DOFade(1, 0.15f).SetUpdate(true);
         else{
             firstMenu.alpha = 0;
         }
