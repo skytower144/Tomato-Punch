@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
 
     private float player_x, player_y;
 
+    public SceneDetails CurrentScene { get; private set; }
+    public SceneDetails PreviousScene { get; private set; }
+
 // ================================================================
     public static GameManager gm_instance;
     void Awake()
@@ -186,5 +189,11 @@ public class GameManager : MonoBehaviour
 
             callback?.Invoke();
         }
+    }
+
+    public void SetCurrentScene(SceneDetails current_scene)
+    {
+        PreviousScene = CurrentScene;
+        CurrentScene = current_scene;
     }
 }

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] PauseMenu pauseMenu;
-    [SerializeField] private GameObject playerUI, canvas;
+    [SerializeField] private GameObject playerUI, pauseObj, darkFilter;
     [SerializeField] private List <GameObject> playerUIList;
 
     [SerializeField] private float speed;
@@ -80,10 +80,12 @@ public class PlayerMovement : MonoBehaviour
                 myAnim.SetBool("isWalking", false);
                 myRb.velocity = Vector3.zero;
             }
-       }
-       else
-        myRb.velocity = Vector3.zero;
+        }
+        else {
+            myRb.velocity = Vector3.zero;
+        }
     }
+
     public bool InputDetection(Vector2 move)
     {
         return (move.x >= gameManager.stickSensitivity || move.x <= -gameManager.stickSensitivity|| move.y >= gameManager.stickSensitivity || move.y <= -gameManager.stickSensitivity);
@@ -134,8 +136,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void HitMenu()
     {
-        canvas.SetActive(!canvas.activeSelf);
-        pauseMenu.SpawnPauseMenu(canvas.activeSelf);
+        darkFilter.SetActive(!darkFilter.activeSelf);
+        pauseMenu.SpawnPauseMenu(!pauseObj.activeSelf);
         IsInteracting();
     }
 
@@ -165,5 +167,23 @@ public class PlayerMovement : MonoBehaviour
             return "LEFT";
         
         return "";
+    }
+
+    public void FaceAdjustment(string facing_direction)
+    {
+        float face_x = 0f;
+        float face_y = 0f;
+
+        if (facing_direction == "UP")
+            face_y = 1f;
+        else if (facing_direction == "DOWN")
+            face_y = -1f;
+        else if (facing_direction == "LEFT")
+            face_x = -1f;
+        else if (facing_direction == "RIGHT")
+            face_x = 1f;
+
+        myAnim.SetFloat("moveX", face_x);
+        myAnim.SetFloat("moveY", face_y);
     }
 }

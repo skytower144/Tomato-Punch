@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Linq;
+using DG.Tweening;
 
 public class Portal : MonoBehaviour
 {
@@ -17,8 +17,13 @@ public class Portal : MonoBehaviour
     {
         player_movement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
-        if ((player_movement.current_portalID != "") && (player_movement.current_portalID == portal_id))
+        if ((player_movement.current_portalID != "") && (player_movement.current_portalID == portal_id)){
             player_movement.transform.position = spawnPoint.position;
+            
+            DOTween.Rewind("fader_out");
+            DOTween.Play("fader_out");
+            Time.timeScale = 1;
+        }
 
     }
 
@@ -39,14 +44,21 @@ public class Portal : MonoBehaviour
             string direction = player_movement.Press_Direction();
             if (direction == this.enterDirection.ToString()) {
                 canEnter = false;
-                StartCoroutine(SwitchScene());
+                Time.timeScale = 0;
+
+                player_movement.FaceAdjustment(direction);
+
+                DOTween.Rewind("fader_in");
+                DOTween.Play("fader_in");
+                StartCoroutine(SwitchScene(0.35f));
             }
         }
     }
 
-
-    IEnumerator SwitchScene()
+    IEnumerator SwitchScene(float waitTime)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+
         player_movement.current_portalID = portal_id;
 
         // Wait until scene is completely loaded.
