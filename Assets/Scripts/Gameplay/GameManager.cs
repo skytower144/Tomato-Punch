@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 
-    public GameObject levelHolder;
+    public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
 
     public float stickSensitivity;
@@ -113,7 +113,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        levelHolder.SetActive(true);
+        foreach (GameObject level_holder in levelHolder)
+        {
+            level_holder.SetActive(true);
+        }
 
         battleSystem.gameObject.SetActive(false);
         gameState = GameState.FreeRoam;
@@ -128,8 +131,11 @@ public class GameManager : MonoBehaviour
 
     private void DisableLevelHolder()
     {
-        levelHolder = GameObject.FindGameObjectWithTag("LevelHolder");
-        levelHolder.SetActive(false);
+        levelHolder = GameObject.FindGameObjectsWithTag("LevelHolder");
+        foreach (GameObject level_holder in levelHolder)
+        {
+            level_holder.SetActive(false);
+        }
     }
 
     private void DetectGamepad()

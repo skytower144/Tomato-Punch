@@ -11,7 +11,7 @@ public class SceneDetails : MonoBehaviour
         if (collision.tag == "Player")
         {
             LoadScene();
-            Debug.Log($"entered {gameObject.name}");
+            //Debug.Log($"entered {gameObject.name}");
             GameManager.gm_instance.SetCurrentScene(this);
 
             // Load all connected scenes
