@@ -77,6 +77,7 @@ public class LocationPortal : MonoBehaviour
         
         DOTween.Rewind("fader_out");
         DOTween.Play("fader_out");
+
         Time.timeScale = 1;
     }
 
