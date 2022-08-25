@@ -7794,7 +7794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2766613874449132829}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.730003, y: 0.12000275, z: 0}
+  m_LocalPosition: {x: 41.805, y: 31.390001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2766613875799240095}
@@ -29320,8 +29320,8 @@ GameObject:
   - component: {fileID: 2766613875799240095}
   - component: {fileID: 2766613875799240032}
   - component: {fileID: 2766613875799240034}
-  - component: {fileID: 2766613875799240033}
   - component: {fileID: 2766613875799240094}
+  - component: {fileID: 6400619693561892454}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -29394,26 +29394,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2766613875799240035}
   m_Enabled: 1
---- !u!114 &2766613875799240033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766613875799240035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 13
-  m_RefResolutionX: 240
-  m_RefResolutionY: 135
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!114 &2766613875799240094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29446,6 +29426,26 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &6400619693561892454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2766613875799240035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 13
+  m_RefResolutionX: 240
+  m_RefResolutionY: 135
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &2766613875816104652
 GameObject:
   m_ObjectHideFlags: 0
@@ -32539,7 +32539,8 @@ MonoBehaviour:
   battleCircle: {fileID: 5855777196679259577, guid: 62ecba09751ef914f82b224b3ab9759c, type: 3}
   exclamation: {fileID: 1128744471400820819, guid: 97498d9155afa6b48aa64a82f26194c7, type: 3}
   fadeIn: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
-  levelHolder: {fileID: 0}
+  levelHolder:
+  - {fileID: 0}
   playerAnimator: {fileID: 2766613875202064466}
   stickSensitivity: 0.65
   holdTimer: 0.5

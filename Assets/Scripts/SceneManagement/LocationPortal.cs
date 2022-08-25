@@ -10,6 +10,7 @@ public class LocationPortal : MonoBehaviour
     [SerializeField] string portal_id;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
+    [SerializeField] private Animator enterAnimator;
     private PlayerMovement player_movement;
     private bool canEnter;
 
@@ -38,12 +39,31 @@ public class LocationPortal : MonoBehaviour
                 Time.timeScale = 0;
 
                 player_movement.FaceAdjustment(direction);
+                
+                if (enterAnimator != null)
+                    StartCoroutine(PlayEnterAnimation(0.5f));
 
-                DOTween.Rewind("fader_in");
-                DOTween.Play("fader_in");
-                StartCoroutine(TeleportPlayer(0.35f));
+                else
+                {
+                    FadeAndTeleport();
+                }
             }
         }
+    }
+
+    private void FadeAndTeleport()
+    {
+        DOTween.Rewind("fader_in");
+        DOTween.Play("fader_in");
+        StartCoroutine(TeleportPlayer(0.35f));
+    }
+    IEnumerator PlayEnterAnimation(float waitTime)
+    {
+        enterAnimator.Play("DoorOpen", -1, 0f);
+
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+
+        FadeAndTeleport();
     }
 
     IEnumerator TeleportPlayer(float waitTime)
