@@ -10,7 +10,11 @@ public class LocationPortal : MonoBehaviour
     [SerializeField] string portal_id;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
+
+    [Header("Optional")]
     [SerializeField] private Animator enterAnimator;
+    [SerializeField] private CameraSwitch camera_switch;
+
     private PlayerMovement player_movement;
     private bool canEnter;
 
@@ -22,6 +26,11 @@ public class LocationPortal : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         canEnter = true;
+        if (enterAnimator != null){
+            // Make sure the SpawnPoint is close enough to the Portal Collider.
+            // When Player is exiting, Player collider should be in contact with the portal collider to trigger the DoorOpen animation.
+            enterAnimator.Play("DoorOpen", -1, 0f);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -41,7 +50,7 @@ public class LocationPortal : MonoBehaviour
                 player_movement.FaceAdjustment(direction);
                 
                 if (enterAnimator != null)
-                    StartCoroutine(PlayEnterAnimation(0.5f));
+                    StartCoroutine(DelayEnter(0.5f));
 
                 else
                 {
@@ -55,14 +64,12 @@ public class LocationPortal : MonoBehaviour
     {
         DOTween.Rewind("fader_in");
         DOTween.Play("fader_in");
+
         StartCoroutine(TeleportPlayer(0.35f));
     }
-    IEnumerator PlayEnterAnimation(float waitTime)
+    IEnumerator DelayEnter(float waitTime)
     {
-        enterAnimator.Play("DoorOpen", -1, 0f);
-
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
-
         FadeAndTeleport();
     }
 
@@ -74,6 +81,9 @@ public class LocationPortal : MonoBehaviour
         var destinationPortal = FindObjectsOfType<LocationPortal>().First(x => x != this && x.portal_id == this.portal_id);
         
         player_movement.transform.position = destinationPortal.spawnPoint.position;
+
+        if (camera_switch != null)
+            camera_switch.SwitchCamera();
         
         DOTween.Rewind("fader_out");
         DOTween.Play("fader_out");
