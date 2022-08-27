@@ -9,6 +9,7 @@ public class CameraSwitch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerCamera.playerCamera_instance.TogglePlayerCamera();
+        PlayerCamera.playerCamera_instance.StapleUICanvas(gameObject.transform);
         customCamera.enabled = !customCamera.enabled;
         SetCustomView();
     }
