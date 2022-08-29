@@ -10,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private GameObject uiCanvas;
     [SerializeField] private Transform essential_transform, player_transform;
 
-    [SerializeField] private float canvas_x, canvas_y;
+    private float canvas_x, canvas_y;
     private RectTransform canvas_pos;
 
     void Awake()
@@ -51,7 +51,6 @@ public class PlayerCamera : MonoBehaviour
     {
         // Staple canvas position according to the camera position when entering.
         canvas_pos.localPosition = new Vector2(camera_pos.localPosition.x, camera_pos.localPosition.y);
-        Debug.Log(camera_pos.localPosition.x);
     }
 
 }
