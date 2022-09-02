@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8765719985546093240}
   m_Layer: 0
   m_Name: LocationPortal
-  m_TagString: Untagged
+  m_TagString: LocationPortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ae6ba8519783b4abe839a30f2f6c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
   portal_id: 
   spawnPoint: {fileID: 7270065542719173952}
   enterDirection: 0
+  isExiting: 0
+  enterAnimator: {fileID: 0}
+  camera_switch: {fileID: 0}

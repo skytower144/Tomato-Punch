@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class SceneDetails : MonoBehaviour
 {
     [SerializeField] List<SceneDetails> connectedScenes;
+    private string sceneName;
+    public string scene_name => sceneName;
+    [SerializeField] private bool isIndoor;
+
+    void Start()
+    {
+        sceneName = gameObject.name;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -14,39 +23,57 @@ public class SceneDetails : MonoBehaviour
             //Debug.Log($"entered {gameObject.name}");
             GameManager.gm_instance.SetCurrentScene(this);
 
-            // Load all connected scenes
-            foreach (var scene in connectedScenes)
+            if (!isIndoor)
             {
-                scene.LoadScene();
-            }
-
-            // Unload the scenes that are no longer connected
-            if (GameManager.gm_instance.PreviousScene != null)
-            {
-                var previouslyLoadedScenes = GameManager.gm_instance.PreviousScene.connectedScenes;
-                foreach (var scene in previouslyLoadedScenes)
+                // Load all connected scenes
+                foreach (var scene in connectedScenes)
                 {
-                    // If it's not the connectected scenes of the current scene && If this scene is not the currently loaded scene
-                    if (!connectedScenes.Contains(scene) && scene != this)
+                    scene.LoadScene();
+                }
+
+                var previous_scene = GameManager.gm_instance.PreviousScene;
+
+                // Unload the scenes that are no longer connected
+                if (GameManager.gm_instance.PreviousScene != null)
+                {
+                    var previouslyLoadedScenes = GameManager.gm_instance.PreviousScene.connectedScenes;
+                    foreach (var scene in previouslyLoadedScenes)
                     {
-                        scene.UnloadScene();
+                        // If it's not the connectected scenes of the current scene && Except the current scene
+                        if (!connectedScenes.Contains(scene) && scene != this)
+                        {
+                            scene.UnloadScene();
+                        }
+                    }
+
+                    // Unload previous scene if not connected (In case of scene teleportation)
+                    if (!connectedScenes.Contains(previous_scene)){
+                        previous_scene.UnloadScene();
                     }
                 }
             }
         }
     }
 
-    public void LoadScene()
+    public void LoadScene(LocationPortal portal = null)
     {
         if (!CheckSceneExists())
         {
-            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+            var loading_process = SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+            
+            loading_process.completed += (AsyncOperation operation) =>
+            {
+                if (portal != null)
+                    portal.TeleportPlayer();
+            };
+            
         }
     }
 
     public void UnloadScene()
     {
-        SceneManager.UnloadSceneAsync(gameObject.name);
+        if (CheckSceneExists())
+            SceneManager.UnloadSceneAsync(gameObject.name);
     }
 
     private bool CheckSceneExists()

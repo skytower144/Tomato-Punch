@@ -4,12 +4,12 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 
-// Teleports the player  to a different position without loading/switching scenes.
 public class LocationPortal : MonoBehaviour
 {
     [SerializeField] string portal_id;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
+    [SerializeField] private bool isExiting;
 
     [Header("Optional")]
     [SerializeField] private Animator enterAnimator;
@@ -65,7 +65,7 @@ public class LocationPortal : MonoBehaviour
         DOTween.Rewind("fader_in");
         DOTween.Play("fader_in");
 
-        StartCoroutine(TeleportPlayer(0.35f));
+        StartCoroutine(ManageScenes(0.35f));
     }
     IEnumerator DelayEnter(float waitTime)
     {
@@ -73,15 +73,42 @@ public class LocationPortal : MonoBehaviour
         FadeAndTeleport();
     }
 
-    IEnumerator TeleportPlayer(float waitTime)
+    IEnumerator ManageScenes(float waitTime)
     {
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         player_movement.current_portalID = portal_id;
 
-        var destinationPortal = FindObjectsOfType<LocationPortal>().First(x => x != this && x.portal_id == this.portal_id);
+        SceneDetails target_scene = null;
+        foreach(GameObject trigger in GameObject.FindGameObjectsWithTag("SceneTrigger")) // inactive objects will not be targeted.
+        {
+            target_scene = trigger.GetComponent<SceneDetails>();
+            if (target_scene.scene_name == this.portal_id)
+                break;
+        }
+        
+        if (isExiting)
+        {
+            target_scene.UnloadScene();
+            TeleportPlayer();
+        }
+
+        else
+            target_scene.LoadScene(this);
+    }
+
+    public void TeleportPlayer()
+    {
+        LocationPortal destinationPortal = null;
+        foreach(GameObject portal in GameObject.FindGameObjectsWithTag("LocationPortal"))
+        {
+            destinationPortal = portal.GetComponent<LocationPortal>();
+            if (destinationPortal != this && destinationPortal.portal_id == this.portal_id)
+                break;
+        }
         
         player_movement.transform.position = destinationPortal.spawnPoint.position;
 
+        // Toggle camera view
         if (camera_switch != null)
             camera_switch.SwitchCamera();
         
@@ -90,6 +117,7 @@ public class LocationPortal : MonoBehaviour
 
         Time.timeScale = 1;
     }
+
 
     public Transform SpawnPoint => spawnPoint;
 
