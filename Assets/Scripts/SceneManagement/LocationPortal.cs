@@ -7,11 +7,13 @@ using System.Linq;
 public class LocationPortal : MonoBehaviour
 {
     [SerializeField] string portal_id;
+    [SerializeField] string arrival_scene;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
-    [SerializeField] private bool isExiting;
 
     [Header("Optional")]
+    [SerializeField] private bool outdoor_to_indoor;
+    [SerializeField] private bool indoor_to_outdoor;
     [SerializeField] private Animator enterAnimator;
     [SerializeField] private CameraSwitch camera_switch;
 
@@ -82,18 +84,26 @@ public class LocationPortal : MonoBehaviour
         foreach(GameObject trigger in GameObject.FindGameObjectsWithTag("SceneTrigger")) // inactive objects will not be targeted.
         {
             target_scene = trigger.GetComponent<SceneDetails>();
-            if (target_scene.scene_name == this.portal_id)
+            if (target_scene.scene_name == this.arrival_scene)
                 break;
         }
-        
-        if (isExiting)
-        {
-            target_scene.UnloadScene();
-            TeleportPlayer();
-        }
 
-        else
+        if (outdoor_to_indoor)
+        {
             target_scene.LoadScene(this);
+            GameManager.gm_instance.CurrentScene.UnloadChainedScenes();
+        }
+        else if (indoor_to_outdoor)
+        {
+            var unloading_scene = GameManager.gm_instance.CurrentScene;
+            TeleportPlayer();
+            unloading_scene.UnloadScene();
+        }
+        else
+        {
+            target_scene.LoadScene(this);
+            GameManager.gm_instance.CurrentScene.UnloadScene();
+        }
     }
 
     public void TeleportPlayer()

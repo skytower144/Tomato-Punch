@@ -9,6 +9,7 @@ public class SceneDetails : MonoBehaviour
     private string sceneName;
     public string scene_name => sceneName;
     [SerializeField] private bool isIndoor;
+    public bool is_indoor => isIndoor;
 
     void Start()
     {
@@ -25,11 +26,7 @@ public class SceneDetails : MonoBehaviour
 
             if (!isIndoor)
             {
-                // Load all connected scenes
-                foreach (var scene in connectedScenes)
-                {
-                    scene.LoadScene();
-                }
+                LoadChainedScenes();
 
                 var previous_scene = GameManager.gm_instance.PreviousScene;
 
@@ -55,6 +52,22 @@ public class SceneDetails : MonoBehaviour
         }
     }
 
+    public void LoadChainedScenes()
+    {
+        foreach (var scene in connectedScenes)
+        {
+            scene.LoadScene();
+        }
+    }
+
+    public void UnloadChainedScenes()
+    {
+        foreach (var scene in connectedScenes)
+        {
+            scene.UnloadScene();
+        }
+    }
+
     public void LoadScene(LocationPortal portal = null)
     {
         if (!CheckSceneExists())
@@ -75,6 +88,7 @@ public class SceneDetails : MonoBehaviour
         if (CheckSceneExists())
             SceneManager.UnloadSceneAsync(gameObject.name);
     }
+
 
     private bool CheckSceneExists()
     {
