@@ -22,7 +22,7 @@ public class LocationPortal : MonoBehaviour
 
     void Start()
     {
-        player_movement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        player_movement = PlayerMovement.instance;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -7,7 +7,6 @@ public class ItemPickup : MonoBehaviour, Interactable
     [SerializeField] private Item item;
     public void Interact()
     {
-        Debug.Log("picked up item : " + item.ItemName);
         Inventory.instance.AddItem(item);
         Destroy(gameObject);
     }

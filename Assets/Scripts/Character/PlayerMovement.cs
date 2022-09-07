@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isInteracting = false;
 
     // public event Action BeginBattle;
+    public static PlayerMovement instance { get; private set; }
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

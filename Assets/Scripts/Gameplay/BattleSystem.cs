@@ -34,13 +34,13 @@ public class BattleSystem : MonoBehaviour
         enemyControl.ClearAnimation();
     }
 
-    public void UpdatePlayerStatus(int level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)
+    public void UpdatePlayerStatus(int updated_level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)
     {
         // Gain STATPOINTS if player leveled up.
-        player_status.player_statPt += (level - tomatoLevel.playerLevel) * player_status.STATPOINT;
+        player_status.player_statPt += (updated_level - tomatoLevel.playerLevel) * player_status.STATPOINT;
 
-        tomatoLevel.playerLevel = level;
-        tomatoLevel.levelText.text = string.Format("Lv {0}", level); 
+        tomatoLevel.playerLevel = updated_level;
+        tomatoLevel.levelText.text = string.Format("Lv {0}", updated_level);
 
         tomatoLevel.expFill.maxValue = maxExp;
         tomatoLevel.expFill.value = currentExp;

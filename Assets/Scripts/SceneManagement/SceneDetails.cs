@@ -85,8 +85,17 @@ public class SceneDetails : MonoBehaviour
 
     public void UnloadScene()
     {
-        if (CheckSceneExists())
+        if (CheckSceneExists()) {
             SceneManager.UnloadSceneAsync(gameObject.name);
+
+            foreach (GameObject assistant in GameObject.FindGameObjectsWithTag("ProgressAssistant"))
+            {
+                if (assistant.scene.name == scene_name) {
+                    assistant.GetComponent<ProgressAssistant>().InitiateCapture();
+                    return;
+                }
+            }
+        }
     }
 
 

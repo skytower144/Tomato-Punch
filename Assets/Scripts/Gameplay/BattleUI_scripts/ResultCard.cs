@@ -9,7 +9,7 @@ public class ResultCard : MonoBehaviour
     public EnemyBase enemyBase;
     private TypeEffect typeEffect;
     private ResultCard_ExpBar resultCard_ExpBar;
-    public int updateLevel;
+    [System.NonSerialized] public int updateLevel;
     public float max_exp, current_exp;
     private int totalCounter_ct, totalParry_ct, totalSuper_ct, inputCount, textIndex;
     private float temp_ct;
