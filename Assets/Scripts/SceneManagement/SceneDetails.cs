@@ -45,7 +45,9 @@ public class SceneDetails : MonoBehaviour
 
                     // Unload previous scene if not connected (In case of scene teleportation)
                     if (!connectedScenes.Contains(previous_scene)){
-                        previous_scene.UnloadScene();
+                        // If the entering scene (current scene) is not the same as previous scene.
+                        if (previous_scene != this)
+                            previous_scene.UnloadScene();
                     }
                 }
             }
@@ -86,20 +88,10 @@ public class SceneDetails : MonoBehaviour
     public void UnloadScene()
     {
         if (CheckSceneExists()) {
-            
-            // Capture Objects' progress before unloading.
-            foreach (GameObject assistant in GameObject.FindGameObjectsWithTag("ProgressAssistant"))
-            {
-                if (assistant.scene.name == scene_name) {
-                    assistant.GetComponent<ProgressAssistant>().InitiateCapture();
-                    break;
-                }
-            }
-
+            ProgressManager.instance.CaptureScene(true, scene_name);
             SceneManager.UnloadSceneAsync(gameObject.name);
         }
     }
-
 
     private bool CheckSceneExists()
     {

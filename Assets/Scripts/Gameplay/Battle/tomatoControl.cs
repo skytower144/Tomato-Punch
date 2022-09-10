@@ -35,6 +35,8 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
+
+    [Header("EQUIP STATE")]
     public SuperEquip tomatoSuperEquip;
     public List <Equip> tomatoEquip;
     
@@ -72,7 +74,6 @@ public class tomatoControl : MonoBehaviour
     private bool isTired = false;
 
     [System.NonSerialized] public int tomatoes = 0;
-    public int tomatoSuper;                  // which super indication
 
     void OnEnable()
     {

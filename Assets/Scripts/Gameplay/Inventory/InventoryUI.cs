@@ -100,7 +100,6 @@ public class InventoryUI : MonoBehaviour
     
         superSlots[num].SelectSlot();
         tomatocontrol.tomatoSuperEquip = (SuperEquip)inventory.superEquip[num];
-        tomatocontrol.tomatoSuper = tomatocontrol.tomatoSuperEquip.superNumber;
         tomatocontrol.dmg_super = tomatocontrol.tomatoSuperEquip.superDamage;
 
         if(!left_super.enabled)

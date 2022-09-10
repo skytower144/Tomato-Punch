@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ObjectProgress
 {
-    object Capture();
-    void Restore(object state);
+    ProgressData Capture();
+    void Restore(ProgressData state);
     string ReturnID();
 }

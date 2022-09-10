@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ProgressAssistant : MonoBehaviour
 {
-    
     [SerializeField]
     [ProgressInterface(typeof(ObjectProgress))]
-    private List<Object> objectProgressList;
+    private List<Object> objectProgressList; // Interface List;
 
     void Start()
     {
@@ -16,27 +15,22 @@ public class ProgressAssistant : MonoBehaviour
 
     public void InitiateCapture()
     {
-        Dictionary<string, object> dataDict = new Dictionary<string, object>();
         foreach (ObjectProgress progress in objectProgressList)
         {
-            dataDict[progress.ReturnID()] = progress.Capture();
+            ProgressManager.instance.progress_dict[gameObject.scene.name + "_" + progress.ReturnID()] = progress.Capture();
         }
-
-        ProgressManager.scene_progress[gameObject.scene.name] = dataDict;
     }
 
     private void InitiateRestore()
     {
-        string loading_scene = gameObject.scene.name;
-        if (ProgressManager.scene_progress.ContainsKey(loading_scene))
-        {
-            Dictionary<string, object> dataDict = new Dictionary<string, object>();
-            dataDict = (Dictionary<string, object>) ProgressManager.scene_progress[loading_scene];
+        StringProgressData dataDict = ProgressManager.instance.progress_dict;
 
-            foreach (ObjectProgress progress in objectProgressList)
-            {
-                progress.Restore(dataDict[progress.ReturnID()]);
-            }
+        foreach (ObjectProgress progress in objectProgressList)
+        {
+            string total_key = gameObject.scene.name + "_" + progress.ReturnID();
+            if (dataDict.ContainsKey(total_key))
+                progress.Restore(dataDict[total_key]);
         }
+        
     }
 }

@@ -467,6 +467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdceb36e54cee749a2915464473af89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: progress_data.game
+  useEncryption: 0
+  progress_dict:
+    m_keys: []
+    m_values: []
 --- !u!4 &415736452
 Transform:
   m_ObjectHideFlags: 0
@@ -479,7 +484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &497423401 stripped
 Transform:
@@ -1571,7 +1576,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6116421916941936170, guid: 2fd9ebb1f1950884991a6cdbba1af4fb, type: 3}
   m_PrefabInstance: {fileID: 2145218916}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4302090463060519275
+--- !u!1001 &6629028801291669016
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1580,7 +1585,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2766613874621510960, guid: ba8ea45e54c5ee6488e15694c4677569, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2766613874621510960, guid: ba8ea45e54c5ee6488e15694c4677569, type: 3}
       propertyPath: m_LocalPosition.x

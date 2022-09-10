@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StringStringDictionary : SerializableDictionary<string, string>{}
+
 [CreateAssetMenu(fileName = "Enemy", menuName = "Create Enemy Base Data")]
 public class EnemyBase : ScriptableObject
 {   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
@@ -12,7 +15,10 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private RuntimeAnimatorController animationController;
     [SerializeField] private string idle, intro, defeated, countered, suffer, parried, parriedToIdle, parriedAft, uppered, upperRecover, superedRecover, guard, hurtL, hurtR;
     [SerializeField] private string wait, reEngage, victory;
-    public List <string> EnemySuperedAnim;
+
+    [Header("Key: ItemName | Value: AnimationString name")]
+    public StringStringDictionary EnemySuperedAnim;
+
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
     [SerializeField] private List <RewardDetail> itemReward;

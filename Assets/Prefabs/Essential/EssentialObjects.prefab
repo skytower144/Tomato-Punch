@@ -7956,7 +7956,6 @@ MonoBehaviour:
   - {fileID: 2766613875930057989}
   - {fileID: 2766613875923993696}
   speed: 8
-  current_portalID: 
   interactableLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -30434,7 +30433,6 @@ MonoBehaviour:
   maxStamina: 30
   currentStamina: 30
   enemy_supered: 0
-  tomatoSuper: -1
 --- !u!50 &2766613875864475193
 Rigidbody2D:
   serializedVersion: 4
@@ -35115,6 +35113,22 @@ PrefabInstance:
       propertyPath: tomatocontrol
       value: 
       objectReference: {fileID: 2766613875864475194}
+    - target: {fileID: 1068151966, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
+      propertyPath: superAnimDict.m_keys.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068151966, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
+      propertyPath: superAnimDict.m_values.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068151966, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
+      propertyPath: superAnimDict.m_keys.Array.data[0]
+      value: SuperChili
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068151966, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
+      propertyPath: superAnimDict.m_values.Array.data[0]
+      value: tomato_super_chili
+      objectReference: {fileID: 0}
     - target: {fileID: 513599482136330533, guid: de88ae0a905d4f04c8ec9d3700c8d95a, type: 3}
       propertyPath: m_RootOrder
       value: 5

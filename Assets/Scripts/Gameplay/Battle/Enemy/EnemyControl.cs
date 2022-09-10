@@ -79,7 +79,7 @@ public class EnemyControl : MonoBehaviour
                 enemy_supered = true;
 
                 anim.enabled = true;
-                anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuper],-1,0f); 
+                anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuperEquip.ItemName],-1,0f); 
                 // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
                 
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);

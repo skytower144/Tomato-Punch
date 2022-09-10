@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     private Vector2 movement;
 
-    public string current_portalID;
+    [System.NonSerialized] public string current_portalID;
     public LayerMask interactableLayer;
     
     public static bool isBattle = false;
@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
             else if(!isInteracting && Press_Key("Pause"))
             {
                 HitMenu();
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                ProgressManager.instance.CaptureScene();
+                ProgressManager.instance.pm_dataHandler.Save(ProgressManager.instance.progress_dict);
             }
         }
     }

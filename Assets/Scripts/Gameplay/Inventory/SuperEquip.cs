@@ -7,6 +7,4 @@ public class SuperEquip : Item
 {
     public Sprite superIcon;
     public float superDamage;
-    public int superNumber;
-    
 }

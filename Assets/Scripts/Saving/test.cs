@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class test : MonoBehaviour, ObjectProgress
 {
     [SerializeField] private int testNumber;
-    public object Capture()
+    [SerializeField] private float position;
+    public ProgressData Capture()
     {
-        return testNumber;
+        ProgressData game_data = new ProgressData();
+        game_data.testNumber = testNumber;
+        game_data.position = position;
+        return game_data;
     }
 
-    public void Restore(object state)
+    public void Restore(ProgressData game_data)
     {
-        testNumber = (int)state;
+        testNumber = game_data.testNumber;
+        position = game_data.position;
     }
 
     public string ReturnID()
