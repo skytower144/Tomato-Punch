@@ -47,11 +47,11 @@ public class InventoryUI : MonoBehaviour
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------
     //NORMAL SLOTS
-    public void AddColor_1(int num)
+    public void AddColor_1(int num) // INITIATE EQUIP
     {
         if(selected_1>=0)
         {
-            normalSlots[selected_1].DeselectSlot();
+            normalSlots[selected_1].DeselectSlot(); // Unequip currently equipped item.
             tomatocontrol.tomatoEquip[0] = null;
         }
         if (num == selected_2)

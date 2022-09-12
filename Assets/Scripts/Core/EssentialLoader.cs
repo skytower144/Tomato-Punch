@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EssentialLoader : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class EssentialLoader : MonoBehaviour
 
     private void Awake()
     {
-        var existingObjects = FindObjectsOfType<EssentialObjects>();
+        var existingObjects = GameObject.FindGameObjectsWithTag("EssentialObjects");
         if (existingObjects.Length == 0)
             Instantiate(essentialPrefab, new Vector3(0, 0, 0), Quaternion.identity);
     }

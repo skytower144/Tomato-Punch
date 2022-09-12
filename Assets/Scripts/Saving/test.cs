@@ -9,15 +9,15 @@ public class test : MonoBehaviour, ObjectProgress
     public ProgressData Capture()
     {
         ProgressData game_data = new ProgressData();
-        game_data.testNumber = testNumber;
-        game_data.position = position;
+        game_data.int_list.Add(testNumber);
+        game_data.float_list.Add(position);
         return game_data;
     }
 
     public void Restore(ProgressData game_data)
     {
-        testNumber = game_data.testNumber;
-        position = game_data.position;
+        testNumber = game_data.int_list[0];
+        position = game_data.float_list[0];
     }
 
     public string ReturnID()

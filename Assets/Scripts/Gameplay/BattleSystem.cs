@@ -40,7 +40,6 @@ public class BattleSystem : MonoBehaviour
         player_status.player_statPt += (updated_level - tomatoLevel.playerLevel) * player_status.STATPOINT;
 
         tomatoLevel.playerLevel = updated_level;
-        tomatoLevel.levelText.text = string.Format("Lv {0}", updated_level);
 
         tomatoLevel.expFill.maxValue = maxExp;
         tomatoLevel.expFill.value = currentExp;

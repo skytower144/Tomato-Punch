@@ -8,7 +8,11 @@ public class TomatoLevel : MonoBehaviour
 {
     public int playerLevel;
     public Slider expFill;
-    public TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI levelText;
 
+    private void OnEnable()
+    {
+        levelText.text = string.Format("Lv {0}", playerLevel);
+    }
     
 }

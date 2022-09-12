@@ -58,6 +58,8 @@ public class FileDataHandler
 
     public void Save(StringProgressData data)
     {
+        ProgressManager.instance.SavePlayerData();
+
         // Use Path.Combine to account for different OS's having different path separators.
         string fullPath = Path.Combine(dataDirPath, dataFileName);
 
