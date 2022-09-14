@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.R))
             {
                 ProgressManager.instance.CaptureScene();
-                ProgressManager.instance.pm_dataHandler.Save(ProgressManager.instance.progress_dict);
+                ProgressManager.instance.pm_dataHandler.Save(ProgressManager.instance.save_data);
             }
         }
     }

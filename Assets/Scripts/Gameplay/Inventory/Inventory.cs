@@ -25,8 +25,9 @@ public class Inventory : MonoBehaviour
     public List<Item> normalEquip = new List<Item>();
     public List<Item> superEquip = new List<Item>();
     
-    private void Start()
+    public void GatherSlots()
     {
+        Awake();
         inventoryUI.activateUI();
     }
     public void AddItem(Item item)
@@ -35,16 +36,15 @@ public class Inventory : MonoBehaviour
         {
             normalEquip.Add(item);
             itemType_num = 1;
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
         }
         else if(item.itemType == ItemType.SuperEquip)
         {
             superEquip.Add(item);
             itemType_num = 2;
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
         }
+
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
 
     public void RemoveItem (Item item)

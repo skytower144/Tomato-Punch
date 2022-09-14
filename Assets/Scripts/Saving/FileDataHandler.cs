@@ -19,10 +19,10 @@ public class FileDataHandler
         this.useEncryption = useEncryption;
     }
 
-    public StringProgressData Load()
+    public SaveData Load()
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
-        StringProgressData loadedData = ProgressManager.instance.progress_dict;
+        SaveData loadedData = ProgressManager.instance.save_data;
 
         if (File.Exists(fullPath))
         {
@@ -45,7 +45,7 @@ public class FileDataHandler
                 }
 
                 // Deserialize data from Json back into the C# object.
-                loadedData = JsonUtility.FromJson<StringProgressData>(dataToLoad);
+                loadedData = JsonUtility.FromJson<SaveData>(dataToLoad);
             }
 
             catch (Exception exc) {
@@ -56,7 +56,7 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(StringProgressData data)
+    public void Save(SaveData data)
     {
         ProgressManager.instance.SavePlayerData();
 

@@ -11,6 +11,18 @@ public class InventoryUI : MonoBehaviour
     private int selected_1 = -1;
     private int selected_2 = -1;
     private int selected_s = -1;
+
+    public (int, int, int) ReturnSlotIndex()
+    {
+        return (selected_1, selected_2, selected_s);
+    }
+    public void RecoverSlotIndex(int idx_1, int idx_2, int idx_s)
+    {
+        selected_1 = idx_1;
+        selected_2 = idx_2;
+        selected_s = idx_s;
+    }
+
     public void activateUI()
     {
         inventory = Inventory.instance;
@@ -20,9 +32,9 @@ public class InventoryUI : MonoBehaviour
         superSlots = super_slotParent.GetComponentsInChildren<InventorySlot>(true);
         // "Should Components on inactive GameObjects be included in the found set?" -> (true)
     }
-    void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> (VISIBLE) Update & Clear slots.
+    private void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> (VISIBLE) Update & Clear slots.
     {
-        if (inventory.itemType_num == 1)
+        if (inventory.itemType_num == 1) // if normal equip
         {
             for (int i=0; i<normalSlots.Length; i++)
             {
@@ -34,7 +46,7 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
-        else if (inventory.itemType_num == 2)
+        else if (inventory.itemType_num == 2) // if super equip
         {
             for (int i=0; i<superSlots.Length; i++)
             {
@@ -47,9 +59,12 @@ public class InventoryUI : MonoBehaviour
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------
     //NORMAL SLOTS
-    public void AddColor_1(int num) // INITIATE EQUIP
+    public void AddColor_Left(int num) // INITIATE EQUIP
     {
-        if(selected_1>=0)
+        if (num == -1)
+            return;
+        
+        if(selected_1 >= 0)
         {
             normalSlots[selected_1].DeselectSlot(); // Unequip currently equipped item.
             tomatocontrol.tomatoEquip[0] = null;
@@ -69,9 +84,12 @@ public class InventoryUI : MonoBehaviour
 
         selected_1 = num;
     }
-    public void AddColor_2(int num)
+    public void AddColor_Right(int num)
     {
-        if(selected_2>=0)
+        if (num == -1)
+            return;
+        
+        if(selected_2 >= 0)
         {
             normalSlots[selected_2].DeselectSlot();
             tomatocontrol.tomatoEquip[1] = null;
@@ -93,7 +111,10 @@ public class InventoryUI : MonoBehaviour
     //SUPER SLOTS
     public void AddColor_S(int num)
     {
-        if(selected_s>=0){
+        if (num == -1)
+            return;
+        
+        if(selected_s >= 0){
             superSlots[selected_s].DeselectSlot();
             tomatocontrol.tomatoSuperEquip = null;
         }
@@ -109,6 +130,4 @@ public class InventoryUI : MonoBehaviour
         selected_s = num;
         
     }
-    
-
 }

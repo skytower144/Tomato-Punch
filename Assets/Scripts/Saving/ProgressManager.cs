@@ -12,7 +12,7 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private tomatoStatus tomatostatus;
     [SerializeField] private TomatoLevel tomatolevel;
     [SerializeField] private Inventory playerInventory;
-
+    [SerializeField] private InventoryUI inventoryUI;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
@@ -21,7 +21,8 @@ public class ProgressManager : MonoBehaviour
     private FileDataHandler dataHandler;
     public FileDataHandler pm_dataHandler => dataHandler;
 
-    public StringProgressData progress_dict = new StringProgressData();
+    //public StringProgressData progress_dict = new StringProgressData();
+    public SaveData save_data = new SaveData();
     
     private void Awake()
     {
@@ -34,10 +35,14 @@ public class ProgressManager : MonoBehaviour
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         
-        progress_dict = dataHandler.Load();
-        if (!progress_dict.ContainsKey("Gameplay_PlayerData"))
+        save_data = dataHandler.Load(); // every time when game starts.
+        
+        if (save_data.player_data.max_health == 0) // only once.
             SavePlayerData();
-        LoadPlayerData();
+        
+        EquipDB.Initiatlize();
+        playerInventory.GatherSlots();
+        LoadPlayerData(); // every time when game starts.
     }
 
     public void CaptureScene(bool saveSingleScene = false, string targetSceneName = null)
@@ -61,56 +66,86 @@ public class ProgressManager : MonoBehaviour
 
     public void SavePlayerData()
     {
-        string tomatoID = "Gameplay_PlayerData";
-        ProgressData tomatoData = new ProgressData();
+        PlayerData tomatoData = new PlayerData();
 
-        tomatoData.float_list.Add(tomatocontrol.maxHealth);
-        tomatoData.float_list.Add(tomatocontrol.currentHealth);
-        tomatoData.float_list.Add(tomatocontrol.maxGuard);
-        tomatoData.float_list.Add(tomatocontrol.tomatoAtk);
-        tomatoData.float_list.Add(tomatostatus.player_totalExp);
-        tomatoData.float_list.Add(tomatostatus.player_leftExp);
-        tomatoData.float_list.Add(tomatolevel.expFill.maxValue);
-        tomatoData.float_list.Add(tomatolevel.expFill.value);
+        tomatoData.max_health = tomatocontrol.maxHealth;
+        tomatoData.current_health = tomatocontrol.currentHealth;
+        tomatoData.max_guard = tomatocontrol.maxGuard;
+        tomatoData.attack = tomatocontrol.tomatoAtk;
+        tomatoData.total_exp = tomatostatus.player_totalExp;
+        tomatoData.left_exp = tomatostatus.player_leftExp;
+        tomatoData.expBar_max = tomatolevel.expFill.maxValue;
+        tomatoData.expBar_current = tomatolevel.expFill.value;
 
-        tomatoData.int_list.Add(tomatostatus.player_statPt);
-        tomatoData.int_list.Add(tomatostatus.playerMoney);
-        tomatoData.int_list.Add(tomatolevel.playerLevel);
-
-        if (tomatocontrol.tomatoEquip[0])
-            tomatoData.string_0 = tomatocontrol.tomatoEquip[0].ItemName;
-        if (tomatocontrol.tomatoEquip[1])
-            tomatoData.string_1 = tomatocontrol.tomatoEquip[1].ItemName;
-        if (tomatocontrol.tomatoSuperEquip)
-            tomatoData.string_2 = tomatocontrol.tomatoSuperEquip.ItemName;
+        tomatoData.stat_points = tomatostatus.player_statPt;
+        tomatoData.money = tomatostatus.playerMoney;
+        tomatoData.level = tomatolevel.playerLevel;
 
         tomatoData.postion = playerInventory.gameObject.transform.position;
 
-        progress_dict[tomatoID] = tomatoData;
+        foreach (Item equip in playerInventory.normalEquip)
+        {
+            tomatoData.carrying_equip_list.Add(equip.ItemName);
+        }
+        foreach (Item equip in playerInventory.superEquip)
+        {
+            tomatoData.carrying_equip_list.Add(equip.ItemName);
+        }
+
+        (tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super) = inventoryUI.ReturnSlotIndex();
+
+        if (tomatocontrol.tomatoEquip[0])
+            tomatoData.equip_left = tomatocontrol.tomatoEquip[0].ItemName;
+        if (tomatocontrol.tomatoEquip[1])
+            tomatoData.equip_right = tomatocontrol.tomatoEquip[1].ItemName;
+        if (tomatocontrol.tomatoSuperEquip)
+            tomatoData.equip_super = tomatocontrol.tomatoSuperEquip.ItemName;
+
+        save_data.player_data = tomatoData;
     }
 
     public void LoadPlayerData()
     {
-        string tomatoID = "Gameplay_PlayerData";
-        ProgressData tomatoData = progress_dict[tomatoID];
+        PlayerData tomatoData = save_data.player_data;
 
-        tomatocontrol.maxHealth = tomatoData.float_list[0];
-        tomatocontrol.currentHealth = tomatoData.float_list[1];
-        tomatocontrol.maxGuard = tomatoData.float_list[2];
-        tomatocontrol.tomatoAtk = tomatoData.float_list[3];
-        tomatostatus.player_totalExp = tomatoData.float_list[4];
-        tomatostatus.player_leftExp = tomatoData.float_list[5];
-        tomatolevel.expFill.maxValue = tomatoData.float_list[6];
-        tomatolevel.expFill.value = tomatoData.float_list[7];
+        tomatocontrol.maxHealth = tomatoData.max_health;
+        tomatocontrol.currentHealth = tomatoData.current_health;
+        tomatocontrol.maxGuard = tomatoData.max_guard;
+        tomatocontrol.tomatoAtk = tomatoData.attack;
+        tomatostatus.player_totalExp = tomatoData.total_exp;
+        tomatostatus.player_leftExp = tomatoData.left_exp;
+        tomatolevel.expFill.maxValue = tomatoData.expBar_max;
+        tomatolevel.expFill.value = tomatoData.expBar_current;
 
-        tomatostatus.player_statPt = tomatoData.int_list[0];
-        tomatostatus.playerMoney = tomatoData.int_list[1];
-        tomatolevel.playerLevel = tomatoData.int_list[2];
-
-        //tomatocontrol.tomatoEquip[0].ItemName = tomatoData.string_0;
-        //tomatocontrol.tomatoEquip[1].ItemName = tomatoData.string_1;
-        //tomatocontrol.tomatoSuperEquip.ItemName = tomatoData.string_2;
+        tomatostatus.player_statPt = tomatoData.stat_points;
+        tomatostatus.playerMoney = tomatoData.money;
+        tomatolevel.playerLevel = tomatoData.level;
 
         playerInventory.gameObject.transform.position = tomatoData.postion;
+
+        foreach (string equip_name in tomatoData.carrying_equip_list)
+        {
+            playerInventory.AddItem(EquipDB.ReturnItemOfName(equip_name));
+        }
+
+        inventoryUI.RecoverSlotIndex(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
+        inventoryUI.AddColor_Left(tomatoData.slot_index_left);
+        inventoryUI.AddColor_Right(tomatoData.slot_index_right);
+        inventoryUI.AddColor_S(tomatoData.slot_index_super);
+
+        if (!string.IsNullOrEmpty(tomatoData.equip_left))
+            tomatocontrol.tomatoEquip[0] = (Equip) EquipDB.ReturnItemOfName(tomatoData.equip_left);
+        if (!string.IsNullOrEmpty(tomatoData.equip_right))
+            tomatocontrol.tomatoEquip[1] = (Equip) EquipDB.ReturnItemOfName(tomatoData.equip_right);
+        if (!string.IsNullOrEmpty(tomatoData.equip_super))
+            tomatocontrol.tomatoSuperEquip = (SuperEquip) EquipDB.ReturnItemOfName(tomatoData.equip_super);
+
     }
+}
+
+[System.Serializable]
+public class SaveData
+{
+    public PlayerData player_data;
+    public StringProgressData progress_dict = new StringProgressData();
 }

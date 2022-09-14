@@ -47,11 +47,34 @@ MonoBehaviour:
   tomatostatus: {fileID: 2766613875448357790}
   tomatolevel: {fileID: 2766613875486574215}
   playerInventory: {fileID: 2766613874449132822}
+  inventoryUI: {fileID: 2766613874395429151}
   fileName: progress_data.game
   useEncryption: 0
-  progress_dict:
-    m_keys: []
-    m_values: []
+  save_data:
+    player_data:
+      postion: {x: 0, y: 0, z: 0}
+      stat_points: 0
+      money: 0
+      level: 0
+      max_health: 0
+      current_health: 0
+      max_guard: 0
+      attack: 0
+      total_exp: 0
+      left_exp: 0
+      expBar_max: 0
+      expBar_current: 0
+      equip_left: 
+      equip_right: 
+      equip_super: 
+      slot_index_left: 0
+      slot_index_right: 0
+      slot_index_super: 0
+      normal_equip_list: []
+      super_equip_list: []
+    progress_dict:
+      m_keys: []
+      m_values: []
 --- !u!114 &2766613874660568995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7480,6 +7503,9 @@ MonoBehaviour:
   left_super: {fileID: 2766613874688875700}
   slotParent: {fileID: 2766613875396864436}
   super_slotParent: {fileID: 2766613875532400620}
+  selected_1: -1
+  selected_2: -1
+  selected_s: -1
 --- !u!1 &2766613874426583606
 GameObject:
   m_ObjectHideFlags: 0

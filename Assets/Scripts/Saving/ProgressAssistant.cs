@@ -17,13 +17,13 @@ public class ProgressAssistant : MonoBehaviour
     {
         foreach (ObjectProgress progress in objectProgressList)
         {
-            ProgressManager.instance.progress_dict[gameObject.scene.name + "_" + progress.ReturnID()] = progress.Capture();
+            ProgressManager.instance.save_data.progress_dict[gameObject.scene.name + "_" + progress.ReturnID()] = progress.Capture();
         }
     }
 
     private void InitiateRestore()
     {
-        StringProgressData dataDict = ProgressManager.instance.progress_dict;
+        StringProgressData dataDict = ProgressManager.instance.save_data.progress_dict;
 
         foreach (ObjectProgress progress in objectProgressList)
         {

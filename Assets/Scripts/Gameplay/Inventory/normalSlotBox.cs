@@ -23,10 +23,10 @@ public class normalSlotBox : MonoBehaviour
         {   
             if (textNum == 0){
                 // update left ui image icon
-                inventoryUI.AddColor_1(slotNum);
+                inventoryUI.AddColor_Left(slotNum);
             }
             else if (textNum == 1){
-                inventoryUI.AddColor_2(slotNum);
+                inventoryUI.AddColor_Right(slotNum);
             }
             SlotNavigation.isBusy = false;
             gameObject.SetActive(false);
