@@ -27,7 +27,6 @@ public class Inventory : MonoBehaviour
     
     public void GatherSlots()
     {
-        Awake();
         inventoryUI.activateUI();
     }
     public void AddItem(Item item)

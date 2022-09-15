@@ -10,7 +10,7 @@ public class EquipDB
     {
         EquipCatalog = new Dictionary<string, Item>();
 
-        var equipArray = Resources.LoadAll<Item>("Items/");
+        var equipArray = Resources.LoadAll<Item>("Equip/");
         foreach (Item item in equipArray)
         {
             if (EquipCatalog.ContainsKey(item.ItemName))

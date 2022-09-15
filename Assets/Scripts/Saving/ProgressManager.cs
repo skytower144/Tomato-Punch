@@ -13,6 +13,7 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private TomatoLevel tomatolevel;
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private ItemManager itemManager;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
@@ -28,21 +29,29 @@ public class ProgressManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than on Progress Manager in scene.");
+            Debug.LogError("Found more than one Progress Manager in scene.");
         }
         instance = this;
+    }
 
+    private void Start()
+    {
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         
         save_data = dataHandler.Load(); // every time when game starts.
-        
-        if (save_data.player_data.max_health == 0) // only once.
-            SavePlayerData();
-        
+
         EquipDB.Initiatlize();
-        playerInventory.GatherSlots();
-        LoadPlayerData(); // every time when game starts.
+        ItemPrefabDB.Initiatlize();
+        
+        if (save_data.player_data.max_health == 0) { // only once since new game | initalizing dictionary keys and values.
+            SavePlayerData();
+            itemManager.CaptureItemState();
+        }
+
+        playerInventory.GatherSlots(); // every time when game starts.
+        LoadPlayerData(); //
+        itemManager.RecoverItemState(); //
     }
 
     public void CaptureScene(bool saveSingleScene = false, string targetSceneName = null)
@@ -148,4 +157,5 @@ public class SaveData
 {
     public PlayerData player_data;
     public StringProgressData progress_dict = new StringProgressData();
+    public StringItemLocation itemLocationDict = new StringItemLocation();
 }
