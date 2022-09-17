@@ -44,10 +44,8 @@ public class ProgressManager : MonoBehaviour
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
         
-        if (save_data.player_data.max_health == 0) { // only once since new game | initalizing dictionary keys and values.
+        if (save_data.player_data.max_health == 0) // only once since new game | initalizing dictionary keys and values.
             SavePlayerData();
-            itemManager.CaptureItemState();
-        }
 
         playerInventory.GatherSlots(); // every time when game starts.
         LoadPlayerData(); //
@@ -63,13 +61,16 @@ public class ProgressManager : MonoBehaviour
             {
                 if (assistant.scene.name == targetSceneName) {
                     assistant.GetComponent<ProgressAssistant>().InitiateCapture();
+                    Debug.Log("capturing " + assistant.scene.name);
                     return;
                 }
             }
             else {
-                Debug.Log("capturing " + assistant.scene.name);
                 assistant.GetComponent<ProgressAssistant>().InitiateCapture();
+                Debug.Log("capturing " + assistant.scene.name);
             }
+
+            
         }
     }
 
@@ -157,5 +158,6 @@ public class SaveData
 {
     public PlayerData player_data;
     public StringProgressData progress_dict = new StringProgressData();
-    public StringItemLocation itemLocationDict = new StringItemLocation();
+    public StringItemLocation CreatedItem_dict = new StringItemLocation();
+    public StringItemLocation RemovedItem_dict = new StringItemLocation();
 }

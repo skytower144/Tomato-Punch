@@ -18,50 +18,52 @@ public class ItemManager : MonoBehaviour
         }
         instance = this;
     }
-    public void CaptureItemState()
-    {
-        StringItemLocation locationDict = ProgressManager.instance.save_data.itemLocationDict;
-        locationDict.Clear();
 
-        for (int i = 0; i < itemTrackers.Count; i++)
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            Transform scene = itemTrackers[i];
-            foreach (Transform itemTransform in scene)
-            {
-                ItemPickup item_info = itemTransform.gameObject.GetComponent<ItemPickup>();
-                locationDict[item_info.itemID] = new ItemLocationData(item_info.targetItem.ItemName, itemTransform.localPosition, i);
-            }
+            GameObject newItem = Instantiate(ItemPrefabDB.ReturnItemOfName("Knuckle Sandwich"), itemTrackers[0]);
+            newItem.GetComponent<ItemPickup>().OnFirstCreated();
         }
     }
 
     public void RecoverItemState()
     {
-        StringItemLocation locationDict = ProgressManager.instance.save_data.itemLocationDict;
+        StringItemLocation createdItemDict = ProgressManager.instance.save_data.CreatedItem_dict;
+        StringItemLocation removedItemDict = ProgressManager.instance.save_data.RemovedItem_dict;
 
-        foreach (Transform scene in itemTrackers)
+        List<string> pickedUpItems = new List<string>();
+
+        foreach (KeyValuePair<string, ItemLocationData> data in createdItemDict)
         {
-            foreach (Transform itemTransform in scene)
+            if (removedItemDict.ContainsKey(data.Key))
             {
-                ItemPickup item_info = itemTransform.gameObject.GetComponent<ItemPickup>();
+                pickedUpItems.Add(data.Key);
+                continue;
+            }
+            GameObject sceneItem = Instantiate(ItemPrefabDB.ReturnItemOfName(data.Value.itemName), itemTrackers[data.Value.located_sceneIndex]);
+            sceneItem.GetComponent<ItemPickup>().RecoverId(data.Key);
+            sceneItem.transform.localPosition = data.Value.located_position;
+        }
 
-                if (locationDict.ContainsKey(item_info.itemID)){
-                    locationDict.Remove(item_info.itemID);
-                }
-                
-                else
+        foreach (string itemKey in pickedUpItems)
+        {
+            removedItemDict.Remove(itemKey);
+            createdItemDict.Remove(itemKey);
+        }
+
+        foreach (KeyValuePair<string, ItemLocationData> data in removedItemDict)
+        {
+            Transform parent_scene = itemTrackers[data.Value.located_sceneIndex];
+            foreach (Transform itemTransform in parent_scene)
+            {
+                if (itemTransform.GetComponent<ItemPickup>().itemID == data.Key)
                     Destroy(itemTransform.gameObject);
             }
         }
-
-        if (locationDict.Count > 0)
-        {
-            foreach (KeyValuePair<string, ItemLocationData> data in locationDict)
-            {
-                GameObject sceneItem = Instantiate(ItemPrefabDB.ReturnItemOfName(data.Value.itemName), itemTrackers[data.Value.located_sceneIndex]);
-                sceneItem.transform.localPosition = data.Value.located_position;
-            }
-        }
     }
+    
 }
 
 [System.Serializable]
