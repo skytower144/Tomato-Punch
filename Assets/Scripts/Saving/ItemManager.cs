@@ -19,14 +19,11 @@ public class ItemManager : MonoBehaviour
         instance = this;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GameObject newItem = Instantiate(ItemPrefabDB.ReturnItemOfName("Knuckle Sandwich"), itemTrackers[0]);
-            newItem.GetComponent<ItemPickup>().OnFirstCreated();
-        }
-    }
+    // if (Input.GetKeyDown(KeyCode.C))
+    // {
+    //     GameObject newItem = Instantiate(ItemPrefabDB.ReturnItemOfName("Knuckle Sandwich"), itemTrackers[0]);
+    //     newItem.GetComponent<ItemPickup>().OnFirstCreated();
+    // }
 
     public void RecoverItemState()
     {

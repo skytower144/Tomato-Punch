@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Transform arrowTransform;
 
     private int menuNumber;
-    private int maxMenuIndex = 2;
+    private int maxMenuIndex = 4;
     void OnEnable()
     {
         Time.timeScale = 0;
@@ -97,20 +97,18 @@ public class PauseMenu : MonoBehaviour
         {
             playerMovement.HitMenu();
         }
-        else if(menuNumber == 2)
+        else if (menuNumber == 1) // Save
+        {
+            ProgressManager.instance.CaptureScene();
+            ProgressManager.instance.SaveSaveData();   
+        }
+        else if(menuNumber == 3)
         {
             optionScript.OpenOptions();
         }
     }
     private void MoveArrow()
     {
-        if(menuNumber == 0)
-            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -17.6f);
-            
-        else if(menuNumber == 1)
-            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -87.53f);
-
-        else if(menuNumber == 2)
-            arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, -158f);
+        arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, menuList[menuNumber].gameObject.transform.localPosition.y);
     }
 }

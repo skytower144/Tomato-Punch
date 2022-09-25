@@ -58,11 +58,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 HitMenu();
             }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                ProgressManager.instance.CaptureScene();
-                ProgressManager.instance.pm_dataHandler.Save(ProgressManager.instance.save_data);
-            }
         }
     }
     // Update is called once per frame

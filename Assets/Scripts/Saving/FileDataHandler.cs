@@ -19,9 +19,9 @@ public class FileDataHandler
         this.useEncryption = useEncryption;
     }
 
-    public SaveData Load()
+    public SaveData Load(string profileId)
     {
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
         SaveData loadedData = ProgressManager.instance.save_data;
 
         if (File.Exists(fullPath))
@@ -56,12 +56,12 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(SaveData data)
+    public void Save(SaveData data, string profileId)
     {
         ProgressManager.instance.SavePlayerData();
 
         // Use Path.Combine to account for different OS's having different path separators.
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
 
         try {
             // Create directory which the file will be written to if it doesn't already exist.
@@ -89,6 +89,42 @@ public class FileDataHandler
         catch (Exception exc) {
             Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + exc);
         }
+    }
+    
+    public Dictionary<string, SaveData> LoadAllProfiles()
+    {
+        Dictionary<string, SaveData> profileDictionary = new Dictionary<string, SaveData>();
+
+        // Loop over all directory names in the data directory path
+        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
+
+        foreach (DirectoryInfo dirInfo in dirInfos)
+        {
+            string profileId = dirInfo.Name;
+
+            // Check if the data file exists. If not, this folder is not a profile -> skip
+            string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+            if (!File.Exists(fullPath))
+            {
+                Debug.LogWarning($"Skipping directory when loading all profiles because it does not contain data: {profileId}");
+                continue;
+            }
+
+            // Load the save data for this profile and put it in the dictionary
+            SaveData profileData = Load(profileId);
+
+            // Ensure the profile data is not null
+            if (profileData != null)
+            {
+                profileDictionary.Add(profileId, profileData);
+            }
+            else
+            {
+                Debug.LogError($"Tried to load profile but something went wrong. ProfileId: {profileId}");
+            }
+        }
+
+        return profileDictionary;
     }
 
     // Implementation of XOR encryption

@@ -19,10 +19,9 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
+    private string selectedProfileId = "testFolder2";
     private FileDataHandler dataHandler;
     public FileDataHandler pm_dataHandler => dataHandler;
-
-    //public StringProgressData progress_dict = new StringProgressData();
     public SaveData save_data = new SaveData();
     
     private void Awake()
@@ -39,7 +38,7 @@ public class ProgressManager : MonoBehaviour
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         
-        save_data = dataHandler.Load(); // every time when game starts.
+        LoadSaveData(); // every time when game starts.
 
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
@@ -69,9 +68,17 @@ public class ProgressManager : MonoBehaviour
                 assistant.GetComponent<ProgressAssistant>().InitiateCapture();
                 Debug.Log("capturing " + assistant.scene.name);
             }
-
-            
         }
+    }
+
+    private void LoadSaveData()
+    {
+        save_data = dataHandler.Load(selectedProfileId); 
+    }
+
+    public void SaveSaveData()
+    {
+        pm_dataHandler.Save(save_data, selectedProfileId);
     }
 
     public void SavePlayerData()
@@ -149,7 +156,11 @@ public class ProgressManager : MonoBehaviour
             tomatocontrol.tomatoEquip[1] = (Equip) EquipDB.ReturnItemOfName(tomatoData.equip_right);
         if (!string.IsNullOrEmpty(tomatoData.equip_super))
             tomatocontrol.tomatoSuperEquip = (SuperEquip) EquipDB.ReturnItemOfName(tomatoData.equip_super);
+    }
 
+    public Dictionary<string, SaveData> GetAllProfilesSaveData()
+    {
+        return dataHandler.LoadAllProfiles();
     }
 }
 
