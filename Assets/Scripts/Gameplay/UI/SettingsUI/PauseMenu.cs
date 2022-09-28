@@ -9,9 +9,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private OptionScript optionScript;
     [SerializeField] private List <TextMeshProUGUI> menuList;
-    [SerializeField] private GameObject option_bundle;
+    [SerializeField] private GameObject option_bundle, save_bundle;
     [SerializeField] private Transform arrowTransform;
 
+    [System.NonSerialized] public bool is_busy = false;
     private int menuNumber;
     private int maxMenuIndex = 4;
     void OnEnable()
@@ -28,7 +29,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if(!optionScript.is_busy_option){
+        if(!is_busy){
             if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
                 gameManager.DetectHolding(UINavigate);
@@ -41,7 +42,7 @@ public class PauseMenu : MonoBehaviour
             {
                 SelectMenu();
             }
-            else if(playerMovement.Press_Key("Pause") || (playerMovement.Press_Key("Cancel") && !option_bundle.activeSelf))
+            else if(playerMovement.Press_Key("Pause") || (playerMovement.Press_Key("Cancel") && playerMovement.is_interacting))
             {
                 playerMovement.HitMenu();
             }
@@ -99,8 +100,11 @@ public class PauseMenu : MonoBehaviour
         }
         else if (menuNumber == 1) // Save
         {
+            save_bundle.SetActive(true);
+            /*
             ProgressManager.instance.CaptureScene();
-            ProgressManager.instance.SaveSaveData();   
+            ProgressManager.instance.SaveSaveData();
+            */
         }
         else if(menuNumber == 3)
         {

@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     
     public static bool isBattle = false;
     private bool isInteracting = false;
+    public bool is_interacting => isInteracting;
 
     // public event Action BeginBattle;
     public static PlayerMovement instance { get; private set; }

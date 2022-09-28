@@ -8,6 +8,7 @@ using TMPro;
 public class OptionScript : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private ControlScroll controlScroll;
@@ -19,18 +20,17 @@ public class OptionScript : MonoBehaviour
     [SerializeField] private List <TextMeshProUGUI> optionTexts;
     [SerializeField] private List <GameObject> optionList;
     [SerializeField] private CanvasGroup firstMenu, leftGuide, rightGuide;
-    [System.NonSerialized] public bool is_busy_option;
     private int optionNumber;
     private bool canNavigate = false;
     void Update()
     {
-        if(is_busy_option && !controlScroll.isPrompt && canNavigate)
+        if(pauseMenu.is_busy && !controlScroll.isPrompt && canNavigate)
         {
             if(!rebindKey.isBinding && playerMovement.Press_Key("Pause"))
             {
                 canNavigate = false;
                 optionBase.SetActive(false);
-                is_busy_option = false;
+                pauseMenu.is_busy = false;
                 playerMovement.HitMenu();
             }
             else if(!resolutionMenu.drop_isActive && playerMovement.Press_Key("Cancel"))
@@ -53,7 +53,7 @@ public class OptionScript : MonoBehaviour
     }
     public void OpenOptions()
     {
-        is_busy_option = true;
+        pauseMenu.is_busy = true;
 
         firstMenu.alpha = 0;
 
@@ -95,7 +95,7 @@ public class OptionScript : MonoBehaviour
     public void TurnoffOption()
     {
         optionBase.SetActive(false);
-        is_busy_option = false;
+        pauseMenu.is_busy = false;
     }
     private void SwitchOption(string direction)
     {

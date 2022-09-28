@@ -68,7 +68,12 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
         
         gameObject.GetComponent<Image>().color = new Color32(134, 166, 134, 255);
 
-        Invoke("GatherResolution", 0.15f);
+        StartCoroutine(GatherResolution_Wait(0.15f));
+    }
+    IEnumerator GatherResolution_Wait(float waitTime)
+    {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        GatherResolution();
     }
 
     public void GatherResolution()
@@ -87,10 +92,11 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
         if (listNumber >= 6)
             temp_content.localPosition = new Vector3(temp_content.localPosition.x, 25.16801f);
 
-        Invoke("ActivateDropDown", 0.15f);
+        StartCoroutine(ActivateDropDown(0.15f));
     }
-    private void ActivateDropDown()
+    IEnumerator ActivateDropDown(float waitTime)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         resolutionMenu.drop_isActive = true;
     }
     public void ClearResolutionList()
