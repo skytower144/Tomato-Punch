@@ -45,8 +45,9 @@ public class ProgressManager : MonoBehaviour
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
         
-        if (save_data.player_data.max_health == 0) // only once since new game | initalizing dictionary keys and values.
-            SavePlayerData();
+        if (save_data.player_data.max_health == 0){ // only once since new game : initalizing dictionary keys and values.
+            SavePlayerData(save_data);
+        }
 
         playerInventory.GatherSlots(); // repeat
         LoadPlayerData(); // repeat
