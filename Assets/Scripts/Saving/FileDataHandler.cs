@@ -58,7 +58,7 @@ public class FileDataHandler
 
     public void Save(SaveData data, string profileId)
     {
-        ProgressManager.instance.SavePlayerData();
+        ProgressManager.instance.SavePlayerData(data);
 
         // Use Path.Combine to account for different OS's having different path separators.
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
@@ -136,5 +136,11 @@ public class FileDataHandler
             modifiedData += (char) (data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
         }
         return modifiedData;
+    }
+
+    public bool CheckFileExists(string profileId)
+    {
+        string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+        return File.Exists(fullPath);
     }
 }

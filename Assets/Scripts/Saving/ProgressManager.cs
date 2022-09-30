@@ -19,7 +19,9 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
-    private string selectedProfileId = "testFolder2";
+    private string selectedProfileId = "test";
+    public string selected_profile_id => selectedProfileId;
+
     private FileDataHandler dataHandler;
     public FileDataHandler pm_dataHandler => dataHandler;
     public SaveData save_data = new SaveData();
@@ -38,7 +40,7 @@ public class ProgressManager : MonoBehaviour
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         
-        LoadSaveData(); // every time when game starts.
+        LoadSaveData(); // every time when game starts - repeat
 
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
@@ -46,9 +48,14 @@ public class ProgressManager : MonoBehaviour
         if (save_data.player_data.max_health == 0) // only once since new game | initalizing dictionary keys and values.
             SavePlayerData();
 
-        playerInventory.GatherSlots(); // every time when game starts.
-        LoadPlayerData(); //
-        itemManager.RecoverItemState(); //
+        playerInventory.GatherSlots(); // repeat
+        LoadPlayerData(); // repeat
+        itemManager.RecoverItemState(); // repeat
+
+        if (!this.dataHandler.CheckFileExists("Slot_New")) // Backup for clean slot
+        {
+            pm_dataHandler.Save(save_data, "Slot_New");
+        }
     }
 
     public void CaptureScene(bool saveSingleScene = false, string targetSceneName = null)
@@ -81,7 +88,7 @@ public class ProgressManager : MonoBehaviour
         pm_dataHandler.Save(save_data, selectedProfileId);
     }
 
-    public void SavePlayerData()
+    public void SavePlayerData(SaveData target_save)
     {
         PlayerData tomatoData = new PlayerData();
 
@@ -118,7 +125,7 @@ public class ProgressManager : MonoBehaviour
         if (tomatocontrol.tomatoSuperEquip)
             tomatoData.equip_super = tomatocontrol.tomatoSuperEquip.ItemName;
 
-        save_data.player_data = tomatoData;
+        target_save.player_data = tomatoData;
     }
 
     public void LoadPlayerData()
@@ -161,6 +168,11 @@ public class ProgressManager : MonoBehaviour
     public Dictionary<string, SaveData> GetAllProfilesSaveData()
     {
         return dataHandler.LoadAllProfiles();
+    }
+
+    public void ChangeSelectedProfileId(string inputProfileId)
+    {
+        selectedProfileId = inputProfileId;
     }
 }
 

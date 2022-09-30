@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -100,11 +101,11 @@ public class PauseMenu : MonoBehaviour
         }
         else if (menuNumber == 1) // Save
         {
+            SaveLoadMenu saveLoadMenu = save_bundle.GetComponent<SaveLoadMenu>();
+            saveLoadMenu.GetComponent<CanvasGroup>().alpha = 0;
             save_bundle.SetActive(true);
-            /*
-            ProgressManager.instance.CaptureScene();
-            ProgressManager.instance.SaveSaveData();
-            */
+            
+            StartCoroutine(saveLoadMenu.ShowSaveLoadMenu(0.4f));
         }
         else if(menuNumber == 3)
         {
