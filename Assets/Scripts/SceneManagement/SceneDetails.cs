@@ -5,50 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class SceneDetails : MonoBehaviour
 {
-    [SerializeField] List<SceneDetails> connectedScenes;
-    private string sceneName;
-    public string scene_name => sceneName;
+    public string scene_name;
     [SerializeField] private bool isIndoor;
-    public bool is_indoor => isIndoor;
-
-    void Start()
-    {
-        sceneName = gameObject.name;
-    }
-
+    [SerializeField] private List<SceneDetails> connectedScenes;
+    public List<SceneDetails> connected_scenes => connectedScenes;
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if ((collision.tag == "Player"))
         {
-            LoadScene();
-            //Debug.Log($"entered {gameObject.name}");
-            GameManager.gm_instance.SetCurrentScene(this);
+            TriggerScene();
+        }
+    }
 
-            if (!isIndoor)
+    public void TriggerScene()
+    {
+        Debug.Log($"Entered {scene_name}");
+
+        LoadScene();
+        
+        SceneControl.instance.SetCurrentScene(this);
+
+        if (!isIndoor)
+        {
+            LoadChainedScenes();
+
+            var previous_scene = SceneControl.instance.PreviousScene;
+
+            // Unload the scenes that are no longer connected
+            if (SceneControl.instance.PreviousScene != null)
             {
-                LoadChainedScenes();
-
-                var previous_scene = GameManager.gm_instance.PreviousScene;
-
-                // Unload the scenes that are no longer connected
-                if (GameManager.gm_instance.PreviousScene != null)
+                var previouslyLoadedScenes = SceneControl.instance.PreviousScene.connectedScenes;
+                foreach (var scene in previouslyLoadedScenes)
                 {
-                    var previouslyLoadedScenes = GameManager.gm_instance.PreviousScene.connectedScenes;
-                    foreach (var scene in previouslyLoadedScenes)
+                    // If it's not the connectected scenes of the current scene && Except the current scene
+                    if (!connectedScenes.Contains(scene) && scene != this)
                     {
-                        // If it's not the connectected scenes of the current scene && Except the current scene
-                        if (!connectedScenes.Contains(scene) && scene != this)
-                        {
-                            scene.UnloadScene();
-                        }
+                        scene.UnloadScene();
                     }
+                }
 
-                    // Unload previous scene if not connected (In case of scene teleportation)
-                    if (!connectedScenes.Contains(previous_scene)){
-                        // If the entering scene (current scene) is not the same as previous scene.
-                        if (previous_scene != this)
-                            previous_scene.UnloadScene();
-                    }
+                // Unload previous scene if not connected (In case of scene teleportation)
+                if (!connectedScenes.Contains(previous_scene)){
+                    // If the entering scene (current scene) is not the same as previous scene.
+                    if (previous_scene != this)
+                        previous_scene.UnloadScene();
                 }
             }
         }
@@ -81,7 +82,6 @@ public class SceneDetails : MonoBehaviour
                 if (portal != null)
                     portal.TeleportPlayer();
             };
-            
         }
     }
 
@@ -93,7 +93,7 @@ public class SceneDetails : MonoBehaviour
         }
     }
 
-    private bool CheckSceneExists()
+    public bool CheckSceneExists()
     {
         for (int n = 0; n < SceneManager.sceneCount; ++n)
         {

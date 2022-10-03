@@ -10,9 +10,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private OptionScript optionScript;
     [SerializeField] private List <TextMeshProUGUI> menuList;
-    [SerializeField] private GameObject option_bundle, save_bundle;
+    [SerializeField] private GameObject save_bundle;
+    [SerializeField] private SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
     [SerializeField] private Transform arrowTransform;
-
+    [SerializeField] private CanvasGroup displayCanvas; public CanvasGroup display_canvas => displayCanvas;
     [System.NonSerialized] public bool is_busy = false;
     private int menuNumber;
     private int maxMenuIndex = 4;
@@ -30,7 +31,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if(!is_busy){
+        if(!is_busy && !TitleScreen.isTitleScreen){
             if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
                 gameManager.DetectHolding(UINavigate);
@@ -93,15 +94,17 @@ public class PauseMenu : MonoBehaviour
     {
         menuList[menuNumber].color = new Color32(53, 52, 52, 255);
     }
-    private void SelectMenu()
+    public void SelectMenu()
     {
         if (menuNumber == 0)
         {
             playerMovement.HitMenu();
         }
-        else if (menuNumber == 1) // Save
+        else if (menuNumber == 1 || menuNumber == 2)
         {
-            SaveLoadMenu saveLoadMenu = save_bundle.GetComponent<SaveLoadMenu>();
+            if (menuNumber == 2)
+                saveLoadMenu.isLoadMode = true;
+
             saveLoadMenu.GetComponent<CanvasGroup>().alpha = 0;
             save_bundle.SetActive(true);
             
@@ -115,5 +118,10 @@ public class PauseMenu : MonoBehaviour
     private void MoveArrow()
     {
         arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, menuList[menuNumber].gameObject.transform.localPosition.y);
+    }
+
+    public void SetMenuNumber(int inputNumber)
+    {
+        menuNumber = inputNumber;
     }
 }

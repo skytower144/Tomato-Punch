@@ -7,17 +7,7 @@ public class StringItemLocation : SerializableDictionary<string, ItemLocationDat
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager instance { get; private set; }
     [SerializeField] private List<Transform> itemTrackers = new List<Transform>();
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogError("Found more than one Item Manager in scene.");
-        }
-        instance = this;
-    }
 
     // if (Input.GetKeyDown(KeyCode.C))
     // {

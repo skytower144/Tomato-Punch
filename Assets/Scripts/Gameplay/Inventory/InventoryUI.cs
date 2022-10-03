@@ -6,7 +6,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Image left_equip1, left_equip2, left_super;
     [SerializeField] Transform slotParent, super_slotParent;
-    private InventorySlot[] normalSlots;
+    [SerializeField] private InventorySlot[] normalSlots;
     private InventorySlot[] superSlots;
     private int selected_1 = -1;
     private int selected_2 = -1;
@@ -36,25 +36,65 @@ public class InventoryUI : MonoBehaviour
     {
         if (inventory.itemType_num == 1) // if normal equip
         {
-            for (int i=0; i<normalSlots.Length; i++)
-            {
-                if (i < inventory.normalEquip.Count){
-                    normalSlots[i].UpdateSlot(inventory.normalEquip[i]);
-                }
-                else {
-                    normalSlots[i].ClearSlot();
-                }
-            }
+            UpdateNormalSlots();
         }
         else if (inventory.itemType_num == 2) // if super equip
         {
-            for (int i=0; i<superSlots.Length; i++)
-            {
-                if (i < inventory.superEquip.Count){
-                    superSlots[i].UpdateSlot(inventory.superEquip[i]);
-                }
+            UpdateSuperSlots();
+        }
+    }
+
+    private void UpdateNormalSlots()
+    {
+        for (int i=0; i<normalSlots.Length; i++)
+        {
+            if (i < inventory.normalEquip.Count){
+                normalSlots[i].UpdateSlot(inventory.normalEquip[i]);
+
+                if (normalSlots[i].isEquipped_1)
+                    normalSlots[i].SelectSlot();
+                else if(normalSlots[i].isEquipped_2)
+                    normalSlots[i].SelectSlot_2();
+            }
+            else {
+                normalSlots[i].ClearSlot();
+                normalSlots[i].DeselectSlot();
             }
         }
+    }
+
+    private void UpdateSuperSlots()
+    {
+        for (int i=0; i<superSlots.Length; i++)
+        {
+            if (i < inventory.superEquip.Count){
+                superSlots[i].UpdateSlot(inventory.superEquip[i]);
+
+                if (superSlots[i].isEquipped_1)
+                    superSlots[i].SelectSlot();
+            }
+            else {
+                superSlots[i].ClearSlot();
+                superSlots[i].DeselectSlot();
+            }
+        }
+    }
+    public void UpdateEquipSlots(int left, int right, int super)
+    {
+        UpdateNormalSlots();
+        UpdateSuperSlots();
+
+        left_equip1.enabled = false;
+        left_equip2.enabled = false;
+        left_super.enabled = false;
+
+        tomatocontrol.tomatoEquip[0] = null;
+        tomatocontrol.tomatoEquip[1] = null;
+        tomatocontrol.tomatoSuperEquip = null;
+        
+        AddColor_Left(left);
+        AddColor_Right(right);
+        AddColor_S(super);
     }
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------
@@ -121,13 +161,11 @@ public class InventoryUI : MonoBehaviour
     
         superSlots[num].SelectSlot();
         tomatocontrol.tomatoSuperEquip = (SuperEquip)inventory.superEquip[num];
-        tomatocontrol.dmg_super = tomatocontrol.tomatoSuperEquip.superDamage;
 
         if(!left_super.enabled)
             left_super.enabled = true;
         left_super.sprite = ((SuperEquip)inventory.superEquip[num]).superIcon;
 
         selected_s = num;
-        
     }
 }

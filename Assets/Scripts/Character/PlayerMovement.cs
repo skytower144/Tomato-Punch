@@ -13,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameManager gameManager;
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
-    [SerializeField] PauseMenu pauseMenu;
-    [SerializeField] private GameObject playerUI, pauseObj, darkFilter;
+    [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
+    [SerializeField] private GameObject playerUI, pauseObj, darkFilter; public GameObject dark_filter => darkFilter;
     [SerializeField] private List <GameObject> playerUIList;
 
     [SerializeField] private float speed;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void HandleUpdate()
     {
-        if(!isBattle)
+        if(!isBattle && !TitleScreen.isTitleScreen)
         {
             if(!isInteracting && Press_Key("Interact"))
             {
@@ -59,17 +59,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 HitMenu();
             }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                ProgressManager.instance.CaptureScene();
-                ProgressManager.instance.SaveSaveData();
-            }
         }
     }
     // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
     {
-       if(!isBattle && !isInteracting)
+       if(!isBattle && !isInteracting && !TitleScreen.isTitleScreen)
        {
             // movement.x = Input.GetAxisRaw("Horizontal");
             // movement.y = Input.GetAxisRaw("Vertical");

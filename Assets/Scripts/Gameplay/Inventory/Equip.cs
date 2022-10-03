@@ -8,6 +8,4 @@ public class Equip : Item
     public string SkillAnimation;
     public List <GameObject> HitEffects;
     public float skillDamage;
-    public float superDamage;
-    public int superNumber;
 }

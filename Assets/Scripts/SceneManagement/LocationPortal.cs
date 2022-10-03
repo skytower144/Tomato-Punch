@@ -11,9 +11,10 @@ public class LocationPortal : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
 
-    [Header("Optional")]
     [SerializeField] private bool outdoor_to_indoor;
     [SerializeField] private bool indoor_to_outdoor;
+    
+    [Header("Optional")]
     [SerializeField] private Animator enterAnimator;
     [SerializeField] private CameraSwitch camera_switch;
 
@@ -91,18 +92,18 @@ public class LocationPortal : MonoBehaviour
         if (outdoor_to_indoor)
         {
             target_scene.LoadScene(this);
-            GameManager.gm_instance.CurrentScene.UnloadChainedScenes();
+            SceneControl.instance.CurrentScene.UnloadChainedScenes();
         }
         else if (indoor_to_outdoor)
         {
-            var unloading_scene = GameManager.gm_instance.CurrentScene;
+            var unloading_scene = SceneControl.instance.CurrentScene;
             TeleportPlayer();
             unloading_scene.UnloadScene();
         }
         else
         {
             target_scene.LoadScene(this);
-            GameManager.gm_instance.CurrentScene.UnloadScene();
+            SceneControl.instance.CurrentScene.UnloadScene();
         }
     }
 

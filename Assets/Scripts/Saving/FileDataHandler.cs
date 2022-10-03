@@ -56,9 +56,10 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(SaveData data, string profileId)
+    public void Save(SaveData data, string profileId, bool doSaveReset = false)
     {
-        ProgressManager.instance.SavePlayerData(data);
+        if (!doSaveReset)
+            ProgressManager.instance.SavePlayerData();
 
         // Use Path.Combine to account for different OS's having different path separators.
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
@@ -88,6 +89,30 @@ public class FileDataHandler
 
         catch (Exception exc) {
             Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + exc);
+        }
+    }
+
+    public void Delete(string profileId)
+    {
+        if (profileId == null)
+        {
+            return;
+        }
+
+        string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+
+        try
+        {
+            if (File.Exists(fullPath))
+                Directory.Delete(Path.GetDirectoryName(fullPath), true);
+
+            else
+                Debug.LogWarning($"Tried to delete profile data, but data was not found at path {fullPath}");
+            
+        }
+        catch (Exception exc)
+        {
+            Debug.LogWarning($"Failed to delete profile data: {profileId} at path: {fullPath} \n {exc}");
         }
     }
     
