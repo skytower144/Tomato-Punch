@@ -44,6 +44,20 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void ClearAllEquipSlots()
+    {
+        for (int i=0; i<normalSlots.Length; i++)
+        {
+            normalSlots[i].ClearSlot();
+            normalSlots[i].DeselectSlot();
+        }
+        for (int i=0; i<superSlots.Length; i++)
+        {
+            superSlots[i].ClearSlot();
+            superSlots[i].DeselectSlot();
+        }
+    }
+
     private void UpdateNormalSlots()
     {
         for (int i=0; i<normalSlots.Length; i++)

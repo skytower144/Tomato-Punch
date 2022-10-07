@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] RebindKey rebindKey;
     [SerializeField] ControlScroll controlScroll;
     [SerializeField] UIControl uiControl;
+    [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
 
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 
-    public GameObject[] levelHolder;
+    [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
 
     public float stickSensitivity;

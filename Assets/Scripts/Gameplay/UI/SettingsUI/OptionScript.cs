@@ -26,7 +26,7 @@ public class OptionScript : MonoBehaviour
     {
         if(pauseMenu.is_busy && !controlScroll.isPrompt && canNavigate)
         {
-            if(!rebindKey.isBinding && playerMovement.Press_Key("Pause"))
+            if(!rebindKey.isBinding && !TitleScreen.isTitleScreen && playerMovement.Press_Key("Pause"))
             {
                 canNavigate = false;
                 optionBase.SetActive(false);
@@ -96,6 +96,9 @@ public class OptionScript : MonoBehaviour
     {
         optionBase.SetActive(false);
         pauseMenu.is_busy = false;
+
+        if (TitleScreen.isTitleScreen)
+            TitleScreen.busy_with_menu = false;
     }
     private void SwitchOption(string direction)
     {

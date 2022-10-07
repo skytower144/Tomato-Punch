@@ -15,12 +15,13 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private Transform essential_transform;
     [SerializeField] private GameObject itemManagerPrefab;
+    public GameObject item_total => itemManagerPrefab;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
-    private string selectedProfileId = "_"; //
+    private string selectedProfileId = "Slot_New";
     public string selected_profile_id => selectedProfileId;
 
     private FileDataHandler dataHandler;
@@ -34,10 +35,7 @@ public class ProgressManager : MonoBehaviour
             Debug.LogError("Found more than one Progress Manager in scene.");
         }
         instance = this;
-    }
 
-    void Start()
-    {
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
         
@@ -82,20 +80,25 @@ public class ProgressManager : MonoBehaviour
         dataHandler.Save(save_data, "Slot_New");
     }
 
-    public void LoadSaveData(bool doSaveReset = false)
+    public void LoadSaveData(bool startNewGame = false)
     {
         if (!this.dataHandler.CheckFileExists("Slot_New")) // If this is the first ever load
         {
             BackupCleanSlot();
         }
 
-        if (doSaveReset)
+        if (startNewGame)
         {
             RemoveAllSaveData();
             save_data = dataHandler.Load("Slot_New");
         }
         else
-            save_data = dataHandler.Load(selectedProfileId);
+        {
+            if (dataHandler.CheckFileExists(selected_profile_id))
+                save_data = dataHandler.Load(selectedProfileId);
+            else
+                save_data = dataHandler.Load("Slot_New");
+        }
         
         playerInventory.GatherSlots();
         LoadPlayerData(); // apply data to gameplay
@@ -131,6 +134,11 @@ public class ProgressManager : MonoBehaviour
         if (SceneControl.instance.CurrentScene)
             tomatoData.current_scene = SceneControl.instance.CurrentScene.scene_name;
         tomatoData.postion = playerInventory.gameObject.transform.position;
+
+        tomatoData.isCameraOff = PlayerCamera.playerCamera_instance.isCameraOff;
+        tomatoData.uiCanvas_position = PlayerCamera.playerCamera_instance.uiCanvas_transform.localPosition;
+        tomatoData.backup_canvas_x = PlayerCamera.playerCamera_instance.canvas_x;
+        tomatoData.backup_canvas_y = PlayerCamera.playerCamera_instance.canvas_y;
 
         foreach (Item equip in playerInventory.normalEquip)
         {
@@ -173,8 +181,14 @@ public class ProgressManager : MonoBehaviour
         SceneControl.instance.SetCurrentScene(SceneControl.instance.sceneDict[tomatoData.current_scene], true);
         playerInventory.gameObject.transform.position = tomatoData.postion;
 
+        PlayerCamera.playerCamera_instance.isCameraOff = tomatoData.isCameraOff;
+        PlayerCamera.playerCamera_instance.uiCanvas_vector = tomatoData.uiCanvas_position;
+        PlayerCamera.playerCamera_instance.canvas_x = tomatoData.backup_canvas_x;
+        PlayerCamera.playerCamera_instance.canvas_y = tomatoData.backup_canvas_y;
+        
         playerInventory.normalEquip.Clear();
         playerInventory.superEquip.Clear();
+        inventoryUI.ClearAllEquipSlots();
 
         foreach (string equip_name in tomatoData.carrying_equip_list)
         {
@@ -193,6 +207,16 @@ public class ProgressManager : MonoBehaviour
     public void ChangeSelectedProfileId(string inputProfileId)
     {
         selectedProfileId = inputProfileId;
+    }
+
+    public bool CheckAnySaveExists()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (dataHandler.CheckFileExists($"Slot_{i}"))
+                return true;
+        }
+        return false;
     }
 }
 

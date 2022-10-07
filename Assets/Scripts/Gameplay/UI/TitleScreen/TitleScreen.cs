@@ -11,13 +11,14 @@ public class TitleScreen : MonoBehaviour
     public static bool isTitleScreen = false;
     public static bool busy_with_menu = false;
 
-    [SerializeField] private Color32 highlightColor, defaultColor;
+    [SerializeField] private Color32 highlightColor, defaultColor, disabledColor;
     [SerializeField] private List <TextMeshProUGUI> menuList;
     private PauseMenu pauseMenu;
     private PlayerMovement playerMovement;
     private GameObject darkFilter;
     private CanvasGroup displayCanvas;
     private int menuNumber = 0;
+    private int minMenuNumber = 0;
 
     private void Awake()
     {
@@ -40,8 +41,7 @@ public class TitleScreen : MonoBehaviour
         darkFilter.SetActive(true); // because it will be inversed.
         playerMovement.HitMenu();
 
-        menuNumber = 0;
-
+        AdjustMenuOption();
         HighlightText();
     }
 
@@ -68,8 +68,8 @@ public class TitleScreen : MonoBehaviour
         if (direction == "UP")
         {
             menuNumber -= 1;
-            if (menuNumber < 0)
-                menuNumber = 0;
+            if (menuNumber < minMenuNumber)
+                menuNumber = minMenuNumber;
         }
         
         else if (direction == "DOWN")
@@ -91,11 +91,14 @@ public class TitleScreen : MonoBehaviour
         }
         else if (menuNumber == 1)
         {
-            
+            pauseMenu.save_load_menu.gameObject.SetActive(true);
+            pauseMenu.save_load_menu.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+            StartCoroutine(pauseMenu.save_load_menu.PrepareLoad(true));
         }
         else if(menuNumber == 2)
         {
-            
+            pauseMenu.SetMenuNumber(3);
+            pauseMenu.SelectMenu();
         }
         busy_with_menu = true;
     }
@@ -109,12 +112,25 @@ public class TitleScreen : MonoBehaviour
         menuList[menuNumber].color = defaultColor;
     }
 
+    private void AdjustMenuOption()
+    {
+        if (ProgressManager.instance.CheckAnySaveExists())
+        {
+            minMenuNumber = 0;
+            menuNumber = 0;
+        }
+        else
+        {
+            minMenuNumber = 1;
+            menuNumber = 1;
+            menuList[0].color = disabledColor;
+        }
+    }
+
     public void ResetTitle()
     {
         darkFilter.SetActive(true);
         pauseMenu.gameObject.GetComponent<Image>().enabled = true;
         displayCanvas.alpha = 1;
-
-        EssentialLoader.instance.RestorePortablePosition();
     }
 }

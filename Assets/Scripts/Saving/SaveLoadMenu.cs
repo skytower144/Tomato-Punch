@@ -8,17 +8,15 @@ public class SaveLoadMenu : MonoBehaviour
 {
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private GameObject loadingScreen;
     [SerializeField] private List<RectTransform> slotTransforms;
     public List<Sprite> slotSprites;
 
     private SaveSlot[] saveSlots;
 
-    private int slotNumber;
+    [SerializeField] private int slotNumber = 0;
     private bool isAnimating = false;
 
     [System.NonSerialized] public bool isLoadMode = false;
-    
 
     private void Awake()
     {
@@ -30,7 +28,7 @@ public class SaveLoadMenu : MonoBehaviour
         PrepareMenu();
     }
 
-    public void PrepareMenu()
+    public void PrepareMenu() // After saving or After loading complete.
     {
         // Load the dictionary that contains all of the existing profiles
         Dictionary<string, SaveData> profilesSaveDict = ProgressManager.instance.GetAllProfilesSaveData();
@@ -67,6 +65,8 @@ public class SaveLoadMenu : MonoBehaviour
         slotTransforms[1].localScale = new Vector3(1f, 1f, 1f);
         slotTransforms[2].localScale = new Vector3(1f, 1f, 1f);
 
+        gameObject.GetComponent<CanvasGroup>().alpha = 1;
+
         gameObject.SetActive(false);
     }
 
@@ -90,7 +90,7 @@ public class SaveLoadMenu : MonoBehaviour
             else if(playerMovement.Press_Key("Interact"))
             {
                 if (isLoadMode) {
-                    PrepareLoad();
+                    StartCoroutine(PrepareLoad());
                 }
                 else
                     ProceedSave();
@@ -228,48 +228,47 @@ public class SaveLoadMenu : MonoBehaviour
         PrepareMenu();
     }
 
-    private void PrepareLoad()
+    public IEnumerator PrepareLoad(bool startNewGame = false)
     {
-        if (TitleScreen.isTitleScreen)
-            TitleScreen.instance.ResetTitle();
-        
+        Debug.Log("Covering Gamescreen.");
         DOTween.Rewind("fader_in");
         DOTween.Play("fader_in");
-        StartCoroutine(ShowLoadingScreen(0.5f));
+
+        ProgressManager.instance.item_total.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (TitleScreen.isTitleScreen)
+            EssentialLoader.instance.RestorePortablePosition(ProceedLoad_1, startNewGame); // Normalize hierarchy
+        else
+            ProceedLoad_1(startNewGame);
     }
 
-    IEnumerator ShowLoadingScreen(float waitTime)
+    public void ProceedLoad_1(bool startNewGame = false)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        TitleScreen.instance.ResetTitle(); // Reset PauseMenu and Filter to its normal state.
+        LoadingScreen.instance.EnableLoadingScreen();
 
-        DOTween.Rewind("fader_out");
-        DOTween.Play("fader_out");
-        loadingScreen.SetActive(true);
-        pauseMenu.save_load_menu.SimulateEscape();
-    }
-
-    private void ProceedLoad(bool startNewGame = false)
-    {
-        string targetFileName = "_";
+        string targetFileName = "Slot_New";
         if (!startNewGame)
             targetFileName = $"Slot_{slotNumber}";
-        
         ProgressManager.instance.ChangeSelectedProfileId(targetFileName);
-
-        Debug.Log("Covering Gamescreen..."); // Cover GameScreen
-        // saveLoadMenu.SimulateEscape();
         
-        PlayerMovement.instance.gameObject.SetActive(false);
+        PlayerMovement.instance.collider_obj.SetActive(false);
 
-        if (startNewGame)
-            SceneControl.instance.UnloadExceptGameplay();
-        ProgressManager.instance.LoadSaveData();
+        SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), ProceedLoad_2, startNewGame);
+        SimulateEscape();
+    }
+    public void ProceedLoad_2(bool startNewGame = false)
+    {
+        ProgressManager.instance.LoadSaveData(startNewGame);
        
         SceneControl.instance.CurrentScene.TriggerScene();
+        //PlayerMovement.instance.enabled = false;
+        
         SceneControl.instance.InvokeRepeating("CheckLoadComplete", 0.1f, 1f);
 
-        PlayerMovement.instance.gameObject.SetActive(true);
-
-        PrepareMenu();
+        // PlayerMovement.instance.collider_obj.SetActive(true); --> SceneControl - CheckLoadComplete
+        // PrepareMenu(); --> ""
     }
 }

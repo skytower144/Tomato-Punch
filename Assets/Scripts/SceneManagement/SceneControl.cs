@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -30,46 +32,75 @@ public class SceneControl : MonoBehaviour
             sceneDict[scene_detail.scene_name] = scene_detail;
         }
     }
-    public void SetCurrentScene(SceneDetails current_scene, bool onlyCurrent = false)
+    public void SetCurrentScene(SceneDetails current_scene, bool isLoading = false)
     {
-        if (!onlyCurrent)
+        if (isLoading)
+            PreviousScene = null;
+        else
             PreviousScene = CurrentScene;
         CurrentScene = current_scene;
 
         if (PreviousScene)
             previous_scene_name = PreviousScene.scene_name;
+        else
+            previous_scene_name = null;
+    
         current_scene_name = CurrentScene.scene_name;
     }
-    
-    public void UnloadExceptGameplay() // This function will not capture any progress beforehand.
+    public List<Scene> ScenesExceptGameplay()
     {
-        for (int n = 0; n < SceneManager.sceneCount; ++n)
+        List<Scene> scene_list = new List<Scene>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneAt(n);
-            if(scene.name == "Gameplay")
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "Gameplay")
                 continue;
             
-            SceneManager.UnloadSceneAsync(scene.name);
+            scene_list.Add(scene);
         }
+        return scene_list;
     }
 
-    public bool CheckLoadComplete()
+    public void UnloadExceptGameplay(List<Scene> scene_list, Action<bool> callback = null, bool startNewGame = false)
+    {
+        if (SceneManager.sceneCount == 1)
+        {
+            TitleScreen.isTitleScreen = false; // Important. If too early will not be able to start new game for some reason.
+            TitleScreen.busy_with_menu = false; //
+
+            callback?.Invoke(startNewGame);
+            return;
+        }
+
+        Scene scene = scene_list[0];
+        scene_list.Remove(scene_list[0]);
+    
+        var process = SceneManager.UnloadSceneAsync(scene.name);
+        process.completed += (AsyncOperation operation) =>
+        {
+            UnloadExceptGameplay(scene_list, callback, startNewGame);
+        };
+    }
+
+    public void CheckLoadComplete()
     {
         Debug.Log("checking load completion...");
-        if (!CurrentScene)
-            return false;
+        if (!CurrentScene){
+            return;
+        }
         
-        if (!CurrentScene.CheckSceneExists())
-            return false;
+        if (!CurrentScene.CheckSceneExists()){
+            return;
+        }
         
         foreach (SceneDetails scene_detail in CurrentScene.connected_scenes)
         {
             if (!scene_detail.CheckSceneExists())
-                return false;
+                return;
         }
 
-        Debug.Log("Load Complete.\nUncovering GameScreen.");
+        Debug.Log("Load Complete. Uncovering GameScreen.");
         CancelInvoke("CheckLoadComplete");
-        return true;
+        StartCoroutine(LoadingScreen.instance.UncoverLoadingScreen());
     }
 }

@@ -19,12 +19,13 @@ public class SceneDetails : MonoBehaviour
     }
 
     public void TriggerScene()
-    {
+    {   
         Debug.Log($"Entered {scene_name}");
 
         LoadScene();
         
-        SceneControl.instance.SetCurrentScene(this);
+        if (SceneControl.instance.CurrentScene != this)
+            SceneControl.instance.SetCurrentScene(this);
 
         if (!isIndoor)
         {
@@ -71,7 +72,7 @@ public class SceneDetails : MonoBehaviour
         }
     }
 
-    public void LoadScene(LocationPortal portal = null)
+    public void LoadScene(LocationPortal target_portal = null)
     {
         if (!CheckSceneExists())
         {
@@ -79,9 +80,14 @@ public class SceneDetails : MonoBehaviour
             
             loading_process.completed += (AsyncOperation operation) =>
             {
-                if (portal != null)
-                    portal.TeleportPlayer();
+                if (target_portal != null)
+                    target_portal.TeleportPlayer();
             };
+        }
+        else
+        {
+            if (target_portal != null)
+                target_portal.TeleportPlayer();
         }
     }
 

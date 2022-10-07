@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private OptionScript optionScript;
     [SerializeField] private List <TextMeshProUGUI> menuList;
-    [SerializeField] private GameObject save_bundle;
+    [SerializeField] private GameObject  option_bundle, save_bundle;
     [SerializeField] private SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
     [SerializeField] private Transform arrowTransform;
     [SerializeField] private CanvasGroup displayCanvas; public CanvasGroup display_canvas => displayCanvas;
@@ -23,6 +23,9 @@ public class PauseMenu : MonoBehaviour
         menuNumber = 0;
         HighlightText();
         MoveArrow();
+
+        option_bundle.SetActive(false);
+        save_bundle.SetActive(false);
     }
     void OnDisable()
     {

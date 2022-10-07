@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EssentialLoader : MonoBehaviour
 {
@@ -26,36 +27,25 @@ public class EssentialLoader : MonoBehaviour
         var existingObjects = GameObject.FindGameObjectsWithTag("EssentialObjects");
         if (existingObjects.Length == 0) {
             TitleScreen.isTitleScreen = true;
-
+            
             essential = Instantiate(essentialPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             
-            essential.SetActive(false);
+            PlayerMovement.instance.collider_obj.SetActive(false);
             essentialControl = essential.GetComponent<EssentialObjects>();
-            essentialControl.portable_bundle.SetActive(false);
 
             essentialControl.portable_bundle.transform.SetParent(transform.parent);
             essentialControl.portable_bundle.transform.position = new Vector3(-113.435f, -0.02000007f, 0f);
-
-            essentialControl.portable_bundle.SetActive(true);
         }
     }
 
-    public void RestorePortablePosition()
+    public void RestorePortablePosition(Action<bool> callback = null, bool startNewGame = false)
     {
         if (essential)
         {
-            SceneControl.instance.UnloadExceptGameplay();
+            SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), GameManager.gm_instance.save_load_menu.ProceedLoad_1, startNewGame);
 
-            essentialControl.portable_bundle.SetActive(false);
-            
             essentialControl.portable_bundle.transform.position = new Vector3(0f, 0f, 0f);
             essentialControl.portable_bundle.transform.SetParent(essentialControl.transform);
-
-            essentialControl.portable_bundle.SetActive(true);
-            essential.SetActive(true);
-
-            TitleScreen.isTitleScreen = false;
-            TitleScreen.busy_with_menu = false;
         }
     }
 }

@@ -19,7 +19,7 @@ public class LocationPortal : MonoBehaviour
     [SerializeField] private CameraSwitch camera_switch;
 
     private PlayerMovement player_movement;
-    private bool canEnter;
+    [SerializeField] private bool canEnter;
 
     void Start()
     {
@@ -89,20 +89,21 @@ public class LocationPortal : MonoBehaviour
                 break;
         }
 
+        target_scene.LoadScene(this);
+
         if (outdoor_to_indoor)
         {
-            target_scene.LoadScene(this);
             SceneControl.instance.CurrentScene.UnloadChainedScenes();
         }
         else if (indoor_to_outdoor)
         {
-            var unloading_scene = SceneControl.instance.CurrentScene;
-            TeleportPlayer();
-            unloading_scene.UnloadScene();
+            ;
+            // var unloading_scene = SceneControl.instance.CurrentScene;
+            // TeleportPlayer();
+            // unloading_scene.UnloadScene();
         }
         else
         {
-            target_scene.LoadScene(this);
             SceneControl.instance.CurrentScene.UnloadScene();
         }
     }
@@ -121,7 +122,7 @@ public class LocationPortal : MonoBehaviour
 
         // Toggle camera view
         if (camera_switch != null)
-            camera_switch.SwitchCamera();
+            camera_switch.ReturnToPlayerCamera();
         
         DOTween.Rewind("fader_out");
         DOTween.Play("fader_out");

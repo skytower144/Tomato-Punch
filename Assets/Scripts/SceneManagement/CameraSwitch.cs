@@ -8,26 +8,25 @@ public class CameraSwitch : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerCamera.playerCamera_instance.TogglePlayerCamera();
+        PlayerCamera.playerCamera_instance.DisablePlayerCamera();
         PlayerCamera.playerCamera_instance.StapleUICanvas(gameObject.transform);
-        customCamera.enabled = !customCamera.enabled;
+        customCamera.enabled = true;
         SetCustomView();
     }
-
-    public void SwitchCamera() // OnExit
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        PlayerCamera.playerCamera_instance.TogglePlayerCamera();
-        customCamera.enabled = !customCamera.enabled;
-        SetPlayerView();
+        customCamera.enabled = false;
+    }
+
+    public void ReturnToPlayerCamera() // OnExit
+    {
+        PlayerCamera.playerCamera_instance.EnablePlayerCamera();
+        customCamera.enabled = false;
+        // PlayerCamera.playerCamera_instance.SetPlayerView(); --> Change_UI_Hierarchy
     }
 
     private void SetCustomView()
     {
         PlayerCamera.playerCamera_instance.player_uiCanvas.worldCamera = customCamera;
-    }
-
-    private void SetPlayerView()
-    {
-        PlayerCamera.playerCamera_instance.player_uiCanvas.worldCamera = PlayerCamera.playerCamera_instance.player_camera;
     }
 }
