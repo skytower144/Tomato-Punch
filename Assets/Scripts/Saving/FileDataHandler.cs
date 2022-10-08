@@ -10,6 +10,7 @@ public class FileDataHandler
     private string dataFileName = "";
     private bool useEncryption = false;
     private readonly string encryptionCodeWord = "matoPunchOut";
+    private readonly string backupExtension = ".bak";
 
     // Constructor
     public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
@@ -19,7 +20,7 @@ public class FileDataHandler
         this.useEncryption = useEncryption;
     }
 
-    public SaveData Load(string profileId)
+    public SaveData Load(string profileId, bool allowRollback = true)
     {
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
         SaveData loadedData = ProgressManager.instance.save_data;
@@ -48,21 +49,35 @@ public class FileDataHandler
                 loadedData = JsonUtility.FromJson<SaveData>(dataToLoad);
             }
 
-            catch (Exception exc) {
-                Debug.LogError("Error occured when trying to load data from file: " + fullPath + "\n" + exc);
+            catch (Exception exc)
+            {
+                if (allowRollback) // Prevent infinite recursion when rollback succeeds, but data still fails to load for some reason.
+                {
+                    Debug.LogWarning($"Error occured when trying to load data from file: {fullPath} \nAttempting to rollback. \n{exc}");
+                    bool rollBackSuccess = AttemptRollback(fullPath);
+
+                    if (rollBackSuccess)
+                    {
+                        loadedData = Load(profileId, false);
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Error occured when trying to load file at path {fullPath} \nBackup data may be corrput. \n{exc}");
+                }
             }
         }
 
         return loadedData;
     }
 
-    public void Save(SaveData data, string profileId, bool doSaveReset = false)
+    public void Save(SaveData data, string profileId)
     {
-        if (!doSaveReset)
-            ProgressManager.instance.SavePlayerData();
+        ProgressManager.instance.SavePlayerData();
 
         // Use Path.Combine to account for different OS's having different path separators.
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
+        string backupFilePath = fullPath + backupExtension;
 
         try {
             // Create directory which the file will be written to if it doesn't already exist.
@@ -84,6 +99,19 @@ public class FileDataHandler
                 {
                     writer.Write(dataToStore);
                 }
+            }
+
+            //// BACKUP ////
+            SaveData verifiedSaveData = Load(profileId);
+
+            // If data is not corrupted, proceed to backup
+            if (verifiedSaveData != null)
+            {
+                File.Copy(fullPath, backupFilePath, true); // true -> overwrite if backupFilePath exists.
+            }
+            else
+            {
+                throw new Exception("Save data may be corrupted:\nFailed to create Backup file.");
             }
         }
 
@@ -107,12 +135,12 @@ public class FileDataHandler
                 Directory.Delete(Path.GetDirectoryName(fullPath), true);
 
             else
-                Debug.LogWarning($"Tried to delete profile data, but data was not found at path {fullPath}");
+                Debug.LogWarning($"Data to delete was not found at path {fullPath}");
             
         }
         catch (Exception exc)
         {
-            Debug.LogWarning($"Failed to delete profile data: {profileId} at path: {fullPath} \n {exc}");
+            Debug.LogWarning($"Failed to delete profile data: {profileId} at path: {fullPath} \n{exc}");
         }
     }
     
@@ -150,6 +178,33 @@ public class FileDataHandler
         }
 
         return profileDictionary;
+    }
+
+    private bool AttemptRollback(string fullPath)
+    {
+        bool rollBackSuccess = false;
+        string backupFilePath = fullPath + backupExtension;
+
+        try
+        {
+            if (File.Exists(backupFilePath))
+            {
+                File.Copy(backupFilePath, fullPath, true);
+                rollBackSuccess = true;
+                Debug.LogWarning($"Initiating rollback to backup file at: {backupFilePath}");
+            }
+            else
+            {
+                throw new Exception("Backup file was not found.");
+            }
+        }
+
+        catch (Exception exc)
+        {
+            Debug.LogError($"Error occured when trying to rollback to backup file at: {backupFilePath} \n{exc}");
+        }
+
+        return rollBackSuccess;
     }
 
     // Implementation of XOR encryption

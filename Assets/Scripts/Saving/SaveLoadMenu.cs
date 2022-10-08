@@ -17,6 +17,8 @@ public class SaveLoadMenu : MonoBehaviour
     private bool isAnimating = false;
 
     [System.NonSerialized] public bool isLoadMode = false;
+    [System.NonSerialized] public bool isLoading = false;
+    private bool isSaving = false;
 
     private void Awake()
     {
@@ -26,6 +28,37 @@ public class SaveLoadMenu : MonoBehaviour
     void Start()
     {
         PrepareMenu();
+    }
+    void Update()
+    {
+        if (!isAnimating)
+        {
+            if (playerMovement.Press_Key("Move"))
+            {
+                Navigate();
+            }
+            else if (playerMovement.Press_Key("Pause"))
+            {
+                if (!TitleScreen.isTitleScreen)
+                    SimulateEscape();
+            }
+            else if (playerMovement.Press_Key("Cancel"))
+            {
+                StartCoroutine(ExitSaveLoadMenu(0.4f));
+            }
+            else if(playerMovement.Press_Key("Interact"))
+            {
+                if (isLoadMode) {
+                    isLoadMode = false;
+                    isLoading = true;
+                    StartCoroutine(PrepareLoad());
+                }
+                else if (!isLoading && !isSaving) {
+                    isSaving = true;
+                    ProceedSave();
+                }
+            }
+        }
     }
 
     public void PrepareMenu() // After saving or After loading complete.
@@ -53,8 +86,6 @@ public class SaveLoadMenu : MonoBehaviour
 
     private void ResetMenuState()
     {
-        isLoadMode = false;
-
         slotNumber = 0;
 
         OnFocusSlot(0);
@@ -66,36 +97,8 @@ public class SaveLoadMenu : MonoBehaviour
         slotTransforms[2].localScale = new Vector3(1f, 1f, 1f);
 
         gameObject.GetComponent<CanvasGroup>().alpha = 1;
-
+    
         gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (!isAnimating)
-        {
-            if (playerMovement.Press_Key("Move"))
-            {
-                Navigate();
-            }
-            else if (playerMovement.Press_Key("Pause"))
-            {
-                if (!TitleScreen.isTitleScreen)
-                    SimulateEscape();
-            }
-            else if (playerMovement.Press_Key("Cancel"))
-            {
-                StartCoroutine(ExitSaveLoadMenu(0.4f));
-            }
-            else if(playerMovement.Press_Key("Interact"))
-            {
-                if (isLoadMode) {
-                    StartCoroutine(PrepareLoad());
-                }
-                else
-                    ProceedSave();
-            }
-        }
     }
 
     public void SimulateEscape()
@@ -224,8 +227,9 @@ public class SaveLoadMenu : MonoBehaviour
     {
         ProgressManager.instance.ChangeSelectedProfileId($"Slot_{slotNumber}");
         ProgressManager.instance.SaveSaveData();
-
         PrepareMenu();
+        
+        isSaving = false;
     }
 
     public IEnumerator PrepareLoad(bool startNewGame = false)
@@ -264,7 +268,6 @@ public class SaveLoadMenu : MonoBehaviour
         ProgressManager.instance.LoadSaveData(startNewGame);
        
         SceneControl.instance.CurrentScene.TriggerScene();
-        //PlayerMovement.instance.enabled = false;
         
         SceneControl.instance.InvokeRepeating("CheckLoadComplete", 0.1f, 1f);
 
