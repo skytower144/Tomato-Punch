@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,12 +18,15 @@ public class ResolutionMenu : MonoBehaviour
     [SerializeField] private List<GameObject> menuList;
     [System.NonSerialized] public int graphicMenuNumber;
     [System.NonSerialized] public bool drop_isActive = false;
-
     private void OnEnable()
     {
         NormalizeMenu();
         graphicMenuNumber = 0;
         HighlightMenu();
+    }
+    private void OnDisable()
+    {
+        SaveResolutionSetting();
     }
     void Update()
     {
@@ -74,9 +78,9 @@ public class ResolutionMenu : MonoBehaviour
 
         resolutionDropdown.AddOptions(optionList);
 
-        resolutionDropdown.value = 0;
-        SetResolution(0);
-        SetFullScreen(true);
+        // resolutionDropdown.value = 0;
+        // SetResolution(0);
+        // SetFullScreen(true);
     }
     public void SetFullScreen (bool isFullscreen)
     {
@@ -126,5 +130,21 @@ public class ResolutionMenu : MonoBehaviour
             resolutionDropdown.Show();
             dropDownControl.GatherResolution();
         }
+    }
+
+    private void SaveResolutionSetting()
+    {
+        PlayerPrefs.SetInt("FullScreenState", Convert.ToInt32(resolutionToggle.isOn));
+        PlayerPrefs.SetInt("ResolutionState", resolutionDropdown.value);
+    }
+
+    public void LoadResolutionSetting()
+    {
+        int loaded_fullscreen = PlayerPrefs.GetInt("FullScreenState");
+        resolutionToggle.isOn = Convert.ToBoolean(loaded_fullscreen);
+
+        int loaded_resolution = PlayerPrefs.GetInt("ResolutionState");
+        resolutionDropdown.value = loaded_resolution;
+        SetResolution(loaded_resolution);
     }
 }

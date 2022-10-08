@@ -11,14 +11,19 @@ public class TitleScreen : MonoBehaviour
     public static bool isTitleScreen = false;
     public static bool busy_with_menu = false;
 
-    [SerializeField] private Color32 highlightColor, defaultColor, disabledColor;
+    [SerializeField] private Color32 highlightColor, defaultColor, disabledColor, choiceHighlight_frame, choiceHighlight_text, choiceDefault;
     [SerializeField] private List <TextMeshProUGUI> menuList;
+    [SerializeField] private List <TextMeshProUGUI> choiceTextList;
+    [SerializeField] private List <Image> choiceFrameList;
+    [SerializeField] private GameObject confirmBox;
     private PauseMenu pauseMenu;
     private PlayerMovement playerMovement;
     private GameObject darkFilter;
     private CanvasGroup displayCanvas;
-    private int menuNumber = 0;
+    private int menuNumber = 0; private int choiceNumber = 1;
     private int minMenuNumber = 0;
+    private bool isPrompt = false;
+    private bool saveExists = true;
 
     private void Awake()
     {
@@ -53,9 +58,25 @@ public class TitleScreen : MonoBehaviour
             {
                 Navigate();
             }
-            else if(playerMovement.Press_Key("Interact"))
+            else if (playerMovement.Press_Key("Interact"))
             {
                 SelectMenu();
+            }
+        }
+
+        else if (isPrompt)
+        {
+            if (playerMovement.Press_Key("Move"))
+            {
+                Navigate();
+            }
+            else if (playerMovement.Press_Key("Interact"))
+            {
+                SelectMenu();
+            }
+            else if (playerMovement.Press_Key("Cancel"))
+            {
+                ClosePrompt();
             }
         }
     }
@@ -65,51 +86,84 @@ public class TitleScreen : MonoBehaviour
 
         NormalizeText();
 
-        if (direction == "UP")
+        if (!isPrompt)
         {
-            menuNumber -= 1;
-            if (menuNumber < minMenuNumber)
-                menuNumber = minMenuNumber;
+            if (direction == "UP")
+            {
+                menuNumber -= 1;
+                if (menuNumber < minMenuNumber)
+                    menuNumber = minMenuNumber;
+            }
+            
+            else if (direction == "DOWN")
+            {
+                menuNumber += 1;
+                if (menuNumber > 2)
+                    menuNumber = 2;
+            }
         }
-        
-        else if (direction == "DOWN")
+        else if (isPrompt)
         {
-            menuNumber += 1;
-            if (menuNumber > 2)
-                menuNumber = 2;
+            if (direction == "LEFT")
+            {
+                choiceNumber = 0;
+            }
+            else if (direction == "RIGHT")
+            {
+                choiceNumber = 1;
+            }
         }
-
         HighlightText();
     }
 
     private void SelectMenu()
     {
-        if (menuNumber == 0)
+        if (!isPrompt)
         {
-            pauseMenu.SetMenuNumber(2);
-            pauseMenu.SelectMenu();
+            if (menuNumber == 0)
+            {
+                pauseMenu.SetMenuNumber(2);
+                pauseMenu.SelectMenu();
+            }
+            else if (menuNumber == 1)
+            {
+                if (saveExists)
+                    PromptNewSave();
+                else
+                    ProceedNewSave();
+            }
+            else if(menuNumber == 2)
+            {
+                pauseMenu.SetMenuNumber(3);
+                pauseMenu.SelectMenu();
+            }
+            busy_with_menu = true;
         }
-        else if (menuNumber == 1)
+        else if (isPrompt)
         {
-            pauseMenu.save_load_menu.gameObject.SetActive(true);
-            pauseMenu.save_load_menu.gameObject.GetComponent<CanvasGroup>().alpha = 0;
-            StartCoroutine(pauseMenu.save_load_menu.PrepareLoad(true));
+            if (choiceNumber == 0)
+                ProceedNewSave();
+            ClosePrompt();
         }
-        else if(menuNumber == 2)
-        {
-            pauseMenu.SetMenuNumber(3);
-            pauseMenu.SelectMenu();
-        }
-        busy_with_menu = true;
     }
 
     private void HighlightText()
     {
-        menuList[menuNumber].color = highlightColor;
+        if (!isPrompt)
+            menuList[menuNumber].color = highlightColor;
+        else {
+            choiceTextList[choiceNumber].color = choiceHighlight_text;
+            choiceFrameList[choiceNumber].color = choiceHighlight_frame;
+        }
     }
     private void NormalizeText()
     {
-        menuList[menuNumber].color = defaultColor;
+        if (!isPrompt)
+            menuList[menuNumber].color = defaultColor;
+        else {
+            choiceTextList[choiceNumber].color = choiceDefault;
+            choiceFrameList[choiceNumber].color = choiceDefault;
+        }
     }
 
     private void AdjustMenuOption()
@@ -124,6 +178,8 @@ public class TitleScreen : MonoBehaviour
             minMenuNumber = 1;
             menuNumber = 1;
             menuList[0].color = disabledColor;
+
+            saveExists = false;
         }
     }
 
@@ -132,5 +188,28 @@ public class TitleScreen : MonoBehaviour
         darkFilter.SetActive(true);
         pauseMenu.gameObject.GetComponent<Image>().enabled = true;
         displayCanvas.alpha = 1;
+    }
+    private void PromptNewSave()
+    {
+        isPrompt = true;
+        choiceNumber = 1;
+        HighlightText();
+        confirmBox.SetActive(true);
+
+        DOTween.Rewind("prompt_NewSave");
+        DOTween.Play("prompt_NewSave");
+    }
+    private void ClosePrompt()
+    {
+        confirmBox.SetActive(false);
+        NormalizeText();
+        isPrompt = false;
+        busy_with_menu = false;
+    }
+    private void ProceedNewSave()
+    {
+        pauseMenu.save_load_menu.gameObject.SetActive(true);
+        pauseMenu.save_load_menu.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+        StartCoroutine(pauseMenu.save_load_menu.PrepareLoad(true));
     }
 }

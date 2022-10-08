@@ -53,6 +53,7 @@ public class OptionScript : MonoBehaviour
     }
     public void OpenOptions()
     {
+        PlayerMovement.instance.fader_obj.SetActive(false); // Due to FaderCanvas blocking the UI canvas.
         pauseMenu.is_busy = true;
 
         firstMenu.alpha = 0;
@@ -99,6 +100,8 @@ public class OptionScript : MonoBehaviour
 
         if (TitleScreen.isTitleScreen)
             TitleScreen.busy_with_menu = false;
+        
+        PlayerMovement.instance.fader_obj.SetActive(true);
     }
     private void SwitchOption(string direction)
     {

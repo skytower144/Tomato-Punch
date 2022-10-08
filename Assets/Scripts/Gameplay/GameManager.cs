@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void Start() //subscribing to an event
     {
         resolutionMenu.SetupGraphic();
+        resolutionMenu.LoadResolutionSetting();
 
         battleSystem.OnBattleOver += EndBattle;
         //playerMovement.BeginBattle += StartBattle;

@@ -14,10 +14,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
-    [SerializeField] private GameObject playerUI, pauseObj, darkFilter, colliderObj;
+    [SerializeField] private GameObject playerUI, pauseObj, darkFilter, colliderObj, faderObj;
     [SerializeField] private List <GameObject> playerUIList;
     public GameObject dark_filter => darkFilter;
     public GameObject collider_obj => colliderObj;
+    public GameObject fader_obj => faderObj;
 
     [SerializeField] private float speed;
     private Vector2 movement;
