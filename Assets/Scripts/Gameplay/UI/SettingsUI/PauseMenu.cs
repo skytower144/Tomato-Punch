@@ -107,7 +107,8 @@ public class PauseMenu : MonoBehaviour
         {
             if (menuNumber == 2)
                 saveLoadMenu.isLoadMode = true;
-
+            else
+                saveLoadMenu.isLoadMode = false;
             saveLoadMenu.GetComponent<CanvasGroup>().alpha = 0;
             save_bundle.SetActive(true);
             

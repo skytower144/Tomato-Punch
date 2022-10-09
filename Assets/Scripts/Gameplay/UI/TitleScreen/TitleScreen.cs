@@ -54,9 +54,13 @@ public class TitleScreen : MonoBehaviour
     {
         if (!busy_with_menu)
         {
-            if (playerMovement.Press_Key("Move"))
+            if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                Navigate();
+                GameManager.gm_instance.DetectHolding(Navigate);
+            }
+            else if (GameManager.gm_instance.WasHolding)
+            {
+                GameManager.gm_instance.holdStartTime = float.MaxValue;
             }
             else if (playerMovement.Press_Key("Interact"))
             {
@@ -66,9 +70,13 @@ public class TitleScreen : MonoBehaviour
 
         else if (isPrompt)
         {
-            if (playerMovement.Press_Key("Move"))
+            if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                Navigate();
+                GameManager.gm_instance.DetectHolding(Navigate);
+            }
+            else if (GameManager.gm_instance.WasHolding)
+            {
+                GameManager.gm_instance.holdStartTime = float.MaxValue;
             }
             else if (playerMovement.Press_Key("Interact"))
             {

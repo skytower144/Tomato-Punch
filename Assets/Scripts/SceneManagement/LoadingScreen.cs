@@ -7,6 +7,7 @@ public class LoadingScreen : MonoBehaviour
 {
     public static LoadingScreen instance;
     [SerializeField] private Camera loadingCamera;
+    [SerializeField] private GameObject loadingDisplay;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class LoadingScreen : MonoBehaviour
     public void EnableLoadingScreen()
     {
         PlayerCamera.playerCamera_instance.player_camera.enabled = false;
+        loadingDisplay.SetActive(true);
         loadingCamera.enabled = true;
 
         DOTween.Rewind("loading_in");
@@ -29,6 +31,7 @@ public class LoadingScreen : MonoBehaviour
     private void DisableLoadingScreen()
     {
         loadingCamera.enabled = false;
+        loadingDisplay.SetActive(false);
                 
         PlayerCamera.playerCamera_instance.RecoverCameraState(PlayerCamera.playerCamera_instance.isCameraOff);
         PlayerCamera.playerCamera_instance.Change_UI_Hierarchy(true);

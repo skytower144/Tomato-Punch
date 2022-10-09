@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class SaveLoadMenu : MonoBehaviour
 {
@@ -10,15 +11,22 @@ public class SaveLoadMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List<RectTransform> slotTransforms;
     public List<Sprite> slotSprites;
-
     private SaveSlot[] saveSlots;
 
-    [SerializeField] private int slotNumber = 0;
+    private int slotNumber = 0;
     private bool isAnimating = false;
 
     [System.NonSerialized] public bool isLoadMode = false;
     [System.NonSerialized] public bool isLoading = false;
     private bool isSaving = false;
+
+    // Prompt Elements
+    [SerializeField] private GameObject promptBox;
+    [SerializeField] private List <TextMeshProUGUI> choiceTextList;
+    [SerializeField] private List <Image> choiceFrameList;
+    [SerializeField] private Color32 choiceHighlight_frame, choiceHighlight_text, choiceDefault;
+    private int choiceNumber = 0;
+    private bool isPrompt = false;
 
     private void Awake()
     {
@@ -33,32 +41,69 @@ public class SaveLoadMenu : MonoBehaviour
     {
         if (!isAnimating)
         {
-            if (playerMovement.Press_Key("Move"))
+            if (playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
-                Navigate();
+                GameManager.gm_instance.DetectHolding(Navigate);
             }
-            else if (playerMovement.Press_Key("Pause"))
+            else if (GameManager.gm_instance.WasHolding)
             {
-                if (!TitleScreen.isTitleScreen)
-                    SimulateEscape();
+                GameManager.gm_instance.holdStartTime = float.MaxValue;
             }
             else if (playerMovement.Press_Key("Cancel"))
             {
-                StartCoroutine(ExitSaveLoadMenu(0.4f));
+                if (!isPrompt)
+                    StartCoroutine(ExitSaveLoadMenu(0.4f));
+                else
+                    ClosePrompt();
             }
             else if(playerMovement.Press_Key("Interact"))
             {
                 if (isLoadMode) {
-                    isLoadMode = false;
-                    isLoading = true;
-                    StartCoroutine(PrepareLoad());
+                    if (!isPrompt)
+                    {
+                        if (TitleScreen.isTitleScreen)
+                            StartCoroutine(PrepareLoad());
+                        else
+                            PromptConfirm();
+                    }
+                    else if (isPrompt)
+                    {
+                        if (choiceNumber == 0)
+                            StartCoroutine(PrepareLoad());
+                        ClosePrompt();
+                    }
                 }
                 else if (!isLoading && !isSaving) {
                     isSaving = true;
                     ProceedSave();
                 }
             }
+            else if (!isPrompt && !TitleScreen.isTitleScreen)
+            {
+                if (playerMovement.Press_Key("Pause"))
+                    SimulateEscape();   
+            }
         }
+    }
+
+    private void PromptConfirm()
+    {
+        choiceNumber = 0;
+        choiceTextList[0].color = choiceHighlight_text;
+        choiceFrameList[0].color = choiceHighlight_frame;
+        choiceTextList[1].color = choiceDefault;
+        choiceFrameList[1].color = choiceDefault;
+        
+        isPrompt = true;
+        promptBox.SetActive(true);
+
+        DOTween.Rewind("prompt_Load");
+        DOTween.Play("prompt_Load");
+    }
+    private void ClosePrompt()
+    {
+        promptBox.SetActive(false);
+        isPrompt = false;
     }
 
     public void PrepareMenu() // After saving or After loading complete.
@@ -112,28 +157,46 @@ public class SaveLoadMenu : MonoBehaviour
 
     private void Navigate()
     {
-        int prevSlotNumber = slotNumber;
-
         string direction = playerMovement.Press_Direction();
 
-        if (direction == "UP")
+        if (!isPrompt)
         {
-            slotNumber -= 1;
-            if (slotNumber < 0)
-                slotNumber = 0;
-        }
-        
-        else if (direction == "DOWN")
-        {
-            slotNumber += 1;
-            if (slotNumber > 2)
-                slotNumber = 2;
-        }
+            int prevSlotNumber = slotNumber;
 
-        if (prevSlotNumber != slotNumber)
+            if (direction == "UP")
+            {
+                slotNumber -= 1;
+                if (slotNumber < 0)
+                    slotNumber = 0;
+            }
+            
+            else if (direction == "DOWN")
+            {
+                slotNumber += 1;
+                if (slotNumber > 2)
+                    slotNumber = 2;
+            }
+
+            if (prevSlotNumber != slotNumber)
+            {
+                NormalizeSlot(prevSlotNumber);
+                HighLightSlot(slotNumber);
+            }
+        }
+        else if (isPrompt)
         {
-            NormalizeSlot(prevSlotNumber);
-            HighLightSlot(slotNumber);
+            choiceTextList[choiceNumber].color = choiceDefault;
+            choiceFrameList[choiceNumber].color = choiceDefault;
+            if (direction == "LEFT")
+            {
+                choiceNumber = 0;
+            }
+            else if (direction == "RIGHT")
+            {
+                choiceNumber = 1;
+            }
+            choiceTextList[choiceNumber].color = choiceHighlight_text;
+            choiceFrameList[choiceNumber].color = choiceHighlight_frame;
         }
     }
 
@@ -234,6 +297,9 @@ public class SaveLoadMenu : MonoBehaviour
 
     public IEnumerator PrepareLoad(bool startNewGame = false)
     {
+        isLoadMode = false;
+        isLoading = true;
+
         Debug.Log("Covering Gamescreen.");
         DOTween.Rewind("fader_in");
         DOTween.Play("fader_in");
