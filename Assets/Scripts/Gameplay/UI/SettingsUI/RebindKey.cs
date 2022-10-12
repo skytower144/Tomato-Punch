@@ -284,12 +284,14 @@ public class RebindKey : MonoBehaviour
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
             
             string changed_text = controlScroll.bindingDisplayText_key()[menu_idx].text;
-            uIControl.UI_Update_Text(changed_text, cached_path, changed_path);
+            if (controlScroll.isModeRoam)
+                uIControl.UI_Update_Text(changed_text, cached_path, changed_path);
         }
         else // GAMEPAD
         {
             Sprite changed_sprite = LinkSprite(menu_idx, changed_path);
-            uIControl.UI_Update_Sprite(changed_sprite, cached_path, changed_path);
+            if (controlScroll.isModeRoam)
+                uIControl.UI_Update_Sprite(changed_sprite, cached_path, changed_path);
         }
     }
 

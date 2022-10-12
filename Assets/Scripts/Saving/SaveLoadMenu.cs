@@ -10,17 +10,19 @@ public class SaveLoadMenu : MonoBehaviour
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List<RectTransform> slotTransforms;
+    [SerializeField] private GameObject quickSaveIcon, quickSaveMenu;
     public List<Sprite> slotSprites;
     private SaveSlot[] saveSlots;
 
     private int slotNumber = 0;
+    private int prevSlotNumber = 0;
     private bool isAnimating = false;
 
     [System.NonSerialized] public bool isLoadMode = false;
     [System.NonSerialized] public bool isLoading = false;
     private bool isSaving = false;
 
-    // Prompt Elements
+    [Header("PROMPT")]
     [SerializeField] private GameObject promptBox;
     [SerializeField] private List <TextMeshProUGUI> choiceTextList;
     [SerializeField] private List <Image> choiceFrameList;
@@ -30,12 +32,17 @@ public class SaveLoadMenu : MonoBehaviour
 
     private void Awake()
     {
-        saveSlots = this.GetComponentsInChildren<SaveSlot>();
+        saveSlots = this.GetComponentsInChildren<SaveSlot>(true);
     }
 
     void Start()
     {
         PrepareMenu();
+    }
+    void OnEnable()
+    {
+        if (isLoadMode) quickSaveIcon.SetActive(true);
+        if (slotNumber != 0) ResetMenuState(); // In case slotNumber is not set to zero.
     }
     void Update()
     {
@@ -56,7 +63,7 @@ public class SaveLoadMenu : MonoBehaviour
                 else
                     ClosePrompt();
             }
-            else if(playerMovement.Press_Key("Interact"))
+            else if (playerMovement.Press_Key("Interact"))
             {
                 if (isLoadMode) {
                     if (!isPrompt)
@@ -78,10 +85,24 @@ public class SaveLoadMenu : MonoBehaviour
                     ProceedSave();
                 }
             }
-            else if (!isPrompt && !TitleScreen.isTitleScreen)
+            else if (!isPrompt)
             {
-                if (playerMovement.Press_Key("Pause"))
-                    SimulateEscape();   
+                if(isLoadMode && !quickSaveMenu.activeSelf && playerMovement.Press_Key("RightPage"))
+                {
+                    prevSlotNumber = slotNumber;
+                    slotNumber = 3;
+                    quickSaveMenu.SetActive(true);
+                }
+                else if(quickSaveMenu.activeSelf && playerMovement.Press_Key("LeftPage"))
+                {
+                    slotNumber = prevSlotNumber;
+                    quickSaveMenu.SetActive(false);
+                }
+                else if (!TitleScreen.isTitleScreen && !isLoading && !isSaving)
+                {
+                    if (playerMovement.Press_Key("Pause"))
+                        SimulateEscape();   
+                }
             }
         }
     }
@@ -127,10 +148,14 @@ public class SaveLoadMenu : MonoBehaviour
             else
                 OffFocusSlot(i);
         }
+        OnFocusSlot(3); // Quick Save Slot
     }
 
     private void ResetMenuState()
     {
+        quickSaveIcon.SetActive(false);
+        quickSaveMenu.SetActive(false);
+
         slotNumber = 0;
 
         OnFocusSlot(0);
@@ -142,7 +167,6 @@ public class SaveLoadMenu : MonoBehaviour
         slotTransforms[2].localScale = new Vector3(1f, 1f, 1f);
 
         gameObject.GetComponent<CanvasGroup>().alpha = 1;
-    
         gameObject.SetActive(false);
     }
 
@@ -159,7 +183,7 @@ public class SaveLoadMenu : MonoBehaviour
     {
         string direction = playerMovement.Press_Direction();
 
-        if (!isPrompt)
+        if (!isPrompt && !quickSaveMenu.activeSelf)
         {
             int prevSlotNumber = slotNumber;
 
@@ -286,9 +310,12 @@ public class SaveLoadMenu : MonoBehaviour
         if (TitleScreen.isTitleScreen) TitleScreen.busy_with_menu = false;
     }
 
-    public void ProceedSave()
+    public void ProceedSave(int targetSlotNumber = -1)
     {
-        ProgressManager.instance.ChangeSelectedProfileId($"Slot_{slotNumber}");
+        if (targetSlotNumber == -1)
+            targetSlotNumber = slotNumber;
+        
+        ProgressManager.instance.ChangeSelectedProfileId($"Slot_{targetSlotNumber}");
         ProgressManager.instance.SaveSaveData();
         PrepareMenu();
         
@@ -338,6 +365,5 @@ public class SaveLoadMenu : MonoBehaviour
         SceneControl.instance.InvokeRepeating("CheckLoadComplete", 0.1f, 1f);
 
         // PlayerMovement.instance.collider_obj.SetActive(true); --> SceneControl - CheckLoadComplete
-        // PrepareMenu(); --> ""
     }
 }

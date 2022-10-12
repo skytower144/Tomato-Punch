@@ -69,7 +69,7 @@ public class ProgressManager : MonoBehaviour
     }
     public void RemoveAllSaveData()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             DeleteSaveData($"Slot_{i}");
         }
