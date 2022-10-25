@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
 public class TypeEffect : MonoBehaviour
 {
     public int CharPerSeconds;
-    public bool isPrinting;
+    [System.NonSerialized] public bool isPrinting;
     private string targetMessage;
     private int index;
     private float interval;
@@ -18,7 +19,6 @@ public class TypeEffect : MonoBehaviour
     {
         if(isPrinting){
             messageText.text = targetMessage;
-            CancelInvoke();
             EffectEnd();
         }
         else {
@@ -36,28 +36,30 @@ public class TypeEffect : MonoBehaviour
 
         //Start Animation
         interval = 1.0f / CharPerSeconds;
-        Invoke("Effecting", interval);
+        StartCoroutine(Effecting(interval));
     }
 
-    private void Effecting()
+    IEnumerator Effecting(float interval)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(interval));
+
         //End Animation
         if(messageText.text == targetMessage){
             EffectEnd();
-            return;
+            yield break;
         }
 
         messageText.text += targetMessage[index];
         index++;
 
         //Recursive
-        Invoke("Effecting", interval);
+        StartCoroutine(Effecting(interval));
     }
 
     private void EffectEnd()
     {
         isPrinting = false;
-        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true); // arrow
     }
     
 }

@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             // ? --> prevents crashing when GetComponent Fails.
         }
 
-        // Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
+        Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
     }
 
     void IsInteracting()
@@ -194,5 +194,11 @@ public class PlayerMovement : MonoBehaviour
 
         myAnim.SetFloat("moveX", face_x);
         myAnim.SetFloat("moveY", face_y);
+    }
+
+    public void SetIsInteracting(bool state)
+    {
+        isInteracting = state;
+        myAnim.SetBool("isWalking", false);
     }
 }
