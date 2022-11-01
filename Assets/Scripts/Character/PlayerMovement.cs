@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     {
         instance = this;
     }
-
     void Start()
     {
        myRb = GetComponent<Rigidbody2D>();
@@ -69,13 +68,8 @@ public class PlayerMovement : MonoBehaviour
     {
        if(!isBattle && !isInteracting && !TitleScreen.isTitleScreen)
        {
-            // movement.x = Input.GetAxisRaw("Horizontal");
-            // movement.y = Input.GetAxisRaw("Vertical");
-            //movement = movement.normalized;
-
             movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
-            //if(movement != Vector2.zero)
             if(InputDetection(movement))
             {
                 myAnim.SetBool("isWalking", true);
@@ -194,6 +188,37 @@ public class PlayerMovement : MonoBehaviour
 
         myAnim.SetFloat("moveX", face_x);
         myAnim.SetFloat("moveY", face_y);
+    }
+
+    public bool CheckFacingDirection(string checking_direction)
+    {
+        int x = Mathf.RoundToInt(myAnim.GetFloat("moveX"));
+        int y = Mathf.RoundToInt(myAnim.GetFloat("moveY"));
+
+        if (checking_direction == "UP")
+            return ((x == 0) && (y == 1));
+        
+        else if (checking_direction == "RU")
+            return ((x == 1) && (y == 1));
+        
+        else if (checking_direction == "RIGHT")
+            return ((x == 1) && (y == 0));
+        
+        else if (checking_direction == "RD")
+            return ((x == 1) && (y == -1));
+        
+        else if (checking_direction == "DOWN")
+            return ((x == 0) && (y == -1));
+
+        else if (checking_direction == "LD")
+            return ((x == -1) && (y == -1));
+        
+        else if (checking_direction == "LEFT")
+            return ((x == -1) && (y == 0));
+        
+        else if (checking_direction == "LU")
+            return ((x == -1) && (y == 1));
+        return false;
     }
 
     public void SetIsInteracting(bool state)

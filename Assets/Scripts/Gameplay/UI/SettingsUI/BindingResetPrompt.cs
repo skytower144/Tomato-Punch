@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,22 @@ public class BindingResetPrompt : MonoBehaviour
     private PlayerMovement player_movement = null;
     private ControlScroll control_scroll = null;
 
-    private TextMeshProUGUI yes_text, no_text;
+    [SerializeField] private StringFontasset fontDict = new StringFontasset();
+    [SerializeField] private TextMeshProUGUI main_text, yes_text, no_text;
     private Image yes_bg, yes_frame, no_bg, no_frame;
     private GameObject tomatoIcon;
     private bool canNavigate = false;
     private int selectNumber = 0;
+    void Start()
+    {
+        main_text.font = fontDict[UIControl.currentLangMode];
+        yes_text.font = fontDict[UIControl.currentLangMode];
+        no_text.font = fontDict[UIControl.currentLangMode];
+
+        main_text.text = UIControl.uiTextDict["BindingResetPrompt_Main"];
+        yes_text.text = UIControl.uiTextDict["BindingResetPrompt_Yes"];
+        no_text.text = UIControl.uiTextDict["BindingResetPrompt_No"];
+    }
 
     void Update()
     {
@@ -46,9 +58,6 @@ public class BindingResetPrompt : MonoBehaviour
         player_movement = pm;
         reset_bindings = rst;
         control_scroll = ctrl;
-
-        yes_text = gameObject.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
-        no_text = gameObject.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
 
         yes_bg = gameObject.transform.GetChild(1).GetComponent<Image>();
         no_bg = gameObject.transform.GetChild(2).GetComponent<Image>();

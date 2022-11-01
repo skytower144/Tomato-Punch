@@ -5,6 +5,8 @@ using UnityEditor;
 using System.Reflection;
 using System;
 
+[CustomPropertyDrawer(typeof(StringFontasset))]
+[CustomPropertyDrawer(typeof(StringTextasset))]
 [CustomPropertyDrawer(typeof(StringItemLocation))]
 [CustomPropertyDrawer(typeof(StringStringDictionary))]
 [CustomPropertyDrawer(typeof(StringProgressData))]
