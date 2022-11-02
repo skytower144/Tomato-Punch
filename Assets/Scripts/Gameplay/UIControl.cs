@@ -77,3 +77,10 @@ public class UIControl : MonoBehaviour
         }
     }
 }
+
+// [System.Serializable]
+// public class FontData
+// {
+//     public TMP_FontAsset font_type;
+//     public int font_size;
+// }
