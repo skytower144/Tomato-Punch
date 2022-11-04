@@ -51,8 +51,8 @@ public class Enemy_countered : MonoBehaviour
         if(!enemy_is_hurt.checkDefeat("CTR"))
         {
             Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
-            instance1 = Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
-            Destroy(instance1, 0.38f);
+            Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
+            
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
             
             anim.Play(string_countered,-1,0f);

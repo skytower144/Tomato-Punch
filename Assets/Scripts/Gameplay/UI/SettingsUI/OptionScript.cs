@@ -50,6 +50,8 @@ public class OptionScript : MonoBehaviour
     public void EnableNavigation()
     {
         canNavigate = true;
+        if (TitleScreen.isTitleScreen)
+            TitleScreen.instance.gameObject.SetActive(false);
     }
     public void OpenOptions()
     {
@@ -97,9 +99,6 @@ public class OptionScript : MonoBehaviour
     {
         optionBase.SetActive(false);
         pauseMenu.is_busy = false;
-
-        if (TitleScreen.isTitleScreen)
-            TitleScreen.busy_with_menu = false;
         
         PlayerMovement.instance.fader_obj.SetActive(true);
     }

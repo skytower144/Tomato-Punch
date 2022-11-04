@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
+using System;
 
 [System.Serializable]
-public class StringFontasset : SerializableDictionary<string, TMP_FontAsset>{}
+public class StringFontasset : SerializableDictionary<string, FontData>{}
 
 [System.Serializable]
 public class StringTextasset : SerializableDictionary<string, TextAsset>{}
@@ -13,19 +14,40 @@ public class UIControl : MonoBehaviour
     [SerializeField] private ControlScroll controlScroll;
     [SerializeField] private List<GameObject> ui_bundle;
     
-    static public Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
-    public static string currentLangMode = "eng";
+    [Header("LOCALIZATION")]
+    public static string currentLangMode = "eng"; 
+    private List<string> LangModeList = new List<string> {"eng", "kor"};
+    private Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
     [SerializeField] private StringTextasset inkLangDict = new StringTextasset();
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     private Story UIData;
 
+    public static UIControl instance { get; private set; }
+
+    void Awake()
+    {
+        instance = this;
+        InitializeInkLangDict(currentLangMode);
+        TitleScreen.instance.SetUILanguage();
+    }
+
+/////////////////////////////////////////////////////////////////
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Debug.Log("changing to korean");
-            SetUILanguage("kor");
+            InitializeInkLangDict("kor");
+            SwitchLanguage(textDataList, currentLangMode);
+        }
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            Debug.Log("changing to english");
+            InitializeInkLangDict("eng");
+            SwitchLanguage(textDataList, currentLangMode);
         }
     }
+//////////////////////////////////////////////////////////////////
     public void UI_Update(bool state)
     {
         // Check if the for loop update process is unnecessary.
@@ -57,18 +79,21 @@ public class UIControl : MonoBehaviour
         }
     }
 
-    private void SetUILanguage(string langType)
+    private void InitializeInkLangDict(string language = "eng")
     {
-        currentLangMode = langType;
-        TextAsset inkJSON = inkLangDict[langType];
-        var UIJsonData = new Story(inkJSON.text);
-
+        currentLangMode = language;
         uiTextDict.Clear();
+        
+        TextAsset inkJSON = inkLangDict[language];
+        var UIJsonData = new Story(inkJSON.text);
         
         while (UIJsonData.canContinue)
         {
             string dataLine = UIJsonData.Continue();
             string[] splitDataLine = dataLine.Split(':');
+
+            if (splitDataLine.Length != 2)
+                continue;
 
             string uiTextType = splitDataLine[0].Trim();
             string uiText = splitDataLine[1].Trim();
@@ -76,11 +101,32 @@ public class UIControl : MonoBehaviour
             uiTextDict[uiTextType] = uiText;
         }
     }
+
+    public void SwitchLanguage(List<TextAndFont> textDataList, string language)
+    {
+        foreach(TextAndFont textData in textDataList)
+        {
+            TextMeshProUGUI targetText = textData.target_text;
+
+            targetText.text = uiTextDict[targetText.name];
+            targetText.font = textData.fontDict[language].font_type;
+            targetText.fontSize = textData.fontDict[language].font_size;
+            targetText.characterSpacing = textData.fontDict[language].character_space;
+        }
+    }
 }
 
-// [System.Serializable]
-// public class FontData
-// {
-//     public TMP_FontAsset font_type;
-//     public int font_size;
-// }
+[System.Serializable]
+public class FontData
+{
+    public TMP_FontAsset font_type;
+    public int font_size;
+    public float character_space;
+}
+
+[System.Serializable]
+public class TextAndFont
+{
+    public TextMeshProUGUI target_text;
+    public StringFontasset fontDict;
+}

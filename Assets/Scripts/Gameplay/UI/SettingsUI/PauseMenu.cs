@@ -47,7 +47,7 @@ public class PauseMenu : MonoBehaviour
             {
                 SelectMenu();
             }
-            else if(playerMovement.Press_Key("Pause") || (playerMovement.Press_Key("Cancel") && playerMovement.is_interacting))
+            else if(playerMovement.is_interacting && (playerMovement.Press_Key("Pause") || (playerMovement.Press_Key("Cancel"))))
             {
                 playerMovement.HitMenu();
             }

@@ -10,6 +10,14 @@ public class DisableOption : MonoBehaviour
     {
         optionScript.TurnoffOption();
     }
+    
+    private void TurnOnTitle()
+    {
+        if (TitleScreen.isTitleScreen){
+            TitleScreen.busy_with_menu = false;
+            TitleScreen.instance.gameObject.SetActive(true);
+        }
+    }
 
     private void AllowNavigation()
     {

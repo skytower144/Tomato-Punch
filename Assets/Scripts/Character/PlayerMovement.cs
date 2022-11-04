@@ -115,8 +115,9 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
     }
 
-    void IsInteracting()
+    IEnumerator IsInteracting(float interval)
     {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(interval));
         isInteracting = !isInteracting;
         myAnim.SetBool("isWalking",false);
     }
@@ -135,13 +136,13 @@ public class PlayerMovement : MonoBehaviour
     {
         inventorySetUp();
         iconnavigation.status_enableStart();
-        IsInteracting();
+        StartCoroutine(IsInteracting(0.2f));
     }
     public void HitMenu()
     {
         darkFilter.SetActive(!darkFilter.activeSelf);
         pauseMenu.SpawnPauseMenu(!pauseObj.activeSelf);
-        IsInteracting();
+        StartCoroutine(IsInteracting(0.2f));
     }
 
     public bool Press_Key(string input_tag)

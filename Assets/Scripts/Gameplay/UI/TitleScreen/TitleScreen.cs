@@ -14,8 +14,10 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private Color32 highlightColor, defaultColor, disabledColor, choiceHighlight_frame, choiceHighlight_text, choiceDefault;
     [SerializeField] private List <TextMeshProUGUI> menuList;
     [SerializeField] private List <TextMeshProUGUI> choiceTextList;
+    [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private List <Image> choiceFrameList;
     [SerializeField] private GameObject confirmBox;
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     private PauseMenu pauseMenu;
     private PlayerMovement playerMovement;
     private GameObject darkFilter;
@@ -33,7 +35,13 @@ public class TitleScreen : MonoBehaviour
         }
         instance = this;
     }
-    
+    void OnEnable()
+    {
+        if (UIControl.instance)
+        {
+            SetUILanguage();
+        }
+    }
     void Start()
     {
         playerMovement = PlayerMovement.instance;
@@ -48,6 +56,11 @@ public class TitleScreen : MonoBehaviour
 
         AdjustMenuOption();
         HighlightText();
+    }
+
+    public void SetUILanguage()
+    {
+        UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
     }
 
     void Update()
@@ -144,6 +157,7 @@ public class TitleScreen : MonoBehaviour
             {
                 pauseMenu.SetMenuNumber(3);
                 pauseMenu.SelectMenu();
+                // gameObject.SetActive(false); --> When Unroll Animation Ends.
             }
             busy_with_menu = true;
         }

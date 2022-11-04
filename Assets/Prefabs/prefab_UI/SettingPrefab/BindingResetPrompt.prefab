@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3277777250634376014}
   - component: {fileID: 6351982622541770839}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BindingResetPrompt_Yes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.7
-  m_fontSizeBase: 66.7
+  m_fontSize: 61
+  m_fontSizeBase: 61
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -605,13 +605,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bcabc27dae1dc459a2eb65733f6c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fontDict:
-    m_keys:
-    - eng
-    - kor
-    m_values:
-    - {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-    - {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+  textDataList:
+  - target_text: {fileID: 5759182318310818976}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
+        font_size: 61
+        character_space: 0
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 36
+        character_space: 0
+  - target_text: {fileID: 6351982622541770839}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
+        font_size: 61
+        character_space: -8.3
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 36
+        character_space: 0
+  - target_text: {fileID: 4242083213579424488}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
+        font_size: 61
+        character_space: -8.3
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 36
+        character_space: 0
   main_text: {fileID: 5759182318310818976}
   yes_text: {fileID: 6351982622541770839}
   no_text: {fileID: 4242083213579424488}
@@ -764,7 +794,7 @@ GameObject:
   - component: {fileID: 7483582372781310702}
   - component: {fileID: 4242083213579424488}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BindingResetPrompt_No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,8 +874,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.7
-  m_fontSizeBase: 66.7
+  m_fontSize: 61
+  m_fontSizeBase: 61
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1049,7 +1079,7 @@ GameObject:
   - component: {fileID: 7472450191542163676}
   - component: {fileID: 5759182318310818976}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BindingResetPrompt_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1129,8 +1159,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.2
-  m_fontSizeBase: 61.2
+  m_fontSize: 61
+  m_fontSizeBase: 61
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
