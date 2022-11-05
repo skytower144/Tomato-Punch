@@ -6,6 +6,8 @@ using TMPro;
 
 public class BattleContinue : MonoBehaviour
 {
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
+    [SerializeField] private TextMeshProUGUI reviveCostUI;
     private BattleSystem battle_system;
     private GameObject continue_group, insert_coin, ko_obj, revive_obj;
     private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
@@ -74,6 +76,7 @@ public class BattleContinue : MonoBehaviour
         money_text.text = playerMoney.ToString("F0");
 
         DetermineCost();
+        AdjustLanguage();
         
         timerIsRunning = true;
     }
@@ -163,5 +166,13 @@ public class BattleContinue : MonoBehaviour
         battle_system.GetTomatoAnim().Play("tomato_revive", -1, 0f);
         battle_system.ScreenFlash();
         Destroy(gameObject, 1f);
+    }
+
+    private void AdjustLanguage()
+    {
+        if (UIControl.currentLangMode != "eng")
+            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        
+        reviveCostUI.text = UIControl.instance.uiTextDict["ReviveCost_Text"];
     }
 }

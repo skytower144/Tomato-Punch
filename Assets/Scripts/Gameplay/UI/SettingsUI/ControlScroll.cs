@@ -20,8 +20,9 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private Transform promptTransform;
 
     [Header("ROAM or BATTLE")]
-    [SerializeField] private GameObject display_roam; 
-    [SerializeField] private GameObject display_battle;
+    [SerializeField] private GameObject title_roam;
+    [SerializeField] private GameObject title_battle;
+    [SerializeField] private GameObject display_roam, display_battle;
 
     [SerializeField] private GameObject DisplayKeyboard_roam, DisplayKeyboard_battle, DisplayGamepad_roam, DisplayGamepad_battle;
 
@@ -321,9 +322,13 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         display_roam.SetActive(!display_roam.activeSelf);
         display_battle.SetActive(!display_battle.activeSelf);
 
-        if(display_roam.activeSelf)
-            mode_text.text = "FREEROAM";
-        else
-            mode_text.text = "BATTLE";
+        if(display_roam.activeSelf) {
+            title_roam.SetActive(true);
+            title_battle.SetActive(false);
+        }
+        else {
+            title_roam.SetActive(false);
+            title_battle.SetActive(true);
+        }
     }
 }

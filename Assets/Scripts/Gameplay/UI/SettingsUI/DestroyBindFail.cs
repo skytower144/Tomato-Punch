@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyBindFail : MonoBehaviour
 {
     void DeleteFailPrompt()
     {
-        Destroy(gameObject.transform.parent.gameObject);
+        gameObject.transform.parent.gameObject.SetActive(false);
+        gameObject.transform.parent.gameObject.transform.parent.gameObject.SetActive(false);
     }
 }

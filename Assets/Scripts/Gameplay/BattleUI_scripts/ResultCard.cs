@@ -5,8 +5,8 @@ using TMPro;
 
 public class ResultCard : MonoBehaviour
 {
-    public BattleSystem battleSystem;
-    public EnemyBase enemyBase;
+    [System.NonSerialized] public BattleSystem battleSystem;
+    [System.NonSerialized] public EnemyBase enemyBase;
     private TypeEffect typeEffect;
     private ResultCard_ExpBar resultCard_ExpBar;
     [System.NonSerialized] public int updateLevel;
@@ -15,7 +15,12 @@ public class ResultCard : MonoBehaviour
     private float temp_ct;
     private float TEXTSPEED = 14f;
     [SerializeField] private GameObject battle_end_circle;
-    [SerializeField] private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
+
+    private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
+
+    [SerializeField] TextMeshProUGUI CounterUI, ParryUI, SuperUI, BelowText;
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
+    
     private List<string> resultTexts = new List<string>();
     private List<RewardDetail> droppedItems = new List<RewardDetail>();
     private ExpBundle expBundle;
@@ -105,9 +110,14 @@ public class ResultCard : MonoBehaviour
         // Extra Reward Depending on Battle Result
         totalExp = enemyBase.BattleExp + Mathf.FloorToInt(enemyBase.BattleExp * 0.02f * counter_ct) + Mathf.FloorToInt(enemyBase.BattleExp * 0.05f * parry_ct) + Mathf.FloorToInt(enemyBase.BattleExp * 0.08f * super_ct);
         totalGold = enemyBase.BattleCoin + Mathf.FloorToInt(enemyBase.BattleCoin * 0.05f * counter_ct) + Mathf.FloorToInt(enemyBase.BattleCoin * 0.09f * parry_ct) + Mathf.FloorToInt(enemyBase.BattleCoin * 0.2f * super_ct);
+        
+        AdjustLanguage();
 
-        string expMessage = string.Format("Gained Total {0} Exp.", totalExp);
-        string moneyMessage = string.Format("Earned {0} Coins.", totalGold);
+        string expMessage = UIControl.instance.uiTextDict["BattleWon_ExpMessage"];
+        expMessage = expMessage.Replace("?", totalExp.ToString());
+
+        string moneyMessage = UIControl.instance.uiTextDict["BattleWon_MoneyMessage"];
+        moneyMessage = moneyMessage.Replace("?", totalGold.ToString());
 
         resultTexts.Add(expMessage);
         resultTexts.Add(moneyMessage);
@@ -195,6 +205,17 @@ public class ResultCard : MonoBehaviour
         Destroy(Instantiate(battle_end_circle), 2f);
         battleSystem.ExitBattle();
         battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, totalExp, totalGold, droppedItems);
+    }
+
+    private void AdjustLanguage()
+    {
+        if (UIControl.currentLangMode != "eng")
+            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        
+        CounterUI.text = UIControl.instance.uiTextDict["Resultcard_Counter_Text"];
+        ParryUI.text = UIControl.instance.uiTextDict["Resultcard_Parry_Text"];
+        SuperUI.text = UIControl.instance.uiTextDict["Resultcard_Super_Text"];
+        BelowText.text = "";
     }
     
 }

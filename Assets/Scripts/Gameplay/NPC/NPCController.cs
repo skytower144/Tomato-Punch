@@ -5,9 +5,11 @@ using UnityEngine;
 public class NPCController : MonoBehaviour, Interactable
 {
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJsonData;
+    [SerializeField] private string inkFileName;
+    //[SerializeField] private TextAsset inkJsonData;
 
     [Header("Graphic Control")]
+    [SerializeField] private SpriteRenderer sprite_renderer = null;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private int fps;
     [SerializeField] private bool disableIdleAnim;
@@ -20,7 +22,9 @@ public class NPCController : MonoBehaviour, Interactable
     {
         if (!disableIdleAnim)
         {
-            spriteAnimator = new SpriteAnimator(sprites, GetComponent<SpriteRenderer>(), fps);
+            if (sprite_renderer == null)
+                sprite_renderer = GetComponent<SpriteRenderer>();
+            spriteAnimator = new SpriteAnimator(sprites, sprite_renderer, fps);
             spriteAnimator.InitializeAnimator();
         }
     }
@@ -34,7 +38,10 @@ public class NPCController : MonoBehaviour, Interactable
     public void Interact()
     {
         if (ValidInteractDirection())
+        {
+            TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
             DialogueManager.instance.EnterDialogue(inkJsonData);
+        }
     }
 
     private bool ValidInteractDirection()

@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 7023239261572397160}
   - component: {fileID: 6895025741701890688}
   m_Layer: 6
-  m_Name: resultcard_counter_txt
+  m_Name: Resultcard_Counter_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -51.3, y: 24.8}
+  m_AnchoredPosition: {x: -51.3, y: 25.609997}
   m_SizeDelta: {x: 96.06, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7023239261572397160
@@ -491,8 +491,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.3
-  m_fontSizeBase: 13.3
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 2720237688365870007}
   - component: {fileID: 3588537108879380594}
   m_Layer: 6
-  m_Name: resultcard_parry_txt
+  m_Name: Resultcard_Parry_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,8 +625,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.3
-  m_fontSizeBase: 13.3
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5715,7 +5715,7 @@ GameObject:
   - component: {fileID: 4460987278801386958}
   - component: {fileID: 4361889485915207709}
   m_Layer: 6
-  m_Name: resultcard_below_txt
+  m_Name: BattleWon_ExpMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5762,7 +5762,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharPerSeconds: 22
-  isPrinting: 0
 --- !u!114 &4361889485915207709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5864,7 +5863,7 @@ GameObject:
   - component: {fileID: 9214814752336302923}
   - component: {fileID: 4741759317763297772}
   m_Layer: 6
-  m_Name: resultcard_super_txt
+  m_Name: Resultcard_Super_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5944,8 +5943,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.3
-  m_fontSizeBase: 13.3
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7498,15 +7497,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd4c45ebb38ba04fa7e76c7b00b292f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleSystem: {fileID: 0}
-  enemyBase: {fileID: 0}
-  updateLevel: 0
   max_exp: 0
   current_exp: 0
   battle_end_circle: {fileID: 6256539079404525266, guid: f3a5f37fd8d79a4418e1314a668b3a74, type: 3}
-  totalCounter_txt: {fileID: 0}
-  totalParry_txt: {fileID: 0}
-  totalSuper_txt: {fileID: 0}
+  CounterUI: {fileID: 6895025741701890688}
+  ParryUI: {fileID: 3588537108879380594}
+  SuperUI: {fileID: 4741759317763297772}
+  BelowText: {fileID: 4361889485915207709}
+  textDataList:
+  - target_text: {fileID: 6895025741701890688}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
+        font_size: 13
+        character_space: -3
+        word_space: 0
+        line_space: 0
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 18
+        character_space: 0
+        word_space: 0
+        line_space: 0
+  - target_text: {fileID: 3588537108879380594}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
+        font_size: 13
+        character_space: -3
+        word_space: 0
+        line_space: 0
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 18
+        character_space: 0
+        word_space: 0
+        line_space: 0
+  - target_text: {fileID: 4741759317763297772}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
+        font_size: 13
+        character_space: -3
+        word_space: 0
+        line_space: 0
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 18
+        character_space: 0
+        word_space: 0
+        line_space: 0
+  - target_text: {fileID: 4361889485915207709}
+    fontDict:
+      m_keys:
+      - eng
+      - kor
+      m_values:
+      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
+        font_size: 12
+        character_space: -17.7
+        word_space: 0
+        line_space: 65.7
+      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+        font_size: 13
+        character_space: 0
+        word_space: 0
+        line_space: 0
 --- !u!114 &6551919413870225448
 MonoBehaviour:
   m_ObjectHideFlags: 0

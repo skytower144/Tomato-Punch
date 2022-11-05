@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class DefeatedText : MonoBehaviour
 {
-    private TypeEffect typeEffect;
     public BattleSystem battleSystem;
+    private TypeEffect typeEffect;
     private GameObject battle_text, text_box, cursor;
     [SerializeField] private GameObject fadeOut;
     private List<string> textList = new List<string>();
     private int textIndex, giveUpCost;
     private bool startText = false;
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     void Start()
     {
         battle_text = transform.GetChild(0).gameObject;
@@ -52,8 +53,13 @@ public class DefeatedText : MonoBehaviour
 
     private void InitializeText()
     {
-        string moneyMessage = string.Format("You lost {0} coins.", giveUpCost);
-        string ExitMessage = "Fatigue overwhelms you...";
+        if (UIControl.currentLangMode != "eng")
+            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+
+        string moneyMessage = UIControl.instance.uiTextDict["BattleLost_MoneyMessage"];
+        moneyMessage = moneyMessage.Replace("?", giveUpCost.ToString());
+
+        string ExitMessage = UIControl.instance.uiTextDict["BattleLost_ExitMessage"];
 
         textList.Add(moneyMessage);
         textList.Add(ExitMessage);

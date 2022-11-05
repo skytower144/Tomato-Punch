@@ -14,6 +14,7 @@ public class RebindKey : MonoBehaviour
     [SerializeField] private List<InputActionReference> actionList_battle;
     [SerializeField] private GameObject waitCover, bindFail;
     [SerializeField] private Transform listenTransform;
+    [SerializeField] private TextMeshProUGUI bindFailText;
     private InputAction current_action = null;
     private int bindingIndex, sameIndex;
     private string cachePath;
@@ -234,7 +235,8 @@ public class RebindKey : MonoBehaviour
     {
         rebindingOperation.Dispose(); // stop allocating memory space
 
-        waitCover.SetActive(false);
+        if (!bindFail.activeSelf)
+            waitCover.SetActive(false);
         optionScript.RebindPushupFinish();
 
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
@@ -258,10 +260,10 @@ public class RebindKey : MonoBehaviour
     private void ShootCaution(string duplicatePath)
     {
         string duplicateName = duplicatePath.Split("/"[0])[1].ToUpper();
-        
-        GameObject bind_fail = Instantiate(bindFail, listenTransform);
-        bind_fail.transform.localPosition = new Vector3(bind_fail.transform.localPosition.x, waitCover.transform.localPosition.y);
-        bind_fail.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Already in use! : " + duplicateName;
+
+        bindFailText.text = UIControl.instance.uiTextDict["Detect_DuplicateBind"];
+        bindFailText.text += " : " + duplicateName;
+        bindFail.SetActive(true);
     }
 
     private int ActionArrayLength(InputAction action)

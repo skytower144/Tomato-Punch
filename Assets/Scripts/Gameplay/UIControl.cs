@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
-using System;
 
 [System.Serializable]
 public class StringFontasset : SerializableDictionary<string, FontData>{}
@@ -16,8 +15,8 @@ public class UIControl : MonoBehaviour
     
     [Header("LOCALIZATION")]
     public static string currentLangMode = "eng"; 
-    private List<string> LangModeList = new List<string> {"eng", "kor"};
-    private Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
+    private List<string> LangModeList = new List<string> {"eng", "kor"}; // Update when new lanugage is added.
+    public Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
     [SerializeField] private StringTextasset inkLangDict = new StringTextasset();
     [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     private Story UIData;
@@ -112,6 +111,8 @@ public class UIControl : MonoBehaviour
             targetText.font = textData.fontDict[language].font_type;
             targetText.fontSize = textData.fontDict[language].font_size;
             targetText.characterSpacing = textData.fontDict[language].character_space;
+            targetText.wordSpacing = textData.fontDict[language].word_space;
+            targetText.lineSpacing = textData.fontDict[language].line_space;
         }
     }
 }
@@ -122,6 +123,8 @@ public class FontData
     public TMP_FontAsset font_type;
     public int font_size;
     public float character_space;
+    public float word_space;
+    public float line_space;
 }
 
 [System.Serializable]

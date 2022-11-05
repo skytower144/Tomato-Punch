@@ -8,6 +8,7 @@ public class LoadingScreen : MonoBehaviour
     public static LoadingScreen instance;
     [SerializeField] private Camera loadingCamera;
     [SerializeField] private GameObject loadingDisplay;
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
 
     void Awake()
     {
@@ -20,6 +21,8 @@ public class LoadingScreen : MonoBehaviour
 
     public void EnableLoadingScreen()
     {
+        UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        
         PlayerCamera.playerCamera_instance.player_camera.enabled = false;
         loadingDisplay.SetActive(true);
         loadingCamera.enabled = true;

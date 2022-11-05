@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inventorySetUp();
         iconnavigation.status_enableStart();
-        StartCoroutine(IsInteracting(0.2f));
+        StartCoroutine(IsInteracting(0.1f));
     }
     public void HitMenu()
     {
