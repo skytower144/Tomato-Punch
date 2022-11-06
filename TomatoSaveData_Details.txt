@@ -1,0 +1,36 @@
+[tomatocontrol] - tomato
+max health
+current health
+max guardpt
+tomato atk
+
+tomato Equip.ItemName x 2 ... restore and put in Equipment
+tomato SuperEquip.ItemName
+
+[tomato status] - ui_stats
+Player total exp
+Player left exp
+Player stat pt
+Player Money
+
+[TomatoLevel] - expbar
+playerLevel
+expFill.maxValue
+expFill.value
+
+
+[Inventory] - Player
+public List<Item> normalEquip ... UpdateUI
+public List<Item> superEquip
+
+[InventoryUI] - Canvas
+selected_1
+selected_2
+selected_s
+
+AddColor_1(selected_1)
+AddColor_2(selected_2)
+AddColor_S(selected_s)
+
+[Gameplay scene - Items]
+List = new GetChildren()  ... ItemDB
