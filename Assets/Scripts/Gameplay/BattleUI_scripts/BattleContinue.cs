@@ -6,11 +6,12 @@ using TMPro;
 
 public class BattleContinue : MonoBehaviour
 {
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     [SerializeField] private TextMeshProUGUI reviveCostUI;
+    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
+    [SerializeField] private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
+    [SerializeField] private GameObject continue_group, insert_coin, revive_obj;
+    private GameObject ko_obj;
     private BattleSystem battle_system;
-    private GameObject continue_group, insert_coin, ko_obj, revive_obj;
-    private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
     private int reviveCost, left_playerMoney;
     private float playerMoney;
     private float TIMER_SPEED = 0.8f;
@@ -63,14 +64,6 @@ public class BattleContinue : MonoBehaviour
     {
         battle_system = script;
         ko_obj = KO;
-
-        continue_group = transform.GetChild(0).gameObject;
-        insert_coin = transform.GetChild(1).gameObject;
-        revive_obj = transform.GetChild(2).gameObject;
-        
-        countdown_text = continue_group.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
-        money_text = insert_coin.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
-        reviveCost_text = revive_obj.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
         playerMoney = battle_system.GetPlayerMoney();
         money_text.text = playerMoney.ToString("F0");

@@ -190,7 +190,12 @@ public class ResultCard : MonoBehaviour
             float dropChance = enemyBase.ItemReward[i].DropChance * 0.01f;
             if(Random.Range(0f, 1f) <= dropChance)
             {
-                string itemMessage = string.Format("Obtained {0}!", enemyBase.ItemReward[i].RewardItem.ItemName);
+                string dropItemTag = enemyBase.ItemReward[i].RewardItem.ItemName;
+                dropItemTag = UIControl.instance.uiTextDict[dropItemTag];
+
+                string itemMessage = UIControl.instance.uiTextDict["BattleWon_ItemMessage"];
+                itemMessage = itemMessage.Replace("?", dropItemTag);
+                //string itemMessage = string.Format("Obtained {0}!", enemyBase.ItemReward[i].RewardItem.ItemName);
                 resultTexts.Add(itemMessage);
                 droppedItems.Add(enemyBase.ItemReward[i]);
             }
