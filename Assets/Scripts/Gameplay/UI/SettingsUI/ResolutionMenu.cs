@@ -12,10 +12,9 @@ public class ResolutionMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     public Toggle resolutionToggle;
     private List<(int, int)> resolutions;
-    private int currentResolutionIndex;
-    [SerializeField] private TextMeshProUGUI toggleObj_text, dropdownObj_text;
-    [SerializeField] private Image toggleImg, dropdownImg;
-    [SerializeField] private List<GameObject> menuList;
+    private int currentResolutionIndex, languageIndex;
+    [SerializeField] private TextMeshProUGUI toggleObj_text, dropdownObj_text, language_text;
+    [SerializeField] private Image toggleImg, dropdownImg, leftArrow, rightArrow;
     [System.NonSerialized] public int graphicMenuNumber;
     [System.NonSerialized] public bool drop_isActive = false;
     private void OnEnable()
@@ -58,7 +57,7 @@ public class ResolutionMenu : MonoBehaviour
         else if(direction == "UP")
             graphicMenuNumber -= 1;
             
-        graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 1);
+        graphicMenuNumber = Mathf.Clamp(graphicMenuNumber, 0, 2);
         HighlightMenu();
     }
     public void SetupGraphic()
@@ -104,6 +103,12 @@ public class ResolutionMenu : MonoBehaviour
             dropdownObj_text.color = new Color32(112, 82, 75, 255);
             dropdownImg.color =  new Color32(185, 179, 160, 255);
         }
+        else if (graphicMenuNumber == 2)
+        {
+            language_text.color = new Color32(112, 82, 75, 255);
+            leftArrow.color = new Color32(144, 121, 115, 255);
+            rightArrow.color = new Color32(144, 121, 115, 255);
+        }
     }
     public void HighlightMenu()
     {
@@ -116,6 +121,12 @@ public class ResolutionMenu : MonoBehaviour
         {
             dropdownObj_text.color = new Color32(97, 125, 97, 255);
             dropdownImg.color = new Color32(134, 166, 134, 255);
+        }
+        else if (graphicMenuNumber == 2)
+        {
+            language_text.color = new Color32(97, 125, 97, 255);
+            leftArrow.color = new Color32(120, 147, 120, 255);
+            rightArrow.color = new Color32(120, 147, 120, 255);
         }
     }
 

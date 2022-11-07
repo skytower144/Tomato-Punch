@@ -9,7 +9,7 @@ public class BattleContinue : MonoBehaviour
     [SerializeField] private TextMeshProUGUI reviveCostUI;
     [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     [SerializeField] private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
-    [SerializeField] private GameObject continue_group, insert_coin, revive_obj;
+    [SerializeField] private GameObject continue_group, insert_coin, revive_obj, cover;
     private GameObject ko_obj;
     private BattleSystem battle_system;
     private int reviveCost, left_playerMoney;
@@ -113,6 +113,7 @@ public class BattleContinue : MonoBehaviour
         continue_group.SetActive(false);
         insert_coin.SetActive(false);
         revive_obj.SetActive(false);
+        cover.SetActive(false);
         Instantiate(ko_obj, transform.parent);
 
         Destroy(gameObject);
@@ -127,6 +128,7 @@ public class BattleContinue : MonoBehaviour
         continue_group.SetActive(false);
         insert_coin.transform.GetChild(0).gameObject.SetActive(false);
         revive_obj.SetActive(false);
+        cover.SetActive(false);
 
         battle_system.CoinFlip();
 
