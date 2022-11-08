@@ -23468,6 +23468,26 @@ MonoBehaviour:
   dropdownImg: {fileID: 2766613875624260281}
   leftArrow: {fileID: 4193613203072002213}
   rightArrow: {fileID: 3301106664579501360}
+  dropdownDisplay: {fileID: 2766613875021171008}
+  languageList:
+  - target_text: {fileID: 6093423562439946367}
+    display_name: English
+    language_mode: eng
+    font_detail:
+      font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
+      font_size: 32
+      character_space: 0
+      word_space: 0
+      line_space: 0
+  - target_text: {fileID: 6093423562439946367}
+    display_name: "\uD55C\uAD6D\uC5B4"
+    language_mode: kor
+    font_detail:
+      font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
+      font_size: 18
+      character_space: 0
+      word_space: 0
+      line_space: 0
 --- !u!114 &2766613875361569555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32303,7 +32323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2766613875899275675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33763,6 +33783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847671853ef9bd64abff87abfa9f7952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolutionMenu: {fileID: 2766613875361569556}
   controlScroll: {fileID: 2766613874070507672}
   ui_bundle:
   - {fileID: 2766613874943870666}
@@ -35283,7 +35304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.36, y: 84.87501}
+  m_AnchoredPosition: {x: 61, y: 86.8}
   m_SizeDelta: {x: 26.66, y: 24.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2766613876025105926

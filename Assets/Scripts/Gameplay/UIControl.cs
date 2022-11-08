@@ -10,15 +10,15 @@ public class StringFontasset : SerializableDictionary<string, FontData>{}
 public class StringTextasset : SerializableDictionary<string, TextAsset>{}
 public class UIControl : MonoBehaviour
 {
+    [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private ControlScroll controlScroll;
     [SerializeField] private List<GameObject> ui_bundle;
     
     [Header("LOCALIZATION")]
     public static string currentLangMode = "eng"; 
-    private List<string> LangModeList = new List<string> {"eng", "kor"}; // Update when new lanugage is added.
     public Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
     [SerializeField] private StringTextasset inkLangDict = new StringTextasset();
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
+    public List<TextAndFont> textDataList = new List<TextAndFont>();
     private Story UIData;
 
     public static UIControl instance { get; private set; }
@@ -26,27 +26,11 @@ public class UIControl : MonoBehaviour
     void Awake()
     {
         instance = this;
+        resolutionMenu.LoadLanguageSetting();
         InitializeInkLangDict(currentLangMode);
         TitleScreen.instance.SetUILanguage();
     }
 
-/////////////////////////////////////////////////////////////////
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Debug.Log("changing to korean");
-            InitializeInkLangDict("kor");
-            SwitchLanguage(textDataList, currentLangMode);
-        }
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            Debug.Log("changing to english");
-            InitializeInkLangDict("eng");
-            SwitchLanguage(textDataList, currentLangMode);
-        }
-    }
-//////////////////////////////////////////////////////////////////
     public void UI_Update(bool state)
     {
         // Check if the for loop update process is unnecessary.
@@ -78,7 +62,7 @@ public class UIControl : MonoBehaviour
         }
     }
 
-    private void InitializeInkLangDict(string language = "eng")
+    public void InitializeInkLangDict(string language = "eng")
     {
         currentLangMode = language;
         uiTextDict.Clear();
@@ -106,7 +90,7 @@ public class UIControl : MonoBehaviour
         foreach(TextAndFont textData in textDataList)
         {
             TextMeshProUGUI targetText = textData.target_text;
-
+            
             targetText.text = uiTextDict[targetText.name];
             targetText.font = textData.fontDict[language].font_type;
             targetText.fontSize = textData.fontDict[language].font_size;
@@ -115,6 +99,7 @@ public class UIControl : MonoBehaviour
             targetText.lineSpacing = textData.fontDict[language].line_space;
         }
     }
+
 }
 
 [System.Serializable]
@@ -132,4 +117,13 @@ public class TextAndFont
 {
     public TextMeshProUGUI target_text;
     public StringFontasset fontDict;
+}
+
+[System.Serializable]
+public class LanguageSetting
+{
+    public TextMeshProUGUI target_text;
+    public string display_name;
+    public string language_mode;
+    public FontData font_detail;
 }

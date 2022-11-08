@@ -118,6 +118,10 @@ public class PauseMenu : MonoBehaviour
         {
             optionScript.OpenOptions();
         }
+        else if(menuNumber == 4)
+        {
+            QuitGame();
+        }
     }
     private void MoveArrow()
     {
@@ -127,5 +131,11 @@ public class PauseMenu : MonoBehaviour
     public void SetMenuNumber(int inputNumber)
     {
         menuNumber = inputNumber;
+    }
+
+    private void QuitGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }
