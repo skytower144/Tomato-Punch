@@ -119,8 +119,8 @@ public class TitleScreen : MonoBehaviour
             else if (direction == "DOWN")
             {
                 menuNumber += 1;
-                if (menuNumber > 2)
-                    menuNumber = 2;
+                if (menuNumber > 3)
+                    menuNumber = 3;
             }
         }
         else if (isPrompt)
@@ -158,6 +158,10 @@ public class TitleScreen : MonoBehaviour
                 pauseMenu.SetMenuNumber(3);
                 pauseMenu.SelectMenu();
                 // gameObject.SetActive(false); --> When Unroll Animation Ends.
+            }
+            else if(menuNumber == 3)
+            {
+                pauseMenu.QuitGame();
             }
             busy_with_menu = true;
         }

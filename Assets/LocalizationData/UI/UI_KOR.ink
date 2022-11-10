@@ -1,6 +1,7 @@
 Title_Continue : @ 이어서 하기
 Title_NewGame : @ 새로운 게임
 Title_Options : @ 설정
+Title_Quit : @ 종료
 Title_Prompt : <bounce a=3><color=\#DB3475>모든</color></bounce> 세이브를 지우고<br> <slide><color=\#91CCFE>새롭게 시작하시겠습니까?</color></slide>
 Title_Prompt_Yes : 예
 Title_Prompt_No : 아니요
@@ -10,6 +11,10 @@ LoadingText : <bounce a=2 f=2>로딩중...</bounce>
 BindingResetPrompt_Main : 키설정을 초기화 하시겠습니까?
 BindingResetPrompt_Yes : 예
 BindingResetPrompt_No : 아니요!
+
+ConfirmPrompt : 게임을 종료하시겠습니까?
+ConfirmPrompt_Yes : 예
+ConfirmPrompt_No : 아니요
 
 ReviveCost_Text : 부활 비용
 

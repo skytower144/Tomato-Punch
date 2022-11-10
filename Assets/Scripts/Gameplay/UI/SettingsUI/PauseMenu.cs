@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -14,7 +13,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
     [SerializeField] private Transform arrowTransform;
     [SerializeField] private CanvasGroup displayCanvas; public CanvasGroup display_canvas => displayCanvas;
-    [System.NonSerialized] public bool is_busy = false;
+    [SerializeField] private GameObject QuitPrompt;
+    public static bool is_busy = false;
     private int menuNumber;
     private int maxMenuIndex = 4;
     void OnEnable()
@@ -120,7 +120,9 @@ public class PauseMenu : MonoBehaviour
         }
         else if(menuNumber == 4)
         {
-            QuitGame();
+            GameObject quit_prompt = Instantiate(QuitPrompt, transform);
+            quit_prompt.GetComponent<ConfirmPrompt>().proceed_action = QuitGame;
+            is_busy = true;
         }
     }
     private void MoveArrow()
@@ -133,7 +135,7 @@ public class PauseMenu : MonoBehaviour
         menuNumber = inputNumber;
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();

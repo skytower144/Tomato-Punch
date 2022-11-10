@@ -1,6 +1,7 @@
 Title_Continue : @ Continue
 Title_NewGame : @ New Game
 Title_Options : @ Options
+Title_Quit : @ Quit
 Title_Prompt : <bounce a=3><color=\#DB3475>Erase all</color></bounce> save data and start <slide><color=\#91CCFE>new game?</color></slide>
 Title_Prompt_Yes : Yes
 Title_Prompt_No : No
@@ -10,6 +11,10 @@ LoadingText : <bounce a=2 f=2>Loading...</bounce>
 BindingResetPrompt_Main : Reset to default controls?
 BindingResetPrompt_Yes : Yes
 BindingResetPrompt_No : No!
+
+ConfirmPrompt : Quit Game?
+ConfirmPrompt_Yes : Yes
+ConfirmPrompt_No : No
 
 ReviveCost_Text : REVIVE COST
 

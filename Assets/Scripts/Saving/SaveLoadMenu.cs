@@ -7,7 +7,6 @@ using TMPro;
 
 public class SaveLoadMenu : MonoBehaviour
 {
-    [SerializeField] PauseMenu pauseMenu;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private List<RectTransform> slotTransforms;
     [SerializeField] private GameObject quickSaveIcon, quickSaveMenu;
@@ -172,7 +171,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     public void SimulateEscape()
     {
-        pauseMenu.is_busy = false;
+        PauseMenu.is_busy = false;
         isAnimating = false;
         
         ResetMenuState();
@@ -276,7 +275,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     public IEnumerator ShowSaveLoadMenu(float waitTime)
     {
-        pauseMenu.is_busy = true;
+        PauseMenu.is_busy = true;
         isAnimating = true;
 
         DOTween.Rewind("fader_in");
@@ -305,7 +304,7 @@ public class SaveLoadMenu : MonoBehaviour
         DOTween.Play("fader_out");
 
         isAnimating = false;
-        pauseMenu.is_busy = false;
+        PauseMenu.is_busy = false;
 
         if (TitleScreen.isTitleScreen) TitleScreen.busy_with_menu = false;
     }

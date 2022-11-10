@@ -8,7 +8,6 @@ using TMPro;
 public class OptionScript : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private ControlScroll controlScroll;
@@ -24,13 +23,13 @@ public class OptionScript : MonoBehaviour
     private bool canNavigate = false;
     void Update()
     {
-        if(pauseMenu.is_busy && !controlScroll.isPrompt && canNavigate)
+        if(PauseMenu.is_busy && !controlScroll.isPrompt && canNavigate)
         {
             if(!rebindKey.isBinding && !TitleScreen.isTitleScreen && playerMovement.Press_Key("Pause"))
             {
                 canNavigate = false;
                 optionBase.SetActive(false);
-                pauseMenu.is_busy = false;
+                PauseMenu.is_busy = false;
                 playerMovement.HitMenu();
             }
             else if(!resolutionMenu.drop_isActive && playerMovement.Press_Key("Cancel"))
@@ -56,7 +55,7 @@ public class OptionScript : MonoBehaviour
     public void OpenOptions()
     {
         PlayerMovement.instance.fader_obj.SetActive(false); // Due to FaderCanvas blocking the UI canvas.
-        pauseMenu.is_busy = true;
+        PauseMenu.is_busy = true;
 
         firstMenu.alpha = 0;
 
@@ -98,7 +97,7 @@ public class OptionScript : MonoBehaviour
     public void TurnoffOption()
     {
         optionBase.SetActive(false);
-        pauseMenu.is_busy = false;
+        PauseMenu.is_busy = false;
         
         PlayerMovement.instance.fader_obj.SetActive(true);
     }
