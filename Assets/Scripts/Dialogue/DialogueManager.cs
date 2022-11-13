@@ -1,4 +1,4 @@
-using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -11,12 +11,15 @@ public class DialogueManager : MonoBehaviour
     
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private Image portrait; 
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TypeEffect dialogue_typeEffect;
 
     private Story currentStory;
     private string currentSentence;
     private bool dialogueIsPlaying;
+
+    private const string PORTRAIT_TAG = "portrait";
 
     private void Awake()
     {
@@ -56,6 +59,8 @@ public class DialogueManager : MonoBehaviour
         playerMovement.SetIsInteracting(true);
 
         currentStory = new Story(inkJSON.text);
+        portrait.sprite = Resources.Load<Sprite>("Portraits/Tomato_neutral");
+
         dialogueBox.SetActive(true);
         dialogueIsPlaying = true;
     }
@@ -73,10 +78,33 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue){
             currentSentence = currentStory.Continue();
+            HandleTags(currentStory.currentTags);
             dialogue_typeEffect.SetMessage(currentSentence);
         }
         else
             ExitDialogue();
     }
 
+    private void HandleTags(List<string> currentTags)
+    {
+        foreach (string tag in currentTags)
+        {
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2)
+                continue;
+            
+            string tag_key = splitTag[0].Trim();
+            string tag_value = splitTag[1].Trim();
+
+            switch (tag_key)
+            {
+                case PORTRAIT_TAG:
+                    portrait.sprite = Resources.Load<Sprite>($"Portraits/{tag_value}");
+                    break;
+                default:
+                    Debug.Log("Tag detected but not handled." + tag);
+                    break;
+            }
+        }
+    }
 }

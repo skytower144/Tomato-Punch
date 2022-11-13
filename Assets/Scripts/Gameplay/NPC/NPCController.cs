@@ -32,7 +32,7 @@ public class NPCController : MonoBehaviour, Interactable
     private void Update()
     {
         if (!disableIdleAnim)
-            spriteAnimator.HandleUpdate();
+            spriteAnimator.LoopAnimate();
     }
 
     public void Interact()

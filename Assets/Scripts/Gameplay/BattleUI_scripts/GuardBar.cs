@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 public class GuardBar : MonoBehaviour
 {
     private const float GUARDBAR_WIDTH = 150.32f;

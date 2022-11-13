@@ -32,7 +32,7 @@ public class SpriteAnimator
         frameRate = 1f / (float)fps;
     }
 
-    public void HandleUpdate()
+    public void LoopAnimate()
     {
         timer += Time.deltaTime;
         if (timer > frameRate)

@@ -6,10 +6,14 @@ public class TypeEffect : MonoBehaviour
 {
     public int CharPerSeconds;
     [System.NonSerialized] public bool isPrinting;
+    [SerializeField] private GameObject arrow;
     private string targetMessage;
     private int index;
     private float interval;
     private TextMeshProUGUI messageText;
+
+    private bool isRichTextTag = false;
+    private string tempTag = "";
 
     private void Awake()
     {
@@ -30,8 +34,9 @@ public class TypeEffect : MonoBehaviour
     {
         isPrinting = true;
 
-        transform.GetChild(0).gameObject.SetActive(false);
+        arrow.SetActive(false);
         messageText.text = "";
+        tempTag = "";
         index = 0;
 
         //Start Animation
@@ -39,18 +44,32 @@ public class TypeEffect : MonoBehaviour
         StartCoroutine(Effecting(interval));
     }
 
-    IEnumerator Effecting(float interval)
+    IEnumerator Effecting(float inputInterval)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(interval));
-
         //End Animation
         if(messageText.text == targetMessage){
             EffectEnd();
             yield break;
         }
 
-        messageText.text += targetMessage[index];
+        if ((targetMessage[index] == '<') || (isRichTextTag))
+        {
+            isRichTextTag = true;
+            inputInterval = 0;
+
+            tempTag += targetMessage[index];
+
+            if (targetMessage[index] == '>')
+            {
+                isRichTextTag = false;
+                messageText.text += tempTag;
+            }
+        }
+        else
+            messageText.text += targetMessage[index];
+
         index++;
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(inputInterval));
 
         //Recursive
         StartCoroutine(Effecting(interval));
@@ -59,7 +78,8 @@ public class TypeEffect : MonoBehaviour
     private void EffectEnd()
     {
         isPrinting = false;
-        transform.GetChild(0).gameObject.SetActive(true); // arrow
+        isRichTextTag = false;
+        arrow.SetActive(true);
     }
     
 }

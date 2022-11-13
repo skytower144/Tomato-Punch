@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -524, y: 0}
+  m_AnchoredPosition: {x: -521.53, y: 0}
   m_SizeDelta: {x: 238.46155, y: 230.76924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7505768924176295152
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5764706, g: 0.48235294, b: 0.69803923, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharPerSeconds: 35
+  arrow: {fileID: 6003956642827936578}
 --- !u!114 &8051241148528408784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +646,7 @@ GameObject:
   - component: {fileID: 8774765077750059000}
   - component: {fileID: 4175227637504258869}
   m_Layer: 5
-  m_Name: CharImage
+  m_Name: PortraitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6651,7 +6652,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 2766613874449132828}
-  pauseMenu: {fileID: 2766613875652078260}
   resolutionMenu: {fileID: 2766613875361569556}
   rebindKey: {fileID: 2766613874070507669}
   controlScroll: {fileID: 2766613874070507672}
@@ -33812,7 +33812,7 @@ MonoBehaviour:
         word_space: -2.42
         line_space: 0
       - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 40
+        font_size: 39
         character_space: 0
         word_space: 0
         line_space: 64.27
@@ -36204,7 +36204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6313726, g: 0.24705882, b: 0.38039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -37003,7 +37003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 483.82648, y: -79.53784}
+  m_AnchoredPosition: {x: 467.5, y: -91.2}
   m_SizeDelta: {x: 15.25, y: 17.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1998615010715775173
@@ -38047,7 +38047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a253a333a1202384f80a4b94bee3740f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 2766613875652078260}
   playerMovement: {fileID: 2766613874449132828}
   slotTransforms:
   - {fileID: 2769497158001826786}
@@ -38134,6 +38133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBox: {fileID: 3987224338933809391}
+  portrait: {fileID: 4175227637504258869}
   dialogueText: {fileID: 8051241148528408784}
   dialogue_typeEffect: {fileID: 5549684332912266763}
 --- !u!1 &8016965104851791869
