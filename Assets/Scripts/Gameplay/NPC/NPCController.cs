@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{}
+
 public class NPCController : MonoBehaviour, Interactable
 {
     [Header("Ink JSON")]
@@ -9,10 +12,10 @@ public class NPCController : MonoBehaviour, Interactable
     //[SerializeField] private TextAsset inkJsonData;
 
     [Header("Graphic Control")]
-    [SerializeField] private SpriteRenderer sprite_renderer = null;
-    [SerializeField] private List<Sprite> sprites;
-    [SerializeField] private int fps;
-    [SerializeField] private bool disableIdleAnim;
+    [SerializeField] private SpriteRenderer sprite_renderer;
+    [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
+    [SerializeField] private List<Sprite> sprites; //
+    [SerializeField] private int fps; //
     private SpriteAnimator spriteAnimator;
 
     [HideInInspector] public bool banInteractDirection;
@@ -20,19 +23,14 @@ public class NPCController : MonoBehaviour, Interactable
     
     private void Start()
     {
-        if (!disableIdleAnim)
-        {
-            if (sprite_renderer == null)
-                sprite_renderer = GetComponent<SpriteRenderer>();
-            spriteAnimator = new SpriteAnimator(sprites, sprite_renderer, fps);
-            spriteAnimator.InitializeAnimator();
-        }
+        if (sprite_renderer == null)
+            sprite_renderer = GetComponent<SpriteRenderer>();
+        Play("idle");
     }
 
     private void Update()
     {
-        if (!disableIdleAnim)
-            spriteAnimator.LoopAnimate();
+        spriteAnimator.Animate();
     }
 
     public void Interact()
@@ -44,7 +42,24 @@ public class NPCController : MonoBehaviour, Interactable
         }
     }
 
+    public void Play(string animTag)
+    {
+        if (sprite_dict.ContainsKey(animTag))
+        {
+            SpriteAnimation animation = sprite_dict[animTag];
+            spriteAnimator = new SpriteAnimator(sprite_renderer, animation.sprites, animation.fps, animation.is_loop);
+        }
+
+        else
+        {
+            List<Sprite> singleSprite = new List<Sprite>();
+            singleSprite.Add(sprite_renderer.sprite);
+            spriteAnimator = new SpriteAnimator(sprite_renderer, singleSprite, 0, false);
+        }   
+    }
+
     private bool ValidInteractDirection()
+
     {
         PlayerMovement playerMovement = PlayerMovement.instance;
         bool finalFlag = true;
@@ -75,4 +90,13 @@ public class NPCController : MonoBehaviour, Interactable
 
         return finalFlag;
     }
+
+}
+
+[System.Serializable]
+public class SpriteAnimation
+{
+    public bool is_loop;
+    public int fps;
+    public List<Sprite> sprites;
 }

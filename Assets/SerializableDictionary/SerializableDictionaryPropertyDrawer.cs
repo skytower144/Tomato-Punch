@@ -5,6 +5,7 @@ using UnityEditor;
 using System.Reflection;
 using System;
 
+[CustomPropertyDrawer(typeof(StringSpriteanim))]
 [CustomPropertyDrawer(typeof(StringFontasset))]
 [CustomPropertyDrawer(typeof(StringTextasset))]
 [CustomPropertyDrawer(typeof(StringItemLocation))]
