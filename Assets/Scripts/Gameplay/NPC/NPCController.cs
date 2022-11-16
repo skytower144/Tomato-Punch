@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,8 +13,6 @@ public class NPCController : MonoBehaviour, Interactable
     [Header("Graphic Control")]
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
-    [SerializeField] private List<Sprite> sprites; //
-    [SerializeField] private int fps; //
     private SpriteAnimator spriteAnimator;
 
     [HideInInspector] public bool banInteractDirection;
@@ -26,6 +23,8 @@ public class NPCController : MonoBehaviour, Interactable
         if (sprite_renderer == null)
             sprite_renderer = GetComponent<SpriteRenderer>();
         Play("idle");
+
+        AnimManager.instance.npc_dict[gameObject.name] = this;
     }
 
     private void Update()
