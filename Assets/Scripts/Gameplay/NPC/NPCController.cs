@@ -15,6 +15,8 @@ public class NPCController : MonoBehaviour, Interactable
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
 
+    [SerializeField] private bool fixedFacingDirection;
+
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
     
@@ -36,8 +38,29 @@ public class NPCController : MonoBehaviour, Interactable
     {
         if (ValidInteractDirection())
         {
+            FacePlayer();
             TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
             DialogueManager.instance.EnterDialogue(inkJsonData);
+        }
+    }
+
+    private void FacePlayer()
+    {
+        if (!fixedFacingDirection)
+        {
+            PlayerMovement playerMovement = PlayerMovement.instance;
+            
+            if ((playerMovement.CheckFacingDirection("DOWN")) || (playerMovement.CheckFacingDirection("LD")) || playerMovement.CheckFacingDirection("RD"))
+                Play("up");
+            
+            else if ((playerMovement.CheckFacingDirection("UP")) || (playerMovement.CheckFacingDirection("LU")) || playerMovement.CheckFacingDirection("RU"))
+                Play("down");
+            
+            else if (playerMovement.CheckFacingDirection("RIGHT"))
+                Play("left");
+            
+            else if (playerMovement.CheckFacingDirection("LEFT"))
+                Play("right");
         }
     }
 
@@ -58,7 +81,6 @@ public class NPCController : MonoBehaviour, Interactable
     }
 
     private bool ValidInteractDirection()
-
     {
         PlayerMovement playerMovement = PlayerMovement.instance;
         bool finalFlag = true;

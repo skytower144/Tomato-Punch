@@ -24422,7 +24422,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 58, y: 13, z: 0}
@@ -24432,7 +24432,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 18, y: 14, z: 0}
@@ -24499,7 +24499,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 51, y: 15, z: 0}
@@ -24529,7 +24529,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 20, z: 0}
@@ -24633,7 +24633,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 61, y: 32, z: 0}
@@ -24653,7 +24653,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 56, y: 34, z: 0}
@@ -24691,7 +24691,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 64, y: 38, z: 0}
@@ -25755,6 +25755,7 @@ MonoBehaviour:
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
+  fixedFacingDirection: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -25951,6 +25952,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -26733,6 +26738,7 @@ MonoBehaviour:
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -26853,6 +26859,7 @@ MonoBehaviour:
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -26889,7 +26896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312559985}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.837523, y: 30.549992, z: 22.28144}
+  m_LocalPosition: {x: -22.837523, y: 30.549992, z: 21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1340431141}
@@ -26990,6 +26997,7 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
+  fixedFacingDirection: 1
   banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
@@ -27949,6 +27957,7 @@ MonoBehaviour:
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -28584,6 +28593,7 @@ MonoBehaviour:
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -29612,9 +29622,10 @@ GameObject:
   m_Component:
   - component: {fileID: 660367148}
   - component: {fileID: 660367150}
+  - component: {fileID: 660367151}
   - component: {fileID: 660367149}
-  m_Layer: 0
-  m_Name: gang_1
+  m_Layer: 9
+  m_Name: Gob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29635,8 +29646,8 @@ Transform:
   m_Father: {fileID: 1165100749}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &660367149
-EdgeCollider2D:
+--- !u!61 &660367149
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -29648,21 +29659,19 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.007932782, y: -0.57070446}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2.1}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0821335, y: 1.4171772}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.43761122, y: -0.36854172}
-  - {x: 0.4449997, y: -1.1584892}
-  - {x: -0.4978758, y: -1.1618404}
-  - {x: -0.5036268, y: -0.33599472}
-  - {x: -0.27257025, y: -0.12724304}
-  - {x: -0.20134711, y: 0.16200829}
-  - {x: 0.4539199, y: 0.15633202}
-  - {x: 0.4413762, y: -0.4363556}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!212 &660367150
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29714,6 +29723,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &660367151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660367147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Gob_first
+  sprite_renderer: {fileID: 660367150}
+  sprite_dict:
+    m_keys:
+    - left
+    - right
+    - up
+    - down
+    m_values:
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 7463154273197615916, guid: bb41824eff705a94485299380c637349, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 8016936988268968941, guid: bb41824eff705a94485299380c637349, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -6528239632890847137, guid: bb41824eff705a94485299380c637349, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -6163092401881913802, guid: bb41824eff705a94485299380c637349, type: 3}
+  fixedFacingDirection: 0
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!4 &660932005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4239121796549231783, guid: 47a2c5771897e204e8912d7ce2b99108, type: 3}
@@ -30844,6 +30900,7 @@ MonoBehaviour:
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 2608576669272263717, guid: aab6310c9661293478fcf97502480e95, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -32485,6 +32542,7 @@ MonoBehaviour:
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: -4315288815891596002, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -33483,6 +33541,7 @@ MonoBehaviour:
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -83430,6 +83489,7 @@ MonoBehaviour:
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
+  fixedFacingDirection: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
