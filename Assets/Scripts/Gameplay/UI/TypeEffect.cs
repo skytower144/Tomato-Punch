@@ -21,23 +21,23 @@ public class TypeEffect : MonoBehaviour
     }
     public void SetMessage(string message)
     {
+        targetMessage = message;
+        messageText.text = message;
+        messageText.maxVisibleCharacters = 0;
+        index = 0;
+
         if(isPrinting){
-            messageText.text = targetMessage;
+            messageText.maxVisibleCharacters = targetMessage.Length;
             EffectEnd();
         }
         else {
-            targetMessage = message;
             EffectStart();
         }
     }
     private void EffectStart()
     {
         isPrinting = true;
-
         arrow.SetActive(false);
-        messageText.text = "";
-        tempTag = "";
-        index = 0;
 
         //Start Animation
         interval = 1.0f / CharPerSeconds;
@@ -47,7 +47,7 @@ public class TypeEffect : MonoBehaviour
     IEnumerator Effecting(float inputInterval)
     {
         //End Animation
-        if(messageText.text == targetMessage){
+        if(index == targetMessage.Length){
             EffectEnd();
             yield break;
         }
@@ -57,16 +57,11 @@ public class TypeEffect : MonoBehaviour
             isRichTextTag = true;
             inputInterval = 0;
 
-            tempTag += targetMessage[index];
-
             if (targetMessage[index] == '>')
-            {
                 isRichTextTag = false;
-                messageText.text += tempTag;
-            }
         }
         else
-            messageText.text += targetMessage[index];
+            messageText.maxVisibleCharacters++;
 
         index++;
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(inputInterval));
