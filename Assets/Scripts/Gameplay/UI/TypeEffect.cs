@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class TypeEffect : MonoBehaviour
 {
+    public Action proceed_action = null;
     public int CharPerSeconds;
     [System.NonSerialized] public bool isPrinting;
     [SerializeField] private GameObject arrow;
@@ -11,9 +13,8 @@ public class TypeEffect : MonoBehaviour
     private int index;
     private float interval;
     private TextMeshProUGUI messageText;
-
+    
     private bool isRichTextTag = false;
-    private string tempTag = "";
 
     private void Awake()
     {
@@ -47,8 +48,9 @@ public class TypeEffect : MonoBehaviour
     IEnumerator Effecting(float inputInterval)
     {
         //End Animation
-        if(index == targetMessage.Length){
-            EffectEnd();
+        if (index == targetMessage.Length) {
+            if (isPrinting)
+                EffectEnd();
             yield break;
         }
 
@@ -74,7 +76,12 @@ public class TypeEffect : MonoBehaviour
     {
         isPrinting = false;
         isRichTextTag = false;
-        arrow.SetActive(true);
+        
+        if (proceed_action == null)
+            arrow.SetActive(true);
+        else {
+            proceed_action?.Invoke();
+            proceed_action = null;
+        }
     }
-    
 }

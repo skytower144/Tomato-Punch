@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!1 &3461375
@@ -24432,7 +24436,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 18, y: 14, z: 0}
@@ -24451,7 +24455,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -5, y: 15, z: 0}
@@ -24529,7 +24533,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 20, z: 0}
@@ -24633,7 +24637,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 61, y: 32, z: 0}
@@ -24758,7 +24762,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -19, y: 52, z: 0}
@@ -25273,8 +25277,9 @@ GameObject:
   - component: {fileID: 28532599}
   - component: {fileID: 28532601}
   - component: {fileID: 28532600}
-  m_Layer: 0
-  m_Name: gang_0
+  - component: {fileID: 28532602}
+  m_Layer: 9
+  m_Name: Sass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25293,7 +25298,7 @@ Transform:
   m_Children:
   - {fileID: 145408513}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &28532600
 BoxCollider2D:
@@ -25372,6 +25377,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &28532602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28532598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Sass_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 0}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  enemyStats: {fileID: 0}
+  hasPortrait: 1
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 0
+  lock_lu: 0
 --- !u!4 &28669339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7422980009682269371, guid: fd7da41304562a843ba70312ba9c9767, type: 3}
@@ -25618,7 +25653,7 @@ GameObject:
   - component: {fileID: 118979683}
   - component: {fileID: 118979684}
   - component: {fileID: 118979682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25638,7 +25673,7 @@ Transform:
   m_Children:
   - {fileID: 172321599}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &118979682
 BoxCollider2D:
@@ -25730,11 +25765,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  interactAnimation: wakeup
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys:
     - idle
-    - wakeup
+    - interact
     m_values:
     - is_loop: 1
       fps: 3
@@ -25755,7 +25791,9 @@ MonoBehaviour:
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
-  fixedFacingDirection: 1
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -26304,6 +26342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!4 &250644802 stripped
@@ -26601,8 +26643,8 @@ GameObject:
   - component: {fileID: 287812806}
   - component: {fileID: 287812805}
   - component: {fileID: 287812807}
-  m_Layer: 0
-  m_Name: smoker_1
+  m_Layer: 9
+  m_Name: smoker1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26621,7 +26663,7 @@ Transform:
   m_Children:
   - {fileID: 1029537476}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &287812805
 BoxCollider2D:
@@ -26712,7 +26754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: smoker1_first
+  interactAnimation: 
   sprite_renderer: {fileID: 287812806}
   sprite_dict:
     m_keys:
@@ -26738,7 +26781,9 @@ MonoBehaviour:
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
-  fixedFacingDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -26770,8 +26815,8 @@ GameObject:
   - component: {fileID: 308305160}
   - component: {fileID: 308305159}
   - component: {fileID: 308305161}
-  m_Layer: 0
-  m_Name: guy_6
+  m_Layer: 9
+  m_Name: guy6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26791,7 +26836,7 @@ Transform:
   - {fileID: 687709125}
   - {fileID: 1312277665}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 17
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &308305159
 BoxCollider2D:
@@ -26842,7 +26887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: guy6_first
+  interactAnimation: 
   sprite_renderer: {fileID: 1312277667}
   sprite_dict:
     m_keys:
@@ -26859,16 +26905,18 @@ MonoBehaviour:
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
-  fixedFacingDirection: 0
-  banInteractDirection: 0
-  lock_u: 0
-  lock_ru: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 1
+  lock_ru: 1
   lock_r: 0
   lock_rd: 0
   lock_d: 0
   lock_ld: 0
   lock_l: 0
-  lock_lu: 0
+  lock_lu: 1
 --- !u!1 &312559985
 GameObject:
   m_ObjectHideFlags: 0
@@ -26901,7 +26949,7 @@ Transform:
   m_Children:
   - {fileID: 1340431141}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &312559987
 BoxCollider2D:
@@ -26993,11 +27041,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Rupple_first
+  interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
     m_values: []
-  fixedFacingDirection: 1
+  enemyStats: {fileID: 0}
+  hasPortrait: 1
+  isFixedSprite: 1
   banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
@@ -27005,7 +27056,7 @@ MonoBehaviour:
   lock_rd: 1
   lock_d: 1
   lock_ld: 1
-  lock_l: 0
+  lock_l: 1
   lock_lu: 0
 --- !u!4 &326477237 stripped
 Transform:
@@ -27145,6 +27196,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -27355,8 +27410,9 @@ GameObject:
   - component: {fileID: 363760912}
   - component: {fileID: 363760914}
   - component: {fileID: 363760913}
-  m_Layer: 0
-  m_Name: guy_4
+  - component: {fileID: 363760915}
+  m_Layer: 9
+  m_Name: guy4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27375,7 +27431,7 @@ Transform:
   m_Children:
   - {fileID: 865270986}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &363760913
 BoxCollider2D:
@@ -27454,6 +27510,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &363760915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363760911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: guy4_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 363760914}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 0
+  lock_lu: 0
 --- !u!1001 &364415828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27824,8 +27910,8 @@ GameObject:
   - component: {fileID: 409038580}
   - component: {fileID: 409038579}
   - component: {fileID: 409038581}
-  m_Layer: 0
-  m_Name: girl_6
+  m_Layer: 9
+  m_Name: girl6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27844,7 +27930,7 @@ Transform:
   m_Children:
   - {fileID: 1687677511}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &409038579
 BoxCollider2D:
@@ -27859,7 +27945,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1466732, y: -0.41776562}
+  m_Offset: {x: 0.21210289, y: -0.5050049}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -27870,7 +27956,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5446663, y: 1.1371098}
+  m_Size: {x: 0.67552567, y: 1.3115883}
   m_EdgeRadius: 0
 --- !u!212 &409038580
 SpriteRenderer:
@@ -27935,7 +28021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: girl6_first
+  interactAnimation: 
   sprite_renderer: {fileID: 409038580}
   sprite_dict:
     m_keys:
@@ -27957,7 +28044,9 @@ MonoBehaviour:
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
-  fixedFacingDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -28364,7 +28453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 496873218}
   - component: {fileID: 496873219}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28453,8 +28542,8 @@ GameObject:
   - component: {fileID: 509997382}
   - component: {fileID: 509997381}
   - component: {fileID: 509997383}
-  m_Layer: 0
-  m_Name: girl_2
+  m_Layer: 9
+  m_Name: girl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28473,7 +28562,7 @@ Transform:
   m_Children:
   - {fileID: 1997019420}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &509997381
 BoxCollider2D:
@@ -28488,7 +28577,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.056171417, y: -0.33617306}
+  m_Offset: {x: -0.00053215027, y: -0.33617306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -28499,7 +28588,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2099686, y: 1.6738262}
+  m_Size: {x: 1.3233757, y: 1.6738262}
   m_EdgeRadius: 0
 --- !u!212 &509997382
 SpriteRenderer:
@@ -28564,7 +28653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: girl2_first
+  interactAnimation: 
   sprite_renderer: {fileID: 509997382}
   sprite_dict:
     m_keys:
@@ -28593,7 +28683,9 @@ MonoBehaviour:
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
-  fixedFacingDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -29644,7 +29736,7 @@ Transform:
   m_Children:
   - {fileID: 1593985259}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &660367149
 BoxCollider2D:
@@ -29736,6 +29828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Gob_first
+  interactAnimation: 
   sprite_renderer: {fileID: 660367150}
   sprite_dict:
     m_keys:
@@ -29760,7 +29853,9 @@ MonoBehaviour:
       fps: 0
       sprites:
       - {fileID: -6163092401881913802, guid: bb41824eff705a94485299380c637349, type: 3}
-  fixedFacingDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 1
+  isFixedSprite: 0
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -30117,8 +30212,9 @@ GameObject:
   - component: {fileID: 714848511}
   - component: {fileID: 714848510}
   - component: {fileID: 714848512}
-  m_Layer: 0
-  m_Name: girl_0
+  - component: {fileID: 714848513}
+  m_Layer: 9
+  m_Name: girl0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30235,6 +30331,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &714848513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714848508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: girl0_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 0}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 0
+  lock_lu: 0
 --- !u!1001 &716719553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30351,6 +30477,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -30777,7 +30907,7 @@ GameObject:
   - component: {fileID: 803112004}
   - component: {fileID: 803112003}
   - component: {fileID: 803112005}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: policeman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30797,7 +30927,7 @@ Transform:
   m_Children:
   - {fileID: 935624864}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &803112003
 BoxCollider2D:
@@ -30888,7 +31018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: policeman_first
+  interactAnimation: 
   sprite_renderer: {fileID: 803112004}
   sprite_dict:
     m_keys:
@@ -30900,14 +31031,16 @@ MonoBehaviour:
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 2608576669272263717, guid: aab6310c9661293478fcf97502480e95, type: 3}
-  fixedFacingDirection: 0
-  banInteractDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
   lock_r: 0
-  lock_rd: 0
-  lock_d: 0
-  lock_ld: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
   lock_l: 0
   lock_lu: 0
 --- !u!4 &805378730 stripped
@@ -31170,8 +31303,9 @@ GameObject:
   - component: {fileID: 852602745}
   - component: {fileID: 852602746}
   - component: {fileID: 852602747}
-  m_Layer: 0
-  m_Name: guy_0
+  - component: {fileID: 852602748}
+  m_Layer: 9
+  m_Name: Gin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31269,6 +31403,56 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1300259, y: 1.5151386}
   m_EdgeRadius: 0
+--- !u!114 &852602748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852602744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Gin_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 852602746}
+  sprite_dict:
+    m_keys:
+    - left
+    - right
+    - up
+    - down
+    m_values:
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -8821347470454050878, guid: 245e86dd0bd7cf24db797a627278c264, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 4738229164857788544, guid: 245e86dd0bd7cf24db797a627278c264, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -4307619540409081712, guid: 245e86dd0bd7cf24db797a627278c264, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -8755001401005124512, guid: 245e86dd0bd7cf24db797a627278c264, type: 3}
+  enemyStats: {fileID: 0}
+  hasPortrait: 1
+  isFixedSprite: 0
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!4 &865270986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4677862585124394164, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -31673,6 +31857,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -32123,6 +32311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!4 &1029537476 stripped
@@ -32491,8 +32683,9 @@ GameObject:
   - component: {fileID: 1112986975}
   - component: {fileID: 1112986977}
   - component: {fileID: 1112986976}
-  m_Layer: 0
-  m_Name: kid_0
+  - component: {fileID: 1112986978}
+  m_Layer: 9
+  m_Name: kid0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32512,7 +32705,7 @@ Transform:
   - {fileID: 1039099370}
   - {fileID: 1556090445}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1112986976
 MonoBehaviour:
@@ -32526,7 +32719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: kid0_first
+  interactAnimation: 
   sprite_renderer: {fileID: 1556090447}
   sprite_dict:
     m_keys:
@@ -32542,14 +32736,16 @@ MonoBehaviour:
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: -4315288815891596002, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
-  fixedFacingDirection: 0
-  banInteractDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
   lock_r: 0
-  lock_rd: 0
-  lock_d: 0
-  lock_ld: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
   lock_l: 0
   lock_lu: 0
 --- !u!210 &1112986977
@@ -32563,6 +32759,32 @@ SortingGroup:
   m_SortingLayerID: -1666329631
   m_SortingLayer: 3
   m_SortingOrder: 1
+--- !u!61 &1112986978
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112986974}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03769493, y: 0.59999657}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.35, y: 1.6}
+    newSize: {x: 2, y: 2.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5372505, y: 1.6936264}
+  m_EdgeRadius: 0
 --- !u!4 &1115472567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9034560798990833056, guid: 6b6f2154b5a26974dac3835b02515d20, type: 3}
@@ -32936,20 +33158,20 @@ Transform:
   - {fileID: 1308531448}
   - {fileID: 1637957219}
   - {fileID: 714848509}
+  - {fileID: 1458854994}
   - {fileID: 28532599}
   - {fileID: 660367148}
   - {fileID: 312559986}
   - {fileID: 118979681}
   - {fileID: 1112986975}
   - {fileID: 363760912}
+  - {fileID: 308305158}
   - {fileID: 1244677203}
   - {fileID: 509997380}
   - {fileID: 409038578}
   - {fileID: 1881383481}
   - {fileID: 287812804}
   - {fileID: 803112002}
-  - {fileID: 308305158}
-  - {fileID: 1458854994}
   m_Father: {fileID: 740686967}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33424,8 +33646,8 @@ GameObject:
   - component: {fileID: 1244677205}
   - component: {fileID: 1244677204}
   - component: {fileID: 1244677206}
-  m_Layer: 0
-  m_Name: guy_5
+  m_Layer: 9
+  m_Name: drunkguy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33445,7 +33667,7 @@ Transform:
   - {fileID: 1414796606}
   - {fileID: 1503603559}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1244677204
 BoxCollider2D:
@@ -33496,7 +33718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: drunkguy_first
+  interactAnimation: 
   sprite_renderer: {fileID: 1503603560}
   sprite_dict:
     m_keys:
@@ -33541,14 +33764,16 @@ MonoBehaviour:
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
-  fixedFacingDirection: 0
-  banInteractDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
   lock_r: 0
-  lock_rd: 0
-  lock_d: 0
-  lock_ld: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
   lock_l: 0
   lock_lu: 0
 --- !u!4 &1251120528 stripped
@@ -33730,6 +33955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!4 &1263593578 stripped
@@ -33895,7 +34124,7 @@ GameObject:
   - component: {fileID: 1308531449}
   - component: {fileID: 1308531451}
   m_Layer: 0
-  m_Name: guy_2
+  m_Name: guy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34023,7 +34252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1312277665}
   - component: {fileID: 1312277667}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34315,6 +34544,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!1001 &1373938689
@@ -34428,6 +34661,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -34958,6 +35195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!4 &1449771677 stripped
@@ -34991,8 +35232,9 @@ GameObject:
   - component: {fileID: 1458854994}
   - component: {fileID: 1458854996}
   - component: {fileID: 1458854995}
-  m_Layer: 0
-  m_Name: girl_3
+  - component: {fileID: 1458854997}
+  m_Layer: 9
+  m_Name: girl3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35012,7 +35254,7 @@ Transform:
   - {fileID: 1735476857}
   - {fileID: 496873218}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 18
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1458854995
 BoxCollider2D:
@@ -35027,7 +35269,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13410187, y: 0.7237072}
+  m_Offset: {x: 0.13410187, y: 0.59770584}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -35038,7 +35280,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2263794, y: 1.2356911}
+  m_Size: {x: 1.2263794, y: 1.4876938}
   m_EdgeRadius: 0
 --- !u!210 &1458854996
 SortingGroup:
@@ -35051,6 +35293,55 @@ SortingGroup:
   m_SortingLayerID: -1666329631
   m_SortingLayer: 3
   m_SortingOrder: 1
+--- !u!114 &1458854997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458854993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: girl3_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 496873219}
+  sprite_dict:
+    m_keys:
+    - idle
+    m_values:
+    - is_loop: 1
+      fps: 5
+      sprites:
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: 21300000, guid: be1fb860f46bd564a8676e427fbd2350, type: 3}
+      - {fileID: -5434866741639216381, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
+      - {fileID: 3354580511505207512, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
+      - {fileID: 1378461352916931750, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 0
+  lock_lu: 0
 --- !u!1001 &1459203529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35277,7 +35568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1503603559}
   - component: {fileID: 1503603560}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36031,8 +36322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1556090445}
   - component: {fileID: 1556090447}
-  - component: {fileID: 1556090448}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36104,32 +36394,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1556090448
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556090444}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.030729294, y: -0.0842495}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.35, y: 1.6}
-    newSize: {x: 2, y: 2.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.4916344, y: 1.5111618}
-  m_EdgeRadius: 0
 --- !u!1001 &1556550490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36434,6 +36698,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!1001 &1593287242
@@ -36696,8 +36964,9 @@ GameObject:
   - component: {fileID: 1637957221}
   - component: {fileID: 1637957220}
   - component: {fileID: 1637957222}
-  m_Layer: 0
-  m_Name: guy_3
+  - component: {fileID: 1637957223}
+  m_Layer: 9
+  m_Name: guy3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36814,6 +37083,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1637957223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637957218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: guy3_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 1637957221}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!1001 &1642249499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36868,6 +37167,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -82558,6 +82861,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!1 &1738539234
@@ -83428,8 +83735,8 @@ GameObject:
   - component: {fileID: 1881383484}
   - component: {fileID: 1881383483}
   - component: {fileID: 1881383482}
-  m_Layer: 0
-  m_Name: smoker_0
+  m_Layer: 9
+  m_Name: smoker0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83448,7 +83755,7 @@ Transform:
   m_Children:
   - {fileID: 2000985288}
   m_Father: {fileID: 1165100749}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1881383482
 MonoBehaviour:
@@ -83462,7 +83769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
+  inkFileName: smoker0_first
+  interactAnimation: 
   sprite_renderer: {fileID: 1881383484}
   sprite_dict:
     m_keys:
@@ -83489,7 +83797,9 @@ MonoBehaviour:
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
-  fixedFacingDirection: 0
+  enemyStats: {fileID: 0}
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -84844,9 +85154,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1910407684}
   - component: {fileID: 1910407686}
+  - component: {fileID: 1910407687}
   - component: {fileID: 1910407685}
-  m_Layer: 0
-  m_Name: guy_1
+  m_Layer: 9
+  m_Name: Tonic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84867,8 +85178,8 @@ Transform:
   m_Father: {fileID: 1165100749}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &1910407685
-EdgeCollider2D:
+--- !u!61 &1910407685
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -84880,20 +85191,19 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.018493652, y: -0.49537182}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.65}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2095337, y: 1.3303242}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.4719944, y: 0.39104652}
-  - {x: 0.48286438, y: -1.0695515}
-  - {x: -0.37339783, y: -1.0641632}
-  - {x: -0.3778515, y: -0.11258316}
-  - {x: -0.2607212, y: -0.11288452}
-  - {x: -0.24228859, y: 0.37991905}
-  - {x: 0.468956, y: 0.39230347}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!212 &1910407686
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -84945,6 +85255,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1910407687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910407683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Tonic_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 1910407686}
+  sprite_dict:
+    m_keys:
+    - left
+    - right
+    - up
+    - down
+    m_values:
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 5624657675729855080, guid: e6ed9c2abd9908048a85e5ae1dadba4d, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -242108233439415808, guid: e6ed9c2abd9908048a85e5ae1dadba4d, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -4746668076384868937, guid: e6ed9c2abd9908048a85e5ae1dadba4d, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 3233806721428908320, guid: e6ed9c2abd9908048a85e5ae1dadba4d, type: 3}
+  enemyStats: {fileID: 0}
+  hasPortrait: 1
+  isFixedSprite: 0
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!1001 &1919125505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85506,6 +85866,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -86154,6 +86518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: shadow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
 --- !u!4 &2138895352 stripped
@@ -86640,6 +87008,10 @@ PrefabInstance:
     - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_Name
       value: shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754153143765940268, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}

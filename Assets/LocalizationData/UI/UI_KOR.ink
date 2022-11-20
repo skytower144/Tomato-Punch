@@ -32,6 +32,8 @@ BattleWon_ItemMessage : ?를 주웠다!
 
 
 Dialogue_TextField : 난 토마토가 아닌데.
+Choicebox_Yes : 예
+Choicebox_No : 아니요
 
 Paused : 일시정지
 Back : 뒤로

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections;
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,14 +10,21 @@ public class NPCController : MonoBehaviour, Interactable
 {
     [Header("Ink JSON")]
     [SerializeField] private string inkFileName;
-    //[SerializeField] private TextAsset inkJsonData;
+
+    [Header("Interact Animation")]
+    [SerializeField] private string interactAnimation;
 
     [Header("Graphic Control")]
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
 
-    [SerializeField] private bool fixedFacingDirection;
+    [Header("Battle Data")]
+    public EnemyBase enemyStats;
+
+    public bool hasPortrait;
+    private bool isAnimating = false;
+    [SerializeField] private bool isFixedSprite;
 
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
@@ -38,15 +47,26 @@ public class NPCController : MonoBehaviour, Interactable
     {
         if (ValidInteractDirection())
         {
-            FacePlayer();
-            TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
-            DialogueManager.instance.EnterDialogue(inkJsonData);
+            if (!String.IsNullOrEmpty(interactAnimation))
+            {
+                if (!isAnimating)
+                {
+                    isAnimating = true;
+                    StartCoroutine(PlayInteractAnimation());
+                }
+            }
+            else
+            {
+                FacePlayer();
+                TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
+                DialogueManager.instance.EnterDialogue(inkJsonData, this);
+            }
         }
     }
 
     private void FacePlayer()
     {
-        if (!fixedFacingDirection)
+        if (!isFixedSprite)
         {
             PlayerMovement playerMovement = PlayerMovement.instance;
             
@@ -71,13 +91,25 @@ public class NPCController : MonoBehaviour, Interactable
             SpriteAnimation animation = sprite_dict[animTag];
             spriteAnimator = new SpriteAnimator(sprite_renderer, animation.sprites, animation.fps, animation.is_loop);
         }
-
         else
         {
             List<Sprite> singleSprite = new List<Sprite>();
             singleSprite.Add(sprite_renderer.sprite);
             spriteAnimator = new SpriteAnimator(sprite_renderer, singleSprite, 0, false);
         }   
+    }
+
+    IEnumerator PlayInteractAnimation()
+    {
+        Play("interact");
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(2f));
+        Play("idle");
+        isAnimating = false;
+    }
+
+    public void LoadNextDialogue(string nextFileName)
+    {
+        inkFileName = nextFileName;
     }
 
     private bool ValidInteractDirection()

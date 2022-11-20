@@ -669,8 +669,9 @@ GameObject:
   - component: {fileID: 810568058}
   - component: {fileID: 810568060}
   - component: {fileID: 810568059}
-  m_Layer: 0
-  m_Name: kid_1
+  - component: {fileID: 810568061}
+  m_Layer: 9
+  m_Name: Kid1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,7 +704,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0028953552, y: -0.17669678}
+  m_Offset: {x: 0.0028953552, y: -0.2898674}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -714,7 +715,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4274597, y: 1.346878}
+  m_Size: {x: 1.4274597, y: 1.5732193}
   m_EdgeRadius: 0
 --- !u!212 &810568060
 SpriteRenderer:
@@ -767,6 +768,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &810568061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810568057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Kid1_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 810568060}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!1 &1089409704
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,8 +808,9 @@ GameObject:
   - component: {fileID: 1089409705}
   - component: {fileID: 1089409707}
   - component: {fileID: 1089409706}
-  m_Layer: 0
-  m_Name: kid_2
+  - component: {fileID: 1089409708}
+  m_Layer: 9
+  m_Name: Kid2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +843,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009914398, y: 0.001511395}
+  m_Offset: {x: -0.009914398, y: -0.05810547}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -823,7 +854,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1031799, y: 1.3030227}
+  m_Size: {x: 1.1031799, y: 1.4222565}
   m_EdgeRadius: 0
 --- !u!212 &1089409707
 SpriteRenderer:
@@ -876,6 +907,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1089409708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089409704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Kid2_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 1089409707}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
 --- !u!1 &1131973126
 GameObject:
   m_ObjectHideFlags: 0

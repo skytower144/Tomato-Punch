@@ -3108,7 +3108,7 @@ GameObject:
   - component: {fileID: 1245972754}
   - component: {fileID: 1245972756}
   - component: {fileID: 1245972757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Kid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3193,7 +3193,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.22741014, y: -0.3020798}
+  m_Offset: {x: -0.23489684, y: -0.3020798}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3204,7 +3204,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7451798, y: 1.2958405}
+  m_Size: {x: 1.6697937, y: 1.2958405}
   m_EdgeRadius: 0
 --- !u!114 &1245972757
 MonoBehaviour:
@@ -3218,8 +3218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFileName: 
-  sprite_renderer: {fileID: 0}
+  inkFileName: Kid_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 1245972754}
   sprite_dict:
     m_keys:
     - idle
@@ -3240,8 +3241,8 @@ MonoBehaviour:
       - {fileID: 7978282747390937135, guid: 01a724fe5706458459c60386d4617852, type: 3}
       - {fileID: 7978282747390937135, guid: 01a724fe5706458459c60386d4617852, type: 3}
       - {fileID: 7978282747390937135, guid: 01a724fe5706458459c60386d4617852, type: 3}
-  sprites: []
-  fps: 5
+  hasPortrait: 0
+  isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0

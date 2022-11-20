@@ -32,6 +32,8 @@ BattleWon_ItemMessage : Obtained ?!
 
 
 Dialogue_TextField : I'm not a tomato.
+Choicebox_Yes : Yes
+Choicebox_No : No
 
 Paused : PAUSED
 Back : Back

@@ -2265,8 +2265,9 @@ GameObject:
   - component: {fileID: 1410891496}
   - component: {fileID: 1410891498}
   - component: {fileID: 1410891497}
-  m_Layer: 0
-  m_Name: kid_1
+  - component: {fileID: 1410891499}
+  m_Layer: 9
+  m_Name: Kid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2299,7 +2300,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00059890747, y: -0.32019234}
+  m_Offset: {x: -0.00059890747, y: -0.40532303}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2310,7 +2311,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3522263, y: 1.1044121}
+  m_Size: {x: 1.3522263, y: 1.2746735}
   m_EdgeRadius: 0
 --- !u!212 &1410891498
 SpriteRenderer:
@@ -2363,6 +2364,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1410891499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410891495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Kid_homework
+  interactAnimation: 
+  sprite_renderer: {fileID: 1410891498}
+  sprite_dict:
+    m_keys:
+    - up
+    - down
+    - idle
+    m_values:
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 3489129232029360691, guid: 6c83f58422c1c12468947000aaf05786, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: -7533094880798424507, guid: 6c83f58422c1c12468947000aaf05786, type: 3}
+    - is_loop: 0
+      fps: 0
+      sprites:
+      - {fileID: 21300000, guid: 7893bc28dee627749a20922fe8fceff4, type: 3}
+  hasPortrait: 0
+  isFixedSprite: 0
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 1
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 1
+  lock_lu: 0
 --- !u!1001 &1526537658
 PrefabInstance:
   m_ObjectHideFlags: 0
