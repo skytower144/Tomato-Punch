@@ -1351,10 +1351,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221640597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09494cab4a574c54db1bb001ebca0a96, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: 616a4aac391077840a8d92f808f824a0, type: 2}
+  inkFileName: 
+  interactAnimation: 
+  sprite_renderer: {fileID: 1221640601}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
+  canBattle: 1
+  instantBattle: 1
+  enemyData: {fileID: 11400000, guid: 616a4aac391077840a8d92f808f824a0, type: 2}
 --- !u!58 &1221640599
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1926,10 +1945,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038353067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09494cab4a574c54db1bb001ebca0a96, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: f90d13b4be5c1dc419abbbef56f44eaf, type: 2}
+  inkFileName: 
+  interactAnimation: 
+  sprite_renderer: {fileID: 2038353071}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  hasPortrait: 0
+  isFixedSprite: 1
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
+  canBattle: 1
+  instantBattle: 1
+  enemyData: {fileID: 11400000, guid: f90d13b4be5c1dc419abbbef56f44eaf, type: 2}
 --- !u!58 &2038353069
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -8,27 +8,28 @@ public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{
 
 public class NPCController : MonoBehaviour, Interactable
 {
-    [Header("Ink JSON")]
+    [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
 
-    [Header("Interact Animation")]
+    [Header("[ Dialogueless ]")]
     [SerializeField] private string interactAnimation;
 
-    [Header("Graphic Control")]
+    [Header("[ Graphic Control ]")]
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
 
-    [Header("Battle Data")]
-    public EnemyBase enemyStats;
-
     public bool hasPortrait;
-    private bool isAnimating = false;
+    private bool isInteractAnimating = false;
     [SerializeField] private bool isFixedSprite;
 
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
-    
+
+    [HideInInspector] public bool canBattle;
+    [HideInInspector] public bool instantBattle;
+    [HideInInspector] public EnemyBase enemyData;
+
     private void Start()
     {
         if (sprite_renderer == null)
@@ -47,20 +48,27 @@ public class NPCController : MonoBehaviour, Interactable
     {
         if (ValidInteractDirection())
         {
-            if (!String.IsNullOrEmpty(interactAnimation))
+            if (!isInteractAnimating)
             {
-                if (!isAnimating)
+                if (!String.IsNullOrEmpty(interactAnimation))
                 {
-                    isAnimating = true;
+                    isInteractAnimating = true;
                     StartCoroutine(PlayInteractAnimation());
+                }
+
+                if (instantBattle)
+                {
+                    StartBattle(enemyData);
+                }
+                else if (!String.IsNullOrEmpty(inkFileName))
+                {
+                    FacePlayer();
+                    TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
+                    DialogueManager.instance.EnterDialogue(inkJsonData, this);
                 }
             }
             else
-            {
-                FacePlayer();
-                TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
-                DialogueManager.instance.EnterDialogue(inkJsonData, this);
-            }
+                return;
         }
     }
 
@@ -104,12 +112,21 @@ public class NPCController : MonoBehaviour, Interactable
         Play("interact");
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(2f));
         Play("idle");
-        isAnimating = false;
+        isInteractAnimating = false;
     }
 
     public void LoadNextDialogue(string nextFileName)
     {
         inkFileName = nextFileName;
+    }
+
+    public void StartBattle(EnemyBase enemy_data)
+    {
+        CustomBattleMode custom_mode = gameObject.GetComponent<CustomBattleMode>();
+        if (custom_mode != null)
+            custom_mode.ChangeBattleMode();
+        
+        GameManager.gm_instance.Initiate_Battle(enemy_data);
     }
 
     private bool ValidInteractDirection()

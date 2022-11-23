@@ -20,7 +20,7 @@ public class EnemyBase : ScriptableObject
     public StringStringDictionary EnemySuperedAnim;
 
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
-    [SerializeField] private List <Enemy_AttackDetail> enemyAttack;
+    [SerializeField] private List <Enemy_AttackDetail> enemyPattern;
     [SerializeField] private List <RewardDetail> itemReward;
     [SerializeField] private float battleExp;
     [SerializeField] private int battleCoin;
@@ -118,14 +118,20 @@ public class EnemyBase : ScriptableObject
     {
         get { return victory; }
     }
-    public Enemy_AttackDetail EnemyAttack(string attackName)
-    {
-        return enemyAttack.Find( x=> x.EnemyAttackName == attackName);
-    }
     public Enemy_ProjectileDetail EnemyPjSelect(string pjName)
     {
         return projectiles.Find( x=> x.EnemyPjName == pjName);
     }
+    public Enemy_AttackDetail EnemyAttack(string attackName)
+    {
+        return enemyPattern.Find( x=> x.EnemyAttackName == attackName);
+    }
+
+    public List<Enemy_AttackDetail> EnemyPattern
+    {
+        get { return enemyPattern; }
+    }
+
     public List<RewardDetail> ItemReward
     {
         get { return itemReward; }

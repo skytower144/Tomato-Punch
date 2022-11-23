@@ -8,20 +8,27 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
-    public Animator anim;
     [SerializeField] private StaminaIcon staminaIcon;
+    public Animator anim;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim;
-    [SerializeField] private GameObject GetReadyText, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
+    [SerializeField] private GameObject GetReadyText;
+    [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
+
+    public void SwitchCartridge(GameObject inputCartridge)
+    {
+        startingCartridge = inputCartridge;
+    }
     private void OnEnable()
     {
-        Instantiate(GetReadyText, transform);
+        Instantiate(startingCartridge, transform);
         Invoke("playIntro", 0.65f);
     }
     private void OnDisable()
     {
         normalize_resultCard();
+        startingCartridge = GetReadyText;
     }
 
     void Update()

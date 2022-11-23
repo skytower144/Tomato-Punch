@@ -8,61 +8,51 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
+    [System.NonSerialized] public List<Enemy_AttackDetail> pattern_list = new List<Enemy_AttackDetail>();
+
     void OnEnable()
     {
         enemy_isIntro = true;
     }
-    void EnemyMove(string movename)
+    void EnemyMove(Enemy_AttackDetail move)
     {
-        Enemy_AttackDetail EM = enemyCtrl._base.EnemyAttack(movename);
-        EnemyControl.isPhysical = EM.PhysicalAttack;
-        tomatoguard.damage = EM.EnemyAttackDmg;
-        enemyCtrl.attackType = EM.EnemyAttackType;
-        battleAnim.Play(movename);
+        EnemyControl.isPhysical = move.PhysicalAttack;
+        tomatoguard.damage = move.EnemyAttackDmg;
+        enemyCtrl.attackType = move.EnemyAttackType;
+        enemyCtrl.pjTag = move.EnemyAttackName;
+        battleAnim.Play(move.EnemyAttackName);
     }
 
     private bool ShouldActivate()
     {
         return (!tomatoControl.isFainted && !Enemy_is_hurt.enemy_isDefeated && !Enemy_parried.isParried && !Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched && !enemyCtrl.enemy_supered);
     }
-    public void Jola() // function name must be exact as EnemyBase.EnemyName
+
+    public void ProceedAction()
     {
-        if(!enemy_isIntro) {
+        if(!enemy_isIntro)
+        {
             if(enemyCtrl.action_afterSuffer)
             {
                 enemyCtrl.action_afterSuffer = false;
                 return;
             }
-            else if(ShouldActivate())
+            else if (ShouldActivate())
             {
-                
-                if((Random.value<= 0.1))
+                int randomPercent = Random.Range(0, 101);
+                int sumPercent = 0;
+
+                for (int i = 0; i < pattern_list.Count; i++)
                 {
-                    battleAnim.Play("battleJola_idle");
-                }
-                else if((Random.value<= 0.45))
-                {
-                    EnemyMove("battleJola_LA");
-                }
-                else if((Random.value<= 0.3))
-                {
-                    EnemyMove("battleJola_RA");
-                }
-                else if((Random.value<= 0.5))
-                {
-                    EnemyMove("battleJola_DA");
-                }
-                else if((Random.value<= 0.2))
-                {
-                    enemyCtrl.pjTag = "battleJola_HatAttack";
-                    EnemyMove("battleJola_HatAttack");
+                    sumPercent += pattern_list[i].percentage;
+                    if (sumPercent >= randomPercent)
+                    {
+                        Enemy_AttackDetail selectedMove = pattern_list[i];
+                        EnemyMove(selectedMove);
+                        break;
+                    }
                 }
             }
         }
-    }
-
-    public void Slime()
-    {
-        Debug.Log("slime is active!");
     }
 }

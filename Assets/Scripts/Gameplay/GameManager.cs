@@ -9,14 +9,13 @@ public class GameManager : MonoBehaviour
     GameState gameState;
 
     [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] BattleSystem battleSystem;
+    [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
     [SerializeField] EnemyControl enemyControl;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey;
     [SerializeField] ControlScroll controlScroll;
     [SerializeField] UIControl uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
-
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 

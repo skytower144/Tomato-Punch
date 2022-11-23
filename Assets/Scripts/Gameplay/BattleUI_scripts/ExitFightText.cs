@@ -5,7 +5,7 @@ public class ExitFightText : MonoBehaviour
     void UnleashCharacters()
     {
         if(!tomatoControl.isFainted){
-            DOTween.Play("intro");
+            DOTween.Play("intro"); // HealthBar UI DoTween
             tomatoControl.isIntro = false;
             EnemyAIControl.enemy_isIntro = false;
         }

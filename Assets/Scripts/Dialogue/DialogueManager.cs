@@ -1,9 +1,10 @@
 using UnityEngine.UI;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
 using Ink.Runtime;
+
 
 public class DialogueManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private List<TextMeshProUGUI> choiceText;
     
+    private UnityEngine.Object tempObject = null;
     private NPCController currentNpc;
     private Story currentStory;
     private string currentSentence;
@@ -32,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     private const string PORTRAIT_TAG = "portrait";
     private const string DIALOGUE_TAG = "nextdialogue";
     private const string ANIM_TAG = "animate";
+    private const string BATTLE_TAG = "battle"; 
 
     private void Awake()
     {
@@ -86,6 +89,17 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
 
         playerMovement.SetIsInteracting(false);
+        InvokeEvent();
+    }
+
+    private void InvokeEvent()
+    {
+        if (tempObject is EnemyBase)
+        {
+            currentNpc.StartBattle((EnemyBase)tempObject);
+        }
+
+        tempObject = null;
     }
 
     private void ContinueStory()
@@ -165,6 +179,9 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case ANIM_TAG:
                     currentNpc.Play(tag_value);
+                    break;
+                case BATTLE_TAG:
+                    tempObject = currentNpc.enemyData;
                     break;
                 default:
                     Debug.Log("Tag detected but not handled." + tag);

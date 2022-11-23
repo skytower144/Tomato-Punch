@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
+    public TextSpawn textSpawn;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
@@ -25,8 +26,6 @@ public class BattleSystem : MonoBehaviour
     }
     // public void HandleUpdate()
     // {
-        
-        
     // }
     public void ExitBattle()
     {

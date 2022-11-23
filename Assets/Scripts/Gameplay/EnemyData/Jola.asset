@@ -47,23 +47,32 @@ MonoBehaviour:
   projectiles:
   - EnemyPjName: battleJola_HatAttack
     EnemyProjectile: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
-  enemyAttack:
+  enemyPattern:
+  - EnemyAttackName: battleJola_idle
+    PhysicalAttack: 0
+    percentage: 60
+    EnemyAttackDmg: 0
+    EnemyAttackType: 4
   - EnemyAttackName: battleJola_LA
     PhysicalAttack: 1
-    EnemyAttackDmg: 1
-    EnemyAttackType: -1
+    percentage: 15
+    EnemyAttackDmg: 2
+    EnemyAttackType: 0
   - EnemyAttackName: battleJola_RA
     PhysicalAttack: 1
-    EnemyAttackDmg: 1
+    percentage: 15
+    EnemyAttackDmg: 2
     EnemyAttackType: 1
   - EnemyAttackName: battleJola_DA
     PhysicalAttack: 1
-    EnemyAttackDmg: 2
-    EnemyAttackType: -101
+    percentage: 5
+    EnemyAttackDmg: 1
+    EnemyAttackType: 2
   - EnemyAttackName: battleJola_HatAttack
     PhysicalAttack: 0
+    percentage: 5
     EnemyAttackDmg: 0.5
-    EnemyAttackType: 0
+    EnemyAttackType: 3
   itemReward:
   - RewardItem: {fileID: 11400000, guid: 9499252a5832d5f418fd1f458614be12, type: 2}
     DropChance: 80

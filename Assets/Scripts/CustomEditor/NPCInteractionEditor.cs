@@ -5,6 +5,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
+    private SerializedProperty canBattle, instantBattle, enemyData;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -16,6 +17,10 @@ public class NPCInteractionEditor : Editor
         lock_rd = serializedObject.FindProperty("lock_rd");
         lock_ld = serializedObject.FindProperty("lock_ld");
         lock_lu = serializedObject.FindProperty("lock_lu");
+
+        canBattle = serializedObject.FindProperty("canBattle");
+        instantBattle = serializedObject.FindProperty("instantBattle");
+        enemyData = serializedObject.FindProperty("enemyData");
     }
     public override void OnInspectorGUI()
     {
@@ -50,6 +55,21 @@ public class NPCInteractionEditor : Editor
             EditorGUILayout.EndHorizontal();
         
             EditorGUI.indentLevel--;   
+        }
+
+        EditorGUILayout.Space();
+        npcControl.canBattle = EditorGUILayout.Toggle("Can Battle", npcControl.canBattle);
+        
+
+        if (npcControl.canBattle)
+        {
+            // GUILayout.FlexibleSpace();
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUI.indentLevel++;
+
+            npcControl.instantBattle = EditorGUILayout.Toggle("Instant Battle", npcControl.instantBattle);
+            npcControl.enemyData = EditorGUILayout.ObjectField("Battle Data", npcControl.enemyData, typeof(EnemyBase), true) as EnemyBase;
+            EditorGUI.indentLevel--;
         }
 
         serializedObject.ApplyModifiedProperties();

@@ -24426,7 +24426,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 58, y: 13, z: 0}
@@ -24455,7 +24455,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -5, y: 15, z: 0}
@@ -24483,7 +24483,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 35, y: 15, z: 0}
@@ -24503,7 +24503,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 51, y: 15, z: 0}
@@ -24657,7 +24657,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 56, y: 34, z: 0}
@@ -24762,7 +24762,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -19, y: 52, z: 0}
@@ -25395,7 +25395,6 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
-  enemyStats: {fileID: 0}
   hasPortrait: 1
   isFixedSprite: 1
   banInteractDirection: 1
@@ -25407,6 +25406,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &28669339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7422980009682269371, guid: fd7da41304562a843ba70312ba9c9767, type: 3}
@@ -25791,7 +25793,6 @@ MonoBehaviour:
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
       - {fileID: -6699017157949085458, guid: 295949783d05b2248a6cef6e880defbd, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -25803,6 +25804,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &136296097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26781,7 +26785,6 @@ MonoBehaviour:
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
       - {fileID: 8838776831881974053, guid: f838f4b60533f6b43bb091ac8808dce9, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -26793,6 +26796,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &300617526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8501819917056238330, guid: e9658be5d8c4c0948b4d09ee2c198b5a, type: 3}
@@ -26905,7 +26911,6 @@ MonoBehaviour:
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
       - {fileID: -3565807157066834334, guid: 1b7911e63b640ff44bf246799dffbed8, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -26917,6 +26922,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 1
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1 &312559985
 GameObject:
   m_ObjectHideFlags: 0
@@ -27046,7 +27054,6 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
-  enemyStats: {fileID: 0}
   hasPortrait: 1
   isFixedSprite: 1
   banInteractDirection: 1
@@ -27058,6 +27065,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 1
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &326477237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7422980009682269371, guid: fd7da41304562a843ba70312ba9c9767, type: 3}
@@ -27528,7 +27538,6 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -27540,6 +27549,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &364415828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28044,7 +28056,6 @@ MonoBehaviour:
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
       - {fileID: 695562384191678183, guid: 93c333d47fe1a5c4ea3f2af7780aec5b, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -28056,6 +28067,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &412756808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28683,7 +28697,6 @@ MonoBehaviour:
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
       - {fileID: -9124582407814130825, guid: 8b51322c9374fd14da974315eb34b9b1, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -28695,6 +28708,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &514501861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8501819917056238330, guid: e9658be5d8c4c0948b4d09ee2c198b5a, type: 3}
@@ -29853,7 +29869,6 @@ MonoBehaviour:
       fps: 0
       sprites:
       - {fileID: -6163092401881913802, guid: bb41824eff705a94485299380c637349, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 1
   isFixedSprite: 0
   banInteractDirection: 0
@@ -29865,6 +29880,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &660932005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4239121796549231783, guid: 47a2c5771897e204e8912d7ce2b99108, type: 3}
@@ -30349,7 +30367,6 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -30361,6 +30378,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &716719553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31031,7 +31051,6 @@ MonoBehaviour:
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 5626149497181746903, guid: aab6310c9661293478fcf97502480e95, type: 3}
       - {fileID: 2608576669272263717, guid: aab6310c9661293478fcf97502480e95, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -31043,6 +31062,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &805378730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6840835909920859953, guid: 614538e51b1002b429c6c0637a9e0d20, type: 3}
@@ -31441,7 +31463,6 @@ MonoBehaviour:
       fps: 0
       sprites:
       - {fileID: -8755001401005124512, guid: 245e86dd0bd7cf24db797a627278c264, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 1
   isFixedSprite: 0
   banInteractDirection: 0
@@ -31453,6 +31474,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &865270986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4677862585124394164, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -32736,7 +32760,6 @@ MonoBehaviour:
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: 2175753335287925220, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
       - {fileID: -4315288815891596002, guid: 38d2620a50b35474685e47366decf2f5, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -32748,6 +32771,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!210 &1112986977
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -33764,7 +33790,6 @@ MonoBehaviour:
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
       - {fileID: 4436509576158165942, guid: c0b0fede7dd6dbf4cb825d24e1368671, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -33776,6 +33801,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!4 &1251120528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4239121796549231783, guid: 47a2c5771897e204e8912d7ce2b99108, type: 3}
@@ -35330,7 +35358,6 @@ MonoBehaviour:
       - {fileID: -5434866741639216381, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
       - {fileID: 3354580511505207512, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
       - {fileID: 1378461352916931750, guid: 9b6db472953cf94439ae90a61a6eed5a, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 1
@@ -35342,6 +35369,9 @@ MonoBehaviour:
   lock_ld: 1
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &1459203529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37101,7 +37131,6 @@ MonoBehaviour:
   sprite_dict:
     m_keys: []
     m_values: []
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -37113,6 +37142,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &1642249499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83797,7 +83829,6 @@ MonoBehaviour:
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
       - {fileID: 57257351899025169, guid: d788d6511ee62874f9be5a9831d96673, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
@@ -83809,6 +83840,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!61 &1881383483
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -85155,6 +85189,7 @@ GameObject:
   - component: {fileID: 1910407684}
   - component: {fileID: 1910407686}
   - component: {fileID: 1910407687}
+  - component: {fileID: 1910407688}
   - component: {fileID: 1910407685}
   m_Layer: 9
   m_Name: Tonic
@@ -85293,7 +85328,6 @@ MonoBehaviour:
       fps: 0
       sprites:
       - {fileID: 3233806721428908320, guid: e6ed9c2abd9908048a85e5ae1dadba4d, type: 3}
-  enemyStats: {fileID: 0}
   hasPortrait: 1
   isFixedSprite: 0
   banInteractDirection: 0
@@ -85305,6 +85339,22 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 1
+  instantBattle: 0
+  enemyData: {fileID: 11400000, guid: f90d13b4be5c1dc419abbbef56f44eaf, type: 2}
+--- !u!114 &1910407688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910407683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d987db169444f48bc9b8ca32e54dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartridge: {fileID: 4576703409326335794, guid: 8702b7bdc505c4c48807a3859bd809e8, type: 3}
 --- !u!1001 &1919125505
 PrefabInstance:
   m_ObjectHideFlags: 0

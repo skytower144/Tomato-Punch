@@ -24,7 +24,7 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
     [HideInInspector] public bool enemy_supered = false;
-    [HideInInspector] public int attackType;
+    [HideInInspector] public AttackType attackType;
     [HideInInspector] public string pjTag;     // pj selection string
     
     public static int totalParry = 0;
@@ -39,7 +39,8 @@ public class EnemyControl : MonoBehaviour
 
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;
-        enemyAIControl.InvokeRepeating(_base.EnemyName,1f,2f);
+        enemyAIControl.pattern_list = _base.EnemyPattern;
+        enemyAIControl.InvokeRepeating("ProceedAction",1f,2f);
     }
 
     void OnDisable()
@@ -141,22 +142,21 @@ public class EnemyControl : MonoBehaviour
         counterBox.SetActive(false);
     }
 
-    void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.
-                      // -1: left, 1: right, -101: down, 0: center                
+    void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.            
     {
-        if(attackType == -1)
+        if(attackType == AttackType.LA)
         {   
             Instantiate (enemy_LA, Parent);
         }
-        else if(attackType == 1)
+        else if(attackType == AttackType.RA)
         {
             Instantiate (enemy_RA, Parent);
         }
-        else if(attackType == -101)
+        else if(attackType == AttackType.DA)
         {
             Instantiate (enemy_DA, Parent);
         }
-        else if(attackType == 0)
+        else if(attackType == AttackType.PJ)
         {
             Instantiate (enemy_PJ, Parent);
         }
