@@ -9,9 +9,8 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private StaminaIcon staminaIcon;
-    public Animator anim;
     [SerializeField] private Animator tomatoAnim;
-    [SerializeField] private Animator enemyAnim;
+    [SerializeField] private Animator enemyAnim; public Animator enemy_anim => enemyAnim;
     [SerializeField] private GameObject GetReadyText;
     [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
@@ -33,7 +32,7 @@ public class TextSpawn : MonoBehaviour
 
     void Update()
     {
-        if (isMiss)
+        if (isMiss && !TutorialMode.isTutorial)
         {
             randomPosition = Random.insideUnitSphere * 1.5f + new Vector3(-30,0,0);
             GameObject miss = Instantiate(missEffect, transform);

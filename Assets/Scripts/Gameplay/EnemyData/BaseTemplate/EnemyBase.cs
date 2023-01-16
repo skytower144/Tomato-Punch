@@ -10,6 +10,7 @@ public class EnemyBase : ScriptableObject
 {   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
     [SerializeField] private string enemyName;
     [SerializeField] private List<Sprite> frontSprite;
+    public BgName bgName;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
@@ -146,3 +147,5 @@ public class EnemyBase : ScriptableObject
     }
 
 }
+
+public enum BgName { bg_tutorial, bg_forest }

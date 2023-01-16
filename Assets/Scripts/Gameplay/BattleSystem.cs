@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip;
+    [SerializeField] private Image background;
     [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
     void Start()
     {
@@ -31,6 +32,13 @@ public class BattleSystem : MonoBehaviour
     {
         OnBattleOver();
         enemyControl.ClearAnimation();
+    }
+
+    public void SetBg(BgName bg_name)
+    {
+        string bgName = bg_name.ToString();
+        Sprite loadedBg = Resources.Load<Sprite>($"BattleBackground/{bgName}");
+        background.sprite = loadedBg;
     }
 
     public void UpdatePlayerStatus(int updated_level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)

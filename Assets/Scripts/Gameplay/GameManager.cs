@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
         // }
     }
 
+    // Initiate_Battle() => StartBattle() => Wait()
     public void Initiate_Battle(EnemyBase enemy_base)
     {
         PlayerMovement.isBattle = true;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
         playerAnimator.SetBool("isWalking",false);
 
         enemyControl._base = enemy_base;
+        battle_system.SetBg(enemy_base.bgName);
 
         player_x = playerMovement.transform.position.x;
         player_y = playerMovement.transform.position.y;

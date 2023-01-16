@@ -285,7 +285,8 @@ public class RebindKey : MonoBehaviour
                 changed_path,
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
             
-            string changed_text = controlScroll.bindingDisplayText_key()[menu_idx].text;
+            string changed_text = LinkKeyText(changed_path, controlScroll.bindingDisplayText_key()[menu_idx].text);
+
             if (controlScroll.isModeRoam)
                 uIControl.UI_Update_Text(changed_text, cached_path, changed_path);
         }
@@ -297,6 +298,133 @@ public class RebindKey : MonoBehaviour
         }
     }
 
+    private string LinkKeyText(string path, string originalTag)
+    {
+        switch (path) {
+            case "<Keyboard>/backspace":
+                return "BACK";
+
+            case "<Keyboard>/insert":
+                return "INSR";
+
+            case "<Keyboard>/pageUp":
+                return "PGUP";
+            
+            case "<Keyboard>/delete":
+                return "DEL";
+            
+            case "<Keyboard>/pageDown":
+                return "PGDN";
+            
+            case "<Keyboard>/capsLock":
+                return "CAPS";
+            
+            case "<Keyboard>/enter":
+                return "ENTR";
+
+            case "<Keyboard>/leftShift":
+                return "LSHF";
+            
+            case "<Keyboard>/rightShift":
+                return "RSHF";
+            
+            case "<Keyboard>/leftCtrl":
+                return "LCTR";
+            
+            case "<Keyboard>/leftMeta":
+                return "LSYS";
+            
+            case "<Keyboard>/leftAlt":
+                return "LALT";
+            
+            case "<Keyboard>/space":
+                return "SPC";
+            
+            case "<Keyboard>/rightAlt":
+                return "RALT";
+            
+            case "<Keyboard>/contextMenu":
+                return "MENU";
+
+            case "<Keyboard>/rightCtrl":
+                return "RCTR";
+            
+            case "<Keyboard>/upArrow":
+                return "UP";
+            
+            case "<Keyboard>/downArrow":
+                return "DOWN";
+            
+            case "<Keyboard>/leftArrow":
+                return "LEFT";
+            
+            case "<Keyboard>/rightArrow":
+                return "RGHT";
+            
+            case "<Keyboard>/numLock":
+                return "NMLK";
+            
+            case "<Keyboard>/numpadDivide":
+                return "N/";
+
+            case "<Keyboard>/numpadMultiply":
+                return "N*";
+            
+            case "<Keyboard>/numpadMinus":
+                return "N-";
+            
+            case "<Keyboard>/numpadPlus":
+                return "N+";
+            
+            case "<Keyboard>/numpadEnter":
+                return "NENT";
+            
+            case "<Keyboard>/numpadPeriod":
+                return "N.";
+            
+            case "<Keyboard>/numpad0":
+                return "N0";
+            
+            case "<Keyboard>/numpad1":
+                return "N1";
+            
+            case "<Keyboard>/numpad2":
+                return "N2";
+            
+            case "<Keyboard>/numpad3":
+                return "N3";
+            
+            case "<Keyboard>/numpad4":
+                return "N4";
+            
+            case "<Keyboard>/numpad5":
+                return "N5";
+            
+            case "<Keyboard>/numpad6":
+                return "N6";
+            
+            case "<Keyboard>/numpad7":
+                return "N7";
+            
+            case "<Keyboard>/numpad8":
+                return "N8";
+            
+            case "<Keyboard>/numpad9":
+                return "N9";
+            
+            case "<Mouse>/leftButton":
+                return "LCLK";
+            
+            case "<Mouse>/rightButton":
+                return "RCLK";
+            
+            default:
+                if (originalTag.Length > 4)
+                    return originalTag.Substring(0, 4).ToUpper();
+                else
+                    return originalTag.ToUpper();
+        }
+    }
     private Sprite LinkSprite(int menu_idx, string path)
     {
         if (path == "<Gamepad>/start")
