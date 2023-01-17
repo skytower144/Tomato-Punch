@@ -9,6 +9,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private StaminaIcon staminaIcon;
+    [SerializeField] private RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private Animator enemyAnim; public Animator enemy_anim => enemyAnim;
     [SerializeField] private GameObject GetReadyText;

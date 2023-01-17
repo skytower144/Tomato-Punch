@@ -5,20 +5,49 @@ using UnityEngine;
 public class TutorialMode : MonoBehaviour
 {
     public static bool isTutorial = false;
-    [SerializeField] private GameObject warmupText;
+    [SerializeField] private GameObject warmupText, controlGuide;
     private Animator anim;
+    private TextSpawn textSpawn;
+
     void OnEnable()
     {
         isTutorial = true;
-        anim = transform.parent.gameObject.GetComponent<TextSpawn>().enemy_anim;
+        textSpawn = transform.parent.gameObject.GetComponent<TextSpawn>();
+        anim = textSpawn.enemy_anim;
 
-        Instantiate(warmupText, transform);
+        GameObject temp = Instantiate(warmupText, transform);
+        Destroy(temp, 3f);
+
         Invoke("StartWorkout", 2.5f);
     }
 
     private void StartWorkout()
     {
         tomatoControl.isIntro = false;
-        anim.Play("Tutorial_start");
+        StartCoroutine(WarmUp());
+        Instantiate(controlGuide, transform);
+    }
+
+    IEnumerator WarmUp()
+    {
+        yield return Play("Tutorial_LeftEvade");
+        
+
+        yield return Play("Tutorial_intro");
+
+        yield return Play("Tutorial_RightEvade");
+        
+
+        yield return Play("Tutorial_intro");
+    }
+
+    private object Play(string animName)
+    {
+        return StartCoroutine(AnimWaitPlay.Play(anim, animName));
+    }
+
+    private void DisplayControlGuide()
+    {
+
     }
 }

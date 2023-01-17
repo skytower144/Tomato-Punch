@@ -24,6 +24,19 @@ public class RebindKey : MonoBehaviour
     
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
+    Dictionary<string, int> actionTagDict = new Dictionary<string, int>()
+    {
+        {"Jump", 0},
+        {"Guard", 1},
+        {"LeftEvade", 2},
+        {"RightEvade", 3},
+        {"LeftPunch", 4},
+        {"RightPunch", 5},
+        {"Skill1", 6},
+        {"Skill2", 7},
+        {"Super", 8}
+    };
+
     private void OnDisable()
     {
         if(rebindingOperation != null)
@@ -296,6 +309,18 @@ public class RebindKey : MonoBehaviour
             if (controlScroll.isModeRoam)
                 uIControl.UI_Update_Sprite(changed_sprite, cached_path, changed_path);
         }
+    }
+
+    public string ReturnKeyMapTag(string moveName)
+    {
+        int actionIndex = actionTagDict[moveName];
+        return LinkKeyText(actionList_battle[actionIndex].action.bindings[bindingIndex].effectivePath, "");
+    }
+
+    public Sprite ReturnPadMapTag(string moveName)
+    {
+        int actionIndex = actionTagDict[moveName];
+        return LinkSprite(actionIndex, actionList_battle[actionIndex].action.bindings[bindingIndex].effectivePath);
     }
 
     private string LinkKeyText(string path, string originalTag)

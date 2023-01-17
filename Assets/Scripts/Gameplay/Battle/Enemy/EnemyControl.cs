@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class EnemyControl : MonoBehaviour
 {
-    public EnemyBase _base;
+    [HideInInspector] public EnemyBase _base;
     private Animator anim;
     private SpriteRenderer enemy_renderer;
     private Material matDefault;
@@ -28,7 +28,7 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public string pjTag;     // pj selection string
     
     public static int totalParry = 0;
-    public int totalSuper = 0;
+    [HideInInspector] public int totalSuper = 0;
 
     void OnEnable()
     {
