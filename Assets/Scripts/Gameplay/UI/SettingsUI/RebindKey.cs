@@ -452,6 +452,8 @@ public class RebindKey : MonoBehaviour
     }
     private Sprite LinkSprite(int menu_idx, string path)
     {
+        string lowerCasePath = path.ToLower();
+
         if (path == "<Gamepad>/start")
             controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[0];
 
@@ -482,10 +484,10 @@ public class RebindKey : MonoBehaviour
         else if(path == "<Gamepad>/buttonSouth")
             controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[9];
         
-        else if(path == "<Gamepad>/leftTrigger")
+        else if((path == "<Gamepad>/leftTrigger") || (lowerCasePath.Contains("trigger") && lowerCasePath.Contains("left")))
             controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[10];
 
-        else if(path == "<Gamepad>/rightTrigger")
+        else if((path == "<Gamepad>/rightTrigger") || (lowerCasePath.Contains("trigger") && lowerCasePath.Contains("right")))
             controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[11];
         
         else if(path == "<Gamepad>/leftShoulder")
@@ -523,6 +525,15 @@ public class RebindKey : MonoBehaviour
         
         else if(path == "<Gamepad>/leftStick/up")
             controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[23];
+        
+        else if (lowerCasePath.Contains("system") && lowerCasePath.Contains("button"))
+            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[24];
+        
+        else if (lowerCasePath.Contains("touchpad"))
+            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[25];
+        
+        else
+            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[26];
         
         return controlScroll.bindingDisplayText_pad()[menu_idx].sprite;
     }
