@@ -145,6 +145,7 @@ public class TitleScreen : MonoBehaviour
             {
                 pauseMenu.SetMenuNumber(2);
                 pauseMenu.SelectMenu();
+                busy_with_menu = true;
             }
             else if (menuNumber == 1)
             {
@@ -152,6 +153,7 @@ public class TitleScreen : MonoBehaviour
                     PromptNewSave();
                 else
                     ProceedNewSave();
+                busy_with_menu = true;
             }
             else if(menuNumber == 2)
             {
@@ -163,7 +165,6 @@ public class TitleScreen : MonoBehaviour
             {
                 pauseMenu.QuitGame();
             }
-            busy_with_menu = true;
         }
         else if (isPrompt)
         {

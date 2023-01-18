@@ -49,8 +49,9 @@ public class OptionScript : MonoBehaviour
     public void EnableNavigation()
     {
         canNavigate = true;
-        if (TitleScreen.isTitleScreen)
+        if (TitleScreen.isTitleScreen) {
             TitleScreen.instance.gameObject.SetActive(false);
+        }
     }
     public void OpenOptions()
     {

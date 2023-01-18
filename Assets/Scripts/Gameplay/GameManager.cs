@@ -149,11 +149,16 @@ public class GameManager : MonoBehaviour
                 return;
             }
             
-            if(string.IsNullOrEmpty(names[0]))
-                uiControl.UI_Update(true);
+            foreach (string name in names)
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    uiControl.UI_Update(false);
+                    return;
+                }
+            }
             
-            else
-                uiControl.UI_Update(false);
+            uiControl.UI_Update(true);
         }
     }
 

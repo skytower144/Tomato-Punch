@@ -27,6 +27,9 @@ public class ResolutionMenu : MonoBehaviour
         NormalizeMenu();
         graphicMenuNumber = 0;
         HighlightMenu();
+
+        if (TitleScreen.isTitleScreen)
+            TitleScreen.busy_with_menu = true;
     }
     private void OnDisable()
     {

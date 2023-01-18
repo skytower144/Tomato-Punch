@@ -9,12 +9,14 @@ public class DisableOption : MonoBehaviour
     private void OffOption()
     {
         optionScript.TurnoffOption();
+        
+        if (TitleScreen.isTitleScreen)
+            TitleScreen.busy_with_menu = false;
     }
     
     private void TurnOnTitle()
     {
         if (TitleScreen.isTitleScreen){
-            TitleScreen.busy_with_menu = false;
             TitleScreen.instance.gameObject.SetActive(true);
         }
     }
