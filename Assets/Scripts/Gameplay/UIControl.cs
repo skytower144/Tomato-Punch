@@ -16,9 +16,9 @@ public class UIControl : MonoBehaviour
     
     [Header("LOCALIZATION")]
     public static string currentLangMode = "eng"; 
-    public Dictionary<string, string> uiTextDict = new Dictionary<string, string>();
+    public Dictionary<string, string> uiTextDict = new Dictionary<string, string>(); // uitext - translation
     [SerializeField] private StringTextasset inkLangDict = new StringTextasset();
-    public List<TextAndFont> textDataList = new List<TextAndFont>();
+    public List<TextAndFont> textDataList = new List<TextAndFont>(); // text - fontdata
     private Story UIData;
 
     public static UIControl instance { get; private set; }
@@ -92,11 +92,24 @@ public class UIControl : MonoBehaviour
             TextMeshProUGUI targetText = textData.target_text;
             
             targetText.text = uiTextDict[targetText.name];
-            targetText.font = textData.fontDict[language].font_type;
-            targetText.fontSize = textData.fontDict[language].font_size;
-            targetText.characterSpacing = textData.fontDict[language].character_space;
-            targetText.wordSpacing = textData.fontDict[language].word_space;
-            targetText.lineSpacing = textData.fontDict[language].line_space;
+
+            if (textData.fontDict[language].font_type == null)
+            {
+                FontData defaultSetting = textDataList[0].fontDict[language];
+                targetText.font = defaultSetting.font_type;
+                targetText.fontSize = defaultSetting.font_size;
+                targetText.characterSpacing = defaultSetting.character_space;
+                targetText.wordSpacing = defaultSetting.word_space;
+                targetText.lineSpacing = defaultSetting.line_space;
+            }
+            else
+            {
+                targetText.font = textData.fontDict[language].font_type;
+                targetText.fontSize = textData.fontDict[language].font_size;
+                targetText.characterSpacing = textData.fontDict[language].character_space;
+                targetText.wordSpacing = textData.fontDict[language].word_space;
+                targetText.lineSpacing = textData.fontDict[language].line_space;
+            }
         }
     }
 
