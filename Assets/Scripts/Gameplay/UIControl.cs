@@ -46,6 +46,15 @@ public class UIControl : MonoBehaviour
         }
     }
 
+    public void UI_GamepadSwitch()
+    {
+        for (int i = 0; i < ui_bundle.Count; i++)
+        {
+            ui_bundle[i].GetComponent<CanToggleIcon>()?.ToggleGamepadIcon();
+        }
+        controlScroll.ToggleGamepadIcon();
+    }
+
     public void UI_Update_Text(string changedText, string oldPath,string newPath)
     {
         for (int i = 0; i < ui_bundle.Count; i++)

@@ -382,6 +382,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "85233ce4-59f9-476d-9724-e0df175a9f74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -580,6 +588,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SuperSkill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f964322e-586a-4479-9b90-6799f05c3af2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "243d7c0a-7534-4458-8620-ead19edd7464",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

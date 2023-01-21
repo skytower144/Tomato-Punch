@@ -404,6 +404,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""85233ce4-59f9-476d-9724-e0df175a9f74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -604,6 +612,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SuperSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f964322e-586a-4479-9b90-6799f05c3af2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""243d7c0a-7534-4458-8620-ead19edd7464"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -697,6 +727,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Battle_FirstEquip = m_Battle.FindAction("FirstEquip", throwIfNotFound: true);
         m_Battle_SecondEquip = m_Battle.FindAction("SecondEquip", throwIfNotFound: true);
         m_Battle_SuperSkill = m_Battle.FindAction("SuperSkill", throwIfNotFound: true);
+        m_Battle_Esc = m_Battle.FindAction("Esc", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
     }
@@ -848,6 +879,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_FirstEquip;
     private readonly InputAction m_Battle_SecondEquip;
     private readonly InputAction m_Battle_SuperSkill;
+    private readonly InputAction m_Battle_Esc;
     public struct BattleActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -861,6 +893,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @FirstEquip => m_Wrapper.m_Battle_FirstEquip;
         public InputAction @SecondEquip => m_Wrapper.m_Battle_SecondEquip;
         public InputAction @SuperSkill => m_Wrapper.m_Battle_SuperSkill;
+        public InputAction @Esc => m_Wrapper.m_Battle_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -897,6 +930,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SuperSkill.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
                 @SuperSkill.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
                 @SuperSkill.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
+                @Esc.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnEsc;
+                @Esc.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnEsc;
+                @Esc.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnEsc;
             }
             m_Wrapper.m_BattleActionsCallbackInterface = instance;
             if (instance != null)
@@ -928,6 +964,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SuperSkill.started += instance.OnSuperSkill;
                 @SuperSkill.performed += instance.OnSuperSkill;
                 @SuperSkill.canceled += instance.OnSuperSkill;
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
             }
         }
     }
@@ -1023,6 +1062,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnFirstEquip(InputAction.CallbackContext context);
         void OnSecondEquip(InputAction.CallbackContext context);
         void OnSuperSkill(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

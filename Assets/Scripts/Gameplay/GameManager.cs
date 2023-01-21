@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
     GameState gameState;
 
-    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
     [SerializeField] EnemyControl enemyControl;
     [SerializeField] ResolutionMenu resolutionMenu;
-    [SerializeField] RebindKey rebindKey;
-    [SerializeField] ControlScroll controlScroll;
+    [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
+    [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
     [SerializeField] UIControl uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
     [SerializeField] Camera mainCamera;
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
 
+    public int gamepadType;
     public float stickSensitivity;
 
     [System.NonSerialized] public float holdStartTime = float.MaxValue;
@@ -68,8 +69,8 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.FreeRoam)
         {
             playerMovement.HandleUpdate();
-            DetectGamepad();
         }
+        DetectGamepad();
         // else if(gameState == GameState.Battle)
         // {
         //     battleSystem.HandleUpdate();
@@ -138,6 +139,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateGamepadType()
+    {
+        string [] names = Input.GetJoystickNames();
+
+        if (names.Length > 0)
+        {
+            foreach (string name in names)
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    string lowerCase = name.ToLower();
+
+                    if (lowerCase.Contains("xbox"))
+                        gamepadType = 1;
+                    else if ((lowerCase.Contains("ps")) || lowerCase.Contains("wireless"))
+                        gamepadType = 2;
+                }
+            }
+        }
+    }
+
     private void DetectGamepad()
     {
         if (!rebindKey.isBinding)
@@ -153,6 +175,18 @@ public class GameManager : MonoBehaviour
             {
                 if (!string.IsNullOrEmpty(name))
                 {
+                    int prevType = gamepadType;
+                    string lowerCase = name.ToLower();
+
+                    if (lowerCase.Contains("xbox") || (lowerCase.Contains("x") && lowerCase.Contains("controller")))
+                        gamepadType = 1;
+                    else if ((lowerCase.Contains("ps")) || lowerCase.Contains("wireless"))
+                        gamepadType = 2;
+                    
+                    if (prevType != gamepadType) {
+                        uiControl.UI_GamepadSwitch();
+                    }
+
                     uiControl.UI_Update(false);
                     return;
                 }

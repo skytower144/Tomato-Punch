@@ -8,6 +8,8 @@ public class RebindSaveLoad : MonoBehaviour
 
     public void OnEnable()
     {
+        GameManager.gm_instance.UpdateGamepadType();
+
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds))
             actions.LoadBindingOverridesFromJson(rebinds);

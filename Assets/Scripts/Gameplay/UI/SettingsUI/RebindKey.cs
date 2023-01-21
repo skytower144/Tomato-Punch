@@ -24,19 +24,6 @@ public class RebindKey : MonoBehaviour
     
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
-    Dictionary<string, int> actionTagDict = new Dictionary<string, int>()
-    {
-        {"Jump", 0},
-        {"Guard", 1},
-        {"LeftEvade", 2},
-        {"RightEvade", 3},
-        {"LeftPunch", 4},
-        {"RightPunch", 5},
-        {"Skill1", 6},
-        {"Skill2", 7},
-        {"Super", 8}
-    };
-
     private void OnDisable()
     {
         if(rebindingOperation != null)
@@ -218,7 +205,7 @@ public class RebindKey : MonoBehaviour
         else
             return Pad_Path(menuNumber);
     }
-    private string Key_Path(int menuNumber)
+    private string Key_Path(int menuNumber) // Initial Setting.
     {
         if (menuNumber == 0)
             return "<Keyboard>/w";
@@ -230,7 +217,7 @@ public class RebindKey : MonoBehaviour
             return "<Keyboard>/d";
         return "";
     }
-    private string Pad_Path(int menuNumber)
+    private string Pad_Path(int menuNumber) // Initial Setting.
     {
         if (menuNumber == 0)
             return "<Gamepad>/leftStick/up";
@@ -311,20 +298,55 @@ public class RebindKey : MonoBehaviour
         }
     }
 
-    public string ReturnKeyMapTag(string moveName)
+    private string WASDPath(InputAction inputAction, int menu_idx, int key_or_pad, string mode)
     {
-        int actionIndex = actionTagDict[moveName];
-        return LinkKeyText(actionList_battle[actionIndex].action.bindings[bindingIndex].effectivePath, "");
+        // menu_idx - binding index
+        Dictionary<int, string> wasdDict_key = new Dictionary<int, string>();
+        Dictionary<int, string> wasdDict_pad = new Dictionary<int, string>();
+
+        if (mode == "FREEROAM")
+        {
+            wasdDict_key[0] = inputAction.bindings[1].effectivePath; // Move Up
+            wasdDict_key[1] = inputAction.bindings[3].effectivePath; // Move Down
+            wasdDict_key[2] = inputAction.bindings[2].effectivePath; // Move Left
+            wasdDict_key[3] = inputAction.bindings[4].effectivePath; // Move Right
+
+            wasdDict_pad[0] = inputAction.bindings[6].effectivePath; // Move Up
+            wasdDict_pad[1] = inputAction.bindings[7].effectivePath; // Move Down
+            wasdDict_pad[2] = inputAction.bindings[8].effectivePath; // Move Left
+            wasdDict_pad[3] = inputAction.bindings[9].effectivePath; // Move Right
+        }
+        else if (mode == "BATTLE")
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                wasdDict_key[i] = inputAction.bindings[0].effectivePath; 
+                wasdDict_pad[i] = inputAction.bindings[1].effectivePath;
+            }
+        }
+        
+        return (key_or_pad == 0) ? wasdDict_key[menu_idx] : wasdDict_pad[menu_idx];
     }
 
-    public Sprite ReturnPadMapTag(string moveName)
+    public string ReturnMapPath(int menu_idx, int key_or_pad, string mode)
     {
-        int actionIndex = actionTagDict[moveName];
-        return LinkSprite(actionIndex, actionList_battle[actionIndex].action.bindings[bindingIndex].effectivePath);
+        // key : 0
+        // pad : 1
+        InputAction curr_action = null;
+
+        if (mode == "FREEROAM")
+            curr_action = actionList_roam[menu_idx].action;
+        else if (mode == "BATTLE")
+            curr_action = actionList_battle[menu_idx].action;
+            
+        if (menu_idx <= 3) {
+            return WASDPath(curr_action, menu_idx, key_or_pad, mode);
+        }
+    
+        return curr_action.bindings[key_or_pad].effectivePath;
     }
 
-    private string LinkKeyText(string path, string originalTag)
-    {
+    private string LinkKeyText(string path, string originalTag) {
         switch (path) {
             case "<Keyboard>/backspace":
                 return "BACK";
@@ -450,91 +472,223 @@ public class RebindKey : MonoBehaviour
                     return originalTag.ToUpper();
         }
     }
-    private Sprite LinkSprite(int menu_idx, string path)
-    {
-        string lowerCasePath = path.ToLower();
+    public Sprite LinkSprite(int menu_idx, string path, string pad_type = null) {
 
+        string lowerCasePath = path.ToLower();
+        Sprite matchingSprite = null;
+        
         if (path == "<Gamepad>/start")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[0];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[0];
 
         else if(path == "<Gamepad>/select")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[1];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[1];
         
         else if(path == "<Gamepad>/dpad/up")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[2];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[2];
         
         else if(path == "<Gamepad>/dpad/down")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[3];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[3];
 
         else if(path == "<Gamepad>/dpad/left")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[4];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[4];
         
         else if(path == "<Gamepad>/dpad/right")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[5];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[5];
 
         else if(path == "<Gamepad>/buttonEast")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[6];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[6];
 
         else if(path == "<Gamepad>/buttonNorth")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[7];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[7];
         
         else if(path == "<Gamepad>/buttonWest")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[8];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[8];
         
         else if(path == "<Gamepad>/buttonSouth")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[9];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[9];
         
         else if((path == "<Gamepad>/leftTrigger") || (lowerCasePath.Contains("trigger") && lowerCasePath.Contains("left")))
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[10];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[10];
 
         else if((path == "<Gamepad>/rightTrigger") || (lowerCasePath.Contains("trigger") && lowerCasePath.Contains("right")))
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[11];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[11];
         
         else if(path == "<Gamepad>/leftShoulder")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[12];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[12];
         
         else if(path == "<Gamepad>/rightShoulder")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[13];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[13];
         
         else if(path == "<Gamepad>/leftStickPress")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[14];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[14];
         
         else if(path == "<Gamepad>/rightStickPress")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[15];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[15];
         
         else if(path == "<Gamepad>/rightStick/left")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[16];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[16];
         
         else if(path == "<Gamepad>/rightStick/right")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[17];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[17];
         
         else if(path == "<Gamepad>/rightStick/down")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[18];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[18];
         
         else if(path == "<Gamepad>/rightStick/up")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[19];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[19];
 
         else if(path == "<Gamepad>/leftStick/left")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[20];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[20];
         
         else if(path == "<Gamepad>/leftStick/right")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[21];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[21];
         
         else if(path == "<Gamepad>/leftStick/down")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[22];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[22];
         
         else if(path == "<Gamepad>/leftStick/up")
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[23];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[23];
         
         else if (lowerCasePath.Contains("system") && lowerCasePath.Contains("button"))
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[24];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[24];
         
         else if (lowerCasePath.Contains("touchpad"))
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[25];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[25];
         
         else
-            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = controlScroll.gamePadIcons[26];
+            matchingSprite = controlScroll.ReturnGamepadIcon(pad_type)[26];
         
-        return controlScroll.bindingDisplayText_pad()[menu_idx].sprite;
+        if (menu_idx >= 0)
+            controlScroll.bindingDisplayText_pad()[menu_idx].sprite = matchingSprite;
+        
+        return matchingSprite;
     }
+
+    public string ShortenKeyDisplay(string inputName) {
+        string lower = inputName.ToLower();
+
+        if (lower.Contains("back") && lower.Contains("space"))
+            return "BACK";
+
+        else if (lower.Contains("insert"))
+            return "INSR";
+
+        else if (lower.Contains("page") && lower.Contains("up"))
+            return "PGUP";
+        
+        else if (lower.Contains("delete"))
+            return "DEL";
+        
+        else if (lower.Contains("page") && lower.Contains("down"))
+            return "PGDN";
+        
+        else if (lower.Contains("cap"))
+            return "CAPS";
+        
+        else if (lower.Contains("enter"))
+            return "ENTR";
+
+        else if (lower.Contains("left") && lower.Contains("shift"))
+            return "LSHF";
+        
+        else if (lower.Contains("right") && lower.Contains("shift"))
+            return "RSHF";
+        
+        else if (lower.Contains("left") && lower.Contains("ctrl"))
+            return "LCTR";
+        
+        else if (lower.Contains("left") && (lower.Contains("meta") || lower.Contains("system")))
+            return "LSYS";
+        
+        else if (lower.Contains("left") && lower.Contains("alt"))
+            return "LALT";
+        
+        else if (lower.Contains("space"))
+            return "SPC";
+        
+        else if (lower.Contains("right") && lower.Contains("alt"))
+            return "RALT";
+        
+        else if (lower.Contains("context") && lower.Contains("menu"))
+            return "MENU";
+
+        else if (lower.Contains("right") && lower.Contains("ctrl"))
+            return "RCTR";
+        
+        else if (lower.Contains("up") && lower.Contains("arrow"))
+            return "UP";
+        
+        else if (lower.Contains("down") && lower.Contains("arrow"))
+            return "DOWN";
+        
+        else if (lower.Contains("left") && lower.Contains("arrow"))
+            return "LEFT";
+        
+        else if (lower.Contains("right") && lower.Contains("arrow"))
+            return "RGHT";
+        
+        else if (lower.Contains("num") && lower.Contains("lock"))
+            return "NMLK";
+        
+        else if (lower.Contains("numpad") && lower.Contains("divide"))
+            return "N/";
+
+        else if (lower.Contains("numpad") && lower.Contains("multiply"))
+            return "N*";
+        
+        else if (lower.Contains("numpad") && lower.Contains("minus"))
+            return "N-";
+        
+        else if (lower.Contains("numpad") && lower.Contains("plus"))
+            return "N+";
+        
+        else if (lower.Contains("numpad") && lower.Contains("enter"))
+            return "NENT";
+        
+        else if (lower.Contains("numpad") && lower.Contains("period"))
+            return "N.";
+        
+        else if (lower.Contains("numpad") && lower.Contains("0"))
+            return "N0";
+        
+        else if (lower.Contains("numpad") && lower.Contains("1"))
+            return "N1";
+        
+        else if (lower.Contains("numpad") && lower.Contains("2"))
+            return "N2";
+        
+        else if (lower.Contains("numpad") && lower.Contains("3"))
+            return "N3";
+        
+        else if (lower.Contains("numpad") && lower.Contains("4"))
+            return "N4";
+        
+        else if (lower.Contains("numpad") && lower.Contains("5"))
+            return "N5";
+        
+        else if (lower.Contains("numpad") && lower.Contains("6"))
+            return "N6";
+        
+        else if (lower.Contains("numpad") && lower.Contains("7"))
+            return "N7";
+        
+        else if (lower.Contains("numpad") && lower.Contains("8"))
+            return "N8";
+        
+        else if (lower.Contains("numpad") && lower.Contains("9"))
+            return "N9";
+        
+        else if (lower.Contains("left") && lower.Contains("button"))
+            return "LCLK";
+        
+         else if (lower.Contains("right") && lower.Contains("button"))
+            return "RCLK";
+        
+        
+        if (inputName.Length > 4)
+            return inputName.Substring(0, 4).ToUpper();
+        else
+            return inputName.ToUpper();
+    }
+
 }

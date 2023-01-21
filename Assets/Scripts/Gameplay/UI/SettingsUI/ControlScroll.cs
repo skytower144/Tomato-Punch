@@ -27,7 +27,10 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private GameObject DisplayKeyboard_roam, DisplayKeyboard_battle, DisplayGamepad_roam, DisplayGamepad_battle;
 
     [SerializeField] private List<Sprite> icons;
-    public List<Sprite> gamePadIcons;
+
+    public List<Sprite> gamePadIcons_xbox;
+    public List<Sprite> gamePadIcons_ps4;
+    
 
     [SerializeField] private TextMeshProUGUI mode_text;
     [Header("ACTION NAME")]
@@ -53,6 +56,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     public bool isKeyBoard = true;
     public bool isModeRoam = true;
     public bool isPrompt = false;
+    
 
     void OnEnable()
     {
@@ -234,6 +238,28 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             DisplayGamepad_battle.SetActive(true);
         }
     }
+
+    public void ToggleGamepadIcon() // Not really toggle, more like update
+    {
+        for (int i = 0; i < roam_actionText.Count; i++)
+        {
+            roam_bindingDisplayText_pad[i].sprite = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"));
+        }
+        for (int i = 0; i < battle_actionText.Count; i++)
+        {
+            battle_bindingDisplayText_pad[i].sprite = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"));
+        }
+    }
+    public List<Sprite> ReturnGamepadIcon(string type = null)
+    {
+        if (type == "ps4")
+            return gamePadIcons_ps4;
+        else if (type == "xbox")
+            return gamePadIcons_xbox;
+        
+        return (GameManager.gm_instance.gamepadType == 1) ? gamePadIcons_xbox : gamePadIcons_ps4;
+    }
+
     public void ControlInteractMenu()
     {
         if (menuNumber == -2)
@@ -282,12 +308,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         else
             return battle_bindingDisplayText_key;
     }
-    public List<Image> bindingDisplayText_pad()
+    public List<Image> bindingDisplayText_pad(string demandMode = "")
     {
-        if (resetBindings.demand_displayList == "FREEROAM")
+        if ((resetBindings.demand_displayList == "FREEROAM") || (demandMode == "FREEROAM"))
             return roam_bindingDisplayText_pad;
         
-        else if (resetBindings.demand_displayList == "BATTLE")
+        else if ((resetBindings.demand_displayList == "BATTLE") || (demandMode == "BATTLE"))
             return battle_bindingDisplayText_pad;
         
         else if (isModeRoam)
@@ -331,4 +357,43 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             title_battle.SetActive(true);
         }
     }
+
+    public Dictionary<string, Dictionary<string, ControlMapDisplay>> CaptureCurrentBind()
+    {
+        Dictionary<string, Dictionary<string, ControlMapDisplay>> mapDisplayDict = new Dictionary<string, Dictionary<string, ControlMapDisplay>>();
+        Dictionary<string, ControlMapDisplay> roam_actionToDisplay = new Dictionary<string, ControlMapDisplay>();
+        Dictionary<string, ControlMapDisplay> battle_actionToDisplay = new Dictionary<string, ControlMapDisplay>();
+
+        // FREEROAM
+        for (int i = 0; i < roam_actionText.Count; i++)
+        {
+            ControlMapDisplay mapBundle = new ControlMapDisplay();
+            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(roam_bindingDisplayText_key[i].text);
+            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "xbox");
+            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "ps4");
+
+            roam_actionToDisplay[roam_actionText[i].text] = mapBundle;
+        }
+        mapDisplayDict["FREEROAM"] = roam_actionToDisplay;
+
+        // BATTLE
+        for (int i = 0; i < battle_actionText.Count; i++)
+        {
+            ControlMapDisplay mapBundle = new ControlMapDisplay();
+            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(battle_bindingDisplayText_key[i].text);
+            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "xbox");
+            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "ps4");
+
+            battle_actionToDisplay[battle_actionText[i].text] = mapBundle;
+        }
+        mapDisplayDict["BATTLE"] = battle_actionToDisplay;
+
+        return mapDisplayDict;
+    }
+}
+
+public class ControlMapDisplay
+{
+    public string keyboardMap;
+    public Sprite[] gamepadMap = new Sprite[3];
 }

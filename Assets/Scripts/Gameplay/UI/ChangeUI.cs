@@ -17,6 +17,11 @@ public class ChangeUI : MonoBehaviour, CanToggleIcon, RebindChangeUI
         gamepad_display.SetActive(!gamepad_display.activeSelf);
     }
 
+    public void ToggleGamepadIcon()
+    {
+        gamepad_rebind_image.sprite = GameManager.gm_instance.rebind_key.LinkSprite(-1, gamepad_linked_path);
+    }
+
     public void RebindUI_text(string changed_text, string old_path, string new_path)
     {
         if (old_path == keyboard_linked_path){

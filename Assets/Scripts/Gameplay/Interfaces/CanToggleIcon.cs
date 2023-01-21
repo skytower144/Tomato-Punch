@@ -5,4 +5,5 @@ using UnityEngine;
 public interface CanToggleIcon
 {
    void ToggleIcon();
+   void ToggleGamepadIcon();
 }
