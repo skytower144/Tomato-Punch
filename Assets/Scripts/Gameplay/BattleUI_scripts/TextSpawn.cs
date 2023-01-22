@@ -31,7 +31,7 @@ public class TextSpawn : MonoBehaviour
 
     void Update()
     {
-        if (isMiss && !TutorialMode.isTutorial)
+        if (isMiss)
         {
             randomPosition = Random.insideUnitSphere * 1.5f + new Vector3(-30,0,0);
             GameObject miss = Instantiate(missEffect, transform);

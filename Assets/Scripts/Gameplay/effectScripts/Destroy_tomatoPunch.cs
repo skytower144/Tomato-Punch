@@ -22,7 +22,7 @@ public class Destroy_tomatoPunch : MonoBehaviour
     
     void destroyPunch()
     {
-        if(!isHit && !tomatoGuard.isParry){
+        if(!isHit && !tomatoGuard.isParry && !TutorialMode.isTutorial){
             TextSpawn.isMiss = true;
         }
         Destroy(gameObject);

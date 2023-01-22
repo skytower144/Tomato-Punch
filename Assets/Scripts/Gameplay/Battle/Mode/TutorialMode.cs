@@ -107,6 +107,9 @@ public class TutorialMode : MonoBehaviour
 
         controlGuide.SetActive(true);
         exitGuide.SetActive(true);
+
+        DOTween.Rewind("tutorial_ui_appear");
+        DOTween.Play("tutorial_ui_appear");
     }
 
     IEnumerator WarmUp()
@@ -172,6 +175,9 @@ public class TutorialMode : MonoBehaviour
     {
         isTutorial = false;
         StopCoroutine(warmupPhase);
+
+        DOTween.Rewind("tutorial_exit");
+        DOTween.Play("tutorial_exit");
         
         tomatoControl tomato_control = GameManager.gm_instance.battle_system.tomato_control;
         tomato_control.ReleaseGuard();
@@ -179,6 +185,9 @@ public class TutorialMode : MonoBehaviour
         tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
 
         Play("Tutorial_Finish");
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.3f));
+        Play("Tutorial_Finish_Idle");
+
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1.5f));
 
         GameManager.gm_instance.battle_system.ExitBattle();
