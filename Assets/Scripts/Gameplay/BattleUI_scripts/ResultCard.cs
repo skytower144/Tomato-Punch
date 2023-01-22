@@ -14,7 +14,6 @@ public class ResultCard : MonoBehaviour
     private int totalCounter_ct, totalParry_ct, totalSuper_ct, inputCount, textIndex;
     private float temp_ct;
     private float TEXTSPEED = 14f;
-    [SerializeField] private GameObject battle_end_circle;
 
     private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
 
@@ -207,7 +206,6 @@ public class ResultCard : MonoBehaviour
         isExit = true;
 
         CancelInvoke();
-        Destroy(Instantiate(battle_end_circle), 2f);
         battleSystem.ExitBattle();
         battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, totalExp, totalGold, droppedItems);
     }

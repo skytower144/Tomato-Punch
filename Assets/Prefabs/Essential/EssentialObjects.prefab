@@ -9399,6 +9399,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 88084549-ab2d-4422-bb08-ddb8c16e7217
     m_ActionName: Battle/SuperSkill[/Keyboard/enter,/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85233ce4-59f9-476d-9724-e0df175a9f74
+    m_ActionName: Battle/Esc[/Keyboard/escape,/XInputControllerWindows/start,/DualShock4GamepadHID/start,/DualShock4GamepadHID1/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -13723,7 +13727,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -13830,7 +13834,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 1
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -21530,6 +21534,7 @@ MonoBehaviour:
   player_status: {fileID: 2766613875448357790}
   tomatoLevel: {fileID: 2766613875486574215}
   enemyControl: {fileID: 2766613875252164355}
+  battleUI_Control: {fileID: 2766613875497123440}
   tomatoAnim: {fileID: 2766613875864475197}
   enemyAnim: {fileID: 2766613875252164357}
   battleCanvas_transform: {fileID: 2766613875877325923}
@@ -21537,6 +21542,7 @@ MonoBehaviour:
   battle_initiate_fade: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
   darkScreen: {fileID: 3107236779830929705, guid: d0124715de340a54a8751ae723b303e8, type: 3}
   coinFlip: {fileID: 35641194223493076, guid: 6aa9755774f345741a72dc5c9288f826, type: 3}
+  battle_end_circle: {fileID: 6256539079404525266, guid: f3a5f37fd8d79a4418e1314a668b3a74, type: 3}
   background: {fileID: 2766613873931144543}
 --- !u!1 &2766613875284914808
 GameObject:
@@ -22546,7 +22552,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 0
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1
@@ -22653,7 +22659,7 @@ MonoBehaviour:
   isRelative: 0
   isFrom: 1
   isIndependentUpdate: 0
-  autoKill: 1
+  autoKill: 0
   autoGenerate: 1
   isActive: 1
   isValid: 1

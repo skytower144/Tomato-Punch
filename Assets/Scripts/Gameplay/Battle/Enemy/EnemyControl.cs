@@ -6,7 +6,7 @@ using DG.Tweening;
 public class EnemyControl : MonoBehaviour
 {
     [HideInInspector] public EnemyBase _base;
-    private Animator anim;
+    private Animator anim; public Animator enemyAnim => anim;
     private SpriteRenderer enemy_renderer;
     private Material matDefault;
     [SerializeField] private GameObject duplicate_r, counterBox;

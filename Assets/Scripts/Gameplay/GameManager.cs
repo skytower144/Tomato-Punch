@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
-    [SerializeField] EnemyControl enemyControl;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
@@ -85,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         playerAnimator.SetBool("isWalking",false);
 
-        enemyControl._base = enemy_base;
+        battleSystem.enemy_control._base = enemy_base;
         battle_system.SetBg(enemy_base.bgName);
 
         player_x = playerMovement.transform.position.x;
@@ -120,6 +119,9 @@ public class GameManager : MonoBehaviour
             level_holder.SetActive(true);
         }
 
+        battle_system.battleUI_Control.NormalizeBattleUI();
+        battle_system.enemy_control.ClearAnimation();
+        
         battleSystem.gameObject.SetActive(false);
         gameState = GameState.FreeRoam;
 

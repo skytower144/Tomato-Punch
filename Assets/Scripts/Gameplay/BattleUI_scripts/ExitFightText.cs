@@ -1,11 +1,11 @@
 using UnityEngine;
-using DG.Tweening;
+
 public class ExitFightText : MonoBehaviour
 {
     void UnleashCharacters()
     {
         if(!tomatoControl.isFainted){
-            DOTween.Play("intro"); // HealthBar UI DoTween
+            GameManager.gm_instance.battle_system.battleUI_Control.ShowBattleUI();
             tomatoControl.isIntro = false;
             EnemyAIControl.enemy_isIntro = false;
         }

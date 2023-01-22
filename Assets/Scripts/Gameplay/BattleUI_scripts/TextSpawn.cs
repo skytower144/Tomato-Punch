@@ -10,8 +10,6 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
-    [SerializeField] private Animator tomatoAnim;
-    [SerializeField] private Animator enemyAnim; public Animator enemy_anim => enemyAnim;
     [SerializeField] private GameObject GetReadyText;
     [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
@@ -55,8 +53,8 @@ public class TextSpawn : MonoBehaviour
 
     private void playIntro()
     {
-        tomatoAnim.Play("tomato_intro",-1, 0f);
-        enemyAnim.Play(enemyControl._base.Intro_AnimationString, -1, 0f);
+        tomatocontrol.tomatoAnim.Play("tomato_intro",-1, 0f);
+        enemyControl.enemyAnim.Play(enemyControl._base.Intro_AnimationString, -1, 0f);
     }
 
     public void spawn_KO_text()
@@ -71,7 +69,7 @@ public class TextSpawn : MonoBehaviour
 
     public void PlayVictory_Player()
     {
-        tomatoAnim.Play("tomato_victory", -1, 0f);
+        tomatocontrol.tomatoAnim.Play("tomato_victory", -1, 0f);
         Instantiate(YouWin_Text, transform);
         Instantiate(dark_filter, transform);
         GameObject resultCard_obj = Instantiate(resultCard, transform);

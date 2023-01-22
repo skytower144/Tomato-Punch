@@ -23,12 +23,13 @@ public class TutorialMode : MonoBehaviour
     private Animator anim;
     private TextSpawn textSpawn;
     private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
+    private Coroutine warmupPhase;
 
     void Update()
     {
-        if (GameManager.gm_instance.player_movement.Press_Key("Esc"))
+        if ((GameManager.gm_instance.player_movement.Press_Key("Esc")) && (isTutorial))
         {
-            Debug.Log("Escape key was pressed");
+            StartCoroutine(ExitTutorial());
         }
         
         if (GameManager.gm_instance.control_scroll.isKeyBoard)
@@ -56,6 +57,13 @@ public class TutorialMode : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        controlGuide.SetActive(false);
+        exitGuide.SetActive(false);
+        Destroy(gameObject);
+    }
+
     private void UpdatePadType()
     {
         int gamePadType = GameManager.gm_instance.gamepadType;
@@ -81,9 +89,8 @@ public class TutorialMode : MonoBehaviour
     }
     void OnEnable()
     {
-        isTutorial = true;
         textSpawn = transform.parent.gameObject.GetComponent<TextSpawn>();
-        anim = textSpawn.enemy_anim;
+        anim = GameManager.gm_instance.battle_system.enemy_control.enemyAnim;
         currentMapDict = GameManager.gm_instance.control_scroll.CaptureCurrentBind();
 
         GameObject temp = Instantiate(warmupText, transform);
@@ -95,7 +102,8 @@ public class TutorialMode : MonoBehaviour
     private void StartWorkout()
     {
         tomatoControl.isIntro = false;
-        StartCoroutine(WarmUp());
+        isTutorial = true;
+        warmupPhase = StartCoroutine(WarmUp());
 
         controlGuide.SetActive(true);
         exitGuide.SetActive(true);
@@ -103,7 +111,7 @@ public class TutorialMode : MonoBehaviour
 
     IEnumerator WarmUp()
     {
-        while (true)
+        while (isTutorial)
         {
             controlGuide.SetActive(true);
 
@@ -156,6 +164,25 @@ public class TutorialMode : MonoBehaviour
             yield return Play("Tutorial_intro");
             yield return Play("Tutorial_intro");
         }
+        
+        yield break;
+    }
+
+    IEnumerator ExitTutorial()
+    {
+        isTutorial = false;
+        StopCoroutine(warmupPhase);
+        
+        tomatoControl tomato_control = GameManager.gm_instance.battle_system.tomato_control;
+        tomato_control.ReleaseGuard();
+        tomatoControl.isVictory = true;
+        tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
+
+        Play("Tutorial_Finish");
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1.5f));
+
+        GameManager.gm_instance.battle_system.ExitBattle();
+        yield break;
     }
 
     private void PressButtonAnimation()

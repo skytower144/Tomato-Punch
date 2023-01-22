@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BattleUI_Control : MonoBehaviour
 {
@@ -106,6 +105,16 @@ public class BattleUI_Control : MonoBehaviour
             parryBg.SetActive(false);
             parry_Bar.SetActive(false);
         }
+    }
+
+    public void ShowBattleUI()
+    {
+        DOTween.Play("intro"); // HealthBar UI DoTween
+    }
+
+    public void NormalizeBattleUI()
+    {
+        DOTween.Rewind("intro");
     }
 
 }

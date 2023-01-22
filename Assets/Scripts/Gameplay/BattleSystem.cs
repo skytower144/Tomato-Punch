@@ -7,13 +7,14 @@ public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
     public TextSpawn textSpawn;
-    [SerializeField] private tomatoControl tomatocontrol;
+    [SerializeField] private tomatoControl tomatocontrol; public tomatoControl tomato_control => tomatocontrol;
     [SerializeField] private tomatoStatus player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
-    [SerializeField] private EnemyControl enemyControl;
+    [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
+    public BattleUI_Control battleUI_Control; 
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
-    [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip;
+    [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
     [SerializeField] private Image background;
     [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
     void Start()
@@ -30,8 +31,8 @@ public class BattleSystem : MonoBehaviour
     // }
     public void ExitBattle()
     {
+        Destroy(Instantiate(battle_end_circle), 2f);
         OnBattleOver();
-        enemyControl.ClearAnimation();
     }
 
     public void SetBg(BgName bg_name)

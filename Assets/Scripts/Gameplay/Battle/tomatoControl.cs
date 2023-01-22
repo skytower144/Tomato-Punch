@@ -19,7 +19,7 @@ if(Input.GetKeyDown(KeyCode.P))
 public class tomatoControl : MonoBehaviour
 {
     [SerializeField] private PlayerInput tomatoInput;
-    private Animator tomatoAnimator;
+    private Animator tomatoAnimator; public Animator tomatoAnim => tomatoAnimator;
     private GameObject _parryInstance;
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
@@ -81,6 +81,7 @@ public class tomatoControl : MonoBehaviour
         isTired = false;
         isVictory = false;
         isFainted = false;
+        tomatoGuard.isParry = false;
 
         dmg_normalPunch = tomatodamage.NormalPunch(tomatoAtk);
         dmg_gatlePunch = tomatodamage.GatlePunch(tomatoAtk);
@@ -212,16 +213,7 @@ public class tomatoControl : MonoBehaviour
             {
                 if (!Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && tomatoInput.actions["Guard"].WasReleasedThisFrame())
                 {
-                    Destroy(_parryInstance);
-                    hitbox.enabled = true;
-
-                    guardRelease = true;
-                    
-                    tomatoAnimator.Play("tomato_idle",-1,0f);
-                    isGuard = false;
-                    isAction = false;
-
-                    tomatoGuard.isParry = false;
+                    ReleaseGuard();
                 }
             }
             
@@ -379,7 +371,20 @@ public class tomatoControl : MonoBehaviour
                 ChangeAnimationState(TOMATO_GUARD);
             }
         }
+    }
+
+    public void ReleaseGuard()
+    {
+        Destroy(_parryInstance);
+        hitbox.enabled = true;
+
+        guardRelease = true;
         
+        tomatoAnimator.Play("tomato_idle",-1,0f);
+        isGuard = false;
+        isAction = false;
+
+        tomatoGuard.isParry = false;
     }
 
     void punchActivate()
