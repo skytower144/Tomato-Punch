@@ -18,7 +18,7 @@ public class TutorialMode : MonoBehaviour
     [SerializeField] private Image gamepad_image2;
 
     [SerializeField] private Animator tutorialUI;
-    [SerializeField] private GameObject holdArrow, exitGuide, exitGuide_key, exitGuide_pad, pad_ps4, pad_xbox;
+    [SerializeField] private GameObject holdArrow, exitGuide, exitGuide_key, exitGuide_pad, pad_ps4, pad_xbox, pad_switch;
     
     private Animator anim;
     private TextSpawn textSpawn;
@@ -63,11 +63,19 @@ public class TutorialMode : MonoBehaviour
         {
             pad_xbox.SetActive(true);
             pad_ps4.SetActive(false);
+            pad_switch.SetActive(false);
         }
         else if (gamePadType == 2)
         {
             pad_xbox.SetActive(false);
             pad_ps4.SetActive(true);
+            pad_switch.SetActive(false);
+        }
+        else if (gamePadType == 3)
+        {
+            pad_xbox.SetActive(false);
+            pad_ps4.SetActive(false);
+            pad_switch.SetActive(true);
         }
 
     }

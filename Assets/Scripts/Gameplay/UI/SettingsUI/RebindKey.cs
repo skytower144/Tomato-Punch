@@ -67,7 +67,8 @@ public class RebindKey : MonoBehaviour
             // KEYBOARD
             if(controlScroll.isKeyBoard){
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
-                    .WithControlsExcluding("<Gamepad>")
+                    .WithControlsHavingToMatchPath("<Keyboard>")
+
                     .WithControlsExcluding("<Keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
                     .WithControlsExcluding("<Keyboard>/printScreen")
@@ -86,8 +87,11 @@ public class RebindKey : MonoBehaviour
             // GAMEPAD
             else {
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
-                    .WithControlsExcluding("<Keyboard>")
+                    .WithControlsHavingToMatchPath("<Gamepad>")
+
                     .WithControlsExcluding("<Gamepad>/start")
+                    .WithControlsExcluding("<Gamepad>/leftTriggerButton")
+                    .WithControlsExcluding("<Gamepad>/rightTriggerButton")
 
                     .WithCancelingThrough("<Gamepad>/start")
 
@@ -106,13 +110,13 @@ public class RebindKey : MonoBehaviour
         else {
             isComposite = false;
 
-            bindingIndex = current_action.GetBindingIndexForControl(current_action.controls[0]);
-
-            cachePath = current_action.bindings[bindingIndex].effectivePath;
-
             if(controlScroll.isKeyBoard){
+                bindingIndex = current_action.GetBindingIndexForControl(current_action.controls[0]);
+                cachePath = current_action.bindings[bindingIndex].effectivePath;
+                
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
-                    .WithControlsExcluding("<Gamepad>")
+                    .WithControlsHavingToMatchPath("<Keyboard>")
+                    
                     .WithControlsExcluding("<Keyboard>/anyKey")
                     .WithControlsExcluding("<Keyboard>/escape")
                     .WithControlsExcluding("<Keyboard>/printScreen")
@@ -129,9 +133,15 @@ public class RebindKey : MonoBehaviour
                     .Start();
             }
             else {
+                bindingIndex = 1;
+                cachePath = current_action.bindings[bindingIndex].effectivePath;
+
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
-                    .WithControlsExcluding("<Keyboard>")
+                    .WithControlsHavingToMatchPath("<Gamepad>")
+
                     .WithControlsExcluding("<Gamepad>/start")
+                    .WithControlsExcluding("<Gamepad>/leftTriggerButton")
+                    .WithControlsExcluding("<Gamepad>/rightTriggerButton")
 
                     .WithCancelingThrough("<Gamepad>/start")
 
@@ -239,8 +249,6 @@ public class RebindKey : MonoBehaviour
             waitCover.SetActive(false);
         optionScript.RebindPushupFinish();
 
-        playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
-
         StartCoroutine(ReleaseBind(0.25f));
     }
 
@@ -248,6 +256,8 @@ public class RebindKey : MonoBehaviour
     {
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         isBinding = false;
+        
+        playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
     }
 
     private void MoveCover()

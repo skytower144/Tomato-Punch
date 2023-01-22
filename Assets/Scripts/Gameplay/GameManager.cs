@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem; 
 using System;
 
 public enum GameState { FreeRoam, Battle }
@@ -141,23 +142,37 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGamepadType()
     {
+        int prevType = gamepadType;
+        var cur_gamepad = Gamepad.current;
+        string gamepadName = "";
+
+        if (cur_gamepad != null)
+            gamepadName = cur_gamepad.name.ToLower();
+
+        if (gamepadName.Contains("xinput") || gamepadName.Contains("xbox") )
+            gamepadType = 1;
+        else if (gamepadName.Contains("switch"))
+            gamepadType = 3;
+        else
+            gamepadType = 2;
+
+        if (prevType != gamepadType) {
+            uiControl.UI_GamepadSwitch();
+        }
+    }
+
+    private bool IsGamepad()
+    {
         string [] names = Input.GetJoystickNames();
 
-        if (names.Length > 0)
+        foreach (string name in names)
         {
-            foreach (string name in names)
+            if (!string.IsNullOrEmpty(name))
             {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    string lowerCase = name.ToLower();
-
-                    if (lowerCase.Contains("xbox"))
-                        gamepadType = 1;
-                    else if ((lowerCase.Contains("ps")) || lowerCase.Contains("wireless"))
-                        gamepadType = 2;
-                }
+                return true;
             }
         }
+        return false;
     }
 
     private void DetectGamepad()
@@ -168,31 +183,18 @@ public class GameManager : MonoBehaviour
 
             if (names.Length == 0){ // preventing index error
                 uiControl.UI_Update(true); // true => Activate Keyboard
+                gamepadType = 0;
                 return;
             }
             
-            foreach (string name in names)
-            {
-                if (!string.IsNullOrEmpty(name))
-                {
-                    int prevType = gamepadType;
-                    string lowerCase = name.ToLower();
-
-                    if (lowerCase.Contains("xbox") || (lowerCase.Contains("x") && lowerCase.Contains("controller")))
-                        gamepadType = 1;
-                    else if ((lowerCase.Contains("ps")) || lowerCase.Contains("wireless"))
-                        gamepadType = 2;
-                    
-                    if (prevType != gamepadType) {
-                        uiControl.UI_GamepadSwitch();
-                    }
-
-                    uiControl.UI_Update(false);
-                    return;
-                }
+            if (IsGamepad()) {
+                UpdateGamepadType();
+                uiControl.UI_Update(false);
             }
-            
-            uiControl.UI_Update(true);
+            else {
+                uiControl.UI_Update(true);
+                gamepadType = 0;
+            }
         }
     }
 

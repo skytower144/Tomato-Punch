@@ -30,6 +30,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 
     public List<Sprite> gamePadIcons_xbox;
     public List<Sprite> gamePadIcons_ps4;
+    public List<Sprite> gamePadIcons_switch;
     
 
     [SerializeField] private TextMeshProUGUI mode_text;
@@ -256,8 +257,20 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             return gamePadIcons_ps4;
         else if (type == "xbox")
             return gamePadIcons_xbox;
+        else if (type == "switch")
+            return gamePadIcons_switch;
         
-        return (GameManager.gm_instance.gamepadType == 1) ? gamePadIcons_xbox : gamePadIcons_ps4;
+        switch (GameManager.gm_instance.gamepadType)
+        {
+            case 1:
+                return gamePadIcons_xbox;
+            case 2:
+                return gamePadIcons_ps4;
+            case 3:
+                return gamePadIcons_switch;
+            default:
+                return gamePadIcons_ps4;
+        }
     }
 
     public void ControlInteractMenu()
@@ -369,8 +382,9 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
             mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(roam_bindingDisplayText_key[i].text);
-            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "xbox");
-            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "ps4");
+            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "xbox");
+            mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "switch");
+            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "ps4");
 
             roam_actionToDisplay[roam_actionText[i].text] = mapBundle;
         }
@@ -381,8 +395,9 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
             mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(battle_bindingDisplayText_key[i].text);
-            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "xbox");
-            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(i, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "ps4");
+            mapBundle.gamepadMap[1] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "xbox");
+            mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "switch");
+            mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "ps4");
 
             battle_actionToDisplay[battle_actionText[i].text] = mapBundle;
         }
@@ -395,5 +410,5 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 public class ControlMapDisplay
 {
     public string keyboardMap;
-    public Sprite[] gamepadMap = new Sprite[3];
+    public Sprite[] gamepadMap = new Sprite[4];
 }
