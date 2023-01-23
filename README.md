@@ -5,6 +5,9 @@ Punchout inspired RPG game in development. <br /><br />
 Development start : **_August 2021._**<br />
 <br/>
 
+>Devlog : https://itch.io/t/2612740/tomato-punch
+<br/>
+
 ## Gameplay Preview Image 🕹️
 <img src="https://user-images.githubusercontent.com/98079532/150507221-fe05273e-0fc8-4192-b061-08cfaf728d64.png" height="500">
 
