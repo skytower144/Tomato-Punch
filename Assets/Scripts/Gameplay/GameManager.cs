@@ -130,6 +130,12 @@ public class GameManager : MonoBehaviour
         
         mainCamera.gameObject.SetActive(true);
 
+        if (DialogueManager.instance.is_continue_talk) {
+            yield return new WaitForSeconds(0.5f);
+            DialogueManager.instance.SetIsContinueTalkBool(false);
+            PlayerMovement.instance.PlayerInteract();
+        }
+        
         PlayerMovement.isBattle = false;
     }
 

@@ -62,9 +62,7 @@ public class NPCController : MonoBehaviour, Interactable
                 }
                 else if (!String.IsNullOrEmpty(inkFileName))
                 {
-                    FacePlayer();
-                    TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
-                    DialogueManager.instance.EnterDialogue(inkJsonData, this);
+                    InitiateTalk();
                 }
             }
             else
@@ -90,6 +88,13 @@ public class NPCController : MonoBehaviour, Interactable
             else if (playerMovement.CheckFacingDirection("LEFT"))
                 Play("right");
         }
+    }
+
+    public void InitiateTalk()
+    {
+        FacePlayer();
+        TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
+        DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 
     public void Play(string animTag)

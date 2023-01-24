@@ -31300,8 +31300,6 @@ MonoBehaviour:
   enemy_Countered: {fileID: 8355353705870171425}
   staminaIcon: {fileID: 2766613873906762726}
   rebindKey: {fileID: 2766613874070507669}
-  tomatoAnim: {fileID: 2766613875864475197}
-  enemyAnim: {fileID: 2766613875252164357}
   GetReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   startingCartridge: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
@@ -33601,7 +33599,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 2766613874449132828}
   battleSystem: {fileID: 2766613875279904298}
-  enemyControl: {fileID: 2766613875252164355}
   resolutionMenu: {fileID: 2766613875361569556}
   rebindKey: {fileID: 2766613874070507669}
   controlScroll: {fileID: 2766613874070507672}
@@ -39156,6 +39153,10 @@ PrefabInstance:
     - target: {fileID: 8274997007756892908, guid: c438c2f9ac702a94392d26c56d0191bd, type: 3}
       propertyPath: m_Name
       value: Items
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274997007756892908, guid: c438c2f9ac702a94392d26c56d0191bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c438c2f9ac702a94392d26c56d0191bd, type: 3}

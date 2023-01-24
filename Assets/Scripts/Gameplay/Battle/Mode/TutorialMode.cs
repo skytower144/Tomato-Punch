@@ -176,6 +176,8 @@ public class TutorialMode : MonoBehaviour
         isTutorial = false;
         StopCoroutine(warmupPhase);
 
+        DOTween.Complete("tutorial_ui_appear");
+
         DOTween.Rewind("tutorial_exit");
         DOTween.Play("tutorial_exit");
         

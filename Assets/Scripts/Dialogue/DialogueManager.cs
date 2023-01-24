@@ -30,9 +30,11 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
     private string currentSentence;
     private bool dialogueIsPlaying, isPromptChoice;
+    private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string DIALOGUE_TAG = "nextdialogue";
+    private const string CONTINUETALK_TAG = "continuetalk";
     private const string ANIM_TAG = "animate";
     private const string BATTLE_TAG = "battle"; 
 
@@ -68,6 +70,8 @@ public class DialogueManager : MonoBehaviour
             else
                 ContinueStory();
         }
+        else if (dialogueIsPlaying && (currentSentence == ""))
+            ContinueStory();
     }
 
     public void EnterDialogue(TextAsset inkJSON, NPCController current_npc)
@@ -79,6 +83,7 @@ public class DialogueManager : MonoBehaviour
         portrait.sprite = Resources.Load<Sprite>("Portraits/Tomato_neutral");
 
         SetDialogueBox(true, current_npc.hasPortrait);
+
         dialogueIsPlaying = true;
     }
 
@@ -87,6 +92,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         SetDialogueBox(false);
         dialogueText.text = "";
+        currentSentence = "";
 
         playerMovement.SetIsInteracting(false);
         InvokeEvent();
@@ -177,6 +183,9 @@ public class DialogueManager : MonoBehaviour
                 case DIALOGUE_TAG:
                     currentNpc.LoadNextDialogue(tag_value);
                     break;
+                case CONTINUETALK_TAG:
+                    isContinueTalk = true;
+                    break;
                 case ANIM_TAG:
                     currentNpc.Play(tag_value);
                     break;
@@ -205,5 +214,10 @@ public class DialogueManager : MonoBehaviour
             portraitBox.SetActive(false);
         }
         dialogueBox.SetActive(state);
+    }
+
+    public void SetIsContinueTalkBool(bool state)
+    {
+        isContinueTalk = state;
     }
 }

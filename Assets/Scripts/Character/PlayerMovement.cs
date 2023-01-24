@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return playerInput.actions["Move"].ReadValue<Vector2>();
     }
-    void PlayerInteract()
+    public void PlayerInteract()
     {
         var facingDir = new Vector3(myAnim.GetFloat("moveX"), myAnim.GetFloat("moveY"));
         var temp = new Vector3(transform.position.x, transform.position.y + 0.25f);

@@ -1,4 +1,5 @@
 Kids these days.
 Playing all day when they can study for their better future.
-...What an ignorant generation.
-The only kid that will likely succeed is that one sitting on the bench.
+...What a hopeless generation.
+More kids should be like that girl studying on the bench.
+Not a second to waste from your life.

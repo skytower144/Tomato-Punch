@@ -28,7 +28,6 @@ public class UIControl : MonoBehaviour
         instance = this;
         resolutionMenu.LoadLanguageSetting();
         InitializeInkLangDict(currentLangMode);
-        TitleScreen.instance.SetUILanguage();
     }
 
     public void UI_Update(bool state)
