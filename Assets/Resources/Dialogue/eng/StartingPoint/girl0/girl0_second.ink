@@ -1,1 +1,1 @@
-Stinking hoop thief.
+Stinky hoop thief.
