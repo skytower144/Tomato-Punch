@@ -5,15 +5,23 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 
 /* DEFAULT DEBUG CODE
-if(Input.GetKeyDown(KeyCode.P))
+    if(Input.GetKeyDown(KeyCode.T))
     {
         Debug.Log("isAction : " + isAction);
         Debug.Log("isPunch : " + isPunch);
         Debug.Log("isGatle : " + isGatle);
         Debug.Log("isGuard : " + isGuard);
-        Debug.Log("downGamepad : " + downGamepad);
+
         Debug.Log("isParry : " + tomatoGuard.isParry);
-        Debug.Log("tomatoIsHurt : " + tomato_hurt.isTomatoHurt);
+        Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
+        Debug.Log("isFainted : " + isFainted);
+
+        Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
+        Debug.Log("enemy_isParried : " + Enemy_parried.isParried);
+        Debug.Log("enemy_isCountered : " + Enemy_countered.enemy_isCountered);
+        Debug.Log("enemy_isPunched : " + Enemy_is_hurt.enemy_isPunched);
+        Debug.Log("enemy_isHit : " + Enemy_is_hurt.enemyIsHit);
+        Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
     }
 */
 public class tomatoControl : MonoBehaviour
@@ -122,25 +130,6 @@ public class tomatoControl : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("isAction : " + isAction);
-            Debug.Log("isPunch : " + isPunch);
-            Debug.Log("isGatle : " + isGatle);
-            Debug.Log("isGuard : " + isGuard);
-
-            Debug.Log("isParry : " + tomatoGuard.isParry);
-            Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
-            Debug.Log("isFainted : " + isFainted);
-
-            Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
-            Debug.Log("enemy_isParried : " + Enemy_parried.isParried);
-            Debug.Log("enemy_isCountered : " + Enemy_countered.enemy_isCountered);
-            Debug.Log("enemy_isPunched : " + Enemy_is_hurt.enemy_isPunched);
-            Debug.Log("enemy_isHit : " + Enemy_is_hurt.enemyIsHit);
-            Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
-        }
-
         if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory)
         {
             if(!isAction)

@@ -196,30 +196,34 @@ public class PlayerMovement : MonoBehaviour
         int x = Mathf.RoundToInt(myAnim.GetFloat("moveX"));
         int y = Mathf.RoundToInt(myAnim.GetFloat("moveY"));
 
-        if (checking_direction == "UP")
-            return ((x == 0) && (y == 1));
-        
-        else if (checking_direction == "RU")
-            return ((x == 1) && (y == 1));
-        
-        else if (checking_direction == "RIGHT")
-            return ((x == 1) && (y == 0));
-        
-        else if (checking_direction == "RD")
-            return ((x == 1) && (y == -1));
-        
-        else if (checking_direction == "DOWN")
-            return ((x == 0) && (y == -1));
+        switch (checking_direction) {
+            case "UP":
+                return ((x == 0) && (y == 1));
+            
+            case "RU":
+                return ((x == 1) && (y == 1));
 
-        else if (checking_direction == "LD")
-            return ((x == -1) && (y == -1));
-        
-        else if (checking_direction == "LEFT")
-            return ((x == -1) && (y == 0));
-        
-        else if (checking_direction == "LU")
-            return ((x == -1) && (y == 1));
-        return false;
+            case "RIGHT":
+                return ((x == 1) && (y == 0));
+            
+            case "RD":
+                return ((x == 1) && (y == -1));
+            
+            case "DOWN":
+                return ((x == 0) && (y == -1));
+            
+            case "LD":
+                return ((x == -1) && (y == -1));
+            
+            case "LEFT":
+                return ((x == -1) && (y == 0));
+
+            case "LU":
+                return ((x == -1) && (y == 1));
+            
+            default:
+                return false;
+        }
     }
 
     public void SetIsInteracting(bool state)

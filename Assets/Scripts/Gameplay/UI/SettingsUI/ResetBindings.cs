@@ -95,8 +95,8 @@ public class ResetBindings : MonoBehaviour
             pad_bindingIndex = target_action.bindings.IndexOf(x => x.path.Contains("Gamepad"));
             
             demand_displayList = "BATTLE";
-            rebindKey.RebindUpdateText(target_action, key_bindingIndex, i, target_action.bindings[key_bindingIndex].path, true);
-            rebindKey.RebindUpdateText(target_action, pad_bindingIndex, i, target_action.bindings[pad_bindingIndex].path, false);
+            rebindKey.RebindUpdateText(target_action, key_bindingIndex, i, target_action.bindings[key_bindingIndex].path, true, false);
+            rebindKey.RebindUpdateText(target_action, pad_bindingIndex, i, target_action.bindings[pad_bindingIndex].path, false, false);
 
             demand_displayList = "none";
         }

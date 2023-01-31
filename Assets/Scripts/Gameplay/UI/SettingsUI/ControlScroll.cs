@@ -41,7 +41,6 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [Header("KEYBOARD")]
     [SerializeField] private List<TextMeshProUGUI> roam_bindingDisplayText_key;
     [SerializeField] private List<TextMeshProUGUI> battle_bindingDisplayText_key;
-    
 
     [Header("GAMEPAD")]
     [SerializeField] private List<Image> roam_bindingDisplayText_pad;
@@ -307,12 +306,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         rebindKey.StartRebinding();
     }
     
-    public List<TextMeshProUGUI> bindingDisplayText_key()
+    public List<TextMeshProUGUI> bindingDisplayText_key(string demandMode = "")
     {
-        if (resetBindings.demand_displayList == "FREEROAM")
+        if ((resetBindings.demand_displayList == "FREEROAM") || (demandMode == "FREEROAM"))
             return roam_bindingDisplayText_key;
 
-        else if (resetBindings.demand_displayList == "BATTLE")
+        else if ((resetBindings.demand_displayList == "BATTLE") || (demandMode == "BATTLE"))
             return battle_bindingDisplayText_key;
         
         else if (isModeRoam)
@@ -381,7 +380,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         for (int i = 0; i < roam_actionText.Count; i++)
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
-            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(roam_bindingDisplayText_key[i].text);
+            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(i, roam_bindingDisplayText_key[i].text, "FREEROAM");
             mapBundle.gamepadMap[1] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "xbox");
             mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "switch");
             mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "ps4");
@@ -394,7 +393,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         for (int i = 0; i < battle_actionText.Count; i++)
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
-            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(battle_bindingDisplayText_key[i].text);
+            mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(i, battle_bindingDisplayText_key[i].text, "BATTLE");
             mapBundle.gamepadMap[1] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "xbox");
             mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "switch");
             mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "ps4");

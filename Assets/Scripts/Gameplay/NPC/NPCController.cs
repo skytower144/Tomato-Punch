@@ -139,29 +139,19 @@ public class NPCController : MonoBehaviour, Interactable
         PlayerMovement playerMovement = PlayerMovement.instance;
         bool finalFlag = true;
 
-        if (lock_u && playerMovement.CheckFacingDirection("UP"))
+        if (
+            (lock_u && playerMovement.CheckFacingDirection("UP")) ||
+            (lock_ru && playerMovement.CheckFacingDirection("RU")) ||
+            (lock_r && playerMovement.CheckFacingDirection("RIGHT")) ||
+            (lock_rd && playerMovement.CheckFacingDirection("RD")) ||
+            (lock_d && playerMovement.CheckFacingDirection("DOWN")) ||
+            (lock_ld && playerMovement.CheckFacingDirection("LD")) ||
+            (lock_l && playerMovement.CheckFacingDirection("LEFT")) ||
+            (lock_lu && playerMovement.CheckFacingDirection("LU"))
+            )
+        {
             finalFlag = false;
-        
-        if (lock_ru && playerMovement.CheckFacingDirection("RU") )
-            finalFlag = false;
-        
-        if (lock_r && playerMovement.CheckFacingDirection("RIGHT") )
-            finalFlag = false;
-        
-        if (lock_rd && playerMovement.CheckFacingDirection("RD"))
-            finalFlag = false;
-        
-        if (lock_d && playerMovement.CheckFacingDirection("DOWN"))
-            finalFlag = false;
-        
-        if (lock_ld && playerMovement.CheckFacingDirection("LD"))
-            finalFlag = false;
-
-        if (lock_l && playerMovement.CheckFacingDirection("LEFT"))
-            finalFlag = false;
-        
-        if (lock_lu && playerMovement.CheckFacingDirection("LU"))
-            finalFlag = false;
+        }
 
         return finalFlag;
     }
