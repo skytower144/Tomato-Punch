@@ -255,13 +255,13 @@ public class RebindKey : MonoBehaviour
     private string Pad_Path(int menuNumber) // Initial Setting.
     {
         if (menuNumber == 0)
-            return "<Gamepad>/leftStick/up";
+            return "<Gamepad>/dpad/up";
         else if(menuNumber == 1)
-            return "<Gamepad>/leftStick/down";
+            return "<Gamepad>/dpad/down";
         else if(menuNumber == 2)
-            return "<Gamepad>/leftStick/left";
+            return "<Gamepad>/dpad/left";
         else if(menuNumber == 3)
-            return "<Gamepad>/leftStick/right";
+            return "<Gamepad>/dpad/right";
         return "";
     }
     //===============================================================================

@@ -10,39 +10,27 @@ public class iconNavigation : MonoBehaviour
     [SerializeField] private List <Image> buttonImage;
     [SerializeField] private List <InventoryButtonScript> texts;
     [SerializeField] private List <GameObject> uiBundle;
-    [SerializeField] private List <Button> button;
     
     private int iconNumber;
+    private int matoMaxIcons;
     void Start()
     {
         if (iconNumber != 0){
             buttonNormalize(iconNumber);
         }
         iconNumber = 0;
+        matoMaxIcons = SelectedIconSprite.Count;
         buttonHighlight(iconNumber);
     }
     void Update() 
     {
         if(playerMovement.Press_Key("RightPage"))
         {
-            buttonNormalize(iconNumber);
-            uiBundle[iconNumber].SetActive(false);
-            
-            iconNumber = (iconNumber + 1)%4;
-            button[iconNumber].Select();
-            uiBundle[iconNumber].SetActive(true);
-            buttonHighlight(iconNumber);
-            
+            FlipPage(1);
         }
         else if(playerMovement.Press_Key("LeftPage"))
         {
-            buttonNormalize(iconNumber);
-            uiBundle[iconNumber].SetActive(false);
-            
-            iconNumber = (iconNumber + 3)%4;
-            button[iconNumber].Select();
-            uiBundle[iconNumber].SetActive(true);
-            buttonHighlight(iconNumber);
+            FlipPage(-1);
         }
         else if(playerMovement.Press_Key("Status"))
         {
@@ -54,22 +42,19 @@ public class iconNavigation : MonoBehaviour
     {
         Start();
     }
-    public void iconNumberInitialize()
+    public void FlipPage(int direction)
     {
         buttonNormalize(iconNumber);
 
-        if(uiBundle[0].activeSelf){
-            iconNumber = 0;
-        }
-        else if(uiBundle[1].activeSelf){
-            iconNumber = 1;
-        }
-        else if(uiBundle[2].activeSelf){
-            iconNumber = 2;
-        }
-        else if(uiBundle[3].activeSelf){
-            iconNumber = 3;
-        }
+        uiBundle[iconNumber].SetActive(false);
+        
+        if (direction == 1)
+            iconNumber = (iconNumber + 1) % matoMaxIcons;
+        else
+            iconNumber = (iconNumber + (matoMaxIcons - 1)) % matoMaxIcons;
+
+        uiBundle[iconNumber].SetActive(true);
+
         buttonHighlight(iconNumber);
     }
 

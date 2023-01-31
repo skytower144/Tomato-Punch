@@ -49,13 +49,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerInteract();
             }
-            else if(!isInteracting && Press_Key("Status"))
+            else if (
+                (!isInteracting && Press_Key("Status")) ||
+                (!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && Press_Key("Cancel"))
+                )
             {
                 HitStatus();
-            }
-            else if(!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && Press_Key("Cancel"))
-            {
-                HitStatus(); // BREAK OUT OF STATUS
             }
             else if(!isInteracting && Press_Key("Pause"))
             {
@@ -127,8 +126,6 @@ public class PlayerMovement : MonoBehaviour
         playerUI.SetActive(!playerUI.activeSelf);
         playerUIList[0].SetActive(true);
         playerUIList[1].SetActive(false);
-        playerUIList[2].SetActive(false);
-        playerUIList[3].SetActive(false);
 
         statusNavigation.normalize_navigation();
     }

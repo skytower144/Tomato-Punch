@@ -76,9 +76,7 @@ Wait_InputBind : 입력을 기다리고 있습니다...
 Detect_DuplicateBind : 중복이 존재합니다!
 
 Status_STT : 능력치
-Status_CNS : 소비
 Status_EQP : 무기
-Status_ITM : 아이템
 Status_Status : 능력치
 Status_Equip : 무기
 Status_Next : 다음

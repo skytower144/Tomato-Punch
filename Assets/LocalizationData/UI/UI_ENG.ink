@@ -76,9 +76,7 @@ Wait_InputBind : Waiting for input...
 Detect_DuplicateBind : Already in use!
 
 Status_STT : STT
-Status_CNS : CNS
 Status_EQP : EQP
-Status_ITM : ITM
 Status_Status : STATUS
 Status_Equip : EQUIP
 Status_Next : NEXT
