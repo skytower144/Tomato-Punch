@@ -17,8 +17,6 @@ public class BattleUI_Control : MonoBehaviour
             {
                 gatleCircle_once = true;                            // stop from repeating inside update
 
-                guardBar.RestoreGuardBar();
-
                 Invoke("fade_InOut", 0.2f);
                 Invoke("activate_GatleButton", 0.6f);
                 Invoke("activate_GatleCircle", 3f);

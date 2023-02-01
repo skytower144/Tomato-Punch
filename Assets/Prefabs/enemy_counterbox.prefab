@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1901433124544213238}
   - component: {fileID: 4583090767619851921}
   - component: {fileID: -3057714056400277588}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemy_counterbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,6 +71,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyBase: {fileID: 11400000, guid: f90d13b4be5c1dc419abbbef56f44eaf, type: 2}
+  enemy_is_hurt: {fileID: 0}
+  tomatocontrol: {fileID: 0}
+  counterTrack: {fileID: 0}
   counterEffect: {fileID: 2513154410385975804, guid: 9250bf104c0562346a019bade54342b9, type: 3}
   counterPunch_effect: {fileID: 7512795930657710638, guid: ac2191624b32e044282bd58c21d73e46, type: 3}
   screenFlash: {fileID: 1804978211366873740, guid: 631f7583c0f811e4eb393b14d35de388, type: 3}
+  counter_is_initialized: 0
+  totalCounter: 0

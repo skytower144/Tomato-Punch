@@ -28,7 +28,7 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public string pjTag;     // pj selection string
     
     public static int totalParry = 0;
-    [HideInInspector] public int totalSuper = 0;
+    [System.NonSerialized] public int totalSuper = 0;
 
     void OnEnable()
     {
@@ -259,4 +259,11 @@ public class EnemyControl : MonoBehaviour
         anim.runtimeAnimatorController = null;
     }
 
+    public void EraseAllAttacks()
+    {
+        foreach (Transform attack in Parent.transform)
+        {
+            Destroy(attack.gameObject);
+        }
+    }
 }

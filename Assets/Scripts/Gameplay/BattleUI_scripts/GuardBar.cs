@@ -12,7 +12,6 @@ public class GuardBar : MonoBehaviour
 
     private void Update()
     {
-        
         if(!tomatoControl.isGuard)
         {
             regainGuardTimer -= Time.deltaTime;
@@ -22,11 +21,6 @@ public class GuardBar : MonoBehaviour
                 guardFill.value += regainSpeed * Time.deltaTime;
                 tomatocontrol.current_guardPt = guardFill.value;
             }
-        }
-
-        if(Enemy_parried.pjParried)
-        {
-            RestoreGuardBar();
         }
     }
 

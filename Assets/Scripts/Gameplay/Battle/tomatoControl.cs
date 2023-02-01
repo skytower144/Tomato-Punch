@@ -34,10 +34,11 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars;
+    [System.NonSerialized] public GameObject tempObj = null;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private GuardBar guardBar;
+    [SerializeField] private GuardBar guardBar; public GuardBar guard_bar => guardBar;
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private CounterTrack counterTrack;
@@ -374,6 +375,7 @@ public class tomatoControl : MonoBehaviour
         isAction = false;
 
         tomatoGuard.isParry = false;
+        tomatoGuard.preventDamageOverlap = false;
     }
 
     void punchActivate()
@@ -516,7 +518,7 @@ public class tomatoControl : MonoBehaviour
     }
     private void createStars()
     {
-        Instantiate(faintStars, transform);
+        tempObj = Instantiate(faintStars, transform);
     }
 
     public void playTomatoKnockback()

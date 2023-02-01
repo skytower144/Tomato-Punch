@@ -17,6 +17,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
     [SerializeField] private Image background;
     [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
+    private GameObject tempObj;
     void Start()
     {
         resetPlayerHealth = false;
@@ -102,14 +103,14 @@ public class BattleSystem : MonoBehaviour
 
     public void CoinFlip()
     {
-        Instantiate(darkScreen, battleCanvas_transform);
+        tempObj = Instantiate(darkScreen, battleCanvas_transform);
         Instantiate(coinFlip, tomato_transform);
     }
 
     public void ScreenFlash()
     {
-        Destroy(tomato_transform.GetChild(3).gameObject);
-        battleCanvas_transform.GetChild(4).gameObject.GetComponent<Animator>().Play("dark_screen");
+        Destroy(tomato_control.tempObj);
+        tempObj.GetComponent<Animator>().Play("dark_screen");
     }
 
     public int ReviveCostFormula()

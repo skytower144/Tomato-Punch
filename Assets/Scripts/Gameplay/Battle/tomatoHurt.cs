@@ -52,10 +52,13 @@ public class tomatoHurt : MonoBehaviour
         healthBar.hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
 
         if(tomatocontrol.currentHealth == 0){
+            tomatoControl.isFainted = true;
+            GameManager.gm_instance.battle_system.enemy_control.EraseAllAttacks();
+
             textSpawn.Invoke("AskContinue", 1.8f);
 
-            tomatoControl.isFainted = true;
-
+            tomatocontrol.ReleaseGuard();
+            
             anim.Play("tomato_faint",-1,0f);
             Instantiate(faintBurstEffect);
 
