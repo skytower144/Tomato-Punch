@@ -18,17 +18,20 @@ public class SuperSlotNavigation : MonoBehaviour
     
     //    8
     // 0 1 2 3
-    void Start()
+    void OnEnable()
     {
         slotNumber = 0;
         pageNumber = 0;
-        //resetPage();
 
         pointerImage.enabled = true;
         pointer.position = slotGrid[0].position;
 
         SlotNavigation.isBusy = false;
         slotbox.SetActive(false);
+    }
+    void OnDisable()
+    {
+        OnEnable();
     }
     void Update()
     {
@@ -96,9 +99,5 @@ public class SuperSlotNavigation : MonoBehaviour
                 logoAnim.Play("superLogo_highlighted");
             }
         }
-    }
-    void OnDisable()
-    {
-        Start();
     }
 }

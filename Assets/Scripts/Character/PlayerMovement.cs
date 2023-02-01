@@ -49,10 +49,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerInteract();
             }
-            else if (
-                (!isInteracting && Press_Key("Status")) ||
-                (!statusNavigation.navigating_status && !SlotNavigation.isBusy && playerUI.activeSelf && Press_Key("Cancel"))
-                )
+            else if ((!isInteracting && Press_Key("Status"))) // ENTER
+            {
+                HitStatus();
+            }
+            else if ((isInteracting && Press_Key("Status")) || (CheckCanExit() && Press_Key("Cancel"))) // EXIT
             {
                 HitStatus();
             }
@@ -62,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private bool CheckCanExit()
+    {
+        return (!statusNavigation.navigating_status && !SlotNavigation.isBusy && !GameManager.gm_instance.equip_control.enterEquipNavigation && playerUI.activeSelf);
+    }
+
     // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
     {
@@ -121,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         myAnim.SetBool("isWalking",false);
     }
 
-    void inventorySetUp()
+    private void inventorySetUp()
     {
         playerUI.SetActive(!playerUI.activeSelf);
         playerUIList[0].SetActive(true);

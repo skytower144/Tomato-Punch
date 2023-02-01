@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
     [SerializeField] UIControl uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
+    [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 

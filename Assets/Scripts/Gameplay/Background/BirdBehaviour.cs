@@ -15,6 +15,12 @@ public class BirdBehaviour : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    void OnDisable()
+    {
+        if (isFlee)
+            Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (transform.position.x < fleePoint.transform.position.x)
@@ -22,7 +28,7 @@ public class BirdBehaviour : MonoBehaviour
         else
             transform.localScale = new Vector2(1, transform.localScale.y);
         
-        wanderBehaviour.ExitDefaultBehaviour();
+        wanderBehaviour.ExitWander();
         wanderBehaviour.PlayAnimation("birds_flee");
         spriteRenderer.sortingOrder = 2;
         

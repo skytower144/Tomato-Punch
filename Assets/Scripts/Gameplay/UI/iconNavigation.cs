@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class iconNavigation : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private StatusNavigation statusNavigation;
+    [SerializeField] private equipControl equipcontrol;
     [SerializeField] private List <Sprite> SelectedIconSprite;
     [SerializeField] private List <Sprite> defaultIconSprite;
     [SerializeField] private List <Image> buttonImage;
@@ -24,17 +26,34 @@ public class iconNavigation : MonoBehaviour
     }
     void Update() 
     {
-        if(playerMovement.Press_Key("RightPage"))
+        if (!equipcontrol.enterEquipNavigation && !statusNavigation.navigating_status)
         {
-            FlipPage(1);
+            if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
+            {
+                GameManager.gm_instance.DetectHolding(UINavigate);
+            }
+            else if (GameManager.gm_instance.WasHolding)
+            {
+                GameManager.gm_instance.holdStartTime = float.MaxValue;
+            }
         }
-        else if(playerMovement.Press_Key("LeftPage"))
-        {
-            FlipPage(-1);
-        }
+
         else if(playerMovement.Press_Key("Status"))
         {
             playerMovement.HitStatus();
+        }
+    }
+
+    private void UINavigate()
+    {
+        string direction = playerMovement.Press_Direction();
+        if(direction == "RIGHT")
+        {
+            FlipPage(1);
+        }
+        else if(direction == "LEFT")
+        {
+            FlipPage(-1);
         }
     }
 
@@ -42,19 +61,15 @@ public class iconNavigation : MonoBehaviour
     {
         Start();
     }
-    public void FlipPage(int direction)
+    private void FlipPage(int direction)
     {
         buttonNormalize(iconNumber);
-
         uiBundle[iconNumber].SetActive(false);
-        
-        if (direction == 1)
-            iconNumber = (iconNumber + 1) % matoMaxIcons;
-        else
-            iconNumber = (iconNumber + (matoMaxIcons - 1)) % matoMaxIcons;
+
+        iconNumber += direction;
+        iconNumber = Mathf.Clamp(iconNumber, 0, matoMaxIcons - 1);
 
         uiBundle[iconNumber].SetActive(true);
-
         buttonHighlight(iconNumber);
     }
 

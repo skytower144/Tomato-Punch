@@ -13,7 +13,7 @@ public class WanderBehaviour : MonoBehaviour
     private Vector2 wayPoint;
     private float range = 0.5f;
     private float timeRemaining;
-    private bool isResting;
+    private bool isResting, stopWander;
     
 
     void Start()
@@ -22,12 +22,22 @@ public class WanderBehaviour : MonoBehaviour
         anim.Play(movingAnimationTag, -1, 0f);
 
         timeRemaining = timer;
+    }
+
+    void OnEnable()
+    {
+        isResting = stopWander = false;
         SetNewDestination();
+    }
+
+    void OnDisable()
+    {
+        ExitWander();
     }
 
     void Update()
     {
-        if (!isResting)
+        if (!isResting && !stopWander)
         {
             transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
 
@@ -38,7 +48,6 @@ public class WanderBehaviour : MonoBehaviour
 
             if ((Vector2.Distance(transform.position, wayPoint) < range) || timeRemaining <= 0)
             {
-                isResting = true;
                 timeRemaining = timer;
                 SetNewDestination();
                 
@@ -54,17 +63,11 @@ public class WanderBehaviour : MonoBehaviour
 
     IEnumerator Rest()
     {
+        isResting = true;
+
         anim.Play(idleAnimationTag, -1, 0f);
         yield return new WaitForSeconds(restingTime);
-
-        if(Random.value > 0.6)
-        {
-            anim.Play(randomBehaviourTag, -1, 0f);
-            yield return new WaitForSeconds(1f);
-            
-            anim.Play(idleAnimationTag, -1, 0f);
-            yield return new WaitForSeconds(1f);
-        }
+        yield return RandomBehaviour();
 
         isResting = false;
 
@@ -75,10 +78,23 @@ public class WanderBehaviour : MonoBehaviour
 
         anim.Play(movingAnimationTag, -1, 0f);
     }
-
-    public void ExitDefaultBehaviour()
+    
+    IEnumerator RandomBehaviour()
     {
-        isResting = true;
+        if(Random.value > 0.6)
+        {
+            anim.Play(randomBehaviourTag, -1, 0f);
+            yield return new WaitForSeconds(1f);
+            
+            anim.Play(idleAnimationTag, -1, 0f);
+            yield return new WaitForSeconds(1f);
+        }
+        yield break;
+    }
+
+    public void ExitWander()
+    {
+        stopWander = true;
         StopAllCoroutines();
         transform.localScale = new Vector2(1, transform.localScale.y);
     }
