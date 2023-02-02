@@ -14,7 +14,7 @@ public class SlotNavigation : MonoBehaviour
     [SerializeField] private Image pointerImage, logoImage;
     [SerializeField] private Sprite defaultLogo, highlightedLogo;
     [SerializeField] private GameObject normal_Parent, super_Parent, leftArrow, rightArrow, slotbox;
-    [SerializeField] private int pageNumber, slotNumber, prevSlot;
+    private int pageNumber, slotNumber, prevSlot;
     [System.NonSerialized] public int invNumber;
     [System.NonSerialized] static public bool isBusy; // when selecting a slot
 

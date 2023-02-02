@@ -1,28 +1,49 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class iconNavigation : MonoBehaviour
 {
+    [System.Serializable]
+    private class CharacterCard
+    {
+        public GameObject cardObj;
+        public List <Sprite> SelectedIconSprite;
+        public List <Sprite> defaultIconSprite;
+        public List <Image> buttonImage;
+        public List <InventoryButtonScript> texts;
+        public List <GameObject> uiBundle;
+    }
+
+    [System.Serializable]
+    private class InventoryBookMark
+    {
+        public GameObject shade;
+        public GameObject bookmark;
+        public RectTransform bookmarkPos;
+    }
+
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private StatusNavigation statusNavigation;
     [SerializeField] private equipControl equipcontrol;
-    [SerializeField] private List <Sprite> SelectedIconSprite;
-    [SerializeField] private List <Sprite> defaultIconSprite;
-    [SerializeField] private List <Image> buttonImage;
-    [SerializeField] private List <InventoryButtonScript> texts;
-    [SerializeField] private List <GameObject> uiBundle;
-    
-    private int iconNumber;
-    private int matoMaxIcons;
+    [SerializeField] private List<InventoryBookMark> bookmarkList;
+    [SerializeField] private List<CharacterCard> cardList;
+    private int cardNumber, maxCardNumber, iconNumber, maxIconNumber;
     void Start()
     {
-        if (iconNumber != 0){
-            buttonNormalize(iconNumber);
-        }
-        iconNumber = 0;
-        matoMaxIcons = SelectedIconSprite.Count;
-        buttonHighlight(iconNumber);
+        maxCardNumber = cardList.Count - 1;
+    }
+    void OnEnable()
+    {
+        cardNumber = 0;
+        buttonHighlight(0);
+        SetPage(0);
+    }
+    void OnDisable()
+    {
+        buttonNormalize(iconNumber);
+        cardList[cardNumber].uiBundle[iconNumber].SetActive(false);
+        cardList[cardNumber].cardObj.SetActive(false);
+        SetBookMark(cardNumber, 0);
     }
     void Update() 
     {
@@ -47,40 +68,85 @@ public class iconNavigation : MonoBehaviour
     private void UINavigate()
     {
         string direction = playerMovement.Press_Direction();
-        if(direction == "RIGHT")
+        if(direction == InputDir.RIGHT)
         {
             FlipPage(1);
         }
-        else if(direction == "LEFT")
+        else if(direction == InputDir.LEFT)
         {
             FlipPage(-1);
         }
+        else if (direction == InputDir.UP)
+        {
+            FlipCard(-1);
+        }
+        else if (direction == InputDir.DOWN)
+        {
+            FlipCard(1);
+        }
     }
-
-    public void status_enableStart()
+    private void SetPage(int card_number)
     {
-        Start();
+        cardNumber = card_number;
+        iconNumber = 0;
+        maxIconNumber = cardList[card_number].uiBundle.Count - 1;
+
+        cardList[card_number].uiBundle[0].SetActive(true);
+        cardList[card_number].cardObj.SetActive(true);
+    }
+    private void FlipCard(int direction)
+    {
+        int prevCardNumber = cardNumber;
+
+        cardNumber += direction;
+        cardNumber = Mathf.Clamp(cardNumber, 0, maxCardNumber);
+
+        if (prevCardNumber == cardNumber)
+            return;
+
+        buttonNormalize(iconNumber, prevCardNumber);
+        cardList[prevCardNumber].uiBundle[iconNumber].SetActive(false);
+        cardList[prevCardNumber].cardObj.SetActive(false);
+
+        buttonHighlight(0);
+        SetPage(cardNumber);
+
+        SetBookMark(prevCardNumber, cardNumber);
     }
     private void FlipPage(int direction)
     {
         buttonNormalize(iconNumber);
-        uiBundle[iconNumber].SetActive(false);
+        cardList[cardNumber].uiBundle[iconNumber].SetActive(false);
 
         iconNumber += direction;
-        iconNumber = Mathf.Clamp(iconNumber, 0, matoMaxIcons - 1);
+        iconNumber = Mathf.Clamp(iconNumber, 0, maxIconNumber);
 
-        uiBundle[iconNumber].SetActive(true);
+        cardList[cardNumber].uiBundle[iconNumber].SetActive(true);
         buttonHighlight(iconNumber);
     }
 
-    void buttonNormalize(int number)
+    private void SetBookMark(int prev_num, int curr_num)
     {
-        buttonImage[number].sprite = defaultIconSprite[number];     
-        texts[number].buttonNormalizeText();
+        Vector3 bookmarkPos = bookmarkList[prev_num].bookmarkPos.localPosition;
+        bookmarkList[prev_num].shade.SetActive(true);
+        bookmarkList[prev_num].bookmarkPos.localPosition = new Vector2(bookmarkPos.x + 42, bookmarkPos.y);
+
+        bookmarkPos = bookmarkList[curr_num].bookmarkPos.localPosition;
+        bookmarkList[curr_num].shade.SetActive(false);
+        bookmarkList[curr_num].bookmarkPos.localPosition = new Vector2(bookmarkPos.x - 42, bookmarkPos.y);
+    }
+
+    void buttonNormalize(int number, int card_number = -1)
+    {
+        if (card_number == -1)
+            card_number = cardNumber;
+            
+        cardList[card_number].buttonImage[number].sprite = cardList[card_number].defaultIconSprite[number];     
+        cardList[card_number].texts[number].buttonNormalizeText();
     }
     void buttonHighlight(int number)
     {
-        buttonImage[number].sprite = SelectedIconSprite[iconNumber];
-        texts[number].buttonHighlightText();
+        cardList[cardNumber].buttonImage[number].sprite = cardList[cardNumber].SelectedIconSprite[number];
+        cardList[cardNumber].texts[number].buttonHighlightText();
     }
 }

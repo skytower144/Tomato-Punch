@@ -19,10 +19,11 @@ public class StatusNavigation : MonoBehaviour
     {
         navigating_status = false;
         statusNumber = 2;
+        normalize_navigation();
     }
     void OnDisable()
     {
-        normalize_navigation();
+        OnEnable();
     }
     void Update()
     {

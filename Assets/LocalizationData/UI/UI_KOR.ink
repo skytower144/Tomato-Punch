@@ -75,11 +75,11 @@ Controls_Battle_8 : * 슈퍼스킬
 Wait_InputBind : 입력을 기다리고 있습니다...
 Detect_DuplicateBind : 중복이 존재합니다!
 
-Status_STT : 능력치
-Status_EQP : 무기
-Status_Status : 능력치
-Status_Equip : 무기
-Status_Next : 다음
+Mato_StatusIcon_Text : 능력치 // "Status" - Abbreviation Needed if over 3 characters.
+Mato_EquipIcon_Text : 무기 // "Equip" - Abbreviation Needed.
+Mato_StatusTitle_Text : 능력치
+Mato_EquipTitle_Text : 무기
+Mato_NextLevel_Text : 다음
 
 Super_Equip : 장착하기
 Super_Details : 세부사항

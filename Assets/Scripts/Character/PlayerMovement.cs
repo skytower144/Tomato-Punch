@@ -11,11 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInput PlayerInput => playerInput;
     
     [SerializeField] GameManager gameManager;
-    [SerializeField] iconNavigation iconnavigation;
     [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
     [SerializeField] private GameObject playerUI, pauseObj, darkFilter, colliderObj, faderObj;
-    [SerializeField] private List <GameObject> playerUIList;
     public GameObject dark_filter => darkFilter;
     public GameObject collider_obj => colliderObj;
     public GameObject fader_obj => faderObj;
@@ -126,19 +124,9 @@ public class PlayerMovement : MonoBehaviour
         isInteracting = !isInteracting;
         myAnim.SetBool("isWalking",false);
     }
-
-    private void inventorySetUp()
-    {
-        playerUI.SetActive(!playerUI.activeSelf);
-        playerUIList[0].SetActive(true);
-        playerUIList[1].SetActive(false);
-
-        statusNavigation.normalize_navigation();
-    }
     public void HitStatus()
     {
-        inventorySetUp();
-        iconnavigation.status_enableStart();
+        playerUI.SetActive(!playerUI.activeSelf);
         StartCoroutine(IsInteracting(0.1f));
     }
     public void HitMenu()
@@ -234,4 +222,12 @@ public class PlayerMovement : MonoBehaviour
         isInteracting = state;
         myAnim.SetBool("isWalking", false);
     }
+}
+
+public static class InputDir
+{
+    public const string UP = "UP";
+    public const string DOWN = "DOWN";
+    public const string RIGHT = "RIGHT";
+    public const string LEFT = "LEFT";
 }

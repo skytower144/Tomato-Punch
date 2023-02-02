@@ -75,11 +75,11 @@ Controls_Battle_8 : * Super Skill
 Wait_InputBind : Waiting for input...
 Detect_DuplicateBind : Already in use!
 
-Status_STT : STT
-Status_EQP : EQP
-Status_Status : STATUS
-Status_Equip : EQUIP
-Status_Next : NEXT
+Mato_StatusIcon_Text : STT // "Status" - Abbreviation Needed if over 3 characters.
+Mato_EquipIcon_Text : EQP // "Equip" - Abbreviation Needed.
+Mato_StatusTitle_Text : STATUS
+Mato_EquipTitle_Text : EQUIP
+Mato_NextLevel_Text : NEXT
 
 Super_Equip : Equip
 Super_Details : Details
