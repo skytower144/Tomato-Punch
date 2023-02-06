@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInput PlayerInput => playerInput;
     
     [SerializeField] GameManager gameManager;
-    [SerializeField] StatusNavigation statusNavigation;
     [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
     [SerializeField] private GameObject playerUI, pauseObj, darkFilter, colliderObj, faderObj;
     public GameObject dark_filter => darkFilter;
@@ -51,19 +50,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 HitStatus();
             }
-            else if ((isInteracting && Press_Key("Status")) || (CheckCanExit() && Press_Key("Cancel"))) // EXIT
-            {
-                HitStatus();
-            }
             else if(!isInteracting && Press_Key("Pause"))
             {
                 HitMenu();
             }
         }
-    }
-    private bool CheckCanExit()
-    {
-        return (!statusNavigation.navigating_status && !SlotNavigation.isBusy && !GameManager.gm_instance.equip_control.enterEquipNavigation && playerUI.activeSelf);
     }
 
     // Update is called once per frame

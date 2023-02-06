@@ -36,6 +36,7 @@ public class ProgressManager : MonoBehaviour
         }
         instance = this;
 
+        CountableItemDB.Initiatlize();
         EquipDB.Initiatlize();
         ItemPrefabDB.Initiatlize();
         
@@ -100,7 +101,7 @@ public class ProgressManager : MonoBehaviour
                 save_data = dataHandler.Load("Slot_New");
         }
         
-        playerInventory.GatherSlots();
+        playerInventory.GatherEquipSlots();
         LoadPlayerData(); // apply data to gameplay
         
         Destroy(itemManagerPrefab);
@@ -140,6 +141,10 @@ public class ProgressManager : MonoBehaviour
         tomatoData.backup_canvas_x = PlayerCamera.playerCamera_instance.canvas_x;
         tomatoData.backup_canvas_y = PlayerCamera.playerCamera_instance.canvas_y;
 
+        foreach (ItemQuantity consumable in playerInventory.consumableItems)
+        {
+            tomatoData.carrying_countable_list.Add(new SerializedItemQuantity(consumable.item.ItemName, consumable.count));
+        }
         foreach (Item equip in playerInventory.normalEquip)
         {
             tomatoData.carrying_equip_list.Add(equip.ItemName);
@@ -186,15 +191,20 @@ public class ProgressManager : MonoBehaviour
         PlayerCamera.playerCamera_instance.canvas_x = tomatoData.backup_canvas_x;
         PlayerCamera.playerCamera_instance.canvas_y = tomatoData.backup_canvas_y;
         
+        playerInventory.consumableItems.Clear();
         playerInventory.normalEquip.Clear();
         playerInventory.superEquip.Clear();
         inventoryUI.ClearAllEquipSlots();
 
+        foreach (var consumable in tomatoData.carrying_countable_list)
+        {
+            playerInventory.AddItem(CountableItemDB.ReturnItemOfName(consumable.item_name), consumable.item_count);
+        }
         foreach (string equip_name in tomatoData.carrying_equip_list)
         {
             playerInventory.AddItem(EquipDB.ReturnItemOfName(equip_name));
         }
-
+        inventoryUI.UpdateConsumableSlots();
         inventoryUI.RecoverSlotIndex(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
         inventoryUI.UpdateEquipSlots(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
     }

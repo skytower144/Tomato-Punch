@@ -23,8 +23,10 @@ public class iconNavigation : MonoBehaviour
     }
 
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private ConsumableNavigation consumableNavigation;
     [SerializeField] private StatusNavigation statusNavigation;
     [SerializeField] private equipControl equipcontrol;
+    [SerializeField] private GameObject inventoryObj;
     [SerializeField] private List<InventoryBookMark> bookmarkList;
     [SerializeField] private List<CharacterCard> cardList;
     private int cardNumber, maxCardNumber, iconNumber, maxIconNumber;
@@ -47,7 +49,7 @@ public class iconNavigation : MonoBehaviour
     }
     void Update() 
     {
-        if (!equipcontrol.enterEquipNavigation && !statusNavigation.navigating_status)
+        if (CanNavigate())
         {
             if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
@@ -57,13 +59,24 @@ public class iconNavigation : MonoBehaviour
             {
                 GameManager.gm_instance.holdStartTime = float.MaxValue;
             }
-        }
-
-        else if(playerMovement.Press_Key("Status"))
-        {
-            playerMovement.HitStatus();
+            else if(playerMovement.Press_Key("Status") || playerMovement.Press_Key("Cancel"))
+            {
+                playerMovement.HitStatus();
+            }
         }
     }
+
+    private bool CanNavigate()
+    {
+        return (!consumableNavigation.is_navigating && !statusNavigation.navigating_status && !equipcontrol.enterEquipNavigation);
+    }
+
+    /*
+    private bool CanExit()
+    {
+        return (!statusNavigation.navigating_status && !SlotNavigation.isBusy && !GameManager.gm_instance.equip_control.enterEquipNavigation && inventoryObj.activeSelf);
+    }
+    */
 
     private void UINavigate()
     {

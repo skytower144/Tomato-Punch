@@ -3,10 +3,15 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     private Inventory inventory;
+
+    [Header("All")]
+    [SerializeField] private GameObject consumableList, itemSlotPrefab;
+
+    [Header("MATO")]
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Image left_equip1, left_equip2, left_super;
     [SerializeField] Transform slotParent, super_slotParent;
-    [SerializeField] private InventorySlot[] normalSlots;
+    private InventorySlot[] normalSlots;
     private InventorySlot[] superSlots;
     private int selected_1 = -1;
     private int selected_2 = -1;
@@ -23,7 +28,7 @@ public class InventoryUI : MonoBehaviour
         selected_s = idx_s;
     }
 
-    public void activateUI()
+    public void InitiatlizeInventoryUI()
     {
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
@@ -32,15 +37,22 @@ public class InventoryUI : MonoBehaviour
         superSlots = super_slotParent.GetComponentsInChildren<InventorySlot>(true);
         // "Should Components on inactive GameObjects be included in the found set?" -> (true)
     }
-    private void UpdateUI() // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> (VISIBLE) Update & Clear slots.
+    private void UpdateUI(ItemType item_type) // ACTUAL item change in Inventory.cs -> invoke UpdateUI -> (VISIBLE) Update & Clear slots.
     {
-        if (inventory.itemType_num == 1) // if normal equip
-        {
-            UpdateNormalSlots();
-        }
-        else if (inventory.itemType_num == 2) // if super equip
-        {
-            UpdateSuperSlots();
+        switch (item_type) {
+            case ItemType.Consumable:
+                break;
+
+            case ItemType.NormalEquip:
+                UpdateNormalSlots();
+                break;
+            
+            case ItemType.SuperEquip:
+                UpdateSuperSlots();
+                break;
+            
+            default:
+                break;
         }
     }
 
@@ -109,6 +121,18 @@ public class InventoryUI : MonoBehaviour
         AddColor_Left(left);
         AddColor_Right(right);
         AddColor_S(super);
+    }
+
+    public void UpdateConsumableSlots()
+    {
+        foreach (Transform child in consumableList.transform) {
+            Destroy(child.gameObject);
+        }
+
+        foreach (ItemQuantity itemQuantity in inventory.consumableItems) {
+            GameObject itemSlot = Instantiate(itemSlotPrefab, consumableList.transform);
+            itemSlot.GetComponent<ItemSlotUI>().SetData(itemQuantity);
+        }
     }
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------

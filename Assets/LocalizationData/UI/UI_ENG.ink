@@ -92,6 +92,13 @@ Load_Prompt_Yes : Yes
 Load_Prompt_No : No
 
 
+// CONSUMABLE
+Donut : Donut
+Donut_Description : This donut seems very suspicious...<br><color=\#07791A>+ 10 HP</color>
 
+Soda : Soda
+Soda_Description : The fizz stings your brain to the fullest.<br><color=\#07791A>+ 5 HP</color>
+
+// EQUIP
 Knuckle Sandwich : Knuckle Sandwich
 SuperChili : SuperChili

@@ -17,4 +17,18 @@ public class PlayerData
     public int slot_index_right = -1;
     public int slot_index_super = -1;
     public List<string> carrying_equip_list = new List<string>();
+    public List<SerializedItemQuantity> carrying_countable_list = new List<SerializedItemQuantity>();
+}
+
+[System.Serializable]
+public class SerializedItemQuantity
+{
+    public string item_name;
+    public int item_count;
+
+    public SerializedItemQuantity (string item_name, int item_count)
+    {
+        this.item_name = item_name;
+        this.item_count = item_count;
+    }
 }

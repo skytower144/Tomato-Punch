@@ -18,43 +18,65 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    public delegate void OnItemChanged();
+    public delegate void OnItemChanged(ItemType item_type);
     public OnItemChanged onItemChangedCallback;
     [SerializeField] private InventoryUI inventoryUI;
-    [System.NonSerialized] public int itemType_num;
+
+    public List<ItemQuantity> consumableItems = new List<ItemQuantity>();
     public List<Item> normalEquip = new List<Item>();
     public List<Item> superEquip = new List<Item>();
     
-    public void GatherSlots()
+    public void GatherEquipSlots()
     {
-        inventoryUI.activateUI();
+        inventoryUI.InitiatlizeInventoryUI();
     }
-    public void AddItem(Item item)
+    public void AddItem(Item item, int count = 1)
     {
-        if(item.itemType == ItemType.NormalEquip)
-        {
-            normalEquip.Add(item);
-            itemType_num = 1;
-        }
-        else if(item.itemType == ItemType.SuperEquip)
-        {
-            superEquip.Add(item);
-            itemType_num = 2;
-        }
+        ItemQuantity tempItem = new ItemQuantity();
+        tempItem.item = item;
+        tempItem.count = count;
+        
+        switch (item.itemType) {
+            case ItemType.Consumable:
+                consumableItems.Add(tempItem);
+                break;
 
+            case ItemType.NormalEquip:
+                normalEquip.Add(item);
+                break;
+            
+            case ItemType.SuperEquip:
+                superEquip.Add(item);
+                break;
+            
+            default:
+                break;
+        }
+        
         if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+            onItemChangedCallback.Invoke(item.itemType);
     }
 
     public void RemoveItem (Item item)
     {
-        if(item.itemType == ItemType.NormalEquip)
-        {
-            normalEquip.Remove(item);
-            itemType_num = 1;
-            if (onItemChangedCallback != null)
-                onItemChangedCallback.Invoke();
-        }
-    }
+        switch (item.itemType) {
 
+            case ItemType.NormalEquip:
+                normalEquip.Remove(item);
+                break;
+
+            default:
+                break;
+        }
+
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke(item.itemType);
+    }
+}
+
+[System.Serializable]
+public class ItemQuantity
+{
+    public Item item;
+    public int count;
 }
