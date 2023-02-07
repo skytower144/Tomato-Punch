@@ -36,7 +36,9 @@ public class DialogueManager : MonoBehaviour
     private const string DIALOGUE_TAG = "nextdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
     private const string ANIM_TAG = "animate";
-    private const string BATTLE_TAG = "battle"; 
+    private const string BATTLE_TAG = "battle";
+    private const string PURCHASE_TAG = "purchase";
+    private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
 
     private void Awake()
     {
@@ -191,6 +193,14 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case BATTLE_TAG:
                     tempObject = currentNpc.enemyData;
+                    break;
+                case PURCHASE_TAG:
+                    GameManager.gm_instance.playerInventory.PurchaseOneItem(tag_value);
+                    break;
+                case CHECKPLAYERMONEY_TAG:
+                    int amount = int.Parse(tag_value);
+                    if (!GameManager.gm_instance.battle_system.tomatostatus.CheckEnoughMoney(amount))
+                        currentStory.variablesState["enoughMoney"] = false;
                     break;
                 default:
                     Debug.Log("Tag detected but not handled." + tag);

@@ -8,9 +8,10 @@ public enum GameState { FreeRoam, Battle }
 public class GameManager : MonoBehaviour
 {
     GameState gameState;
-
+    public static GameManager gm_instance { get; private set; }
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
+    [SerializeField] Inventory inventory; public Inventory playerInventory => inventory;
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
@@ -33,9 +34,6 @@ public class GameManager : MonoBehaviour
     public bool WasHolding => holdStartTime < Time.unscaledTime;
 
     private float player_x, player_y;
-
-// ================================================================
-    public static GameManager gm_instance { get; private set; }
     void Awake()
     {
         if (gm_instance != null)
@@ -44,14 +42,13 @@ public class GameManager : MonoBehaviour
         }
 
         gm_instance = this;
-    }
-// ================================================================
-    private void Start() //subscribing to an event
-    {
+
         resolutionMenu.SetupGraphic();
         resolutionMenu.LoadResolutionSetting();
 
+        battleSystem.OnBattleOver -= EndBattle;
         battleSystem.OnBattleOver += EndBattle;
+        
         //playerMovement.BeginBattle += StartBattle;
     }
 

@@ -6,6 +6,7 @@ public class InventoryUI : MonoBehaviour
 
     [Header("All")]
     [SerializeField] private GameObject consumableList, itemSlotPrefab;
+    public GameObject itemslot_prefab => itemSlotPrefab;
 
     [Header("MATO")]
     [SerializeField] private tomatoControl tomatocontrol;
@@ -31,6 +32,8 @@ public class InventoryUI : MonoBehaviour
     public void InitiatlizeInventoryUI()
     {
         inventory = Inventory.instance;
+        
+        inventory.onItemChangedCallback -= UpdateUI;
         inventory.onItemChangedCallback += UpdateUI;
 
         normalSlots = slotParent.GetComponentsInChildren<InventorySlot>(true);
@@ -41,6 +44,7 @@ public class InventoryUI : MonoBehaviour
     {
         switch (item_type) {
             case ItemType.Consumable:
+                UpdateConsumableSlots();
                 break;
 
             case ItemType.NormalEquip:

@@ -91,13 +91,15 @@ Load_Prompt : Proceed Load?
 Load_Prompt_Yes : Yes
 Load_Prompt_No : No
 
+// INVENTORY NAVIGATION
+InventoryGuide : Navigate menu with movement keys.<br>Press above key to interact menu.
 
 // CONSUMABLE
 Donut : Donut
-Donut_Description : This donut seems very suspicious...<br><color=\#07791A>+ 10 HP</color>
+Donut_Description : This donut seems very suspicious...
 
 Soda : Soda
-Soda_Description : The fizz stings your brain to the fullest.<br><color=\#07791A>+ 5 HP</color>
+Soda_Description : The fizz stings your brain to the fullest.
 
 // EQUIP
 Knuckle Sandwich : Knuckle Sandwich

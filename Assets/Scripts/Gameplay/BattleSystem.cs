@@ -8,7 +8,7 @@ public class BattleSystem : MonoBehaviour
     public event Action OnBattleOver;
     public TextSpawn textSpawn;
     [SerializeField] private tomatoControl tomatocontrol; public tomatoControl tomato_control => tomatocontrol;
-    [SerializeField] private tomatoStatus player_status;
+    [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
     public BattleUI_Control battleUI_Control; 

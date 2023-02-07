@@ -116,6 +116,17 @@ public class tomatoStatus : MonoBehaviour
             effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 43f);
             effect.GetComponent<SpriteRenderer>().color = new Color32(100, 243, 255, 157);
         }
-        
+    }
+
+    public bool CheckEnoughMoney(int loss)
+    {
+        if (playerMoney < loss)
+            return false;
+        return true;
+    }
+
+    public void UpdatePlayerMoney(int amount)
+    {
+        playerMoney += amount;
     }
 }

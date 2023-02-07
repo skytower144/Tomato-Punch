@@ -4,6 +4,7 @@ using UnityEngine;
 public class CountableItemDB
 {
     static Dictionary<string, Item> CountableCatalog;
+    public static Dictionary<string, Item> countableCatalog => CountableCatalog;
 
     public static void Initiatlize()
     {

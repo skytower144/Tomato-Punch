@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquipDB
 {
     static Dictionary<string, Item> EquipCatalog;
+    public static Dictionary<string, Item> equipCatalog => EquipCatalog;
 
     public static void Initiatlize()
     {
