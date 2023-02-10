@@ -12,7 +12,6 @@ public class BindingResetPrompt : MonoBehaviour
     private PlayerMovement player_movement = null;
     private ControlScroll control_scroll = null;
 
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     [SerializeField] private TextMeshProUGUI main_text, yes_text, no_text;
     private Image yes_bg, yes_frame, no_bg, no_frame;
     private GameObject tomatoIcon;
@@ -20,8 +19,14 @@ public class BindingResetPrompt : MonoBehaviour
     private int selectNumber = 0;
     void Start()
     {
-        if (UIControl.currentLangMode != "eng")
-            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        main_text.text = UIControl.instance.uiTextDict["BindingResetPrompt_Main"];
+        UIControl.instance.SetFontData(main_text, "BindingResetPrompt_Main");
+
+        yes_text.text = UIControl.instance.uiTextDict["BindingResetPrompt_Yes"];
+        UIControl.instance.SetFontData(yes_text, "BindingResetPrompt_Yes");
+
+        no_text.text = UIControl.instance.uiTextDict["BindingResetPrompt_No"];
+        UIControl.instance.SetFontData(no_text, "BindingResetPrompt_No");
     }
 
     void Update()

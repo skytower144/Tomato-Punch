@@ -1,17 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DefeatedText : MonoBehaviour
 {
-    public BattleSystem battleSystem;
+    [System.NonSerialized] public BattleSystem battleSystem;
+    [SerializeField] private GameObject fadeOut;
+    [SerializeField] private TextMeshProUGUI displayText;
     private TypeEffect typeEffect;
     private GameObject battle_text, text_box, cursor;
-    [SerializeField] private GameObject fadeOut;
     private List<string> textList = new List<string>();
     private int textIndex, giveUpCost;
     private bool startText = false;
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     void Start()
     {
         battle_text = transform.GetChild(0).gameObject;
@@ -53,8 +53,7 @@ public class DefeatedText : MonoBehaviour
 
     private void InitializeText()
     {
-        if (UIControl.currentLangMode != "eng")
-            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        UIControl.instance.SetFontData(displayText, "BattleLost_MoneyMessage");
 
         string moneyMessage = UIControl.instance.uiTextDict["BattleLost_MoneyMessage"];
         moneyMessage = moneyMessage.Replace("?", giveUpCost.ToString());

@@ -3388,6 +3388,7 @@ GameObject:
   - component: {fileID: 2766613873956444291}
   - component: {fileID: 2766613873956444292}
   - component: {fileID: 2766613873956444293}
+  - component: {fileID: 1966451221872692563}
   m_Layer: 5
   m_Name: UI_Canvas
   m_TagString: Untagged
@@ -3479,6 +3480,120 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1966451221872692563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2766613873956444295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bee52d5fd3c48f4c8ef36c51da1ae26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiList: []
+  uiDict:
+    m_keys:
+    - Dialogue_TextField
+    - Choicebox_Yes
+    - Choicebox_No
+    - Paused
+    - Back
+    - Save
+    - Load
+    - Options
+    - Quit
+    - Menu_Graphic_Text
+    - Menu_Controls_Text
+    - Menu_Sound_Text
+    - Graphic_Resolution
+    - Graphic_Fullscreen
+    - Controls_Freeroam
+    - Controls_Battle
+    - Controls_Roam_0
+    - Controls_Roam_1
+    - Controls_Roam_2
+    - Controls_Roam_3
+    - Controls_Roam_4
+    - Controls_Roam_5
+    - Controls_Roam_6
+    - Controls_Roam_7
+    - Controls_Roam_8
+    - Controls_Battle_0
+    - Controls_Battle_1
+    - Controls_Battle_2
+    - Controls_Battle_3
+    - Controls_Battle_4
+    - Controls_Battle_5
+    - Controls_Battle_6
+    - Controls_Battle_7
+    - Controls_Battle_8
+    - Wait_InputBind
+    - Detect_DuplicateBind
+    - Mato_StatusIcon_Text
+    - Mato_EquipIcon_Text
+    - Mato_StatusTitle_Text
+    - Mato_EquipTitle_Text
+    - Mato_NextLevel_Text
+    - Super_Equip
+    - Super_Details
+    - Normal_Equip1
+    - Normal_Equip2
+    - Normal_Details
+    - Load_Prompt
+    - Load_Prompt_Yes
+    - Load_Prompt_No
+    m_values:
+    - {fileID: 8051241148528408784}
+    - {fileID: 6177424106965432439}
+    - {fileID: 1145495827564892303}
+    - {fileID: 2766613874733260394}
+    - {fileID: 2766613874001420079}
+    - {fileID: 2766613874110353387}
+    - {fileID: 6826182152615380549}
+    - {fileID: 2766613874213291972}
+    - {fileID: 772534356882722847}
+    - {fileID: 2766613874211956147}
+    - {fileID: 2766613874943373941}
+    - {fileID: 2766613875120125883}
+    - {fileID: 2766613875035482894}
+    - {fileID: 2766613874622981303}
+    - {fileID: 2766613875876854971}
+    - {fileID: 5937665527116970872}
+    - {fileID: 2766613874650193585}
+    - {fileID: 2766613874436441610}
+    - {fileID: 2766613874571834673}
+    - {fileID: 2766613875580993799}
+    - {fileID: 2766613875845125692}
+    - {fileID: 2766613875748371482}
+    - {fileID: 2766613874870017695}
+    - {fileID: 2766613875284914807}
+    - {fileID: 2766613875341343254}
+    - {fileID: 2766613875139831309}
+    - {fileID: 2766613874154838969}
+    - {fileID: 2766613874138595138}
+    - {fileID: 2766613874117905774}
+    - {fileID: 2766613875060250736}
+    - {fileID: 2766613874927272600}
+    - {fileID: 2766613875969787074}
+    - {fileID: 2766613876020040841}
+    - {fileID: 2766613875085704376}
+    - {fileID: 1699818063552513758}
+    - {fileID: 807205231068177460}
+    - {fileID: 2766613875205266969}
+    - {fileID: 2766613874152768257}
+    - {fileID: 2766613875344144438}
+    - {fileID: 6061419666569463356}
+    - {fileID: 2766613875295693156}
+    - {fileID: 2766613874614956941}
+    - {fileID: 2766613873922220741}
+    - {fileID: 2766613875279616678}
+    - {fileID: 2766613875496482193}
+    - {fileID: 2766613873893264158}
+    - {fileID: 657651760952586125}
+    - {fileID: 2569741468523350479}
+    - {fileID: 3119739238843607841}
 --- !u!1 &2766613873973694685
 GameObject:
   m_ObjectHideFlags: 0
@@ -33075,6 +33190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolutionMenu: {fileID: 2766613875361569556}
   controlScroll: {fileID: 2766613874070507672}
+  localizeUI: {fileID: 1966451221872692563}
   ui_bundle:
   - {fileID: 2766613874943870666}
   - {fileID: 2766613876025249051}
@@ -33096,795 +33212,12 @@ MonoBehaviour:
     - exepixel
     - kong
     - galmuri11
+    - pressstart
     m_values:
     - {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
     - {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
     - {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-  textDataList:
-  - target_text: {fileID: 8051241148528408784}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 71
-        character_space: -5.55
-        word_space: -2.42
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 39
-        character_space: 0
-        word_space: 0
-        line_space: 64.27
-  - target_text: {fileID: 6177424106965432439}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 71
-        character_space: -5.55
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 1145495827564892303}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 71
-        character_space: -5.55
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874733260394}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 42
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 44
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874001420079}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 36
-        character_space: -21.4
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 37
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874110353387}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 36
-        character_space: -21.4
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 37
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 6826182152615380549}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 36
-        character_space: -21.4
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 37
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874213291972}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 36
-        character_space: -21.4
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 37
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 772534356882722847}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 0e6c98f5d79137742ac77a20f89e3523, type: 2}
-        font_size: 36
-        character_space: -21.4
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 37
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874211956147}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 61
-        character_space: -3.66
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874943373941}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 61
-        character_space: -3.66
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875120125883}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 61
-        character_space: -3.66
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875035482894}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 46
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874622981303}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 32
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 19
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875876854971}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 40
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 5937665527116970872}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 40
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874650193585}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874436441610}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874571834673}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875580993799}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875845125692}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875748371482}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874870017695}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875284914807}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875341343254}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875139831309}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874154838969}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874138595138}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874117905774}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875060250736}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874927272600}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875969787074}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613876020040841}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875085704376}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 66
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 1699818063552513758}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 57
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 30
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 807205231068177460}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 45b01ca580291a54c9c69133c91c87ee, type: 2}
-        font_size: 57
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 30
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875205266969}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 18
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 24
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874152768257}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 18
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 24
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875344144438}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 2eae2773452d5a2429ed530ed07c58a8, type: 2}
-        font_size: 40
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 49
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 6061419666569463356}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 2eae2773452d5a2429ed530ed07c58a8, type: 2}
-        font_size: 40
-        character_space: 0
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 49
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875295693156}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 16
-        character_space: -3
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 24
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613874614956941}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 20
-        character_space: -8.3
-        word_space: -34.81
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 30
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613873922220741}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 20
-        character_space: -8.3
-        word_space: -34.81
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 30
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875279616678}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 20
-        character_space: -8.3
-        word_space: -34.81
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 27
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613875496482193}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 20
-        character_space: -8.3
-        word_space: -34.81
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 27
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2766613873893264158}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
-        font_size: 20
-        character_space: -8.3
-        word_space: -34.81
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 27
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 657651760952586125}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 36
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 2569741468523350479}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 32
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 3119739238843607841}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 32
-        character_space: 0
-        word_space: 0
-        line_space: 0
+    - {fileID: 11400000, guid: e88578dc1b6e9284c90c76958cc4fa08, type: 2}
 --- !u!114 &2766613875996047807
 MonoBehaviour:
   m_ObjectHideFlags: 0

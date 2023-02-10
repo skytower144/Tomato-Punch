@@ -17,7 +17,6 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private List <Image> choiceFrameList;
     [SerializeField] private GameObject confirmBox;
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     private PauseMenu pauseMenu;
     private PlayerMovement playerMovement;
     private GameObject darkFilter;
@@ -35,13 +34,6 @@ public class TitleScreen : MonoBehaviour
         }
         instance = this;
     }
-    void OnEnable()
-    {
-        if (UIControl.instance)
-        {
-            SetUILanguage();
-        }
-    }
     void Start()
     {
         playerMovement = PlayerMovement.instance;
@@ -56,11 +48,6 @@ public class TitleScreen : MonoBehaviour
 
         AdjustMenuOption();
         HighlightText();
-    }
-
-    public void SetUILanguage()
-    {
-        UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
     }
 
     void Update()

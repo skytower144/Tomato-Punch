@@ -7,7 +7,7 @@ using System;
 
 [CustomPropertyDrawer(typeof(StringNpccontrol))]
 [CustomPropertyDrawer(typeof(StringSpriteanim))]
-[CustomPropertyDrawer(typeof(StringFontasset))] //
+[CustomPropertyDrawer(typeof(StringTextGUI))]
 [CustomPropertyDrawer(typeof(StringFontdata))]
 [CustomPropertyDrawer(typeof(StringLocalizationData))]
 [CustomPropertyDrawer(typeof(StringItemLocation))]

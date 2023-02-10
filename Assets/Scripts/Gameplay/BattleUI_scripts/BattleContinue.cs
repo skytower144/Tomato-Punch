@@ -7,7 +7,6 @@ using TMPro;
 public class BattleContinue : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI reviveCostUI;
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     [SerializeField] private TextMeshProUGUI countdown_text, money_text, reviveCost_text;
     [SerializeField] private GameObject continue_group, insert_coin, revive_obj, cover;
     private GameObject ko_obj;
@@ -165,9 +164,7 @@ public class BattleContinue : MonoBehaviour
 
     private void AdjustLanguage()
     {
-        if (UIControl.currentLangMode != "eng")
-            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
-        
         reviveCostUI.text = UIControl.instance.uiTextDict["ReviveCost_Text"];
+        UIControl.instance.SetFontData(reviveCostUI, "ReviveCost_Text");
     }
 }

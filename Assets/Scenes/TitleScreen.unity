@@ -1346,6 +1346,7 @@ GameObject:
   - component: {fileID: 1189159478}
   - component: {fileID: 1189159477}
   - component: {fileID: 1189159479}
+  - component: {fileID: 1189159480}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1454,119 +1455,35 @@ MonoBehaviour:
   - {fileID: 1238288829}
   - {fileID: 144277709}
   confirmBox: {fileID: 982316572}
-  textDataList:
-  - target_text: {fileID: 368493774}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 91301909}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 1448292213}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 726970136}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 1088464286}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 38
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 687576422}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 33
-        character_space: 0
-        word_space: 0
-        line_space: 0
-  - target_text: {fileID: 1118554657}
-    fontDict:
-      m_keys:
-      - eng
-      - kor
-      m_values:
-      - font_type: {fileID: 11400000, guid: 275d8d533389f1741ba7e37d4864eae3, type: 2}
-        font_size: 31
-        character_space: -18.83
-        word_space: 0
-        line_space: 0
-      - font_type: {fileID: 11400000, guid: fec9bc946ed766e44818989c4945a0e2, type: 2}
-        font_size: 33
-        character_space: 0
-        word_space: 0
-        line_space: 0
+--- !u!114 &1189159480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189159475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bee52d5fd3c48f4c8ef36c51da1ae26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDict:
+    m_keys:
+    - Title_Continue
+    - Title_NewGame
+    - Title_Options
+    - Title_Quit
+    - Title_Prompt
+    - Title_Prompt_Yes
+    - Title_Prompt_No
+    m_values:
+    - {fileID: 368493774}
+    - {fileID: 91301909}
+    - {fileID: 1448292213}
+    - {fileID: 726970136}
+    - {fileID: 1088464286}
+    - {fileID: 687576422}
+    - {fileID: 1118554657}
 --- !u!1 &1238288827
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,6 @@ public class ResultCard : MonoBehaviour
     private TextMeshProUGUI totalCounter_txt, totalParry_txt, totalSuper_txt;
 
     [SerializeField] TextMeshProUGUI CounterUI, ParryUI, SuperUI, BelowText;
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
     
     private List<string> resultTexts = new List<string>();
     private List<RewardDetail> droppedItems = new List<RewardDetail>();
@@ -36,6 +35,22 @@ public class ResultCard : MonoBehaviour
         data_isReady = false;
         isExit = false;
     }
+
+    private void SetLanguage()
+    {
+        CounterUI.text = UIControl.instance.uiTextDict["Resultcard_Counter_Text"];
+        UIControl.instance.SetFontData(CounterUI, "Resultcard_Counter_Text");
+
+        ParryUI.text = UIControl.instance.uiTextDict["Resultcard_Parry_Text"];
+        UIControl.instance.SetFontData(ParryUI, "Resultcard_Parry_Text");
+
+        SuperUI.text = UIControl.instance.uiTextDict["Resultcard_Super_Text"];
+        UIControl.instance.SetFontData(SuperUI, "Resultcard_Super_Text");
+
+        BelowText.text = "";
+        UIControl.instance.SetFontData(BelowText, "BattleWon_ExpMessage");
+    }
+
     void Update()
     {
         if (start_textChange_counter && temp_ct <= (float)totalCounter_ct)
@@ -110,7 +125,7 @@ public class ResultCard : MonoBehaviour
         totalExp = enemyBase.BattleExp + Mathf.FloorToInt(enemyBase.BattleExp * 0.02f * counter_ct) + Mathf.FloorToInt(enemyBase.BattleExp * 0.05f * parry_ct) + Mathf.FloorToInt(enemyBase.BattleExp * 0.08f * super_ct);
         totalGold = enemyBase.BattleCoin + Mathf.FloorToInt(enemyBase.BattleCoin * 0.05f * counter_ct) + Mathf.FloorToInt(enemyBase.BattleCoin * 0.09f * parry_ct) + Mathf.FloorToInt(enemyBase.BattleCoin * 0.2f * super_ct);
         
-        AdjustLanguage();
+        SetLanguage();
 
         string expMessage = UIControl.instance.uiTextDict["BattleWon_ExpMessage"];
         expMessage = expMessage.Replace("?", totalExp.ToString());
@@ -208,17 +223,6 @@ public class ResultCard : MonoBehaviour
         CancelInvoke();
         battleSystem.ExitBattle();
         battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, totalExp, totalGold, droppedItems);
-    }
-
-    private void AdjustLanguage()
-    {
-        if (UIControl.currentLangMode != "eng")
-            UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
-        
-        CounterUI.text = UIControl.instance.uiTextDict["Resultcard_Counter_Text"];
-        ParryUI.text = UIControl.instance.uiTextDict["Resultcard_Parry_Text"];
-        SuperUI.text = UIControl.instance.uiTextDict["Resultcard_Super_Text"];
-        BelowText.text = "";
     }
     
 }

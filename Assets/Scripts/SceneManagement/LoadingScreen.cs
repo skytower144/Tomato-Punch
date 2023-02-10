@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class LoadingScreen : MonoBehaviour
 {
     public static LoadingScreen instance;
     [SerializeField] private Camera loadingCamera;
     [SerializeField] private GameObject loadingDisplay;
-    [SerializeField] private List<TextAndFont> textDataList = new List<TextAndFont>();
+    [SerializeField] private TextMeshProUGUI loadingText;
 
     void Awake()
     {
@@ -21,7 +22,8 @@ public class LoadingScreen : MonoBehaviour
 
     public void EnableLoadingScreen()
     {
-        UIControl.instance.SwitchLanguage(textDataList, UIControl.currentLangMode);
+        loadingText.text = UIControl.instance.uiTextDict["LoadingText"];
+        UIControl.instance.SetFontData(loadingText, "LoadingText");
         
         PlayerCamera.playerCamera_instance.player_camera.enabled = false;
         loadingDisplay.SetActive(true);

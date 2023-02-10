@@ -224,7 +224,6 @@ public class ResolutionMenu : MonoBehaviour
     {
         DisplayLanguageMode(languageList[languageIndex]);
         UIControl.instance.InitializeInkLangDict(languageList[languageIndex].language_mode);
-        UIControl.instance.SwitchLanguage(UIControl.instance.textDataList, UIControl.currentLangMode);
     }
 
     IEnumerator BlinkLangArrow(float interval, string direction)

@@ -4,9 +4,6 @@ using Ink.Runtime;
 using TMPro;
 
 [System.Serializable]
-public class StringFontasset : SerializableDictionary<string, FontData>{} // xxxxxx
-
-[System.Serializable]
 public class StringFontdata : SerializableDictionary<string, TMP_FontAsset>{}
 
 [System.Serializable]
@@ -15,6 +12,7 @@ public class UIControl : MonoBehaviour
 {
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private ControlScroll controlScroll;
+    [SerializeField] private LocalizeUI localizeUI;
     [SerializeField] private List<GameObject> ui_bundle;
     
     [Header("LOCALIZATION")]
@@ -23,7 +21,6 @@ public class UIControl : MonoBehaviour
     private Dictionary<string, string[]> uiFontdataDict = new Dictionary<string, string[]>(); // uitext - fontdata
     [SerializeField] private StringLocalizationData inkLangDict = new StringLocalizationData();
     public StringFontdata fontDict = new StringFontdata(); // dictionary of font types
-    public List<TextAndFont> textDataList = new List<TextAndFont>(); // text - fontdata // xxxxxxx
     private Story UIData;
 
     public static UIControl instance { get; private set; }
@@ -118,34 +115,7 @@ public class UIControl : MonoBehaviour
 
             uiFontdataDict[uiTextType] = dataList;
         }
-    }
-
-    public void SwitchLanguage(List<TextAndFont> textDataList, string language)
-    {
-        foreach(TextAndFont textData in textDataList)
-        {
-            TextMeshProUGUI targetText = textData.target_text;
-            
-            targetText.text = uiTextDict[targetText.name];
-
-            if (textData.fontDict[language].font_type == null)
-            {
-                FontData defaultSetting = textDataList[0].fontDict[language];
-                targetText.font = defaultSetting.font_type;
-                targetText.fontSize = defaultSetting.font_size;
-                targetText.characterSpacing = defaultSetting.character_space;
-                targetText.wordSpacing = defaultSetting.word_space;
-                targetText.lineSpacing = defaultSetting.line_space;
-            }
-            else
-            {
-                targetText.font = textData.fontDict[language].font_type;
-                targetText.fontSize = textData.fontDict[language].font_size;
-                targetText.characterSpacing = textData.fontDict[language].character_space;
-                targetText.wordSpacing = textData.fontDict[language].word_space;
-                targetText.lineSpacing = textData.fontDict[language].line_space;
-            }
-        }
+        localizeUI.OnEnable();
     }
 
     public void SetFontData(TextMeshProUGUI targetText, string uiTag)
@@ -172,13 +142,6 @@ public class FontData
     public float character_space;
     public float word_space;
     public float line_space;
-}
-
-[System.Serializable]
-public class TextAndFont
-{
-    public TextMeshProUGUI target_text;
-    public StringFontasset fontDict;
 }
 
 [System.Serializable]
