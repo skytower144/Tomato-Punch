@@ -31,6 +31,8 @@ public class ConsumableNavigation : MonoBehaviour
         isNavigating = itemIcon.enabled = false;
 
         itemDescription.text = UIControl.instance.uiTextDict["InventoryGuide"];
+        UIControl.instance.SetFontData(itemDescription, "Item_Description");
+
         slotList = itemSlotParent.GetComponentsInChildren<ItemSlotUI>(true);
 
         uiGuide.SetActive(true);

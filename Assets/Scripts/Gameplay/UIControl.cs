@@ -4,10 +4,13 @@ using Ink.Runtime;
 using TMPro;
 
 [System.Serializable]
-public class StringFontasset : SerializableDictionary<string, FontData>{}
+public class StringFontasset : SerializableDictionary<string, FontData>{} // xxxxxx
 
 [System.Serializable]
-public class StringTextasset : SerializableDictionary<string, TextAsset>{}
+public class StringFontdata : SerializableDictionary<string, TMP_FontAsset>{}
+
+[System.Serializable]
+public class StringLocalizationData : SerializableDictionary<string, LocalizationData>{}
 public class UIControl : MonoBehaviour
 {
     [SerializeField] private ResolutionMenu resolutionMenu;
@@ -15,10 +18,12 @@ public class UIControl : MonoBehaviour
     [SerializeField] private List<GameObject> ui_bundle;
     
     [Header("LOCALIZATION")]
-    public static string currentLangMode = "eng"; 
+    public static string currentLangMode = "eng";
     public Dictionary<string, string> uiTextDict = new Dictionary<string, string>(); // uitext - translation
-    [SerializeField] private StringTextasset inkLangDict = new StringTextasset();
-    public List<TextAndFont> textDataList = new List<TextAndFont>(); // text - fontdata
+    private Dictionary<string, string[]> uiFontdataDict = new Dictionary<string, string[]>(); // uitext - fontdata
+    [SerializeField] private StringLocalizationData inkLangDict = new StringLocalizationData();
+    public StringFontdata fontDict = new StringFontdata(); // dictionary of font types
+    public List<TextAndFont> textDataList = new List<TextAndFont>(); // text - fontdata // xxxxxxx
     private Story UIData;
 
     public static UIControl instance { get; private set; }
@@ -75,7 +80,7 @@ public class UIControl : MonoBehaviour
         currentLangMode = language;
         uiTextDict.Clear();
         
-        TextAsset inkJSON = inkLangDict[language];
+        TextAsset inkJSON = inkLangDict[language].translationData;
         var UIJsonData = new Story(inkJSON.text);
         
         while (UIJsonData.canContinue)
@@ -90,6 +95,28 @@ public class UIControl : MonoBehaviour
             string uiText = splitDataLine[1].Trim();
 
             uiTextDict[uiTextType] = uiText;
+        }
+
+        uiFontdataDict.Clear();
+        inkJSON = inkLangDict[language].fontData;
+        UIJsonData = new Story(inkJSON.text);
+
+        while (UIJsonData.canContinue)
+        {
+            string dataLine = UIJsonData.Continue();
+            string[] splitDataLine = dataLine.Split(':');
+
+            if (splitDataLine.Length != 2)
+                continue;
+
+            string uiTextType = splitDataLine[0].Trim();
+            string uiFontdata = splitDataLine[1].Trim();
+            string[] dataList = uiFontdata.Split('_');
+
+            if (dataList.Length != 5)
+                continue;
+
+            uiFontdataDict[uiTextType] = dataList;
         }
     }
 
@@ -121,6 +148,20 @@ public class UIControl : MonoBehaviour
         }
     }
 
+    public void SetFontData(TextMeshProUGUI targetText, string uiTag)
+    {
+        targetText.font = fontDict[uiFontdataDict[uiTag][0]];
+        targetText.fontSize = int.Parse(uiFontdataDict[uiTag][1]);
+        targetText.characterSpacing = float.Parse(uiFontdataDict[uiTag][2]);
+        targetText.wordSpacing = float.Parse(uiFontdataDict[uiTag][3]);
+        targetText.lineSpacing = float.Parse(uiFontdataDict[uiTag][4]);
+    }
+}
+[System.Serializable]
+public class LocalizationData
+{
+    public TextAsset translationData;
+    public TextAsset fontData;
 }
 
 [System.Serializable]

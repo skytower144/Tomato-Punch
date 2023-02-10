@@ -7,17 +7,26 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText, x_text, countText;
     [SerializeField] private Image slotImage;
     private Color tempColor;
+    private string itemBaseName;
     
     void Start()
     {
         tempColor = slotImage.color;
     }
 
+    void OnEnable()
+    {
+        UIControl.instance.SetFontData(nameText, "Item_Slot_Name");
+        string itemName = UIControl.instance.uiTextDict[itemBaseName];
+        nameText.text = itemName;
+    }
+
     public void SetData(ItemQuantity itemQuantity)
     {
-        string itemName = itemQuantity.item.ItemName;
-        itemName = UIControl.instance.uiTextDict[itemName];
+        itemBaseName = itemQuantity.item.ItemName;
 
+        UIControl.instance.SetFontData(nameText, "Item_Slot_Name");
+        string itemName = UIControl.instance.uiTextDict[itemBaseName];
         nameText.text = itemName;
         countText.text = $"{itemQuantity.count}";
     }

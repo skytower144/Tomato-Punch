@@ -91,7 +91,16 @@ Load_Prompt : 불러오시겠습니까?
 Load_Prompt_Yes : 예
 Load_Prompt_No : 아니요
 
+// INVENTORY NAVIGATION
+InventoryGuide : 이동키로 메뉴를 둘러볼 수 있습니다.<br>위의 키로 메뉴와 상호작용이 가능합니다.
 
+// CONSUMABLE
+Donut : 도넛
+Donut_Description : 매우 수상한 냄새가 나는 도넛이다...
 
+Soda : 소다
+Soda_Description : 뇌를 찌르는 듯한 탄산으로 충만한 음료입니다.
+
+// EQUIP
 Knuckle Sandwich : 너클 샌드위치
 SuperChili : 슈퍼칠리

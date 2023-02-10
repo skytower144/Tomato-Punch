@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ChoiceSelect : MonoBehaviour
 {
+    const int MAXCHOICE = 2;
     [SerializeField] private Transform cursorPosition;
     [SerializeField] private List<Vector2> navigatePos;
-    [SerializeField] private List<string> navigateDir = new List<string>();
     public Action proceedAction;
     private int choiceNumber = 0;
     public int choice_number => choiceNumber;
@@ -37,16 +37,16 @@ public class ChoiceSelect : MonoBehaviour
     {
         string direction = PlayerMovement.instance.Press_Direction();
 
-        if (direction == navigateDir[0])
+        if (direction == InputDir.UP)
         {
             choiceNumber -= 1;
         }
-        else if (direction == navigateDir[1])
+        else if (direction == InputDir.DOWN)
         {
             choiceNumber += 1;
         }
 
-        choiceNumber = Mathf.Clamp(choiceNumber, 0, navigateDir.Count - 1);
+        choiceNumber = Mathf.Clamp(choiceNumber, 0, MAXCHOICE - 1);
         cursorPosition.localPosition = navigatePos[choiceNumber];
     }
 
