@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class InventoryUI : MonoBehaviour
 {
     private Inventory inventory;
@@ -137,6 +138,23 @@ public class InventoryUI : MonoBehaviour
             GameObject itemSlot = Instantiate(itemSlotPrefab, consumableList.transform);
             itemSlot.GetComponent<ItemSlotUI>().SetData(itemQuantity);
         }
+    }
+
+    public void DisplayItemInfo(Item targetItem, TextMeshProUGUI targetText, Image targetImage)
+    {
+        targetImage.sprite = targetItem.ItemIcon;
+
+        string descriptionTag = targetItem.ItemName + "_Description";
+        targetText.text = UIControl.instance.uiTextDict[descriptionTag] + DisplayStatusEffect(targetItem);
+    }
+
+    private string DisplayStatusEffect(Item item)
+    {
+        if (item.itemType == ItemType.Consumable) {
+            int healAmount = ((Consumable)item).restoreAmount;
+            return $"<br><color=#07791A>+ {healAmount} HP</color>";
+        }
+        return "";
     }
 
 //EQUIPMENT FUNCTIONS -----------------------------------------------------------------------------------------------------

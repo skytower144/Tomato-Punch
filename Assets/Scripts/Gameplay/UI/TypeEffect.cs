@@ -80,6 +80,7 @@ public class TypeEffect : MonoBehaviour
         if (proceed_action == null)
             arrow.SetActive(true);
         else {
+            StopAllCoroutines();
             proceed_action?.Invoke();
             proceed_action = null;
         }

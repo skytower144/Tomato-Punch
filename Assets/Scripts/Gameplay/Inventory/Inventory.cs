@@ -91,22 +91,6 @@ public class Inventory : MonoBehaviour
             onItemChangedCallback.Invoke(item.itemType);
     }
 
-    public void PurchaseOneItem(string itemAndPrice)
-    {
-        string[] itemInfo = itemAndPrice.Split('-');
-        if (itemInfo.Length != 2)
-            return;
-        
-        string itemName = itemInfo[0].Trim();
-        int itemPrice = int.Parse(itemInfo[1].Trim());
-
-        tomatoStatus tomatostatus = GameManager.gm_instance.battle_system.tomatostatus;
-        if (tomatostatus.CheckEnoughMoney(itemPrice)) {
-            AddItem(Item.ReturnMatchingItem(itemName));
-            tomatostatus.UpdatePlayerMoney(-itemPrice);
-        }   
-    }
-
     public void ChangeItemStack(ItemQuantity targetItem, List<ItemQuantity> itemList, int amount)
     {
         for (int i = 0; i < itemList.Count; i++) {

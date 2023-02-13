@@ -79,7 +79,7 @@ public class ConsumableNavigation : MonoBehaviour
             if (state) {
                 slotList[0].Select(highlightTextColor);
                 itemIcon.enabled = true;
-                DisplayItemInfo();
+                inventory.inventory_UI.DisplayItemInfo(inventory.consumableItems[0].item, itemDescription, itemIcon);
             }
             else {
                 slotList[slot_number].Deselect(defaultTextColor);
@@ -115,7 +115,7 @@ public class ConsumableNavigation : MonoBehaviour
         HandleScroll();
         slotList[prev_num].Deselect(defaultTextColor);
         slotList[slot_number].Select(highlightTextColor);
-        DisplayItemInfo();
+        inventory.inventory_UI.DisplayItemInfo(inventory.consumableItems[slot_number].item, itemDescription, itemIcon);
     }
 
     private void HandleScroll()
@@ -145,24 +145,5 @@ public class ConsumableNavigation : MonoBehaviour
     private void UpdateEndOfViewValue()
     {
         end_of_view = slot_height * Mathf.Clamp(slotList.Length - MAX_SLOT_VIEW, 0, slotList.Length);
-    }
-
-    private void DisplayItemInfo()
-    {
-        Item targetItem = inventory.consumableItems[slot_number].item;
-
-        itemIcon.sprite = targetItem.ItemIcon;
-
-        string descriptionTag = targetItem.ItemName + "_Description";
-        itemDescription.text = UIControl.instance.uiTextDict[descriptionTag] + DisplayStatusEffect(targetItem);
-    }
-
-    public string DisplayStatusEffect(Item item)
-    {
-        if (item.itemType == ItemType.Consumable) {
-            int healAmount = ((Consumable)item).restoreAmount;
-            return $"<br><color=#07791A>+ {healAmount} HP</color>";
-        }
-        return "";
     }
 }

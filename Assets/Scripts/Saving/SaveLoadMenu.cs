@@ -23,11 +23,14 @@ public class SaveLoadMenu : MonoBehaviour
 
     [Header("PROMPT")]
     [SerializeField] private GameObject promptBox;
+    [SerializeField] private GameObject yesBox, noBox;
     [SerializeField] private List <TextMeshProUGUI> choiceTextList;
     [SerializeField] private List <Image> choiceFrameList;
     [SerializeField] private Color32 choiceHighlight_frame, choiceHighlight_text, choiceDefault;
+    private string cachePromptMessage = "";
     private int choiceNumber = 0;
     private bool isPrompt = false;
+    private bool isNotifying = false;
 
     private void Awake()
     {
@@ -40,9 +43,11 @@ public class SaveLoadMenu : MonoBehaviour
     }
     void OnEnable()
     {
+        if (isNotifying) CloseNotify();
         if (isLoadMode) quickSaveIcon.SetActive(true);
         if (slotNumber != 0) ResetMenuState(); // In case slotNumber is not set to zero.
     }
+    
     void Update()
     {
         if (!isAnimating)
@@ -57,7 +62,9 @@ public class SaveLoadMenu : MonoBehaviour
             }
             else if (playerMovement.Press_Key("Cancel"))
             {
-                if (!isPrompt)
+                if (isNotifying)
+                    CloseNotify();
+                else if (!isPrompt)
                     StartCoroutine(ExitSaveLoadMenu(0.4f));
                 else
                     ClosePrompt();
@@ -79,6 +86,9 @@ public class SaveLoadMenu : MonoBehaviour
                         ClosePrompt();
                     }
                 }
+                else if (isNotifying)
+                    CloseNotify();
+                
                 else if (!isLoading && !isSaving) {
                     isSaving = true;
                     ProceedSave();
@@ -106,6 +116,28 @@ public class SaveLoadMenu : MonoBehaviour
         }
     }
 
+    private void NotifySave()
+    {
+        isNotifying = true;
+
+        cachePromptMessage = choiceTextList[2].text;
+        choiceTextList[2].text = UIControl.instance.uiTextDict["Notfiy_Save"];
+        // No need to set font.
+
+        yesBox.SetActive(false);
+        noBox.SetActive(false);
+        promptBox.SetActive(true);
+
+        DOTween.Rewind("prompt_Load");
+        DOTween.Play("prompt_Load");
+    }
+    private void CloseNotify()
+    {
+        promptBox.SetActive(false);
+        choiceTextList[2].text = cachePromptMessage;
+        isNotifying = false;
+    }
+
     private void PromptConfirm()
     {
         choiceNumber = 0;
@@ -115,6 +147,8 @@ public class SaveLoadMenu : MonoBehaviour
         choiceFrameList[1].color = choiceDefault;
         
         isPrompt = true;
+        yesBox.SetActive(true);
+        noBox.SetActive(true);
         promptBox.SetActive(true);
 
         DOTween.Rewind("prompt_Load");
@@ -182,7 +216,10 @@ public class SaveLoadMenu : MonoBehaviour
     {
         string direction = playerMovement.Press_Direction();
 
-        if (!isPrompt && !quickSaveMenu.activeSelf)
+        if (isNotifying)
+            CloseNotify();
+        
+        else if (!isPrompt && !quickSaveMenu.activeSelf)
         {
             int prevSlotNumber = slotNumber;
 
@@ -317,7 +354,8 @@ public class SaveLoadMenu : MonoBehaviour
         ProgressManager.instance.ChangeSelectedProfileId($"Slot_{targetSlotNumber}");
         ProgressManager.instance.SaveSaveData();
         PrepareMenu();
-        
+
+        NotifySave();
         isSaving = false;
     }
 

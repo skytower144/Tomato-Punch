@@ -6,7 +6,7 @@ Title_Prompt : galmuri11_36_0_0_0 //Erase all save data and start new game?
 Title_Prompt_Yes : galmuri11_24_0_0_0 //Yes
 Title_Prompt_No : galmuri11_24_0_0_0 //No
 
-LoadingText : galmuri11_36_5_0_0 //Loading...
+LoadingText : galmuri11_36_10_0_0 //Loading...
 
 BindingResetPrompt_Main : galmuri11_36_0_0_0 //Reset to default controls?
 BindingResetPrompt_Yes : galmuri11_36_0_0_0 //Yes
@@ -72,14 +72,20 @@ Controls_Battle_8 : galmuri11_36_0_0_0 //* Super Skill
 Wait_InputBind : galmuri11_30_0_0_0 //Waiting for input...
 Detect_DuplicateBind : galmuri11_30_0_0_0 //Already in use!
 
+All_ConsumableIcon_Text : galmuri11_24_0_0_0 //CNS
+All_ItemIcon_Text : galmuri11_24_0_0_0 //ITM
 Mato_StatusIcon_Text : galmuri11_24_0_0_0 //STT
 Mato_EquipIcon_Text : galmuri11_24_0_0_0 //EQP 
 Mato_StatusTitle_Text : galmuri11_48_0_0_0 //STATUS
 Mato_EquipTitle_Text : galmuri11_48_0_0_0 //EQUIP
 Mato_NextLevel_Text : galmuri11_24_0_0_0 //NEXT
 
+Shop_Item_Description : galmuri11_26_0_0_50
+Shop_Slot_Name : galmuri11_32_0_-5_-10
+Shop_Clear_Text : galmuri11_24_0_0_0
+
 Item_Description : galmuri11_24_-5_15_64
-Item_Slot_Name : galmuri11_36_0_0_64
+Item_Slot_Name : galmuri11_24_0_0_64
 
 Super_Equip : galmuri11_24_0_0_0 //Equip
 Super_Details : galmuri11_24_0_0_0 //Details

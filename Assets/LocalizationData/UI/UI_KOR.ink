@@ -75,6 +75,8 @@ Controls_Battle_8 : * 슈퍼스킬
 Wait_InputBind : 입력을 기다리고 있습니다...
 Detect_DuplicateBind : 중복이 존재합니다!
 
+All_ConsumableIcon_Text : 소비
+All_ItemIcon_Text : 아이템
 Mato_StatusIcon_Text : 능력치 // "Status" - Abbreviation Needed if over 3 characters.
 Mato_EquipIcon_Text : 무기 // "Equip" - Abbreviation Needed.
 Mato_StatusTitle_Text : 능력치
@@ -90,6 +92,11 @@ Normal_Details : 세부사항
 Load_Prompt : 불러오시겠습니까?
 Load_Prompt_Yes : 예
 Load_Prompt_No : 아니요
+
+Notfiy_Save : 저장 완료했습니다.
+
+// SHOP
+Shop_Clear_Text : 장바구니 비우기 >
 
 // INVENTORY NAVIGATION
 InventoryGuide : 이동키로 메뉴를 둘러볼 수 있습니다.<br>위의 키로 메뉴와 상호작용이 가능합니다.

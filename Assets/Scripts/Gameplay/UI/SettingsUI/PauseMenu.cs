@@ -95,7 +95,7 @@ public class PauseMenu : MonoBehaviour
     }
     private void NormalizeText()
     {
-        menuList[menuNumber].color = new Color32(53, 52, 52, 255);
+        menuList[menuNumber].color = new Color32(73, 63, 63, 255);
     }
     public void SelectMenu()
     {

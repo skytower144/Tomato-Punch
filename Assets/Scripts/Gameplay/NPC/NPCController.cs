@@ -18,8 +18,6 @@ public class NPCController : MonoBehaviour, Interactable
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
-
-    public bool hasPortrait;
     private bool isInteractAnimating = false;
     [SerializeField] private bool isFixedSprite;
 

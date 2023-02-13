@@ -75,6 +75,8 @@ Controls_Battle_8 : * Super Skill
 Wait_InputBind : Waiting for input...
 Detect_DuplicateBind : Already in use!
 
+All_ConsumableIcon_Text : CNS
+All_ItemIcon_Text : ITM
 Mato_StatusIcon_Text : STT // "Status" - Abbreviation Needed if over 3 characters.
 Mato_EquipIcon_Text : EQP // "Equip" - Abbreviation Needed.
 Mato_StatusTitle_Text : STATUS
@@ -90,6 +92,11 @@ Normal_Details : Details
 Load_Prompt : Proceed Load?
 Load_Prompt_Yes : Yes
 Load_Prompt_No : No
+
+Notfiy_Save : Save complete.
+
+// SHOP
+Shop_Clear_Text : Press to clear cart >
 
 // INVENTORY NAVIGATION
 InventoryGuide : Navigate menu with movement keys.<br>Press above key to interact menu.

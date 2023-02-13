@@ -13,6 +13,7 @@ public class UIControl : MonoBehaviour
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private ControlScroll controlScroll;
     [SerializeField] private LocalizeUI localizeUI;
+    public ShopSystem ui_shop;
     [SerializeField] private List<GameObject> ui_bundle;
     
     [Header("LOCALIZATION")]

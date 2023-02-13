@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ResolutionMenu resolutionMenu;
     [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
-    [SerializeField] UIControl uiControl;
+    [SerializeField] UIControl uiControl; public UIControl ui_control => uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
     [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
     [SerializeField] Camera mainCamera;

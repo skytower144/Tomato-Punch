@@ -72,13 +72,19 @@ Controls_Battle_8 : exepixel_66_0_0_0 //* Super Skill
 Wait_InputBind : exepixel_57_0_0_0 //Waiting for input...
 Detect_DuplicateBind : exepixel_57_0_0_0 //Already in use!
 
+All_ConsumableIcon_Text : pressstart_18_0_0_0 //CNS
+All_ItemIcon_Text : pressstart_18_0_0_0 //ITM
 Mato_StatusIcon_Text : pressstart_18_0_0_0 //STT
-Mato_EquipIcon_Text : pressstart_18_0_0_0 //EQP 
+Mato_EquipIcon_Text : pressstart_18_0_0_0 //EQP
 Mato_StatusTitle_Text : pressstart_40_0_0_0 //STATUS
 Mato_EquipTitle_Text : pressstart_40_0_0_0 //EQUIP
 Mato_NextLevel_Text : pressstart_16_-3_0_0 //NEXT
 
-Item_Description : exepixel_40_-1.6_0_0
+Shop_Item_Description : exepixel_46_0_-10_0
+Shop_Slot_Name : exepixel_48_0_-5_-10
+Shop_Clear_Text : exepixel_45_0_-5.38_0
+
+Item_Description : exepixel_46_-1.6_-10_-10
 Item_Slot_Name : kong_27_-15_-50.5_0
 
 Super_Equip : pressstart_20_-8.3_-35_0 //Equip
