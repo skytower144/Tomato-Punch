@@ -79,6 +79,8 @@ All_ConsumableIcon_Text : 소비
 All_ItemIcon_Text : 아이템
 Mato_StatusIcon_Text : 능력치 // "Status" - Abbreviation Needed if over 3 characters.
 Mato_EquipIcon_Text : 무기 // "Equip" - Abbreviation Needed.
+
+All_ConsumableTitle_Text : 소비
 Mato_StatusTitle_Text : 능력치
 Mato_EquipTitle_Text : 무기
 Mato_NextLevel_Text : 다음
@@ -111,8 +113,8 @@ Soda_Description : 뇌를 찌르는 듯한 탄산으로 충만한 음료입니�
 Melon Bread : 메론빵
 Melon Bread_Description : 거북이 모양의 메론빵이네요.
 
-Onigiri : Onigiri
-Onigiri_Description : 참치마요 맛의 삼감김밥입니다.
+Onigiri : 삼각김밥
+Onigiri_Description : 참치마요 맛의 삼각김밥입니다.
 
 // EQUIP
 Knuckle Sandwich : 너클 샌드위치

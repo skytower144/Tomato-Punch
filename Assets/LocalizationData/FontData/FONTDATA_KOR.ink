@@ -75,7 +75,9 @@ Detect_DuplicateBind : galmuri11_30_0_0_0 //Already in use!
 All_ConsumableIcon_Text : galmuri11_24_0_0_0 //CNS
 All_ItemIcon_Text : galmuri11_24_0_0_0 //ITM
 Mato_StatusIcon_Text : galmuri11_24_0_0_0 //STT
-Mato_EquipIcon_Text : galmuri11_24_0_0_0 //EQP 
+Mato_EquipIcon_Text : galmuri11_24_0_0_0 //EQP
+
+All_ConsumableTitle_Text : galmuri11_48_0_0_0 //CONSUMABLE
 Mato_StatusTitle_Text : galmuri11_48_0_0_0 //STATUS
 Mato_EquipTitle_Text : galmuri11_48_0_0_0 //EQUIP
 Mato_NextLevel_Text : galmuri11_24_0_0_0 //NEXT
@@ -85,7 +87,7 @@ Shop_Slot_Name : galmuri11_32_0_-5_-10
 Shop_Clear_Text : galmuri11_24_0_0_0
 
 Item_Description : galmuri11_24_-5_15_64
-Item_Slot_Name : galmuri11_24_0_0_64
+Item_Slot_Name : galmuri11_30_0_0_64
 
 Super_Equip : galmuri11_24_0_0_0 //Equip
 Super_Details : galmuri11_24_0_0_0 //Details

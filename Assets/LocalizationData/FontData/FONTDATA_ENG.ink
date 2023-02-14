@@ -76,9 +76,11 @@ All_ConsumableIcon_Text : pressstart_18_0_0_0 //CNS
 All_ItemIcon_Text : pressstart_18_0_0_0 //ITM
 Mato_StatusIcon_Text : pressstart_18_0_0_0 //STT
 Mato_EquipIcon_Text : pressstart_18_0_0_0 //EQP
-Mato_StatusTitle_Text : pressstart_40_0_0_0 //STATUS
-Mato_EquipTitle_Text : pressstart_40_0_0_0 //EQUIP
-Mato_NextLevel_Text : pressstart_16_-3_0_0 //NEXT
+
+All_ConsumableTitle_Text : pressstartframe_40_0_0_0 //CONSUMABLE
+Mato_StatusTitle_Text : pressstartframe_40_0_0_0 //STATUS
+Mato_EquipTitle_Text : pressstartframe_40_0_0_0 //EQUIP
+Mato_NextLevel_Text : pressstartframe_16_-3_0_0 //NEXT
 
 Shop_Item_Description : exepixel_46_0_-10_0
 Shop_Slot_Name : exepixel_48_0_-5_-10

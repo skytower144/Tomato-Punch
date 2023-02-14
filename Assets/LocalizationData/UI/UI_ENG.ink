@@ -79,6 +79,8 @@ All_ConsumableIcon_Text : CNS
 All_ItemIcon_Text : ITM
 Mato_StatusIcon_Text : STT // "Status" - Abbreviation Needed if over 3 characters.
 Mato_EquipIcon_Text : EQP // "Equip" - Abbreviation Needed.
+
+All_ConsumableTitle_Text : CONSUMABLE
 Mato_StatusTitle_Text : STATUS
 Mato_EquipTitle_Text : EQUIP
 Mato_NextLevel_Text : NEXT
