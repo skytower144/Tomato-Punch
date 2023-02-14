@@ -23,7 +23,7 @@ public class ShopSystem : MonoBehaviour
     [SerializeField] private Transform itemSlotParent;
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemDescription, clearText, totalPriceText, playerMoneyText;
-    [SerializeField] private GameObject itemSlotPrefab, arrowBundle, upArrow, downArrow, clearGuide;
+    [SerializeField] private GameObject itemSlotPrefab, arrowBundle, upArrow, downArrow, clearGuide, dollarEffect;
     [SerializeField] public List<ShopItem> shopItems = new List<ShopItem>(); // Initialize when instantiated
     [SerializeField] private ShopSlot[] slotList;
 
@@ -32,6 +32,10 @@ public class ShopSystem : MonoBehaviour
     private int slot_number = 0;
     private float slot_height;
     private float end_of_view;
+
+    private float DECREASE_SPEED = 90f;
+    private float shrinkingPlayerMoney, finalPlayerMoney;
+    private bool runMoneyTimer = false;
 
     private bool isNavigating = false; public bool is_navigating => isNavigating;
     [System.NonSerialized] public bool isSellMode = false;
@@ -113,6 +117,11 @@ public class ShopSystem : MonoBehaviour
                 shopInteraction = ShopInteraction.ExitShop;
                 proceedAction?.Invoke();
             }
+        }
+
+        if (runMoneyTimer)
+        {
+            AnimatePlayerMoney();
         }
     }
 
@@ -201,10 +210,31 @@ public class ShopSystem : MonoBehaviour
     {
         return tomato_status.CheckEnoughMoney(totalPrice + viewingItemPrice);
     }
-
-    private void ShowPlayerMoney()
+    private void ShowPlayerMoney(bool isAnimate = false)
     {
-        playerMoneyText.text = tomato_status.playerMoney.ToString();
+        if (!isAnimate) {
+            playerMoneyText.text = tomato_status.playerMoney.ToString();
+            return;
+        }
+
+        shrinkingPlayerMoney = tomato_status.playerMoney;
+        finalPlayerMoney = shrinkingPlayerMoney - totalPrice;
+        playerMoneyText.color = new Color32(207, 58, 68, 255);
+        runMoneyTimer = true;
+    }
+
+    private void AnimatePlayerMoney()
+    {
+        shrinkingPlayerMoney -= Time.deltaTime * DECREASE_SPEED;
+
+        if (shrinkingPlayerMoney <= finalPlayerMoney)
+        {
+            runMoneyTimer = false;
+            shrinkingPlayerMoney = finalPlayerMoney;
+            playerMoneyText.color = new Color32(67, 35, 35, 255);
+        }
+
+        playerMoneyText.text = shrinkingPlayerMoney.ToString("F0");
     }
 
     public void UpdateTotalPrice(int amount)
@@ -231,9 +261,12 @@ public class ShopSystem : MonoBehaviour
         string itemName = itemInfo[0].Trim();
         int itemPrice = int.Parse(itemInfo[1].Trim());
 
-        if (tomato_status.CheckEnoughMoney(itemPrice)) {
-            inventory.AddItem(Item.ReturnMatchingItem(itemName));
-            tomato_status.UpdatePlayerMoney(-itemPrice);
+        tomatoStatus tomatostatus = GameManager.gm_instance.battle_system.tomatostatus;
+        Inventory playerInventory = GameManager.gm_instance.playerInventory;
+        
+        if (tomatostatus.CheckEnoughMoney(itemPrice)) {
+            playerInventory.AddItem(Item.ReturnMatchingItem(itemName));
+            tomatostatus.UpdatePlayerMoney(-itemPrice);
         }   
     }
 
@@ -253,10 +286,13 @@ public class ShopSystem : MonoBehaviour
             if (slotList[i].stock_count > 0)
                 inventory.AddItem(Item.ReturnMatchingItem(slotList[i].item_base_name), slotList[i].stock_count);
         }
+        ShowPlayerMoney(true);
         tomato_status.UpdatePlayerMoney(-totalPrice);
 
+        GameObject temp = Instantiate(dollarEffect, transform);
+        Destroy(temp, 0.8f);
+
         ClearCart();
-        ShowPlayerMoney();
     }
 
     public void ContinueShopping()

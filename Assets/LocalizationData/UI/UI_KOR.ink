@@ -108,6 +108,12 @@ Donut_Description : 매우 수상한 냄새가 나는 도넛이다...
 Soda : 소다
 Soda_Description : 뇌를 찌르는 듯한 탄산으로 충만한 음료입니다.
 
+Melon Bread : 메론빵
+Melon Bread_Description : 거북이 모양의 메론빵이네요.
+
+Onigiri : Onigiri
+Onigiri_Description : 참치마요 맛의 삼감김밥입니다.
+
 // EQUIP
 Knuckle Sandwich : 너클 샌드위치
 SuperChili : 슈퍼칠리

@@ -2,7 +2,7 @@ VAR totalPrice = 0
 -> main
 
 === main ===
-#viewshop:_ #portrait:Gob_neutral #movechoicebox:_
+#viewshop:_ #portrait:Cashier_neutral #movechoicebox:_
 What can I help you?
 
     + [ConfirmPurchase]
@@ -10,7 +10,7 @@ What can I help you?
         That will be total {totalPrice} coins.<br>Are you okay with that?
         
             + +[Yes]
-                Thank you for your purchase. #payshop:_ #continueshopping:_
+                Thank you for your purchase. #portrait:Cashier_happy #payshop:_ #continueshopping:_
                 -> main
             
             + +[No]
