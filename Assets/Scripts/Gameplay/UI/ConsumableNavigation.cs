@@ -110,7 +110,8 @@ public class ConsumableNavigation : MonoBehaviour
         else if (direction == InputDir.DOWN)
             slot_number += 1;
         
-        slot_number = Mathf.Clamp(slot_number, 0, slotList.Length - 1);
+        // Considering when slotList.Length equals to 0
+        slot_number = Mathf.Clamp(slot_number, 0, Mathf.Clamp(slotList.Length - 1, 0, slotList.Length - 1));
 
         if (prev_num == slot_number)
             return;
@@ -164,7 +165,13 @@ public class ConsumableNavigation : MonoBehaviour
 
     private void UseItem()
     {
-        inventory.RemoveItem(inventory.consumableItems[slot_number].item, targetSlotNumber: slot_number);
+        Item item = inventory.consumableItems[slot_number].item;
+        bool itemUsed = item.Use(GameManager.gm_instance.battle_system.tomato_control);
+
+        if (itemUsed) {
+            inventory.RemoveItem(item, targetSlotNumber: slot_number);
+            GameManager.gm_instance.battle_system.tomatostatus.OnEnable();
+        }
         isPrompt = false;
     }
 
@@ -176,7 +183,7 @@ public class ConsumableNavigation : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        slot_number = Mathf.Clamp(slot_number, 0, slotList.Length - 1);
+        slot_number = Mathf.Clamp(slot_number, 0, Mathf.Clamp(slotList.Length - 1, 0, slotList.Length - 1));
 
         if (slotList.Length == 0)
             itemIcon.enabled = false;

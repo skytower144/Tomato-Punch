@@ -16,6 +16,11 @@ public class Item : ScriptableObject
         Debug.LogWarning("Trying to return an Item that does not exist.");
         return null;
     }
+
+    public virtual bool Use(tomatoControl tomatocontrol)
+    {
+        return false;
+    }
 }
 
 public enum ItemType { Consumable, NormalEquip, SuperEquip, KeyItem }

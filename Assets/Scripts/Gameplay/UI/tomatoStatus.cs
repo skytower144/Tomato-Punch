@@ -20,13 +20,14 @@ public class tomatoStatus : MonoBehaviour
     private int DefIncrease = 5;
 
     public int playerMoney;
-    private void OnEnable()
+    public void OnEnable()
     {
         player_maxHp  = tomatocontrol.maxHealth;
         player_currentHp = tomatocontrol.currentHealth;
         player_atk = tomatocontrol.tomatoAtk;
         player_def = tomatocontrol.maxGuard;
-
+        
+        DisplayAccurateHealthColor();
         text_maxHp.text = player_maxHp.ToString("F0");
         text_currentHp.text = player_currentHp.ToString("F0");
         text_atkpt.text = player_atk.ToString("F0");
@@ -85,6 +86,18 @@ public class tomatoStatus : MonoBehaviour
                 DOTween.Play("textshine_def");
             }
         }
+    }
+
+    private void DisplayAccurateHealthColor()
+    {
+        // Since Battle system UI does not support decimals,
+        // for example 9.5 HP will also show as 10 HP in the UI.
+        // Decided to implicitly show the difference by text color.
+
+        if (player_currentHp == player_maxHp)
+            text_currentHp.color = text_maxHp.color;
+        else
+            text_currentHp.color = new Color32(109, 115, 111, 255);
     }
 
     private void CheckStatPt()
