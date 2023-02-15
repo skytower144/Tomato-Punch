@@ -15014,7 +15014,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2766613874704403573}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.3252318, y: 9.556489, z: 0}
+  m_LocalPosition: {x: 3.3252318, y: 34.5, z: 0}
   m_LocalScale: {x: 108, y: 108, z: 108}
   m_Children:
   - {fileID: 2766613874395430627}
@@ -34043,6 +34043,7 @@ MonoBehaviour:
   controlScroll: {fileID: 2766613874070507672}
   uiControl: {fileID: 2766613875996047744}
   saveLoadMenu: {fileID: 144039711076704062}
+  consumableNavigation: {fileID: 7190518732176945244}
   equipcontrol: {fileID: 2766613875930057985}
   mainCamera: {fileID: 2766613875799240032}
   battleCircle: {fileID: 5855777196679259577, guid: 62ecba09751ef914f82b224b3ab9759c, type: 3}
@@ -37039,12 +37040,15 @@ MonoBehaviour:
   arrowGuide: {fileID: 4821175359114298221}
   upArrow: {fileID: 7833883127847841450}
   downArrow: {fileID: 7127270490419396477}
+  itemPrompt: {fileID: 9003414423158238523, guid: 364cf9ea018a84a43a2689f8fdbe0a40, type: 3}
   highlightTextColor:
     serializedVersion: 2
     rgba: 4294967295
   defaultTextColor:
     serializedVersion: 2
     rgba: 4281084979
+  slotList: []
+  isConsumableMenu: 1
 --- !u!114 &6232042236779214018
 MonoBehaviour:
   m_ObjectHideFlags: 0

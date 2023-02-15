@@ -16,6 +16,8 @@ ConfirmPrompt : 게임을 종료하시겠습니까?
 ConfirmPrompt_Yes : 예
 ConfirmPrompt_No : 아니요
 
+UseItemPrompt : 아이템을 사용하시겠습니까?
+
 ReviveCost_Text : 부활 비용
 
 BattleLost_MoneyMessage : ? 코인을 잃었다.

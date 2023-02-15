@@ -22,6 +22,7 @@ public class ResolutionMenu : MonoBehaviour
 
     [SerializeField] private List<LanguageSetting> languageList = new List<LanguageSetting>();
     private int languageIndex = 0;
+
     private void OnEnable()
     {
         NormalizeMenu();

@@ -138,6 +138,8 @@ public class InventoryUI : MonoBehaviour
             GameObject itemSlot = Instantiate(itemSlotPrefab, consumableList.transform);
             itemSlot.GetComponent<ItemSlotUI>().SetData(itemQuantity);
         }
+
+        GameManager.gm_instance.UpdateConsumableSlots();
     }
 
     public void DisplayItemInfo(Item targetItem, TextMeshProUGUI targetText, Image targetImage)

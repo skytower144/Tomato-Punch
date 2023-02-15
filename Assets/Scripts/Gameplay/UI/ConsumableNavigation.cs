@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class ConsumableNavigation : MonoBehaviour
 {
@@ -11,18 +12,20 @@ public class ConsumableNavigation : MonoBehaviour
     [SerializeField] private Transform itemSlotParent;
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private GameObject uiGuide, arrowGuide, upArrow, downArrow;
+    [SerializeField] private GameObject uiGuide, arrowGuide, upArrow, downArrow, itemPrompt;
     [SerializeField] private Color32 highlightTextColor, defaultTextColor;
-    private ItemSlotUI[] slotList;
+    [SerializeField] private ItemSlotUI[] slotList;
     private int slot_number = 0;
     private float slot_height;
     private float end_of_view;
     private bool isNavigating = false; public bool is_navigating => isNavigating;
 
+    [SerializeField] private bool isConsumableMenu;
+    private bool isPrompt = false;
+
     void Start()
     {
         slot_height = inventory.inventory_UI.itemslot_prefab.GetComponent<RectTransform>().rect.height;
-        UpdateEndOfViewValue();
     }
 
     void OnEnable()
@@ -32,8 +35,6 @@ public class ConsumableNavigation : MonoBehaviour
 
         itemDescription.text = UIControl.instance.uiTextDict["InventoryGuide"];
         UIControl.instance.SetFontData(itemDescription, "Item_Description");
-
-        slotList = itemSlotParent.GetComponentsInChildren<ItemSlotUI>(true);
 
         uiGuide.SetActive(true);
         arrowGuide.SetActive(false);
@@ -47,7 +48,7 @@ public class ConsumableNavigation : MonoBehaviour
             ToggleNavigate(true);
         }
 
-        else if(isNavigating)
+        else if(isNavigating && !isPrompt)
         {
             if(playerMovement.InputDetection(playerMovement.ReturnMoveVector()))
             {
@@ -59,7 +60,9 @@ public class ConsumableNavigation : MonoBehaviour
             }
             else if(playerMovement.Press_Key("Interact"))
             {
-                return;
+                if (isConsumableMenu && (slotList.Length > 0)) {
+                    PromptUseItem();
+                }
             }
             else if(playerMovement.Press_Key("Cancel"))
             {
@@ -82,8 +85,8 @@ public class ConsumableNavigation : MonoBehaviour
                 inventory.inventory_UI.DisplayItemInfo(inventory.consumableItems[0].item, itemDescription, itemIcon);
             }
             else {
-                slotList[slot_number].Deselect(defaultTextColor);
                 itemIcon.enabled = false;
+                slotList[slot_number].Deselect(defaultTextColor);
             }
         }
 
@@ -107,7 +110,7 @@ public class ConsumableNavigation : MonoBehaviour
         else if (direction == InputDir.DOWN)
             slot_number += 1;
         
-        slot_number = Mathf.Clamp(slot_number, 0, Mathf.Clamp(slotList.Length - 1, 0, slotList.Length));
+        slot_number = Mathf.Clamp(slot_number, 0, slotList.Length - 1);
 
         if (prev_num == slot_number)
             return;
@@ -145,5 +148,39 @@ public class ConsumableNavigation : MonoBehaviour
     private void UpdateEndOfViewValue()
     {
         end_of_view = slot_height * Mathf.Clamp(slotList.Length - MAX_SLOT_VIEW, 0, slotList.Length);
+    }
+
+    private void PromptUseItem()
+    {
+        isPrompt = true;
+        GameObject temp = Instantiate(itemPrompt, transform);
+        temp.GetComponent<RectTransform>().localPosition = new Vector2(-399, -2.2f);
+        temp.GetComponent<ConfirmPrompt>().InitializeData(UseItem, CancelPrompt, "UseItemPrompt");
+    }
+    private void CancelPrompt()
+    {
+        isPrompt = false;
+    }
+
+    private void UseItem()
+    {
+        inventory.RemoveItem(inventory.consumableItems[slot_number].item, targetSlotNumber: slot_number);
+        isPrompt = false;
+    }
+
+    public IEnumerator UpdateSlotValues()
+    {
+        yield return new WaitForEndOfFrame();
+        slotList = itemSlotParent.GetComponentsInChildren<ItemSlotUI>(true);
+        UpdateEndOfViewValue();
+
+        yield return new WaitForEndOfFrame();
+
+        slot_number = Mathf.Clamp(slot_number, 0, slotList.Length - 1);
+
+        if (slotList.Length == 0)
+            itemIcon.enabled = false;
+        else if ((slotList.Length > 0) && isNavigating)
+            slotList[slot_number].Select(highlightTextColor);
     }
 }

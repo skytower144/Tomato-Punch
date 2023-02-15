@@ -12,11 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
     [SerializeField] Inventory inventory; public Inventory playerInventory => inventory;
-    [SerializeField] ResolutionMenu resolutionMenu;
+    [SerializeField] ResolutionMenu resolutionMenu; public ResolutionMenu resolution_menu => resolutionMenu;
     [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
     [SerializeField] UIControl uiControl; public UIControl ui_control => uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
+    [SerializeField] ConsumableNavigation consumableNavigation;
     [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
@@ -242,5 +243,10 @@ public class GameManager : MonoBehaviour
 
             callback?.Invoke();
         }
+    }
+
+    public void UpdateConsumableSlots()
+    {
+        StartCoroutine(consumableNavigation.UpdateSlotValues());
     }
 }

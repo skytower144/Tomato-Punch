@@ -121,7 +121,7 @@ public class PauseMenu : MonoBehaviour
         else if(menuNumber == 4)
         {
             GameObject quit_prompt = Instantiate(QuitPrompt, transform);
-            quit_prompt.GetComponent<ConfirmPrompt>().proceed_action = QuitGame;
+            quit_prompt.GetComponent<ConfirmPrompt>().InitializeData(QuitGame, CancelQuit, "ConfirmPrompt");
             is_busy = true;
         }
     }
@@ -137,7 +137,13 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        PauseMenu.is_busy = false;
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+
+    private void CancelQuit()
+    {
+        PauseMenu.is_busy = false;
     }
 }

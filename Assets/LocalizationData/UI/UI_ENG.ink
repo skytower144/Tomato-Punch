@@ -16,6 +16,8 @@ ConfirmPrompt : Quit Game?
 ConfirmPrompt_Yes : Yes
 ConfirmPrompt_No : No
 
+UseItemPrompt : Use Item?
+
 ReviveCost_Text : REVIVE COST
 
 BattleLost_MoneyMessage : You lost ? coins.

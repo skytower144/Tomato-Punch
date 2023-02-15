@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,24 +60,19 @@ public class Inventory : MonoBehaviour
                 break;
         }
         
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke(item.itemType);
+        StartCoroutine(ItemChangeEvent(item.itemType));
     }
 
-    public void RemoveItem (Item item, int count = 1)
+    public void RemoveItem (Item item, int targetSlotNumber = 0, int count = 1)
     {
         if (!item) {
             Debug.LogWarning("Trying to add an Item that does not exist.");
             return;
         }
 
-        ItemQuantity tempItem = new ItemQuantity();
-        tempItem.item = item;
-        tempItem.count = count;
-
         switch (item.itemType) {
             case ItemType.Consumable:
-                ChangeItemStack(tempItem, consumableItems, -count);
+                ChangeItemStack(consumableItems[targetSlotNumber], consumableItems, -count);
                 break;
 
             case ItemType.NormalEquip:
@@ -86,9 +82,8 @@ public class Inventory : MonoBehaviour
             default:
                 break;
         }
-
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke(item.itemType);
+        
+        StartCoroutine(ItemChangeEvent(item.itemType));
     }
 
     public void ChangeItemStack(ItemQuantity targetItem, List<ItemQuantity> itemList, int amount)
@@ -109,6 +104,13 @@ public class Inventory : MonoBehaviour
         }
         if (amount > 0)
             itemList.Add(targetItem); // Adding a new item that player does not have.
+    }
+
+    IEnumerator ItemChangeEvent(ItemType item_type)
+    {
+        yield return new WaitForEndOfFrame();
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke(item_type);
     }
 }
 
