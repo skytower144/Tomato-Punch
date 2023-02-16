@@ -110,6 +110,8 @@ public class ShopSystem : MonoBehaviour
             }
             else if(playerMovement.Press_Key("Interact") && (total_price > 0))
             {
+                if (runMoneyTimer)
+                    StopAnimateMoney();
                 PromptPayment();
             }
             else if(playerMovement.Press_Key("Cancel"))
@@ -229,11 +231,16 @@ public class ShopSystem : MonoBehaviour
 
         if (shrinkingPlayerMoney <= finalPlayerMoney)
         {
-            runMoneyTimer = false;
-            shrinkingPlayerMoney = finalPlayerMoney;
-            playerMoneyText.color = new Color32(67, 35, 35, 255);
+            StopAnimateMoney();
         }
+        playerMoneyText.text = shrinkingPlayerMoney.ToString("F0");
+    }
 
+    private void StopAnimateMoney()
+    {
+        runMoneyTimer = false;
+        shrinkingPlayerMoney = finalPlayerMoney;
+        playerMoneyText.color = new Color32(67, 35, 35, 255);
         playerMoneyText.text = shrinkingPlayerMoney.ToString("F0");
     }
 

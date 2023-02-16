@@ -17,10 +17,18 @@ public class Item : ScriptableObject
         return null;
     }
 
-    public virtual bool Use(tomatoControl tomatocontrol)
+    public virtual ItemUseInfo Use(tomatoControl tomatocontrol)
     {
-        return false;
+        return null;
     }
 }
 
-public enum ItemType { Consumable, NormalEquip, SuperEquip, KeyItem }
+[System.Serializable]
+public class ItemUseInfo
+{
+    public string reactAnimName;
+    public string effectInfo;
+    public bool isUsed;
+}
+
+public enum ItemType { Consumable, Other, NormalEquip, SuperEquip }

@@ -17,6 +17,7 @@ ConfirmPrompt_Yes : Yes
 ConfirmPrompt_No : No
 
 UseItemPrompt : Use Item?
+RestoreHealth : Restored ? HP.
 
 ReviveCost_Text : REVIVE COST
 
@@ -117,6 +118,10 @@ Melon Bread_Description : A turtle shaped melon bread.
 
 Onigiri : Onigiri
 Onigiri_Description : It's filled with tuna and mayo.
+
+// OTHER
+Pencil : Pencil
+Pencil_Description : A yellow pencil fuming with stress energy.
 
 // EQUIP
 Knuckle Sandwich : Knuckle Sandwich

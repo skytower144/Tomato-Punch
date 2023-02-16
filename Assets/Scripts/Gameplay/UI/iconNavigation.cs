@@ -23,7 +23,7 @@ public class iconNavigation : MonoBehaviour
     }
 
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private ConsumableNavigation consumableNavigation;
+    [SerializeField] private ItemMenuNavigation consumableNavigation, otherItemNavigation;
     [SerializeField] private StatusNavigation statusNavigation;
     [SerializeField] private equipControl equipcontrol;
     [SerializeField] private GameObject inventoryObj;
@@ -68,7 +68,7 @@ public class iconNavigation : MonoBehaviour
 
     private bool CanNavigate()
     {
-        return (!consumableNavigation.is_navigating && !statusNavigation.navigating_status && !equipcontrol.enterEquipNavigation);
+        return (!consumableNavigation.is_navigating && !otherItemNavigation.is_navigating && !statusNavigation.navigating_status && !equipcontrol.enterEquipNavigation);
     }
 
     /*

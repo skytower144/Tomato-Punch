@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{}
 
-public class NPCController : MonoBehaviour, Interactable
+public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 {
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
@@ -154,6 +154,22 @@ public class NPCController : MonoBehaviour, Interactable
         return finalFlag;
     }
 
+    public ProgressData Capture()
+    {
+        ProgressData game_data = new ProgressData();
+        game_data.string_value_0 = inkFileName;
+        return game_data;
+    }
+
+    public void Restore(ProgressData game_data)
+    {
+        inkFileName = game_data.string_value_0;
+    }
+
+    public string ReturnID()
+    {
+        return this.gameObject.name;
+    }
 }
 
 [System.Serializable]

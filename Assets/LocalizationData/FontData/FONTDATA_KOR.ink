@@ -9,12 +9,12 @@ Title_Prompt_No : galmuri11_24_0_0_0 //No
 LoadingText : galmuri11_36_10_0_0 //Loading...
 
 BindingResetPrompt_Main : galmuri11_36_0_0_0 //Reset to default controls?
-BindingResetPrompt_Yes : galmuri11_36_0_0_0 //Yes
-BindingResetPrompt_No : galmuri11_36_0_0_0 //No!
+BindingResetPrompt_Yes : galmuri11_24_0_0_0 //Yes
+BindingResetPrompt_No : galmuri11_24_0_0_0 //No!
 
 ConfirmPrompt : galmuri11_36_0_0_0 //Quit Game?
-ConfirmPrompt_Yes : galmuri11_36_0_0_0 //Yes
-ConfirmPrompt_No : galmuri11_36_0_0_0 //No
+ConfirmPrompt_Yes : galmuri11_24_0_0_0 //Yes
+ConfirmPrompt_No : galmuri11_24_0_0_0 //No
 
 ReviveCost_Text : galmuri11_18_0_0_0 //REVIVE COST
 

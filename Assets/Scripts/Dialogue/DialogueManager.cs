@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private GameObject portraitBox;
-    
 
     [SerializeField] private Image portrait; 
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -109,7 +108,6 @@ public class DialogueManager : MonoBehaviour
         playerMovement.SetIsInteracting(false);
         InvokeEvent();
     }
-
     private void InvokeEvent()
     {
         if (tempObject is EnemyBase)
@@ -286,7 +284,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void SetDialogueBox(bool state, bool hasPortrait = false)
+    public void SetDialogueBox(bool state, bool hasPortrait = false)
     {
         if (hasPortrait)
         {

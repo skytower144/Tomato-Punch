@@ -17,6 +17,7 @@ ConfirmPrompt_Yes : 예
 ConfirmPrompt_No : 아니요
 
 UseItemPrompt : 아이템을 사용하시겠습니까?
+RestoreHealth : ? HP를 회복했습니다.
 
 ReviveCost_Text : 부활 비용
 
@@ -106,8 +107,8 @@ Shop_Clear_Text : 장바구니 비우기 >
 InventoryGuide : 이동키로 메뉴를 둘러볼 수 있습니다.<br>위의 키로 메뉴와 상호작용이 가능합니다.
 
 // CONSUMABLE
-Donut : 도넛
-Donut_Description : 매우 수상한 냄새가 나는 도넛이다...
+Donut : Donut
+Donut_Description : 수상해보이는 도넛이다...
 
 Soda : 소다
 Soda_Description : 뇌를 찌르는 듯한 탄산으로 충만한 음료입니다.
@@ -117,6 +118,10 @@ Melon Bread_Description : 거북이 모양의 메론빵이네요.
 
 Onigiri : 삼각김밥
 Onigiri_Description : 참치마요 맛의 삼각김밥입니다.
+
+// OTHER
+Pencil : 연필
+Pencil_Description : 스트레스 에너지를 내뿜는 노란색 연필이다.
 
 // EQUIP
 Knuckle Sandwich : 너클 샌드위치

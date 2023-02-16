@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 using System.Collections;
 
-public class ConsumableNavigation : MonoBehaviour
+public class ItemMenuNavigation : MonoBehaviour
 {
     const int MAX_SLOT_VIEW = 7;
     [SerializeField] private GameManager gameManager;
@@ -12,9 +13,9 @@ public class ConsumableNavigation : MonoBehaviour
     [SerializeField] private Transform itemSlotParent;
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private GameObject uiGuide, arrowGuide, upArrow, downArrow, itemPrompt;
+    [SerializeField] private GameObject uiGuide, arrowGuide, upArrow, downArrow, itemPrompt, usedPrompt;
     [SerializeField] private Color32 highlightTextColor, defaultTextColor;
-    [SerializeField] private ItemSlotUI[] slotList;
+    private ItemSlotUI[] slotList;
     private int slot_number = 0;
     private float slot_height;
     private float end_of_view;
@@ -22,9 +23,15 @@ public class ConsumableNavigation : MonoBehaviour
 
     [SerializeField] private bool isConsumableMenu;
     private bool isPrompt = false;
+    private List<ItemQuantity> targetItemList;
 
     void Start()
     {
+        if (isConsumableMenu)
+            targetItemList = inventory.consumableItems;
+        else
+            targetItemList = inventory.otherItems;
+        
         slot_height = inventory.inventory_UI.itemslot_prefab.GetComponent<RectTransform>().rect.height;
     }
 
@@ -82,7 +89,7 @@ public class ConsumableNavigation : MonoBehaviour
             if (state) {
                 slotList[0].Select(highlightTextColor);
                 itemIcon.enabled = true;
-                inventory.inventory_UI.DisplayItemInfo(inventory.consumableItems[0].item, itemDescription, itemIcon);
+                inventory.inventory_UI.DisplayItemInfo(targetItemList[0].item, itemDescription, itemIcon);
             }
             else {
                 itemIcon.enabled = false;
@@ -119,7 +126,7 @@ public class ConsumableNavigation : MonoBehaviour
         HandleScroll();
         slotList[prev_num].Deselect(defaultTextColor);
         slotList[slot_number].Select(highlightTextColor);
-        inventory.inventory_UI.DisplayItemInfo(inventory.consumableItems[slot_number].item, itemDescription, itemIcon);
+        inventory.inventory_UI.DisplayItemInfo(targetItemList[slot_number].item, itemDescription, itemIcon);
     }
 
     private void HandleScroll()
@@ -165,14 +172,22 @@ public class ConsumableNavigation : MonoBehaviour
 
     private void UseItem()
     {
-        Item item = inventory.consumableItems[slot_number].item;
-        bool itemUsed = item.Use(GameManager.gm_instance.battle_system.tomato_control);
+        Item item = targetItemList[slot_number].item;
+        ItemUseInfo info = item.Use(GameManager.gm_instance.battle_system.tomato_control);
 
-        if (itemUsed) {
+        if (info.isUsed) {
             inventory.RemoveItem(item, targetSlotNumber: slot_number);
             GameManager.gm_instance.battle_system.tomatostatus.OnEnable();
+            PopupPrompt(info.effectInfo, info.reactAnimName);
         }
-        isPrompt = false;
+        CancelPrompt();
+    }
+    private void PopupPrompt(string main_text, string animTag)
+    {
+        GameObject temp = Instantiate(usedPrompt, transform);
+        PromptPopup popup = temp.GetComponent<PromptPopup>();
+        popup.popupText.text = main_text;
+        popup.animTag = animTag;
     }
 
     public IEnumerator UpdateSlotValues()
@@ -187,7 +202,9 @@ public class ConsumableNavigation : MonoBehaviour
 
         if (slotList.Length == 0)
             itemIcon.enabled = false;
-        else if ((slotList.Length > 0) && isNavigating)
+        else if ((slotList.Length > 0) && isNavigating) {
             slotList[slot_number].Select(highlightTextColor);
+            inventory.inventory_UI.DisplayItemInfo(targetItemList[slot_number].item, itemDescription, itemIcon);
+        }
     }
 }

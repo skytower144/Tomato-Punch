@@ -6,7 +6,8 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
 
     [Header("All")]
-    [SerializeField] private GameObject consumableList, itemSlotPrefab;
+    [SerializeField] private Transform consumableListParent, otherItemParent;
+    [SerializeField] private GameObject itemSlotPrefab;
     public GameObject itemslot_prefab => itemSlotPrefab;
 
     [Header("MATO")]
@@ -46,6 +47,10 @@ public class InventoryUI : MonoBehaviour
         switch (item_type) {
             case ItemType.Consumable:
                 UpdateConsumableSlots();
+                break;
+
+            case ItemType.Other:
+                UpdateOtherItemSlots();
                 break;
 
             case ItemType.NormalEquip:
@@ -130,16 +135,30 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateConsumableSlots()
     {
-        foreach (Transform child in consumableList.transform) {
+        foreach (Transform child in consumableListParent) {
             Destroy(child.gameObject);
         }
 
         foreach (ItemQuantity itemQuantity in inventory.consumableItems) {
-            GameObject itemSlot = Instantiate(itemSlotPrefab, consumableList.transform);
+            GameObject itemSlot = Instantiate(itemSlotPrefab, consumableListParent);
             itemSlot.GetComponent<ItemSlotUI>().SetData(itemQuantity);
         }
 
         GameManager.gm_instance.UpdateConsumableSlots();
+    }
+
+    public void UpdateOtherItemSlots()
+    {
+        foreach (Transform child in otherItemParent) {
+            Destroy(child.gameObject);
+        }
+
+        foreach (ItemQuantity itemQuantity in inventory.otherItems) {
+            GameObject itemSlot = Instantiate(itemSlotPrefab, otherItemParent);
+            itemSlot.GetComponent<ItemSlotUI>().SetData(itemQuantity);
+        }
+
+        GameManager.gm_instance.UpdateOtherItemSlots();
     }
 
     public void DisplayItemInfo(Item targetItem, TextMeshProUGUI targetText, Image targetImage)

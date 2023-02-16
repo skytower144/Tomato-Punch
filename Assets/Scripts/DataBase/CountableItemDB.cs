@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CountableItemDB
 {
@@ -11,9 +12,11 @@ public class CountableItemDB
         CountableCatalog = new Dictionary<string, Item>();
 
         var consumableArray = Resources.LoadAll<Item>("Consumable/");
-        // var accessoryArray
+        var otheritemArray = Resources.LoadAll<Item>("OtherItem/");
+
+        var totalArray = consumableArray.Concat(otheritemArray).ToArray();
         
-        foreach (Item item in consumableArray)
+        foreach (Item item in totalArray)
         {
             if (CountableCatalog.ContainsKey(item.ItemName))
             {

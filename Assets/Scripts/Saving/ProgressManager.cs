@@ -145,6 +145,10 @@ public class ProgressManager : MonoBehaviour
         {
             tomatoData.carrying_countable_list.Add(new SerializedItemQuantity(consumable.item.ItemName, consumable.count));
         }
+        foreach (ItemQuantity other in playerInventory.otherItems)
+        {
+            tomatoData.carrying_countable_list.Add(new SerializedItemQuantity(other.item.ItemName, other.count));
+        }
         foreach (Item equip in playerInventory.normalEquip)
         {
             tomatoData.carrying_equip_list.Add(equip.ItemName);
@@ -192,6 +196,7 @@ public class ProgressManager : MonoBehaviour
         PlayerCamera.playerCamera_instance.canvas_y = tomatoData.backup_canvas_y;
         
         playerInventory.consumableItems.Clear();
+        playerInventory.otherItems.Clear();
         playerInventory.normalEquip.Clear();
         playerInventory.superEquip.Clear();
         inventoryUI.ClearAllEquipSlots();
@@ -205,6 +210,7 @@ public class ProgressManager : MonoBehaviour
             playerInventory.AddItem(EquipDB.ReturnItemOfName(equip_name));
         }
         inventoryUI.UpdateConsumableSlots();
+        inventoryUI.UpdateOtherItemSlots();
         inventoryUI.RecoverSlotIndex(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
         inventoryUI.UpdateEquipSlots(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
     }

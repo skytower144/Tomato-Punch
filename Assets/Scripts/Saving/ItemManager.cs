@@ -15,6 +15,26 @@ public class ItemManager : MonoBehaviour
     //     newItem.GetComponent<ItemPickup>().OnFirstCreated();
     // }
 
+    void Awake()
+    {
+        Dictionary<string, int> duplicateIdCheck = new Dictionary<string, int>();
+
+        for (int i = 0; i < itemTrackers.Count; i++)
+        {
+            Transform parent_scene = itemTrackers[i];
+            ItemPickup[] items = parent_scene.GetComponentsInChildren<ItemPickup>(true);
+
+            foreach (ItemPickup itemInfo in items)
+            {
+                if (duplicateIdCheck.ContainsKey(itemInfo.itemID)) {
+                    Debug.LogError($"Detected duplicate Item ID from : [{itemInfo.targetItem.ItemName}]. Check ItemManager.");
+                    return;
+                }
+                duplicateIdCheck[itemInfo.itemID] = 1;
+            }
+        }
+    }
+
     public void RecoverItemState()
     {
         StringItemLocation createdItemDict = ProgressManager.instance.save_data.CreatedItem_dict;

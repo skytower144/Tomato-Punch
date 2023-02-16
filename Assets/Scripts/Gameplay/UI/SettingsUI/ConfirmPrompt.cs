@@ -74,6 +74,7 @@ public class ConfirmPrompt : MonoBehaviour
         {
             confirm_action?.Invoke();
         }
+        
         ExitPrompt();
     }
     private void ExitPrompt()

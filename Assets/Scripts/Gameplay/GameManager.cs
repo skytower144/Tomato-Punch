@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
     [SerializeField] UIControl uiControl; public UIControl ui_control => uiControl;
     [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
-    [SerializeField] ConsumableNavigation consumableNavigation;
+    [SerializeField] ItemMenuNavigation consumableNavigation, otherItemNavigation;
+    public ItemMenuNavigation consumable_navigation => consumableNavigation;
+    public ItemMenuNavigation other_item_navigation => otherItemNavigation;
     [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
@@ -248,5 +250,10 @@ public class GameManager : MonoBehaviour
     public void UpdateConsumableSlots()
     {
         StartCoroutine(consumableNavigation.UpdateSlotValues());
+    }
+
+    public void UpdateOtherItemSlots()
+    {
+        StartCoroutine(otherItemNavigation.UpdateSlotValues());
     }
 }

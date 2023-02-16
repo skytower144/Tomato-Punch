@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
     public InventoryUI inventory_UI => inventoryUI;
 
     public List<ItemQuantity> consumableItems = new List<ItemQuantity>();
+    public List<ItemQuantity> otherItems = new List<ItemQuantity>();
     public List<Item> normalEquip = new List<Item>();
     public List<Item> superEquip = new List<Item>();
     
@@ -46,6 +47,10 @@ public class Inventory : MonoBehaviour
         switch (item.itemType) {
             case ItemType.Consumable:
                 ChangeItemStack(tempItem, consumableItems, count);
+                break;
+            
+            case ItemType.Other:
+                ChangeItemStack(tempItem, otherItems, count);
                 break;
 
             case ItemType.NormalEquip:
@@ -73,6 +78,10 @@ public class Inventory : MonoBehaviour
         switch (item.itemType) {
             case ItemType.Consumable:
                 ChangeItemStack(consumableItems[targetSlotNumber], consumableItems, -count);
+                break;
+
+            case ItemType.Other:
+                ChangeItemStack(otherItems[targetSlotNumber], otherItems, -count);
                 break;
 
             case ItemType.NormalEquip:
