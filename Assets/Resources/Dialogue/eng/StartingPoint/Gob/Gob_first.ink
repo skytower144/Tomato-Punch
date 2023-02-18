@@ -4,6 +4,6 @@ Idiot Rupple won't stand a chance... kehehe.
 Listen up.<br>.......Ya ready? #portrait:Gob_serious
 ...Okay? #portrait:Tomato_neutral
 #portrait:Gob_serious
-You evade left for the left punches,<br>and you evade right for right punches.
-And I bet you didn't think of this...<br>you jump when he tries to low kick ya.
+Left evade the left punches,<br>Right evade the right punches.
+...............and um...<br>...jump for the low attacks.
 #nextdialogue:Gob_encourage

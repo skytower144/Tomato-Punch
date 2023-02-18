@@ -19,8 +19,9 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
     private bool isInteractAnimating = false;
-    [SerializeField] private bool isFixedSprite;
 
+    [Header("[ Player Viewpoint Standard ]")]
+    [SerializeField] private bool isFixedSprite;
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
 
@@ -95,18 +96,18 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 
-    public void Play(string animTag)
+    public void Play(string animTag, Action dialogueAction = null)
     {
         if (sprite_dict.ContainsKey(animTag))
         {
             SpriteAnimation animation = sprite_dict[animTag];
-            spriteAnimator = new SpriteAnimator(sprite_renderer, animation.sprites, animation.fps, animation.is_loop);
+            spriteAnimator = new SpriteAnimator(this, sprite_renderer, animation.sprites, animation.fps, animation.is_loop, dialogueAction);
         }
         else
         {
             List<Sprite> singleSprite = new List<Sprite>();
             singleSprite.Add(sprite_renderer.sprite);
-            spriteAnimator = new SpriteAnimator(sprite_renderer, singleSprite, 0, false);
+            spriteAnimator = new SpriteAnimator(this, sprite_renderer, singleSprite, 0, false);
         }   
     }
 

@@ -33,12 +33,14 @@ public class DialogueManager : MonoBehaviour
     private string currentSentence;
     private bool dialogueIsPlaying, isPromptChoice;
     private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
+    private bool hideDialogue = false;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
     private const string DIALOGUE_TAG = "nextdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
-    private const string ANIM_TAG = "animate";
+    private const string ANIMATE_TAG = "animate";
+    private const string FOCUSANIMATE_TAG = "focusanimate";
     private const string BATTLE_TAG = "battle";
     private const string PURCHASEONE_TAG = "purchaseone";
     private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
@@ -70,7 +72,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (!dialogueIsPlaying)
+        if (!dialogueIsPlaying || hideDialogue)
         {
             return;
         }
@@ -102,6 +104,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         SetDialogueBox(false);
+        SetPortraitBox(false);
         dialogueText.text = "";
         currentSentence = "";
 
@@ -123,16 +126,6 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue){
             currentSentence = currentStory.Continue();
             HandleTags(currentStory.currentTags);
-
-            if (String.IsNullOrEmpty(currentSentence))
-                ContinueStory();
-            
-            else {
-                if (CheckChoiceSentence()) {
-                    dialogue_typeEffect.proceed_action = DisplayChoices;
-                }
-                dialogue_typeEffect.SetMessage(currentSentence);
-            }
         }
         else
             ExitDialogue();
@@ -219,12 +212,12 @@ public class DialogueManager : MonoBehaviour
             switch (tag_key)
             {
                 case PORTRAIT_TAG:
-                    SetDialogueBox(true, true);
+                    SetPortraitBox(true);
                     portrait.sprite = Resources.Load<Sprite>($"Portraits/{tag_value}");
                     break;
                 
                 case HIDEPORTRAIT_TAG:
-                    SetDialogueBox(true, false);
+                    SetPortraitBox(false);
                     break;
 
                 case DIALOGUE_TAG:
@@ -235,8 +228,14 @@ public class DialogueManager : MonoBehaviour
                     isContinueTalk = true;
                     break;
 
-                case ANIM_TAG:
+                case ANIMATE_TAG:
                     currentNpc.Play(tag_value);
+                    break;
+                
+                case FOCUSANIMATE_TAG:
+                    hideDialogue = true;
+                    SetDialogueBox(false);
+                    currentNpc.Play(tag_value, ShowAndContinueDialogue);
                     break;
 
                 case BATTLE_TAG:
@@ -282,9 +281,31 @@ public class DialogueManager : MonoBehaviour
                     break;
             }
         }
+        if (!hideDialogue)
+            DisplayDialogue();
     }
 
-    public void SetDialogueBox(bool state, bool hasPortrait = false)
+    private void DisplayDialogue()
+    {
+        if (String.IsNullOrEmpty(currentSentence))
+            ContinueStory();
+        
+        else {
+            if (CheckChoiceSentence()) {
+                dialogue_typeEffect.proceed_action = DisplayChoices;
+            }
+            dialogue_typeEffect.SetMessage(currentSentence);
+        }
+    }
+
+    private void ShowAndContinueDialogue()
+    {
+        SetDialogueBox(true);
+        DisplayDialogue();
+        hideDialogue = false;
+    }
+
+    public void SetPortraitBox(bool hasPortrait)
     {
         if (hasPortrait)
         {
@@ -298,6 +319,10 @@ public class DialogueManager : MonoBehaviour
             dialogue_rect.sizeDelta = new Vector2(1235.06f, 221.45f);
             portraitBox.SetActive(false);
         }
+    }
+
+    private void SetDialogueBox(bool state)
+    {
         dialogueBox.SetActive(state);
     }
 

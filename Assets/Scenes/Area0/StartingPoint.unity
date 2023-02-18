@@ -24610,7 +24610,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 17, y: 10, z: 0}
@@ -24649,7 +24649,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 11, y: 11, z: 0}
@@ -24753,7 +24753,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 35, y: 15, z: 0}
@@ -24773,7 +24773,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 51, y: 15, z: 0}
@@ -24936,7 +24936,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 36, z: 0}
@@ -24945,7 +24945,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 37, z: 0}
@@ -24984,7 +24984,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -14, y: 40, z: 0}
@@ -31233,9 +31233,10 @@ GameObject:
   m_Component:
   - component: {fileID: 627512638}
   - component: {fileID: 627512640}
+  - component: {fileID: 627512641}
   - component: {fileID: 627512639}
-  m_Layer: 0
-  m_Name: snowman
+  m_Layer: 9
+  m_Name: Snowman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31255,25 +31256,32 @@ Transform:
   m_Father: {fileID: 1738539235}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &627512639
-Animator:
-  serializedVersion: 3
+--- !u!61 &627512639
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627512637}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4079583b66e334d40bdf82732d180f19, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.015696049, y: -1.1740284}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.55, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.92215824, y: 1.0384407}
+  m_EdgeRadius: 0
 --- !u!212 &627512640
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31311,9 +31319,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1666329631
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -31325,6 +31333,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &627512641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627512637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFileName: Snowman_first
+  interactAnimation: 
+  sprite_renderer: {fileID: 627512640}
+  sprite_dict:
+    m_keys:
+    - idle
+    - greeting
+    m_values:
+    - is_loop: 1
+      fps: 4
+      sprites:
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 581935354361805139, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+    - is_loop: 0
+      fps: 5
+      sprites:
+      - {fileID: 876571687942848016, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 581935354361805139, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: -4033455436348757893, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 4278338210497357940, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: -9006135030757167650, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 4989686984132378188, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 7818349641680634767, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: -9006135030757167650, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: 4278338210497357940, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+      - {fileID: -4033455436348757893, guid: a2552599f9e3640488a184f93e85d313, type: 3}
+  isFixedSprite: 1
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 1
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 1
+  lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &628762844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39937,6 +40004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1501616952}
   - component: {fileID: 1501616953}
+  - component: {fileID: 1501616954}
   m_Layer: 0
   m_Name: image
   m_TagString: Untagged
@@ -40009,6 +40077,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1501616954
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501616951}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.050755978, y: -1.7209587}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.1, y: 4.85}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.1791182, y: 1.1671982}
+  m_EdgeRadius: 0
 --- !u!1 &1503603558
 GameObject:
   m_ObjectHideFlags: 0
@@ -88087,8 +88181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1738539235}
   - component: {fileID: 1738539237}
-  - component: {fileID: 1738539236}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: icecream_shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88111,32 +88204,6 @@ Transform:
   m_Father: {fileID: 740686967}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1738539236
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738539234}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.033510208, y: 0.40029085}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7537193, y: 1.2246845}
-  m_EdgeRadius: 0
 --- !u!210 &1738539237
 SortingGroup:
   m_ObjectHideFlags: 0
