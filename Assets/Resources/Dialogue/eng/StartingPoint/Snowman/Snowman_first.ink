@@ -1,24 +1,31 @@
-#portrait:Cashier_happy #focusanimate:greeting
+#portrait:Snowman_neutral #focusanimate:greeting
 Oh, hello Mato.<br>How're you doing?
 
-Just you know, the usual. #portrait:Tomato_neutral
+Oh you know, the usual. #portrait:Tomato_neutral
 
-I'm leaving this town soon. Did I tell you? #portrait:Cashier_neutral
+I'm leaving this town soon.<br>Did I tell you? #portrait:Snowman_neutral
 
-What? .........Really? #portrait:Tomato_neutral
+What? .........Really? #portrait:Tomato_surprised
 
-Yes. I'm going back to Cloud Town, where I'm from. #portrait:Cashier_neutral
+Yes. I'm going back to Cloud Town, where I'm from. #portrait:Snowman_neutral
 
-But you've been here for ages... since I was a little kid. #portrait:Tomato_neutral
+But you've been here for ages...<br>...since I was a little kid. #portrait:Tomato_neutral
 
-Haha. Well, it's about time that I visted my family. #portrait:Cashier_happy
+Haha. Well, it's about time that I visted my family. #portrait:Snowman_happy
 
-Hope I can see you again. #portrait:Tomato_neutral
+...Hope I can see you again. #portrait:Tomato_neutral
 
-If you happen to stop by Cloud Town, pay me a visit! #portrait:Cashier_neutral
+If you happen to stop by Cloud Town, #portrait:Snowman_neutral
 
-Cloud Town is a beautiful place,<br>snow glittering across the sky.
-Here's an ice cream, my friend.
+Pay me a visit! #portrait:Snowman_happy
 
-#focusanimate:greeting
-Take care! #portrait:Cashier_happy
+It's a beautiful place,<br>snow glittering across the sky throughout the year. #portrait:Snowman_wonder
+
+Anyways, here's a little gift, my friend. #portrait:Snowman_neutral
+
+#focusanimate:icecream
+
+Obtained an Icecream! #hideportrait:_ #purchaseone:Melon Bread-0
+
+Well, I hope to see you again! #portrait:Snowman_goodbye
+#nextdialogue:Snowman_second

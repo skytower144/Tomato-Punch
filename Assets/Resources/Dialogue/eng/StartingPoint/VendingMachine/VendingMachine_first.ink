@@ -1,5 +1,5 @@
 VAR enoughMoney = true
-
+#hideportrait:_
 Stack of chilly sodas are aligned neatly within the glass.
 Buy one soda? (10 coins) #checkplayermoney:10
     * [Yes]
