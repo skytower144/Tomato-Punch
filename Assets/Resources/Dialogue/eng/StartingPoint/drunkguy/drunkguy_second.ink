@@ -1,2 +1,3 @@
+#hideportrait:_
 \* Hic \*
 Urgh.

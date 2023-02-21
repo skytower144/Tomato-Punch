@@ -9,11 +9,11 @@ What? .........Really? #portrait:Tomato_surprised
 
 Yes. I'm going back to Cloud Town, where I'm from. #portrait:Snowman_neutral
 
-But you've been here for ages...<br>...since I was a little kid. #portrait:Tomato_neutral
+...But you've been here for ages... #portrait:Tomato_neutral
 
 Haha. Well, it's about time that I visted my family. #portrait:Snowman_happy
 
-...Hope I can see you again. #portrait:Tomato_neutral
+... #portrait:Tomato_thinking
 
 If you happen to stop by Cloud Town, #portrait:Snowman_neutral
 
@@ -25,7 +25,9 @@ Anyways, here's a little gift, my friend. #portrait:Snowman_neutral
 
 #focusanimate:icecream
 
-Obtained an Icecream! #hideportrait:_ #purchaseone:Melon Bread-0
+\* Obtained an Icecream! #hideportrait:_ #purchaseone:Icecream-0
+
+Really?<br>...Thanks. #portrait:Tomato_surprised
 
 Well, I hope to see you again! #portrait:Snowman_goodbye
 #nextdialogue:Snowman_second

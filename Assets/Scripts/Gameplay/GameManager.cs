@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public static GameManager gm_instance { get; private set; }
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
-    [SerializeField] Inventory inventory; public Inventory playerInventory => inventory;
     [SerializeField] ResolutionMenu resolutionMenu; public ResolutionMenu resolution_menu => resolutionMenu;
     [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;

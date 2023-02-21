@@ -227,7 +227,7 @@ public class ProgressManager : MonoBehaviour
 
     public bool CheckAnySaveExists()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i <= 3; i++)
         {
             if (dataHandler.CheckFileExists($"Slot_{i}"))
                 return true;

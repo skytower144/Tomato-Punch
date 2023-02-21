@@ -39,6 +39,8 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Trying to add an Item that does not exist.");
             return;
         }
+        if (count == 0)
+            return;
         
         ItemQuantity tempItem = new ItemQuantity();
         tempItem.item = item;
@@ -120,6 +122,36 @@ public class Inventory : MonoBehaviour
         yield return new WaitForEndOfFrame();
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke(item_type);
+    }
+
+    public bool IsCarrying(Item targetItem, int requiredAmount)
+    {       
+        switch (targetItem.itemType)
+        {
+            case ItemType.Consumable:
+            case ItemType.Other:
+                List<ItemQuantity> countableItems = (targetItem.itemType == ItemType.Consumable) ? consumableItems : otherItems;
+
+                foreach (ItemQuantity itemInfo in countableItems) {
+                    if ((itemInfo.item.ItemName == targetItem.ItemName) && (itemInfo.count >= requiredAmount))
+                        return true;
+                }
+                break;
+            
+            case ItemType.NormalEquip:
+            case ItemType.SuperEquip:
+                List<Item> equipItems = (targetItem.itemType == ItemType.NormalEquip) ? normalEquip : superEquip;
+
+                foreach (Item item in equipItems) {
+                    if (item.ItemName == targetItem.ItemName)
+                        return true;
+                }
+                break;
+            
+            default:
+                break;
+        }
+        return false;
     }
 }
 

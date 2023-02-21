@@ -2385,19 +2385,18 @@ MonoBehaviour:
     - down
     - idle
     m_values:
-    - is_loop: 0
+    - is_loop: 1
       fps: 0
       sprites:
       - {fileID: 3489129232029360691, guid: 6c83f58422c1c12468947000aaf05786, type: 3}
-    - is_loop: 0
+    - is_loop: 1
       fps: 0
       sprites:
       - {fileID: -7533094880798424507, guid: 6c83f58422c1c12468947000aaf05786, type: 3}
-    - is_loop: 0
+    - is_loop: 1
       fps: 0
       sprites:
       - {fileID: 21300000, guid: 7893bc28dee627749a20922fe8fceff4, type: 3}
-  hasPortrait: 0
   isFixedSprite: 0
   banInteractDirection: 1
   lock_u: 0
@@ -2408,6 +2407,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 1
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &1526537658
 PrefabInstance:
   m_ObjectHideFlags: 0

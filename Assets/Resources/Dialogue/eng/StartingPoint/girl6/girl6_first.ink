@@ -1,3 +1,4 @@
+#hideportrait:_
 You know,
 I've been thinking.
 Me too.

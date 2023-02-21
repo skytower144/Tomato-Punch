@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
     public event Action OnBattleOver;
+    public Action<EnemyBase> OnEnemyDefeat;
     public TextSpawn textSpawn;
     [SerializeField] private tomatoControl tomatocontrol; public tomatoControl tomato_control => tomatocontrol;
     [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;

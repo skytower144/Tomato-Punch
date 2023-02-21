@@ -114,6 +114,8 @@ public class ResultCard : MonoBehaviour
     }
     public void ResultCard_Initialize(int counter_ct, int parry_ct, int super_ct, BattleSystem battle_system, EnemyBase enemy_base)
     {
+        battle_system.OnEnemyDefeat?.Invoke(enemy_base);
+
         totalCounter_ct = counter_ct;
         totalParry_ct = parry_ct;
         totalSuper_ct = super_ct;

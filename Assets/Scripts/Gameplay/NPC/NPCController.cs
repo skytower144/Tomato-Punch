@@ -8,6 +8,8 @@ public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{
 
 public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 {
+    [SerializeField] private List<Quest> quests = new List<Quest>();
+
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
 
@@ -29,13 +31,15 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [HideInInspector] public bool instantBattle;
     [HideInInspector] public EnemyBase enemyData;
 
+    [System.NonSerialized] public bool isDisabled = false;
+
     private void Start()
     {
         if (sprite_renderer == null)
             sprite_renderer = GetComponent<SpriteRenderer>();
         Play("idle");
 
-        AnimManager.instance.npc_dict[gameObject.name] = this;
+        AnimManager.instance.npc_dict[gameObject.scene.name + "_" + gameObject.name] = this;
     }
 
     private void Update()
@@ -159,17 +163,51 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     {
         ProgressData game_data = new ProgressData();
         game_data.string_value_0 = inkFileName;
+        game_data.bool_value_0 = isDisabled;
+        game_data.unassignedQuests = ReturnQuestState();
+
         return game_data;
     }
 
     public void Restore(ProgressData game_data)
     {
         inkFileName = game_data.string_value_0;
+        isDisabled = game_data.bool_value_0;
+        gameObject.SetActive(!isDisabled);
+        RecoverQuestState(game_data.unassignedQuests);
     }
 
     public string ReturnID()
     {
         return this.gameObject.name;
+    }
+
+    public Quest ReturnQuest(string quest_id)
+    {
+        foreach (Quest quest in quests) {
+            if (quest.QuestName == quest_id) {
+                var cache = quest;
+                quests.Remove(quest);
+                return cache;
+            }
+        }
+        return null;
+    }
+
+    private List<string> ReturnQuestState()
+    {
+        List<string> unassigned_quests = new List<string>();
+        foreach (Quest quest in quests) {
+            unassigned_quests.Add(quest.QuestName);
+        }
+        return unassigned_quests;
+    }
+    private void RecoverQuestState(List<string> unassignedQuests)
+    {
+        for (int i = quests.Count - 1; i >= 0; i--) {
+            if (!unassignedQuests.Contains(quests[i].QuestName))
+                quests.RemoveAt(i);
+        }
     }
 }
 

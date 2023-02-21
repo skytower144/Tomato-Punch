@@ -50,6 +50,11 @@ public class DialogueManager : MonoBehaviour
     private const string CALCULATESHOP_TAG = "calculateshop";
     private const string PAYSHOP_TAG = "payshop";
     private const string CONTINUESHOPPING_TAG = "continueshopping";
+    private const string HIDENPC_TAG = "hidenpc";
+    private const string HASQUEST_TAG = "hasquest";
+    private const string GIVEQUEST_TAG = "givequest";
+    private const string CHECKQUEST_TAG = "checkquest";
+    private const string COMPLETEQUEST_TAG = "completequest";
 
     private void Awake()
     {
@@ -274,6 +279,31 @@ public class DialogueManager : MonoBehaviour
                 
                 case CONTINUESHOPPING_TAG:
                     ShopSystem.instance.shopInteraction = ShopInteraction.ContinueShopping;
+                    break;
+
+                case HIDENPC_TAG:
+                    currentNpc.isDisabled = true;
+                    currentNpc.gameObject.SetActive(false);
+                    break;
+                
+                case HASQUEST_TAG:
+                    var tempQuest0 = QuestManager.instance.FindQuest(tag_value);
+                    currentStory.variablesState["isQuestActive"] = (tempQuest0 != null);
+                    break;
+
+                case GIVEQUEST_TAG:
+                    var tempQuest1 = currentNpc.ReturnQuest(tag_value);
+                    QuestManager.instance.AddQuest(tempQuest1);
+                    break;
+                
+                case CHECKQUEST_TAG:
+                    var tempQuest2 = QuestManager.instance.FindQuest(tag_value);
+                    currentStory.variablesState["isQuestCompleted"] = tempQuest2?.CheckQuestComplete(); 
+                    break;
+
+                case COMPLETEQUEST_TAG:
+                    var tempQuest3 = QuestManager.instance.FindQuest(tag_value);
+                    tempQuest3?.GiveReward();
                     break;
 
                 default:

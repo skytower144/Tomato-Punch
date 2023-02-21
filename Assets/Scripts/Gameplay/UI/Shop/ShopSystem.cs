@@ -51,7 +51,7 @@ public class ShopSystem : MonoBehaviour
 
         gameManager = GameManager.gm_instance;
         playerMovement = gameManager.player_movement;
-        inventory = gameManager.playerInventory;
+        inventory = Inventory.instance;
         tomato_status = GameManager.gm_instance.battle_system.tomatostatus;
 
         slot_height = itemSlotPrefab.GetComponent<RectTransform>().rect.height;
@@ -269,10 +269,9 @@ public class ShopSystem : MonoBehaviour
         int itemPrice = int.Parse(itemInfo[1].Trim());
 
         tomatoStatus tomatostatus = GameManager.gm_instance.battle_system.tomatostatus;
-        Inventory playerInventory = GameManager.gm_instance.playerInventory;
         
         if (tomatostatus.CheckEnoughMoney(itemPrice)) {
-            playerInventory.AddItem(Item.ReturnMatchingItem(itemName));
+            Inventory.instance.AddItem(Item.ReturnMatchingItem(itemName));
             tomatostatus.UpdatePlayerMoney(-itemPrice);
         }   
     }

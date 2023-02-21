@@ -10,10 +10,21 @@ public class QuickSave : MonoBehaviour
         if (!isQuickSaved && (collision.tag == "Player"))
         {
             isQuickSaved = true;
+            Invoke("EnableQuickSave", 2f);
             SparkleEffect();
             PopupEffect();
             GameManager.gm_instance.save_load_menu.ProceedSave(3);
         }
+    }
+
+    void OnDisable()
+    {
+        CancelInvoke();
+    }
+
+    private void EnableQuickSave()
+    {
+        isQuickSaved = false;
     }
 
     private void SparkleEffect()

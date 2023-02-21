@@ -119,6 +119,9 @@ Melon Bread_Description : 거북이 모양의 메론빵이네요.
 Onigiri : 삼각김밥
 Onigiri_Description : 참치마요 맛의 삼각김밥입니다.
 
+Icecream : Icecream
+Icecream_Description :  2 스쿱의 달콤한 아이스크림.
+
 // OTHER
 Pencil : 연필
 Pencil_Description : 스트레스 에너지를 내뿜는 노란색 연필이다.
