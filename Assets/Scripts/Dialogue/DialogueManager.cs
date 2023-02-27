@@ -41,7 +41,11 @@ public class DialogueManager : MonoBehaviour
     private const string CONTINUETALK_TAG = "continuetalk";
     private const string ANIMATE_TAG = "animate";
     private const string FOCUSANIMATE_TAG = "focusanimate";
+    private const string ANIAMTETARGET_TAG = "animatetarget";
+    private const string FOCUSANIMATETARGET_TAG = "focusanimatetarget";
+    private const string CHANGEIDLE_TAG = "changeidle";
     private const string BATTLE_TAG = "battle";
+    private const string BATTLETARGET_TAG = "battletarget";
     private const string PURCHASEONE_TAG = "purchaseone";
     private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
     private const string MOVECHOICEBOX_TAG = "movechoicebox";
@@ -55,6 +59,10 @@ public class DialogueManager : MonoBehaviour
     private const string GIVEQUEST_TAG = "givequest";
     private const string CHECKQUEST_TAG = "checkquest";
     private const string COMPLETEQUEST_TAG = "completequest";
+    private const string REMOVEITEM_TAG = "removeitem";
+    private const string CAMERA_TAG = "camera";
+    private const string TELEPORT_TAG = "teleport";
+    private const string SETACTIVE_TAG = "setactive";
 
     private void Awake()
     {
@@ -237,14 +245,40 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.Play(tag_value);
                     break;
                 
-                case FOCUSANIMATE_TAG:
+                case FOCUSANIMATE_TAG: // no loop
                     hideDialogue = true;
                     SetDialogueBox(false);
                     currentNpc.Play(tag_value, ShowAndContinueDialogue);
                     break;
+                
+                case FOCUSANIMATETARGET_TAG: // no loop // tag:StartingPoint_Donut@angry
+                    string[] animInfo = tag_value.Split('@');
+                    if (animInfo.Length != 2) {
+                        Debug.LogError($"Incorrect animation info : {animInfo}");
+                        return;
+                    }
+                    hideDialogue = true;
+                    SetDialogueBox(false);
+                    AnimManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
+                    break;
+                
+                case CHANGEIDLE_TAG: //tag:StartingPoint_Donut@isangry
+                    string[] info0 = tag_value.Split('@');
+                    if (info0.Length != 2) {
+                        Debug.LogError($"Incorrect info : {info0}");
+                        return;
+                    }
+                    NPCController npc0 = AnimManager.instance.npc_dict[info0[0]];
+                    npc0.ChangeIdleAnimation(info0[1]);
+                    break;
 
                 case BATTLE_TAG:
                     tempObject = currentNpc.enemyData;
+                    break;
+
+                case BATTLETARGET_TAG:
+                    NPCController npc1 = AnimManager.instance.npc_dict[tag_value];
+                    tempObject = npc1.enemyData;
                     break;
 
                 case PURCHASEONE_TAG:
@@ -280,30 +314,59 @@ public class DialogueManager : MonoBehaviour
                 case CONTINUESHOPPING_TAG:
                     ShopSystem.instance.shopInteraction = ShopInteraction.ContinueShopping;
                     break;
+                
+                case HASQUEST_TAG:
+                    var tempQuest0 = QuestManager.instance.FindQuest(tag_value, QuestList.Assigned);
+                    currentStory.variablesState["isQuestActive"] = (tempQuest0 != null);
+                    break;
 
+                case GIVEQUEST_TAG:
+                    QuestManager.instance.AddQuest(tag_value);
+                    break;
+                
+                case CHECKQUEST_TAG:
+                    var tempQuest2 = QuestManager.instance.FindQuest(tag_value, QuestList.Assigned);
+                    currentStory.variablesState["isQuestCompleted"] = tempQuest2?.CheckQuestComplete(); 
+                    break;
+
+                case COMPLETEQUEST_TAG:
+                    var tempQuest3 = QuestManager.instance.FindQuest(tag_value, QuestList.Assigned);
+                    tempQuest3?.GiveReward();
+                    break;
+
+                case REMOVEITEM_TAG:
+                    Item targetItem = Item.ReturnMatchingItem(tag_value);
+                    Inventory.instance.RemoveItem(targetItem);
+                    break;
+
+                case CAMERA_TAG:
+                    WorldCamera.instance.PlayCameraEffect(tag_value);
+                    break;
+                
+                case TELEPORT_TAG: // tag:StartingPoint_Donut@x@y
+                    string[] posInfo = tag_value.Split('@');
+                    if (posInfo.Length != 3) {
+                        Debug.LogError($"Incorrect position info : {posInfo}");
+                        return;
+                    }
+                    NPCController npc2 = AnimManager.instance.npc_dict[posInfo[0]];
+                    npc2.Teleport(float.Parse(posInfo[1]), float.Parse(posInfo[2]));
+                    break;
+                
                 case HIDENPC_TAG:
                     currentNpc.isDisabled = true;
                     currentNpc.gameObject.SetActive(false);
                     break;
                 
-                case HASQUEST_TAG:
-                    var tempQuest0 = QuestManager.instance.FindQuest(tag_value);
-                    currentStory.variablesState["isQuestActive"] = (tempQuest0 != null);
-                    break;
-
-                case GIVEQUEST_TAG:
-                    var tempQuest1 = currentNpc.ReturnQuest(tag_value);
-                    QuestManager.instance.AddQuest(tempQuest1);
-                    break;
-                
-                case CHECKQUEST_TAG:
-                    var tempQuest2 = QuestManager.instance.FindQuest(tag_value);
-                    currentStory.variablesState["isQuestCompleted"] = tempQuest2?.CheckQuestComplete(); 
-                    break;
-
-                case COMPLETEQUEST_TAG:
-                    var tempQuest3 = QuestManager.instance.FindQuest(tag_value);
-                    tempQuest3?.GiveReward();
+                case SETACTIVE_TAG: // tag:StartingPoint_Donut@true
+                    string[] info = tag_value.Split('@');
+                    if (info.Length != 2) {
+                        Debug.LogError($"Incorrect info : {info}");
+                        return;
+                    }
+                    NPCController npc3 = AnimManager.instance.npc_dict[info[0]];
+                    bool state = (info[1] == "true") ? true : false;
+                    npc3.gameObject.SetActive(state);
                     break;
 
                 default:

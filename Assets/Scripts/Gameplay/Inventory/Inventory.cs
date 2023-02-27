@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem (Item item, int targetSlotNumber = 0, int count = 1)
     {
         if (!item) {
-            Debug.LogWarning("Trying to add an Item that does not exist.");
+            Debug.LogWarning("Trying to remove an Item that does not exist.");
             return;
         }
 

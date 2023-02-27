@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
@@ -15,8 +13,8 @@ public class PlayerCamera : MonoBehaviour
     // SAVING DATA
     [System.NonSerialized] public bool isCameraOff = false;
     public RectTransform uiCanvas_transform;
-    public Vector3 uiCanvas_vector;
-    public float canvas_x, canvas_y;
+    [System.NonSerialized] public Vector3 uiCanvas_vector;
+    [System.NonSerialized] public float canvas_x, canvas_y;
     
     void Awake()
     {
@@ -100,7 +98,4 @@ public class PlayerCamera : MonoBehaviour
     {
         uiCanvas_transform.localPosition = saved_uiCanvas_position;
     }
-
-
-
 }

@@ -491,6 +491,7 @@ MonoBehaviour:
       slot_index_super: 0
       carrying_equip_list: []
       carrying_countable_list: []
+      assignedQuests: []
     progress_dict:
       m_keys: []
       m_values: []
@@ -31581,10 +31582,8 @@ MonoBehaviour:
   uiCanvas: {fileID: 2766613873956444295}
   essential_transform: {fileID: 2766613874621510960}
   player_transform: {fileID: 2766613874449132824}
+  cameraAnim: {fileID: 0}
   uiCanvas_transform: {fileID: 2766613873956444294}
-  uiCanvas_vector: {x: 0, y: 0, z: 0}
-  canvas_x: 0
-  canvas_y: 0
 --- !u!1 &2766613875816104652
 GameObject:
   m_ObjectHideFlags: 0
@@ -42326,7 +42325,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6c4bc984db0b1429ae582a6dc0785a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questList: []
+  assignedQuests: []
+  unassignedQuests:
+  - questId: FindTheDonut
+    isCompleted: 0
+    ultimateGoalDescription: Pick up the donut which the police officer is desperately
+      searching for.
+    itemRewardList:
+    - item: {fileID: 11400000, guid: 0a719f5e0bee0994da8b17fc99dd574f, type: 2}
+      count: 0
+    carryGoals:
+    - currentAmount: 0
+      requiredAmount: 1
+      targetItem: {fileID: 11400000, guid: 0a719f5e0bee0994da8b17fc99dd574f, type: 2}
+    defeatGoals: []
 --- !u!1 &8360324618114074568
 GameObject:
   m_ObjectHideFlags: 0

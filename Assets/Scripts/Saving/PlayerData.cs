@@ -18,6 +18,7 @@ public class PlayerData
     public int slot_index_super = -1;
     public List<string> carrying_equip_list = new List<string>();
     public List<SerializedItemQuantity> carrying_countable_list = new List<SerializedItemQuantity>();
+    public List<QuestData> assignedQuests = new List<QuestData>();
 }
 
 [System.Serializable]

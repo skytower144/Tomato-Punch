@@ -167,6 +167,8 @@ public class ProgressManager : MonoBehaviour
         if (tomatocontrol.tomatoSuperEquip)
             tomatoData.equip_super = tomatocontrol.tomatoSuperEquip.ItemName;
 
+        tomatoData.assignedQuests = QuestManager.instance.ReturnAssignedQuests();
+
         save_data.player_data = tomatoData;
     }
 
@@ -213,6 +215,8 @@ public class ProgressManager : MonoBehaviour
         inventoryUI.UpdateOtherItemSlots();
         inventoryUI.RecoverSlotIndex(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
         inventoryUI.UpdateEquipSlots(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
+
+        QuestManager.instance.UpdateQuestState(tomatoData.assignedQuests);
     }
 
     public Dictionary<string, SaveData> GetAllProfilesSaveData()

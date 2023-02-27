@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class DefeatGoal : Goal
 {
-    [SerializeField] private string targetEnemy;
+    [SerializeField] EnemyBase targetEnemy;
 
     public override void Init()
     {
@@ -13,7 +13,7 @@ public class DefeatGoal : Goal
 
     private void EnemyDefeated(EnemyBase enemy)
     {
-        if (targetEnemy == enemy.EnemyName)
+        if (targetEnemy.EnemyName == enemy.EnemyName)
         {
             this.currentAmount++;
         }

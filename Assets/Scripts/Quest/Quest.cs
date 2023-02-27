@@ -5,7 +5,7 @@ using UnityEngine;
 public class Quest
 {
     [SerializeField] private string questId; public string QuestName => questId;
-    [SerializeField] private bool isCompleted;
+    [SerializeField] private bool isCompleted; public bool is_completed => isCompleted;
 
     [TextArea(5,5)]
     [SerializeField] private string ultimateGoalDescription;
@@ -36,4 +36,16 @@ public class Quest
                 Inventory.instance.AddItem(reward.item, reward.count);
         }
     }
+
+    public void UpdateQuestCompletion(bool state)
+    {
+        isCompleted = state;
+    }
+}
+
+[System.Serializable]
+public class QuestData
+{
+    public string questName;
+    public bool questCompleted;
 }

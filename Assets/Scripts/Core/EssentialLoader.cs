@@ -7,6 +7,7 @@ public class EssentialLoader : MonoBehaviour
 {
     public static EssentialLoader instance { get; private set; }
 
+    [SerializeField] private WorldCamera worldCamera;
     [SerializeField] private GameObject essentialPrefab;
     private GameObject essential;
     private EssentialObjects essentialControl;
@@ -18,6 +19,7 @@ public class EssentialLoader : MonoBehaviour
             return;
         }
         instance = this;
+        worldCamera.Init();
     }
 
     private void Awake()

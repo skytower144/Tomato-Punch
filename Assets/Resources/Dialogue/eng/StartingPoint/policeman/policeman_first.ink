@@ -11,8 +11,18 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
     {
         - isQuestCompleted:
         Is it a scrumptious donut that I smell?
-        \* You gave the donut to the policeman.
+        \* You gave the scrumptious donut to the policeman. #removeitem:Donut
+        YES! YES! This is the one!<br>What a lifesaver!
+        wait a minute...<br>this donut...
+        OH MY GOODNESS! #animate:shocked
+        #changeidle:StartingPoint_Donut@isangry
+        #teleport:StartingPoint_Donut@30@41
+        #setactive:StartingPoint_Donut@true
+        #focusanimatetarget:StartingPoint_Donut@angry
+        #camera:FocusDonut
+        #battletarget:StartingPoint_Donut #continuetalk:_
         #nextdialogue:policeman_fainted
+        
         - else:
         What's that crumb on your face?
         
@@ -21,10 +31,8 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         ...... #hideportrait:_
         
         It's long past my snack time,<br>and all I find is some crumbs on a random kid's face.
-        
         Where on earth is my stupid donut?
-        
-        It's gotta be Bob. I just know it's that greedy buttface.
+        It's gotta be Bob. I just know it's those greedy cheeks.
         
         ........? #portrait:tomato_surprised
         #nextdialogue:policeman_suspicious
@@ -32,5 +40,5 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
     #completequest:FindTheDonut
 
     - else:
-    If you find one, let me know.
+    If you find one with the beautiful sprinkles,<br>let me know.
 }

@@ -8,10 +8,11 @@ public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{
 
 public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 {
-    [SerializeField] private List<Quest> quests = new List<Quest>();
 
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
+    private string idleAnimation = "idle";
+    public string idleAnim => idleAnimation;
 
     [Header("[ Dialogueless ]")]
     [SerializeField] private string interactAnimation;
@@ -100,6 +101,11 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 
+    public void ChangeIdleAnimation(string changed)
+    {
+        idleAnimation = changed;
+    }
+
     public void Play(string animTag, Action dialogueAction = null)
     {
         if (sprite_dict.ContainsKey(animTag))
@@ -159,12 +165,17 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         return finalFlag;
     }
 
+    public void Teleport(float input_x, float input_y)
+    {
+        float input_z = this.gameObject.transform.localPosition.z;
+        this.gameObject.transform.localPosition = new Vector3(input_x, input_y, input_z);
+    }
+
     public ProgressData Capture()
     {
         ProgressData game_data = new ProgressData();
         game_data.string_value_0 = inkFileName;
         game_data.bool_value_0 = isDisabled;
-        game_data.unassignedQuests = ReturnQuestState();
 
         return game_data;
     }
@@ -174,40 +185,11 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         inkFileName = game_data.string_value_0;
         isDisabled = game_data.bool_value_0;
         gameObject.SetActive(!isDisabled);
-        RecoverQuestState(game_data.unassignedQuests);
     }
 
     public string ReturnID()
     {
         return this.gameObject.name;
-    }
-
-    public Quest ReturnQuest(string quest_id)
-    {
-        foreach (Quest quest in quests) {
-            if (quest.QuestName == quest_id) {
-                var cache = quest;
-                quests.Remove(quest);
-                return cache;
-            }
-        }
-        return null;
-    }
-
-    private List<string> ReturnQuestState()
-    {
-        List<string> unassigned_quests = new List<string>();
-        foreach (Quest quest in quests) {
-            unassigned_quests.Add(quest.QuestName);
-        }
-        return unassigned_quests;
-    }
-    private void RecoverQuestState(List<string> unassignedQuests)
-    {
-        for (int i = quests.Count - 1; i >= 0; i--) {
-            if (!unassignedQuests.Contains(quests[i].QuestName))
-                quests.RemoveAt(i);
-        }
     }
 }
 

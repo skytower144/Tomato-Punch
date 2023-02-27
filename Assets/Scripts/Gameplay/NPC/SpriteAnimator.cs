@@ -59,13 +59,13 @@ public class SpriteAnimator
 
                 if ((nextFrame == totalFrames) && (!isLoop)) {
                     stopAnim = true;
-                    npc.Play("idle");
+                    npc.Play(npc.idleAnim);
 
                     if (dialogueAction != null)
                         dialogueAction.Invoke();
                     return;
                 }
-                    
+                
                 else
                 {
                     currentFrame = nextFrame % totalFrames;

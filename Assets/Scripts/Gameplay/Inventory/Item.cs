@@ -5,7 +5,7 @@ public class Item : ScriptableObject
     public Sprite ItemIcon;
     public ItemType itemType; 
 
-    public static Item ReturnMatchingItem(string name)
+    public static Item ReturnMatchingItem(string name) // Type in public ItemName, not object name.
     {
         if (CountableItemDB.countableCatalog.ContainsKey(name))
             return CountableItemDB.ReturnItemOfName(name);
