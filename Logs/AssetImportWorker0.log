@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.14f1 (d0d1bb862f9d) revision 13685179'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home; OS build 19044.2728; Version 2009; 64bit' Language: 'ko' Physical Memory: 16292 MB
+OS: 'Windows 10 Home; OS build 19044.2846; Version 2009; 64bit' Language: 'ko' Physical Memory: 16292 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ D:/Game Projects/Tomato Punch
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-4213
+14648
 Successfully changed project path to: D:/Game Projects/Tomato Punch
 D:/Game Projects/Tomato Punch
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 84.53 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 83.04 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.14f1 (d0d1bb862f9d)
 [Subsystems] Discovering subsystems at path C:/Users/skyto/Documents/2020.3.14f1/Editor/Data/Resources/UnitySubsystems
@@ -36,31 +36,31 @@ Initialize mono
 Mono path[0] = 'C:/Users/skyto/Documents/2020.3.14f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/skyto/Documents/2020.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Users/skyto/Documents/2020.3.14f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56288
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56976
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/skyto/Documents/2020.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002030 seconds.
+Registered in 0.001968 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 82.22 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 81.49 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.060 seconds
+- Completed reload, in  0.984 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1060ms)
+	ReloadAssembly (984ms)
 		BeginReloadAssembly (44ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (427ms)
-			LoadAssemblies (41ms)
+		EndReloadAssembly (379ms)
+			LoadAssemblies (42ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (134ms)
+			SetupTypeCache (120ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (26ms)
-			SetupLoadedEditorAssemblies (177ms)
+			RebuildScriptCaches (25ms)
+			SetupLoadedEditorAssemblies (176ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
@@ -74,52 +74,52 @@ Domain Reload Profiling:
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.004758 seconds.
+Registered in 0.004856 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 85.39 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 82.26 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.139 seconds
+- Completed reload, in  1.121 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1140ms)
-		BeginReloadAssembly (118ms)
+	ReloadAssembly (1122ms)
+		BeginReloadAssembly (121ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (4ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (15ms)
-		EndReloadAssembly (968ms)
-			LoadAssemblies (81ms)
+		EndReloadAssembly (946ms)
+			LoadAssemblies (84ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (296ms)
+			SetupTypeCache (299ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (53ms)
-			SetupLoadedEditorAssemblies (429ms)
+			RebuildScriptCaches (54ms)
+			SetupLoadedEditorAssemblies (403ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (85ms)
-				BeforeProcessingInitializeOnLoad (99ms)
-				ProcessInitializeOnLoadAttributes (223ms)
-				ProcessInitializeOnLoadMethodAttributes (11ms)
+				RefreshPlugins (82ms)
+				BeforeProcessingInitializeOnLoad (98ms)
+				ProcessInitializeOnLoadAttributes (200ms)
+				ProcessInitializeOnLoadMethodAttributes (12ms)
 				AfterProcessingInitializeOnLoad (7ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (6ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.94 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.97 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 4150 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 186.9 MB.
 System memory in use after: 187.0 MB.
 
 Unloading 41 unused Assets to reduce memory usage. Loaded Objects now: 4614.
-Total: 2.947500 ms (FindLiveObjects: 0.390300 ms CreateObjectMapping: 0.102300 ms MarkObjects: 2.336000 ms  DeleteObjects: 0.118000 ms)
+Total: 2.874600 ms (FindLiveObjects: 0.390400 ms CreateObjectMapping: 0.104200 ms MarkObjects: 2.270500 ms  DeleteObjects: 0.108700 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -133,9 +133,56 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/Animations/Background/Startpoint/birds.controller
-  artifactKey: Guid(08cb7e19cbb420642b9475e4a0ddd56b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Background/Startpoint/birds.controller using Guid(08cb7e19cbb420642b9475e4a0ddd56b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8de2c5f5dee884814139094146a2aedb') in 0.052947 seconds 
-  Import took 0.094444 seconds .
+  path: Assets/Sprites/Battle/Rupple_battleSprite
+  artifactKey: Guid(5d1e5522aeae5f04f8b242887f225e8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite using Guid(5d1e5522aeae5f04f8b242887f225e8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fb31e7da2948dc69144b62453d059b1') in 0.009952 seconds 
+  Import took 0.030512 seconds .
 
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+========================================================================
+Received Import Request.
+  Time since last request: 4.988689 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba5cefed8e7e1913d6c6d60a1daf3159') in 0.110411 seconds 
+  Import took 0.116296 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.691342 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2d3e9b0a9a5c3b2a307d9b8b833ee02') in 0.010233 seconds 
+  Import took 0.023403 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.707284 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '989e2d9e7cf26649bfe67a460a0a86cb') in 0.010928 seconds 
+  Import took 0.039500 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.839072 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15f1ccc12e3d5e7650247b1acc21b838') in 0.009210 seconds 
+  Import took 0.015120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006912 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15f1ccc12e3d5e7650247b1acc21b838') in 0.006748 seconds 
+  Import took 0.012325 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.809634 seconds.
+  path: Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png
+  artifactKey: Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Battle/Rupple_battleSprite/Rupple_idle.png using Guid(6fc6c889365f9d346879a36903c3960c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5a6adbc5c012d4c27d71e4a0d39b420') in 0.037474 seconds 
+  Import took 0.043569 seconds .
+
