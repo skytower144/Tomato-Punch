@@ -124,11 +124,11 @@ public class EnemyControl : MonoBehaviour
         Invoke("ResetFlash", flashDuration);
         duplicate_r.GetComponent<DuplicateRenderer>().flashSpeed = (1 - flashDuration) * 0.001f;
         duplicate_r.SetActive(true);
-        enemyCounterStart();
+        // enemyCounterStart();
     }
     public void ResetFlash()
     {
-        enemyCounterEnd();
+        // enemyCounterEnd();
         enemy_renderer.material = matDefault;
         duplicate_r.SetActive(false);
     }
