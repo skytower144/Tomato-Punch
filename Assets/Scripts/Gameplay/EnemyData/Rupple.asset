@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Rupple
   frontSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 8bc02f5abde134a4ebca875539d564c9, type: 3}
+  - {fileID: 21300000, guid: 674e743aa308b7849a85cd165221cc97, type: 3}
+  - {fileID: 21300000, guid: 0b89ddddd1349c441b8cce5133f70ea5, type: 3}
   bgName: 0
-  enemyMaxHealth: 80
-  enemyCurrentHealth: 80
+  enemyMaxHealth: 50
+  enemyCurrentHealth: 50
   min_hitct: 3
   max_hitct: 5
   animationController: {fileID: 9100000, guid: 1fb82df5153e0ec46adbc88215492d08, type: 2}
@@ -56,7 +56,7 @@ MonoBehaviour:
   - EnemyAttackName: Rupple_righthook
     PhysicalAttack: 1
     percentage: 15
-    EnemyAttackDmg: 1
+    EnemyAttackDmg: 2
     EnemyAttackType: 1
   - EnemyAttackName: Rupple_lowkick
     PhysicalAttack: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
   - EnemyAttackName: Rupple_leftupper
     PhysicalAttack: 1
     percentage: 10
-    EnemyAttackDmg: 1
+    EnemyAttackDmg: 3
     EnemyAttackType: 0
   itemReward: []
   battleExp: 50
