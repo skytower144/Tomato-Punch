@@ -5,22 +5,27 @@ using UnityEngine;
 public class Enemy_countered : MonoBehaviour
 {
     private Animator anim;
-    private string string_countered;
-    [SerializeField] private EnemyBase _enemyBase;
+    [SerializeField] private string string_countered;
+    [SerializeField] private EnemyControl enemyControl;
+    
     [SerializeField] private Enemy_is_hurt enemy_is_hurt;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private CounterTrack counterTrack;
-    [SerializeField] private GameObject counterEffect, counterPunch_effect, screenFlash;
+    [SerializeField] private GameObject counterEffect, hitEffect, counterPunch_effect, screenFlash;
     [HideInInspector] public static bool enemy_isCountered;
     [HideInInspector] public bool counter_is_initialized = false;
-    public int totalCounter = 0;
+
+    [System.NonSerialized] public int totalCounter = 0;
+    private EnemyBase _enemyBase;
     private GameObject instance1;
     void OnEnable()
     {
         if (!counter_is_initialized)
         {
             counter_is_initialized = true;
-
+            enemy_isCountered = false;
+            
+            _enemyBase = enemyControl._base;
             anim = GetComponentInParent<Animator>();
             string_countered = _enemyBase.Countered_AnimationString;
         }
@@ -51,6 +56,7 @@ public class Enemy_countered : MonoBehaviour
         if(!enemy_is_hurt.checkDefeat("CTR"))
         {
             Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
+            Instantiate (hitEffect, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
             Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
             
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);

@@ -13,35 +13,61 @@ MonoBehaviour:
   m_Name: Rupple
   m_EditorClassIdentifier: 
   enemyName: Rupple
-  frontSprite: []
+  frontSprite:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bgName: 0
-  enemyMaxHealth: 0
-  enemyCurrentHealth: 0
-  min_hitct: 0
-  max_hitct: 0
-  animationController: {fileID: 0}
-  idle: 
-  intro: 
-  defeated: 
-  countered: 
-  suffer: 
-  parried: 
-  parriedToIdle: 
-  parriedAft: 
-  uppered: 
-  upperRecover: 
-  superedRecover: 
-  guard: 
-  hurtL: 
-  hurtR: 
-  wait: 
-  reEngage: 
-  victory: 
+  enemyMaxHealth: 80
+  enemyCurrentHealth: 80
+  min_hitct: 3
+  max_hitct: 5
+  animationController: {fileID: 9100000, guid: 1fb82df5153e0ec46adbc88215492d08, type: 2}
+  idle: Rupple_idle
+  intro: Rupple_intro
+  defeated: Rupple_ko
+  countered: Rupple_countered
+  suffer: Rupple_suffer
+  parriedToIdle: Rupple_idle
+  stun: Rupple_stun
+  uppered: Rupple_uppered
+  recover: Rupple_recover
+  guard: Rupple_guard
+  hurtL: Rupple_hurt_left
+  hurtR: Rupple_hurt_right
+  wait: Rupple_wait
+  reEngage: Rupple_waitover
+  victory: Rupple_victory
   EnemySuperedAnim:
     m_keys: []
     m_values: []
   projectiles: []
-  enemyPattern: []
+  enemyPattern:
+  - EnemyAttackName: Rupple_idle
+    PhysicalAttack: 0
+    percentage: 50
+    EnemyAttackDmg: 0
+    EnemyAttackType: 4
+  - EnemyAttackName: Rupple_lefthook
+    PhysicalAttack: 1
+    percentage: 15
+    EnemyAttackDmg: 1
+    EnemyAttackType: 0
+  - EnemyAttackName: Rupple_righthook
+    PhysicalAttack: 1
+    percentage: 15
+    EnemyAttackDmg: 1
+    EnemyAttackType: 1
+  - EnemyAttackName: Rupple_lowkick
+    PhysicalAttack: 1
+    percentage: 10
+    EnemyAttackDmg: 1
+    EnemyAttackType: 2
+  - EnemyAttackName: Rupple_leftupper
+    PhysicalAttack: 1
+    percentage: 10
+    EnemyAttackDmg: 1
+    EnemyAttackType: 0
   itemReward: []
-  battleExp: 0
-  battleCoin: 0
+  battleExp: 50
+  battleCoin: 100

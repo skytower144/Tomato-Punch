@@ -6,7 +6,6 @@ public class Enemy_parried : MonoBehaviour
 {
     private Animator anim;
     private string string_parried;
-    [SerializeField] private EnemyBase _enemyBase;
     [SerializeField] private GameObject parryEffect, parryCircle;
     [HideInInspector] public static bool isParried = false;
     [HideInInspector] public static bool pjParried = false;
@@ -14,7 +13,8 @@ public class Enemy_parried : MonoBehaviour
     void OnEnable()
     {
         anim = GetComponentInParent<Animator>();
-        string_parried = _enemyBase.Parried_AnimationString;
+        string_parried = GameManager.gm_instance.battle_system.enemy_control._base.Countered_AnimationString;
+        isParried = pjParried = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {

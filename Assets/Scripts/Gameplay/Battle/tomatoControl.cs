@@ -389,7 +389,6 @@ public class tomatoControl : MonoBehaviour
             Instantiate (tomato_RP, Parent);
         }
     }
-
     void parryActivate()
     {
         if(!tomatoHurt.isTomatoHurt)

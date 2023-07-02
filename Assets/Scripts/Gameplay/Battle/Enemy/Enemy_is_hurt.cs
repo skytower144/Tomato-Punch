@@ -14,7 +14,7 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
-    [SerializeField] private GameObject hitEffect, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
+    [SerializeField] private GameObject hitEffect, hitSpark, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
     [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
     [System.NonSerialized] public bool guardUp;
     [System.NonSerialized] public int hitct;
@@ -167,20 +167,28 @@ public class Enemy_is_hurt : MonoBehaviour
             }
             return true;
         }
-        else{
-            if (animString == "L"){
-                Instantiate (hitEffect, new Vector2 (transform.position.x + 4.5f, transform.position.y), Quaternion.identity);
-                anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
-            }
-            else if (animString == "R"){
-                Instantiate (hitEffect, new Vector2 (transform.position.x + 5f, transform.position.y), Quaternion.identity);
-                anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
-            }
-            else if (animString == "SK" || animString == "GP"){
-                anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
-            }
+        else {
+            HitEffect(animString);
+            enemyControl.enemyHurtFlash();
             return false;
         }
     }
 
+    private void HitEffect(string anim_string, float distance = 4.5f)
+    {
+        int direction = 1;
+
+        if (anim_string == "R") {
+            anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
+            distance = 5f;
+            direction = -1;
+        }
+        else anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+        
+        if (anim_string == "GP") return;
+        Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
+
+        var spark = Instantiate(hitSpark, transform);
+        spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
+    }
 }

@@ -6,13 +6,17 @@ public class DuplicateRenderer : MonoBehaviour
 {
     [SerializeField] EnemyControl enemyControl;
     [SerializeField] SpriteRenderer sr, parent_sr;
-    [SerializeField] private Material matYellow;
-    [System.NonSerialized] public float flashSpeed;
+    [SerializeField] private Material matYellow, matWhite;
+    private int matType = 0;
+    private float flashSpeed;
     private bool stopFlash;
 
     void OnEnable()
     {
-        parent_sr.material = matYellow;
+        if (matType == 0)
+            parent_sr.material = matWhite;
+        else
+            parent_sr.material = matYellow;
         stopFlash = false;
     }
     void OnDisable()
@@ -30,5 +34,11 @@ public class DuplicateRenderer : MonoBehaviour
             parent_sr.material.color = color;
         }
     }
-    
+
+    public void FlashEffect(float duration, int mat_type)
+    {
+        flashSpeed = (1 - duration) * 0.001f;
+        matType = mat_type;
+        gameObject.SetActive(true);
+    }
 }

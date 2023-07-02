@@ -32,39 +32,39 @@ public class tomatoGuard : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
-        if(!isParry)
+        if(isParry || !tomatoControl.isGuard) return;
+        
+        if(col.gameObject.tag.Equals("enemy_LA") || (col.gameObject.tag.Equals("enemy_RA")))
         {
-            if(col.gameObject.tag.Equals("enemy_LA") || (col.gameObject.tag.Equals("enemy_RA")))
+            guardDamageConversion();
+            if(tomatocontrol.current_guardPt >= reducedDamage)
             {
-                guardDamageConversion();
-                if(tomatocontrol.current_guardPt >= reducedDamage)
-                {
-                    playGuardEffects();
-                    TakeGuardDamage(reducedDamage);
+                playGuardEffects();
+                TakeGuardDamage(reducedDamage);
 
-                    anim.Play("tomato_guardAft");
-                }
-                else if(0 < tomatocontrol.current_guardPt)
-                {
-                    preventDamageOverlap = true;
+                anim.Play("tomato_guardAft");
+            }
+            else if(0 < tomatocontrol.current_guardPt)
+            {
+                preventDamageOverlap = true;
 
-                    playGuardEffects();
-                    playGuard_BreakEffects();
-                    TakeGuardDamage(reducedDamage);
+                playGuardEffects();
+                playGuard_BreakEffects();
+                TakeGuardDamage(reducedDamage);
 
-                    tomatohurt.TakeDamage(leftoverDamage);
-                }
-                else
-                {
-                    preventDamageOverlap = true;
+                tomatohurt.TakeDamage(leftoverDamage);
+            }
+            else
+            {
+                preventDamageOverlap = true;
 
-                    playGuardEffects();
-                    playGuard_BreakEffects();
+                playGuardEffects();
+                playGuard_BreakEffects();
 
-                    tomatohurt.TakeDamage(damage);
-                }
+                tomatohurt.TakeDamage(damage);
             }
         }
+        
     }
     void TakeGuardDamage(float dmg)
     {

@@ -6,10 +6,14 @@ using DG.Tweening;
 public class EnemyControl : MonoBehaviour
 {
     [HideInInspector] public EnemyBase _base;
+
     private Animator anim; public Animator enemyAnim => anim;
     private SpriteRenderer enemy_renderer;
     private Material matDefault;
-    [SerializeField] private GameObject duplicate_r, counterBox;
+
+    [SerializeField] private EnemyGreyEffect greyEffect;
+    [SerializeField] private DuplicateRenderer duplicate_r;
+    [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash;
     [SerializeField] private Transform Parent;
@@ -21,11 +25,14 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Enemy_is_hurt enemyHurt;
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
+
     [HideInInspector] public static bool isPhysical = true;
     [HideInInspector] public bool action_afterSuffer = false;
     [HideInInspector] public bool enemy_supered = false;
     [HideInInspector] public AttackType attackType;
     [HideInInspector] public string pjTag;     // pj selection string
+
+    [SerializeField] private float flashDuration, hitFlashDuration;
     
     public static int totalParry = 0;
     [System.NonSerialized] public int totalSuper = 0;
@@ -52,9 +59,8 @@ public class EnemyControl : MonoBehaviour
     void Update()
     {
         if(!Enemy_is_hurt.enemy_isDefeated && gatleCircleControl.failUppercut)
-        {
-            anim.Play(_base.ParriedToIdle_AnimationString,-1,0f);
-        }
+            return_ParriedToIdle();
+        
         else if(tomatoControl.enemyUppered)
         {
             anim.Play(_base.Uppered_AnimationString,-1,0f);
@@ -80,8 +86,7 @@ public class EnemyControl : MonoBehaviour
                 enemy_supered = true;
 
                 anim.enabled = true;
-                anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuperEquip.ItemName],-1,0f); 
-                // Depending on tomatocontrol.tomatoSuper index, choose Enemy supered animation
+                anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuperEquip.ItemName],-1,0f);
                 
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);
                 if (enemyHurt.Enemy_currentHealth == 0){
@@ -111,7 +116,7 @@ public class EnemyControl : MonoBehaviour
     {
         Enemy_is_hurt.enemyIsHit = false;
         if(Enemy_parried.isParried && EnemyControl.isPhysical)                             // punching enemy when enemy is parried
-            anim.Play(_base.ParriedAft_AnimationString,-1,0f);
+            anim.Play(_base.Stun_AnimationString,-1,0f);
         else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
             anim.Play(_base.Suffer_AnimationString,-1,0f);
         else if(!Enemy_is_hurt.enemy_isPunched){                                            // go back to idle when player did not attack
@@ -119,26 +124,33 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    void enemyCounterFlash(float flashDuration)
+    public void enemyHurtFlash()
+    {
+        Invoke("ResetFlash", hitFlashDuration);
+        duplicate_r.FlashEffect(hitFlashDuration, 0);
+    }
+
+    private void enemyCounterFlash()
     {
         Invoke("ResetFlash", flashDuration);
-        duplicate_r.GetComponent<DuplicateRenderer>().flashSpeed = (1 - flashDuration) * 0.001f;
-        duplicate_r.SetActive(true);
+        duplicate_r.FlashEffect(flashDuration, 1);
         // enemyCounterStart();
     }
-    public void ResetFlash()
+    private void ResetFlash()
     {
         // enemyCounterEnd();
         enemy_renderer.material = matDefault;
-        duplicate_r.SetActive(false);
+        duplicate_r.gameObject.SetActive(false);
     }
 
     void enemyCounterStart()
     {
+        enemyCounterFlash();
         counterBox.SetActive(true);
     }
     void enemyCounterEnd()
     {
+        ResetFlash();
         counterBox.SetActive(false);
     }
 
@@ -173,19 +185,27 @@ public class EnemyControl : MonoBehaviour
             staminaIcon.SetStamina(tomatocontrol.currentStamina);
         }
     }
+    void DetermineCC()
+    {
+        if (Enemy_countered.enemy_isCountered) beginSuffer();
+        else if (Enemy_parried.isParried) beginStun();
+        greyEffect.StartGreyEffect();
+    }
     void beginSuffer()
     {
-        Invoke("return_CounterToIdle", 2f);
+        Invoke("return_CounterToIdle", 1.3f);
         if(!Enemy_is_hurt.enemy_isPunched)     // when enemy is hurt at the exact frame transitioning to the suffer animation, 
             anim.Play(_base.Suffer_AnimationString,-1,0f);   // the 'if' statement makes it prioritize the hurt animation.
     }
 
     void beginStun()
     {
-        anim.Play(_base.ParriedAft_AnimationString,-1,0f);
+        anim.Play(_base.Stun_AnimationString,-1,0f);
     }
     void return_CounterToIdle()
     {
+        greyEffect.StopGreyEffect();
+
         if(!Enemy_is_hurt.enemy_isDefeated){
             Enemy_countered.enemy_isCountered = false;
             Enemy_is_hurt.enemy_isPunched = false;
@@ -197,16 +217,22 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
+    private void return_ParriedToIdle()
+    {
+        greyEffect.StopGreyEffect();
+        anim.Play(_base.ParriedToIdle_AnimationString,-1,0f);
+    }
+
     void upperRecover()
     {
         if(!Enemy_is_hurt.enemy_isDefeated)
-            anim.Play(_base.UpperRecover_AnimationString,-1,0f);
+            anim.Play(_base.Recover_AnimationString,-1,0f);
     }
 
     void superedRecover()
     {
         if(!Enemy_is_hurt.enemy_isDefeated)
-            anim.Play(_base.SuperedRecover_AnimationString,-1,0f);
+            anim.Play(_base.Recover_AnimationString,-1,0f);
     }
 
     void projectileSpawn()
