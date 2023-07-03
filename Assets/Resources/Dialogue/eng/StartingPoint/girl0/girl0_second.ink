@@ -1,1 +1,1 @@
-Stinky hoop thief. #hideportrait:_
+Stinking hoop thief. #hideportrait:_

@@ -12,5 +12,5 @@ Up for a sparring?
         #battle:_true #continuetalk:_true
         #nextdialogue:Rupple_battleOver
     * [No]
-        Didn't think you'd be a coward. Shame. #portrait:Rupple_neutral
+        Didn't think you'd back out. Shame. #portrait:Rupple_neutral
         #nextdialogue:Rupple_askAgain
