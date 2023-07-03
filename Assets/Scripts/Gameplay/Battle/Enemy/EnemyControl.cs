@@ -47,7 +47,7 @@ public class EnemyControl : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;
         enemyAIControl.pattern_list = _base.EnemyPattern;
-        enemyAIControl.InvokeRepeating("ProceedAction",1f,2f);
+        enemyAIControl.InvokeRepeating("ProceedAction",1f,1f);
     }
 
     void OnDisable()

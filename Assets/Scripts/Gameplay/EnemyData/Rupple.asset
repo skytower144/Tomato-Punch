@@ -18,8 +18,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 674e743aa308b7849a85cd165221cc97, type: 3}
   - {fileID: 21300000, guid: 0b89ddddd1349c441b8cce5133f70ea5, type: 3}
   bgName: 0
-  enemyMaxHealth: 50
-  enemyCurrentHealth: 50
+  enemyMaxHealth: 80
+  enemyCurrentHealth: 80
   min_hitct: 3
   max_hitct: 5
   animationController: {fileID: 9100000, guid: 1fb82df5153e0ec46adbc88215492d08, type: 2}
@@ -28,7 +28,6 @@ MonoBehaviour:
   defeated: Rupple_ko
   countered: Rupple_countered
   suffer: Rupple_suffer
-  parriedToIdle: Rupple_idle
   stun: Rupple_stun
   uppered: Rupple_uppered
   recover: Rupple_recover
@@ -45,28 +44,28 @@ MonoBehaviour:
   enemyPattern:
   - EnemyAttackName: Rupple_idle
     PhysicalAttack: 0
-    percentage: 50
+    percentage: 60
     EnemyAttackDmg: 0
     EnemyAttackType: 4
   - EnemyAttackName: Rupple_lefthook
     PhysicalAttack: 1
     percentage: 15
-    EnemyAttackDmg: 1
+    EnemyAttackDmg: 2
     EnemyAttackType: 0
   - EnemyAttackName: Rupple_righthook
     PhysicalAttack: 1
     percentage: 15
-    EnemyAttackDmg: 2
+    EnemyAttackDmg: 3
     EnemyAttackType: 1
   - EnemyAttackName: Rupple_lowkick
     PhysicalAttack: 1
-    percentage: 10
-    EnemyAttackDmg: 1
+    percentage: 6
+    EnemyAttackDmg: 2
     EnemyAttackType: 2
   - EnemyAttackName: Rupple_leftupper
     PhysicalAttack: 1
-    percentage: 10
-    EnemyAttackDmg: 3
+    percentage: 4
+    EnemyAttackDmg: 5
     EnemyAttackType: 0
   itemReward: []
   battleExp: 50
