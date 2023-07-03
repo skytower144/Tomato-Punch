@@ -40,17 +40,17 @@ public class PlayerMovement : MonoBehaviour
     }
     public void HandleUpdate()
     {
-        if(!isBattle && !TitleScreen.isTitleScreen)
+        if (PlayerCanMove())
         {
-            if(!isInteracting && Press_Key("Interact"))
+            if (Press_Key("Interact"))
             {
                 PlayerInteract();
             }
-            else if ((!isInteracting && Press_Key("Status"))) // ENTER
+            else if (Press_Key("Status")) // ENTER
             {
                 HitStatus();
             }
-            else if(!isInteracting && Press_Key("Pause"))
+            else if (Press_Key("Pause"))
             {
                 HitMenu();
             }
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
     {
-       if(!isBattle && !isInteracting && !TitleScreen.isTitleScreen)
+       if (PlayerCanMove())
        {
             movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
@@ -212,6 +212,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isInteracting = state;
         myAnim.SetBool("isWalking", false);
+    }
+
+    private bool PlayerCanMove()
+    {
+        return (!isBattle && !isInteracting && !TitleScreen.isTitleScreen && !gameManager.save_load_menu.isLoading && collider_obj.activeSelf);
     }
 }
 

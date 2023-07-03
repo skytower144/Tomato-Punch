@@ -219,20 +219,15 @@ public class EnemyControl : MonoBehaviour
 
     private void return_ParriedToIdle()
     {
+        if(Enemy_is_hurt.enemy_isDefeated) return;
+
         greyEffect.StopGreyEffect();
-        anim.Play(_base.ParriedToIdle_AnimationString,-1,0f);
+        anim.Play(_base.Recover_AnimationString,-1,0f);
     }
 
-    void upperRecover()
+    void StopGreyEffect()
     {
-        if(!Enemy_is_hurt.enemy_isDefeated)
-            anim.Play(_base.Recover_AnimationString,-1,0f);
-    }
-
-    void superedRecover()
-    {
-        if(!Enemy_is_hurt.enemy_isDefeated)
-            anim.Play(_base.Recover_AnimationString,-1,0f);
+        greyEffect.StopGreyEffect();
     }
 
     void projectileSpawn()

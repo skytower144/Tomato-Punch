@@ -14,7 +14,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
-    [SerializeField] private string idle, intro, defeated, countered, suffer, parriedToIdle, stun, uppered, recover, guard, hurtL, hurtR;
+    [SerializeField] private string idle, intro, defeated, countered, suffer, stun, uppered, recover, guard, hurtL, hurtR;
     [SerializeField] private string wait, reEngage, victory;
 
     [Header("Key: ItemName | Value: AnimationString name")]
@@ -70,10 +70,6 @@ public class EnemyBase : ScriptableObject
     public string Suffer_AnimationString
     {
         get { return suffer; }
-    }
-    public string ParriedToIdle_AnimationString
-    {
-        get { return parriedToIdle; }
     }
     public string Stun_AnimationString
     {

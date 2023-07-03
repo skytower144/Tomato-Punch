@@ -84,22 +84,21 @@ public class SceneControl : MonoBehaviour
 
     public void CheckLoadComplete()
     {
-        Debug.Log("checking load completion...");
-        if (!CurrentScene){
-            return;
-        }
-        
-        if (!CurrentScene.CheckSceneExists()){
+        Debug.Log("Checking load completion...");
+        if (!CurrentScene || !CurrentScene.CheckSceneExists()) {
+            Debug.Log("Loading Main Scene...");
             return;
         }
         
         foreach (SceneDetails scene_detail in CurrentScene.connected_scenes)
         {
-            if (!scene_detail.CheckSceneExists())
+            if (!scene_detail.CheckSceneExists()) {
+                Debug.Log("Loading chained scenes...");
                 return;
+            }
         }
 
-        Debug.Log("Load Complete. Uncovering GameScreen.");
+        Debug.Log("Load Complete! Uncovering GameScreen.");
         CancelInvoke("CheckLoadComplete");
         GameManager.gm_instance.save_load_menu.isLoading = false;
         
