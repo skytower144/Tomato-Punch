@@ -1,7 +1,7 @@
 ....Changed ya mind becomin' the punching bag? #portrait:Gob_serious
 
     * [Yes]
-        Help. #portrait:Tomato_neutral
+        Help me. #portrait:Tomato_surprised
         
         Then listen to my words carefully... #portrait:Gob_serious
 
