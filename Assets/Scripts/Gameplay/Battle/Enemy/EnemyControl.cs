@@ -178,7 +178,7 @@ public class EnemyControl : MonoBehaviour
     {
         if(!tomatoHurt.isTomatoHurt && !tomatoControl.isGuard)
         {
-            tomatocontrol.currentStamina += 5;
+            tomatocontrol.currentStamina += GameManager.gm_instance.battle_system.evadeStamina;
             if (tomatocontrol.currentStamina > tomatocontrol.maxStamina)
                 tomatocontrol.currentStamina = tomatocontrol.maxStamina;
             

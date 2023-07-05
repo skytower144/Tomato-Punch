@@ -8,17 +8,26 @@ public class BattleSystem : MonoBehaviour
     public event Action OnBattleOver;
     public Action<EnemyBase> OnEnemyDefeat;
     public TextSpawn textSpawn;
+    public BattleUI_Control battleUI_Control; 
+
     [SerializeField] private tomatoControl tomatocontrol; public tomatoControl tomato_control => tomatocontrol;
     [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
-    public BattleUI_Control battleUI_Control; 
+    
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
     [SerializeField] private Image background;
+
+    [SerializeField] private int missPenaltyStamina; public int missStamina => missPenaltyStamina;
+    [SerializeField] private int blockPenaltyStamina; public int blockStamina => blockPenaltyStamina;
+    [SerializeField] private int evadeBonusStamina; public int evadeStamina => evadeBonusStamina;
+
     [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
+
     private GameObject tempObj;
+
     void Start()
     {
         resetPlayerHealth = false;

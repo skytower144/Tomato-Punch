@@ -142,7 +142,7 @@ public class Enemy_is_hurt : MonoBehaviour
 
     void minusTomatoStamina()
     {
-        tomatocontrol.currentStamina -= 3;
+        tomatocontrol.currentStamina -= GameManager.gm_instance.battle_system.blockStamina;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
 

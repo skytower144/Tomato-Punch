@@ -44,7 +44,7 @@ public class TextSpawn : MonoBehaviour
 
     void decreaseStamina()
     {
-        tomatocontrol.currentStamina -= 1;
+        tomatocontrol.currentStamina -= textSpawn_BattleSystem.missStamina;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
 
