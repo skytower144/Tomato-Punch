@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject collider_obj => colliderObj;
     public GameObject fader_obj => faderObj;
 
-    [SerializeField] private float speed;
+    [SerializeField] private float speed; public float player_speed => speed;
     private Vector2 movement;
 
     [System.NonSerialized] public string current_portalID;
@@ -155,6 +155,12 @@ public class PlayerMovement : MonoBehaviour
         return "";
     }
 
+    public IEnumerator DelayFaceAdjustment(string direction, float delay)
+    {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
+        FaceAdjustment(direction);
+    }
+
     public void FaceAdjustment(string facing_direction)
     {
         float face_x = 0f;
@@ -212,6 +218,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isInteracting = state;
         myAnim.SetBool("isWalking", false);
+    }
+
+    public void SetPlayerSpeed(float input_speed)
+    {
+        speed = input_speed;
     }
 
     private bool PlayerCanMove()

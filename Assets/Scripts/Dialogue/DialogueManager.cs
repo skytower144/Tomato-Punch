@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     private const string HIDEPORTRAIT_TAG = "hideportrait";
     private const string DIALOGUE_TAG = "nextdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
+    private const string PLAYERDIRECTION_TAG = "playerdirection";
     private const string ANIMATE_TAG = "animate";
     private const string FOCUSANIMATE_TAG = "focusanimate";
     private const string ANIAMTETARGET_TAG = "animatetarget";
@@ -240,6 +241,11 @@ public class DialogueManager : MonoBehaviour
                 case CONTINUETALK_TAG:
                     isContinueTalk = true;
                     break;
+                
+                case PLAYERDIRECTION_TAG:
+                    string[] directionInfo = CheckTagValueError(tag_value);
+                    StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], float.Parse(directionInfo[1])));
+                    break;
 
                 case ANIMATE_TAG:
                     currentNpc.Play(tag_value);
@@ -252,22 +258,16 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case FOCUSANIMATETARGET_TAG: // no loop // tag:StartingPoint_Donut@angry
-                    string[] animInfo = tag_value.Split('@');
-                    if (animInfo.Length != 2) {
-                        Debug.LogError($"Incorrect animation info : {animInfo}");
-                        return;
-                    }
+                    string[] animInfo = CheckTagValueError(tag_value);
+
                     hideDialogue = true;
                     SetDialogueBox(false);
                     AnimManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
                     break;
                 
                 case CHANGEIDLE_TAG: //tag:StartingPoint_Donut@isangry
-                    string[] info0 = tag_value.Split('@');
-                    if (info0.Length != 2) {
-                        Debug.LogError($"Incorrect info : {info0}");
-                        return;
-                    }
+                    string[] info0 = CheckTagValueError(tag_value);
+
                     NPCController npc0 = AnimManager.instance.npc_dict[info0[0]];
                     npc0.ChangeIdleAnimation(info0[1]);
                     break;
@@ -344,11 +344,8 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case TELEPORT_TAG: // tag:StartingPoint_Donut@x@y
-                    string[] posInfo = tag_value.Split('@');
-                    if (posInfo.Length != 3) {
-                        Debug.LogError($"Incorrect position info : {posInfo}");
-                        return;
-                    }
+                    string[] posInfo = CheckTagValueError(tag_value);
+
                     NPCController npc2 = AnimManager.instance.npc_dict[posInfo[0]];
                     npc2.Teleport(float.Parse(posInfo[1]), float.Parse(posInfo[2]));
                     break;
@@ -359,11 +356,8 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case SETACTIVE_TAG: // tag:StartingPoint_Donut@true
-                    string[] info = tag_value.Split('@');
-                    if (info.Length != 2) {
-                        Debug.LogError($"Incorrect info : {info}");
-                        return;
-                    }
+                    string[] info = CheckTagValueError(tag_value);
+
                     NPCController npc3 = AnimManager.instance.npc_dict[info[0]];
                     bool state = (info[1] == "true") ? true : false;
                     npc3.gameObject.SetActive(state);
@@ -427,5 +421,16 @@ public class DialogueManager : MonoBehaviour
     private void NormalizeChoiceType()
     {
         choiceType = ChoiceType.OXChoice;
+    }
+
+    private string[] CheckTagValueError(string tag_value)
+    {
+        string[] tag_bundle = tag_value.Split('@');
+
+        if (tag_bundle.Length < 2) {
+            Debug.LogError($"Incorrect info : {tag_bundle}");
+            return null;
+        }
+        return tag_bundle;
     }
 }
