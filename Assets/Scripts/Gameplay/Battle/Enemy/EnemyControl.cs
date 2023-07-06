@@ -70,6 +70,8 @@ public class EnemyControl : MonoBehaviour
             if (enemyHurt.Enemy_currentHealth == 0){
                 super_upper_KO();
             }
+
+            greyEffect.StopGreyEffect();
         }
         else
         {
@@ -92,6 +94,8 @@ public class EnemyControl : MonoBehaviour
                 if (enemyHurt.Enemy_currentHealth == 0){
                     super_upper_KO();
                 }
+
+                greyEffect.StopGreyEffect();
             }
         }
         
@@ -223,11 +227,6 @@ public class EnemyControl : MonoBehaviour
 
         greyEffect.StopGreyEffect();
         anim.Play(_base.Recover_AnimationString,-1,0f);
-    }
-
-    void StopGreyEffect()
-    {
-        greyEffect.StopGreyEffect();
     }
 
     void projectileSpawn()

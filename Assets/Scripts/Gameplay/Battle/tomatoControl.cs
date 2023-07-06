@@ -67,19 +67,22 @@ public class tomatoControl : MonoBehaviour
     private bool isAction = false;
     
     private bool isPunch = false; // smoothen punch input (enabling cancel)
-    [HideInInspector] public static bool isGatle = false; 
+    [System.NonSerialized] public static bool isGatle = false; 
 
-    [HideInInspector] public static bool isGuard = false;
+    [System.NonSerialized] public static bool isGuard = false;
+
+    [System.NonSerialized] public bool isMiss = false;
+    
     private bool guardRelease;               // prevent multiple animations trying to play at a single frame (esp during animation transition)
 
     [System.NonSerialized] public static bool isIntro = true;
     [System.NonSerialized] public static bool isVictory = false;
     [System.NonSerialized] public static bool isFainted = false;
-    [HideInInspector] public static bool gatleButton_once = false;  // play a line once
-    [HideInInspector] public static bool uppercutYes = false;       // player succeeded uppercut
-    [HideInInspector] public static bool enemyUppered = false;
-    [HideInInspector] public static bool enemyFreeze = false;
-    [HideInInspector] public bool enemy_supered = false;
+    [System.NonSerialized] public static bool gatleButton_once = false;  // play a line once
+    [System.NonSerialized] public static bool uppercutYes = false;       // player succeeded uppercut
+    [System.NonSerialized] public static bool enemyUppered = false;
+    [System.NonSerialized] public static bool enemyFreeze = false;
+    [System.NonSerialized] public bool enemy_supered = false;
     private bool isTired = false;
 
     [System.NonSerialized] public int tomatoes = 0;
@@ -207,7 +210,7 @@ public class tomatoControl : MonoBehaviour
                 }
             }
             
-            else if (isPunch)
+            else if (isPunch && !isMiss)
             {
                 if (PressKey("LeftPunch"))
                 {
@@ -536,6 +539,11 @@ public class tomatoControl : MonoBehaviour
     {
         DOTween.Rewind("CameraRumble");
         DOTween.Play("CameraRumble");
+    }
+
+    public bool CheckAnimationState(string animation_string)
+    {
+        return  tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(animation_string);
     }
 
     public bool PressKey(string moveName)

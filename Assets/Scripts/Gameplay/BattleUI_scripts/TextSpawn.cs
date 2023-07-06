@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class TextSpawn : MonoBehaviour
 {
-    [System.NonSerialized] static public bool isMiss = false;
     [SerializeField] private BattleSystem textSpawn_BattleSystem;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private EnemyControl enemyControl;
@@ -31,14 +30,17 @@ public class TextSpawn : MonoBehaviour
 
     void Update()
     {
-        if (isMiss)
+        if (tomatocontrol.isMiss)
         {
+            if (tomatocontrol.CheckAnimationState("tomato_LP") || tomatocontrol.CheckAnimationState("tomato_RP"))
+                tomatocontrol.tomatoAnim.Play("tomato_miss",-1, 0f);
+            
             randomPosition = Random.insideUnitSphere * 1.5f + new Vector3(-30,0,0);
             GameObject miss = Instantiate(missEffect, transform);
             miss.transform.position = randomPosition;
 
             decreaseStamina();
-            isMiss = false;
+            tomatocontrol.isMiss = false;
         }
     }
 
