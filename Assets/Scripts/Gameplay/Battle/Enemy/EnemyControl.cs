@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,7 +9,7 @@ public class EnemyControl : MonoBehaviour
     [HideInInspector] public EnemyBase _base;
 
     private Animator anim; public Animator enemyAnim => anim;
-    private SpriteRenderer enemy_renderer;
+    private SpriteRenderer enemy_renderer; public SpriteRenderer enemyRenderer => enemy_renderer;
     private Material matDefault;
 
     [SerializeField] private EnemyGreyEffect greyEffect;
@@ -87,8 +88,7 @@ public class EnemyControl : MonoBehaviour
                 tomatocontrol.enemy_supered = false;
                 enemy_supered = true;
 
-                anim.enabled = true;
-                anim.Play(_base.EnemySuperedAnim[tomatocontrol.tomatoSuperEquip.ItemName],-1,0f);
+                StartCoroutine(SuperAnimation(tomatocontrol.tomatoSuperEquip.ItemName));
                 
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);
                 if (enemyHurt.Enemy_currentHealth == 0){
@@ -240,6 +240,7 @@ public class EnemyControl : MonoBehaviour
         Enemy_is_hurt.enemy_isDefeated = false;
         Enemy_countered.enemy_isCountered = false;
         Enemy_parried.isParried = false;
+        tomatocontrol.enemy_supered = false;
         enemy_supered = false;
         
         action_afterSuffer = false;
@@ -255,6 +256,29 @@ public class EnemyControl : MonoBehaviour
     {
         Invoke("UnFreeze", 0.6f);
         anim.enabled = false;
+    }
+
+    IEnumerator SuperAnimation(string equip_name)
+    {
+        switch (equip_name) {
+            case "SuperChili":
+                transform.localPosition = _base.chiliInfo.hitPosition;
+                enemy_renderer.sprite = _base.chiliInfo.hitSprite;
+                DOTween.Rewind("ShakeEnemy");
+                DOTween.Play("ShakeEnemy");
+
+                yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.8f));
+                DOTween.Pause("ShakeEnemy");
+                transform.localPosition = new Vector2(0, 0);
+                anim.enabled = true;
+                anim.Play(_base.Uppered_AnimationString);
+                break;
+
+            default:
+                break;
+
+        }
+        yield break;
     }
     private void UnFreeze()
     {

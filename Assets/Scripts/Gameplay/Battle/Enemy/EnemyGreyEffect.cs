@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class EnemyGreyEffect : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer sr;
+    private SpriteRenderer sr;
     [SerializeField] private Color greyedColor;
     [SerializeField] private float interval;
     [System.NonSerialized] public bool isGreyed = false;
+
+    void Start()
+    {
+        sr = GameManager.gm_instance.battle_system.enemy_control.enemyRenderer;
+    }
     
     IEnumerator GreyEffect()
     {

@@ -44,6 +44,8 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
+    
+    //========================================================================================================================
 
     [Header("EQUIP STATE")]
     public SuperEquip tomatoSuperEquip;

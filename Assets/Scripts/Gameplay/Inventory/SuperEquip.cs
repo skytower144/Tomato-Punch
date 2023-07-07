@@ -6,4 +6,5 @@ using UnityEngine;
 public class SuperEquip : Item
 {
     public Sprite superIcon;
+    public string animTag;
 }

@@ -17,14 +17,14 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private string idle, intro, defeated, countered, suffer, stun, uppered, recover, guard, hurtL, hurtR;
     [SerializeField] private string wait, reEngage, victory;
 
-    [Header("Key: ItemName | Value: AnimationString name")]
-    public StringStringDictionary EnemySuperedAnim;
+    public ChiliAnimInfo chiliInfo;
 
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyPattern;
     [SerializeField] private List <RewardDetail> itemReward;
     [SerializeField] private float battleExp;
     [SerializeField] private int battleCoin;
+
 
     public string EnemyName
     {
@@ -137,3 +137,10 @@ public class EnemyBase : ScriptableObject
 }
 
 public enum BgName { bg_tutorial, bg_forest }
+
+[System.Serializable]
+public class ChiliAnimInfo
+{
+    public Vector2 hitPosition;
+    public Sprite hitSprite;
+}
