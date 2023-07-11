@@ -10,6 +10,8 @@ public class EnemyAIControl : MonoBehaviour
     [System.NonSerialized] public static bool enemy_isIntro = true;
     [System.NonSerialized] public List<Enemy_AttackDetail> pattern_list = new List<Enemy_AttackDetail>();
 
+    private bool isCondition = false;
+
     private int idleCount = 0;
 
     void OnEnable()
