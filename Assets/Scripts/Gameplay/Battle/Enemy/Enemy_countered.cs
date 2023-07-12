@@ -65,4 +65,11 @@ public class Enemy_countered : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void ResetCounterPoints()
+    {
+        totalCounter = 0;
+        tomatocontrol.tomatoes = 0;
+        counterTrack.CounterTracker();
+    }
 }

@@ -41,7 +41,7 @@ public class Enemy_is_hurt : MonoBehaviour
         if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             //GATLING MODE
-            tomatoParryBar.parryFill.fillAmount += 0.008f;
+            tomatoParryBar.parryFill.fillAmount += GameManager.gm_instance.battle_system.parryBonus;
             tomatoParryBar.SetWhiteBar();
             Invoke("parryWhiteOff", 0.05f);
             tomatoParryBar.parryWhiteBar.SetActive(true);

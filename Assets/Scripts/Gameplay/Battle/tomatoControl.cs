@@ -183,10 +183,7 @@ public class tomatoControl : MonoBehaviour
                     {
                         if((tomatoSuperEquip != null) && parryBar.gaksungOn)
                         {
-                            parryBar.gaksungOn = false;
-                            parryBar.parryFill.fillAmount = 0;
-                            parryBar.parry_fullCharge.SetActive(false);
-                            gaksung_OBJ.SetActive(false);
+                            ResetGaksung();
 
                             superBanner.SetActive(true);
                             enemyFreeze = true;
@@ -496,6 +493,11 @@ public class tomatoControl : MonoBehaviour
         battleSystem.resetPlayerHealth = true;
         battleSystem.resetEnemyHealth = true;
 
+        battleSystem.enemy_control.enemy_Countered.ResetCounterPoints();
+        battleSystem.featherPoints.ResetFeather();
+        battleSystem.tomato_control.guard_bar.RestoreGuardBar();
+        ResetGaksung();
+        
         currentStamina = maxStamina;
         staminaIcon.SetStamina(maxStamina);
         isTired = false;
@@ -625,6 +627,15 @@ public class tomatoControl : MonoBehaviour
             gaksung_OBJ.SetActive(true);
         }
     }
+
+    private void ResetGaksung()
+    {
+        parryBar.gaksungOn = false;
+        parryBar.parryFill.fillAmount = 0;
+        parryBar.parry_fullCharge.SetActive(false);
+        gaksung_OBJ.SetActive(false);
+    }
+
 // SKILL ATTACK =====================================================================================================================
     void skill()
     {

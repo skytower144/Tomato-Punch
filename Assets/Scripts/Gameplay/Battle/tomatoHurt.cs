@@ -70,5 +70,7 @@ public class tomatoHurt : MonoBehaviour
         {
             anim.Play("tomato_L_hurt",-1,0f);
         }
+
+        GameManager.gm_instance.battle_system.featherPoints.ResetFeather();
     }
 }

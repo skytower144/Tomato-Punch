@@ -24,7 +24,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyAIControl enemyAIControl;
     [SerializeField] private Enemy_is_hurt enemyHurt;
-    [SerializeField] private Enemy_countered enemy_Countered;
+    public Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
 
     [HideInInspector] public static bool isPhysical = true;
@@ -187,6 +187,7 @@ public class EnemyControl : MonoBehaviour
                 tomatocontrol.currentStamina = tomatocontrol.maxStamina;
             
             staminaIcon.SetStamina(tomatocontrol.currentStamina);
+            GameManager.gm_instance.battle_system.featherPoints.AddFeatherPoint();
         }
     }
     void DetermineCC()
