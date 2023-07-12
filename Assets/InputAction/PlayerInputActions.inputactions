@@ -382,14 +382,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Esc",
-                    "type": "Button",
-                    "id": "85233ce4-59f9-476d-9724-e0df175a9f74",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -539,7 +531,7 @@
                 {
                     "name": "",
                     "id": "3b493f68-d457-4434-8526-f493ac4affb8",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -561,7 +553,7 @@
                 {
                     "name": "",
                     "id": "23cb3061-1039-4b74-8bc1-1e86d206e8fe",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -583,33 +575,11 @@
                 {
                     "name": "",
                     "id": "e512363e-6900-45ba-a3e2-c91f56597e80",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SuperSkill",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f964322e-586a-4479-9b90-6799f05c3af2",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Esc",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "243d7c0a-7534-4458-8620-ead19edd7464",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Esc",
+                    "action": "SuperSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

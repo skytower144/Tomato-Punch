@@ -18,7 +18,9 @@ public class TutorialMode : MonoBehaviour
     [SerializeField] private Image gamepad_image2;
 
     [SerializeField] private Animator tutorialUI;
-    [SerializeField] private GameObject holdArrow, exitGuide, exitGuide_key, exitGuide_pad, pad_ps4, pad_xbox, pad_switch;
+    [SerializeField] private GameObject holdArrow, exitGuide, exitGuide_key, exitGuide_pad;
+    [SerializeField] private TextMeshProUGUI key_text;
+    [SerializeField] private Image pad_image;
     
     private Animator anim;
     private TextSpawn textSpawn;
@@ -27,7 +29,7 @@ public class TutorialMode : MonoBehaviour
 
     void Update()
     {
-        if ((GameManager.gm_instance.player_movement.Press_Key("Esc")) && (isTutorial))
+        if ((GameManager.gm_instance.player_movement.Press_Key("SuperSkill")) && (isTutorial))
         {
             StartCoroutine(ExitTutorial());
         }
@@ -47,7 +49,6 @@ public class TutorialMode : MonoBehaviour
         {
             exitGuide_key.SetActive(false);
             exitGuide_pad.SetActive(true);
-            UpdatePadType();
 
             keyboardGuide.SetActive(false);
             gamepadGuide.SetActive(true);
@@ -57,6 +58,13 @@ public class TutorialMode : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // This method heavily depends on the element order of within these lists.
+        key_text.text = GameManager.gm_instance.rebind_key.ShortenKeyDisplay(8, GameManager.gm_instance.control_scroll.battleKeyTexts[8].text, "BATTLE");
+        pad_image.sprite = GameManager.gm_instance.control_scroll.battlePadImages[8].sprite;
+    }
+
     void OnDisable()
     {
         controlGuide.SetActive(false);
@@ -64,29 +72,6 @@ public class TutorialMode : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void UpdatePadType()
-    {
-        int gamePadType = GameManager.gm_instance.gamepadType;
-        if (gamePadType == 1)
-        {
-            pad_xbox.SetActive(true);
-            pad_ps4.SetActive(false);
-            pad_switch.SetActive(false);
-        }
-        else if (gamePadType == 2)
-        {
-            pad_xbox.SetActive(false);
-            pad_ps4.SetActive(true);
-            pad_switch.SetActive(false);
-        }
-        else if (gamePadType == 3)
-        {
-            pad_xbox.SetActive(false);
-            pad_ps4.SetActive(false);
-            pad_switch.SetActive(true);
-        }
-
-    }
     void OnEnable()
     {
         textSpawn = transform.parent.gameObject.GetComponent<TextSpawn>();

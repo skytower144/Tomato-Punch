@@ -41,10 +41,14 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [Header("KEYBOARD")]
     [SerializeField] private List<TextMeshProUGUI> roam_bindingDisplayText_key;
     [SerializeField] private List<TextMeshProUGUI> battle_bindingDisplayText_key;
+    public List<TextMeshProUGUI> roamKeyTexts => roam_bindingDisplayText_key;
+    public List<TextMeshProUGUI> battleKeyTexts => battle_bindingDisplayText_key;
 
     [Header("GAMEPAD")]
     [SerializeField] private List<Image> roam_bindingDisplayText_pad;
     [SerializeField] private List<Image> battle_bindingDisplayText_pad;
+    public List<Image> roamPadImages => roam_bindingDisplayText_pad;
+    public List<Image> battlePadImages => battle_bindingDisplayText_pad;
 
     
     private int menuNumber;
@@ -53,9 +57,9 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     private int showingNumber_top, showingNumber_bot;
     private float current_scroll_y;
 
-    public bool isKeyBoard = true;
-    public bool isModeRoam = true;
-    public bool isPrompt = false;
+    [System.NonSerialized] public bool isKeyBoard = true;
+    [System.NonSerialized] public bool isModeRoam = true;
+    [System.NonSerialized] public bool isPrompt = false;
     
 
     void OnEnable()

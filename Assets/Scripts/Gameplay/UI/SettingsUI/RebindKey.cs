@@ -114,11 +114,8 @@ public class RebindKey : MonoBehaviour
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsHavingToMatchPath("<Gamepad>")
 
-                    .WithControlsExcluding("<Gamepad>/start")
                     .WithControlsExcluding("<Gamepad>/leftTriggerButton")
                     .WithControlsExcluding("<Gamepad>/rightTriggerButton")
-
-                    .WithCancelingThrough("<Gamepad>/start")
 
                     .WithTimeout(5f)
                     .WithExpectedControlType("Button")
@@ -164,11 +161,8 @@ public class RebindKey : MonoBehaviour
                 rebindingOperation = current_action.PerformInteractiveRebinding(bindingIndex)
                     .WithControlsHavingToMatchPath("<Gamepad>")
 
-                    .WithControlsExcluding("<Gamepad>/start")
                     .WithControlsExcluding("<Gamepad>/leftTriggerButton")
                     .WithControlsExcluding("<Gamepad>/rightTriggerButton")
-
-                    .WithCancelingThrough("<Gamepad>/start")
 
                     .WithTimeout(5f)
                     .OnMatchWaitForAnother(0.1f)
