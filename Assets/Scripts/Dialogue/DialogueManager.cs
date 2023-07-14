@@ -252,9 +252,14 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case FOCUSANIMATE_TAG: // no loop
+                    bool stopAnimation = false;
+                    string[] animInfo0 = tag_value.Split('@');
+                    if (animInfo0.Length > 1)
+                        stopAnimation = true;
+                    
                     hideDialogue = true;
                     SetDialogueBox(false);
-                    currentNpc.Play(tag_value, ShowAndContinueDialogue);
+                    currentNpc.Play(animInfo0[0], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case FOCUSANIMATETARGET_TAG: // no loop // tag:StartingPoint_Donut@angry

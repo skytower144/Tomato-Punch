@@ -16,9 +16,10 @@ public class SpriteAnimator
     private int totalFrames;
     private float timer;
     private bool stopAnim = false;
+    private bool stop_after_animation = false;
 
     // Constructor
-    public SpriteAnimator(NPCController npc, SpriteRenderer spriteRenderer, List<Sprite> frames, int fps, bool is_loop = false, Action dialogueAction = null)
+    public SpriteAnimator(NPCController npc, SpriteRenderer spriteRenderer, List<Sprite> frames, int fps, bool is_loop = false, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
         stopAnim = true;
 
@@ -28,6 +29,7 @@ public class SpriteAnimator
         this.fps = fps;
         this.isLoop = is_loop;
         this.dialogueAction = dialogueAction;
+        this.stop_after_animation = stopAfterAnimation;
 
         InitializeAnimator();
     }
@@ -59,7 +61,9 @@ public class SpriteAnimator
 
                 if ((nextFrame == totalFrames) && (!isLoop)) {
                     stopAnim = true;
-                    npc.Play(npc.idleAnim);
+
+                    if (!stop_after_animation)
+                        npc.Play(npc.idleAnim);
 
                     if (dialogueAction != null)
                         dialogueAction.Invoke();

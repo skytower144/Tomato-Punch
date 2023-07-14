@@ -106,12 +106,12 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         idleAnimation = changed;
     }
 
-    public void Play(string animTag, Action dialogueAction = null)
+    public void Play(string animTag, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
         if (sprite_dict.ContainsKey(animTag))
         {
             SpriteAnimation animation = sprite_dict[animTag];
-            spriteAnimator = new SpriteAnimator(this, sprite_renderer, animation.sprites, animation.fps, animation.is_loop, dialogueAction);
+            spriteAnimator = new SpriteAnimator(this, sprite_renderer, animation.sprites, animation.fps, animation.is_loop, dialogueAction, stopAfterAnimation);
         }
         else
         {
