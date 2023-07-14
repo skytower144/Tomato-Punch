@@ -87,6 +87,7 @@ public class tomatoControl : MonoBehaviour
     [System.NonSerialized] public bool enemy_supered = false;
     private bool isTired = false;
 
+    [System.NonSerialized] public SkillType currentSkillType;
     [System.NonSerialized] public int tomatoes = 0;
 
     void OnEnable()
@@ -193,9 +194,18 @@ public class tomatoControl : MonoBehaviour
                     else if (PressKey("FirstEquip"))
                     {
                         if((tomatoEquip[0] != null) && tomatoes > 0){
+                            currentSkillType = SkillType.Equip_Skill;
                             tomatoAnimator.Play(tomatoEquip[0].SkillAnimation,-1,0f);
                             tomatoes -= 1;
                             counterTrack.CounterTracker();
+                        }
+                    }
+                    else if (PressKey("AssistSkill1"))
+                    {
+                        if (battleSystem.featherPoints.feather_point >= 1)
+                        {
+                            currentSkillType = SkillType.Assist_Skill;
+                            tomatoAnimator.Play(GameManager.gm_instance.assistManager.DecideSkill(1, battleSystem.featherPoints.feather_point), -1, 0f);
                         }
                     }
                 }
@@ -657,3 +667,5 @@ public class tomatoControl : MonoBehaviour
     }
 
 }
+
+public enum SkillType { Equip_Skill, Assist_Skill }

@@ -89,7 +89,16 @@ public class Enemy_is_hurt : MonoBehaviour
                 //SKILL
                 else if(col.gameObject.tag.Equals("tomato_SK"))
                 {
-                    float skillDmg = tomatodamage.SkillAttack(tomatocontrol.tomatoAtk, tomatocontrol.tomatoEquip[0].skillDamage);
+                    float skillDmg = 0;
+                    switch (tomatocontrol.currentSkillType) {
+                        case SkillType.Equip_Skill:
+                            skillDmg = tomatodamage.SkillAttack(tomatocontrol.tomatoAtk, tomatocontrol.tomatoEquip[0].skillDamage);
+                            break;
+                        
+                        case SkillType.Assist_Skill:
+                            skillDmg = GameManager.gm_instance.assistManager.assistDamage;
+                            break;
+                    }
                     enemyHurtDamage(skillDmg);
                     checkDefeat("SK");
                 }

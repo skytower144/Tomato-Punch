@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     GameState gameState;
     public static GameManager gm_instance { get; private set; }
+
+    public AssistManager assistManager;
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu; public ResolutionMenu resolution_menu => resolutionMenu;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     public ItemMenuNavigation consumable_navigation => consumableNavigation;
     public ItemMenuNavigation other_item_navigation => otherItemNavigation;
     [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
+
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 

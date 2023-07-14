@@ -404,6 +404,22 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AssistSkill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""28116093-d80c-474f-a866-b69528621698"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""AssistSkill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""01a4256d-1aca-4286-ac02-590856079848"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -604,6 +620,50 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SuperSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e392cb5c-2e9a-44fc-b795-a39b7ce35c0e"",
+                    ""path"": ""<Keyboard>/leftBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""AssistSkill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""604a54ec-d964-4443-9916-7ba8391d5d35"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AssistSkill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a45878dc-0371-4cff-ba0f-d2ed087e060a"",
+                    ""path"": ""<Keyboard>/rightBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""AssistSkill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab26a75f-fd31-42b1-85bf-ab9f441d6f50"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AssistSkill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -697,6 +757,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Battle_FirstEquip = m_Battle.FindAction("FirstEquip", throwIfNotFound: true);
         m_Battle_SecondEquip = m_Battle.FindAction("SecondEquip", throwIfNotFound: true);
         m_Battle_SuperSkill = m_Battle.FindAction("SuperSkill", throwIfNotFound: true);
+        m_Battle_AssistSkill1 = m_Battle.FindAction("AssistSkill1", throwIfNotFound: true);
+        m_Battle_AssistSkill2 = m_Battle.FindAction("AssistSkill2", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
     }
@@ -848,6 +910,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_FirstEquip;
     private readonly InputAction m_Battle_SecondEquip;
     private readonly InputAction m_Battle_SuperSkill;
+    private readonly InputAction m_Battle_AssistSkill1;
+    private readonly InputAction m_Battle_AssistSkill2;
     public struct BattleActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -861,6 +925,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @FirstEquip => m_Wrapper.m_Battle_FirstEquip;
         public InputAction @SecondEquip => m_Wrapper.m_Battle_SecondEquip;
         public InputAction @SuperSkill => m_Wrapper.m_Battle_SuperSkill;
+        public InputAction @AssistSkill1 => m_Wrapper.m_Battle_AssistSkill1;
+        public InputAction @AssistSkill2 => m_Wrapper.m_Battle_AssistSkill2;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -897,6 +963,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SuperSkill.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
                 @SuperSkill.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
                 @SuperSkill.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnSuperSkill;
+                @AssistSkill1.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill1;
+                @AssistSkill1.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill1;
+                @AssistSkill1.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill1;
+                @AssistSkill2.started -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill2;
+                @AssistSkill2.performed -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill2;
+                @AssistSkill2.canceled -= m_Wrapper.m_BattleActionsCallbackInterface.OnAssistSkill2;
             }
             m_Wrapper.m_BattleActionsCallbackInterface = instance;
             if (instance != null)
@@ -928,6 +1000,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SuperSkill.started += instance.OnSuperSkill;
                 @SuperSkill.performed += instance.OnSuperSkill;
                 @SuperSkill.canceled += instance.OnSuperSkill;
+                @AssistSkill1.started += instance.OnAssistSkill1;
+                @AssistSkill1.performed += instance.OnAssistSkill1;
+                @AssistSkill1.canceled += instance.OnAssistSkill1;
+                @AssistSkill2.started += instance.OnAssistSkill2;
+                @AssistSkill2.performed += instance.OnAssistSkill2;
+                @AssistSkill2.canceled += instance.OnAssistSkill2;
             }
         }
     }
@@ -1023,6 +1101,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnFirstEquip(InputAction.CallbackContext context);
         void OnSecondEquip(InputAction.CallbackContext context);
         void OnSuperSkill(InputAction.CallbackContext context);
+        void OnAssistSkill1(InputAction.CallbackContext context);
+        void OnAssistSkill2(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

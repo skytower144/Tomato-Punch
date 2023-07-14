@@ -12,6 +12,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private ResetBindings resetBindings;
     [SerializeField] private Transform contentTransform;
+    [SerializeField] private RectTransform contentRect, content_battle_rect;
     [SerializeField] private Animator ToggleAnim;
     [SerializeField] private Image key_or_pad, roam_or_battle, reset_arrow;
 
@@ -51,7 +52,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     public List<Image> battlePadImages => battle_bindingDisplayText_pad;
 
     
-    private int menuNumber;
+    [SerializeField] private int menuNumber;
     public int InputMenuNumber => menuNumber;
 
     private int showingNumber_top, showingNumber_bot;
@@ -73,6 +74,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 
         current_scroll_y = 0;
         contentTransform.localPosition = new Vector3(contentTransform.localPosition.x, 0);
+        AdjustContentSize();
     }
     void Update()
     {
@@ -188,7 +190,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         }
 
         // Must change clamp max value according to content size.
-        current_scroll_y = Mathf.Clamp(current_scroll_y, 0, 499.9f); 
+        current_scroll_y = Mathf.Clamp(current_scroll_y, 0, -300 + totalMenuNumber * 100);  
 
         contentTransform.localPosition = new Vector3(contentTransform.localPosition.x, current_scroll_y);
     }
@@ -372,6 +374,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             title_roam.SetActive(false);
             title_battle.SetActive(true);
         }
+        AdjustContentSize();
     }
 
     public Dictionary<string, Dictionary<string, ControlMapDisplay>> CaptureCurrentBind()
@@ -407,6 +410,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         mapDisplayDict["BATTLE"] = battle_actionToDisplay;
 
         return mapDisplayDict;
+    }
+
+    private void AdjustContentSize()
+    {
+        contentRect.sizeDelta = new Vector2(0, 100 + totalMenuNumber * 100);
+        content_battle_rect.anchoredPosition = new Vector2 (content_battle_rect.anchoredPosition.x, -400 + 50 * totalMenuNumber);
     }
 }
 

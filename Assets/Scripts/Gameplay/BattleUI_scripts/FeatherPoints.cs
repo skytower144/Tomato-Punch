@@ -6,22 +6,29 @@ public class FeatherPoints : MonoBehaviour
 {
     [SerializeField] private List<GameObject> featherList;
     private int featherPoint;
+    public int feather_point => featherPoint;
 
     void OnEnable()
     {
         ResetFeather();
     }
 
+    private void SetFeatherUI()
+    {
+        for (int i = 0; i < 5; i++)
+            featherList[i].SetActive(i < featherPoint);
+    }
+
     public void AddFeatherPoint()
     {
         featherPoint ++;
-        for (int i = 0; i < 5; i++)
-            featherList[i].SetActive(CheckFeatherPoint(i));
+        SetFeatherUI();
     }
 
-    private bool CheckFeatherPoint(int comparePoint)
+    public void SubtractFeatherPoint(int amount)
     {
-        return (comparePoint < featherPoint);
+        featherPoint -= amount;
+        SetFeatherUI();
     }
 
     public void ResetFeather()
