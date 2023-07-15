@@ -2,7 +2,7 @@
 \* Smack it away from her hand?
     * [Yes]
         Grow up. #focusanimate:drop@_stop #portrait:Tomato_neutral
-        #nextdialogue:IcecreamKid_sadface
+        #nextdialogue:IcecreamKid_speechless
     
     * [No]
         \* You decided that would be too cruel.

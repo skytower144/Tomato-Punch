@@ -281,7 +281,7 @@ public class DialogueManager : MonoBehaviour
                     tempObject = currentNpc.enemyData;
                     break;
 
-                case BATTLETARGET_TAG:
+                case BATTLETARGET_TAG: //#battletarget:StartingPoint_Donut
                     NPCController npc1 = AnimManager.instance.npc_dict[tag_value];
                     tempObject = npc1.enemyData;
                     break;
