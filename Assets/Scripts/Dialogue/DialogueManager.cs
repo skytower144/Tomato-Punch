@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> choiceText;
     
     private UnityEngine.Object tempObject = null;
-    private NPCController currentNpc;
+    private NPCController currentNpc; public NPCController current_npc => currentNpc;
     private Story currentStory;
     private string currentSentence;
     private bool dialogueIsPlaying, isPromptChoice;
@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
     private const string DIALOGUE_TAG = "nextdialogue";
+    private const string OUTCOMEDIALOGUE_TAG = "outcomedialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
     private const string PLAYERDIRECTION_TAG = "playerdirection";
     private const string ANIMATE_TAG = "animate";
@@ -236,6 +237,11 @@ public class DialogueManager : MonoBehaviour
 
                 case DIALOGUE_TAG:
                     currentNpc.LoadNextDialogue(tag_value);
+                    break;
+                
+                case OUTCOMEDIALOGUE_TAG: // #outcomedialogue:lose_dialogue@win_dialogue
+                    string[] outcomeInfo = CheckTagValueError(tag_value);
+                    GameManager.gm_instance.CacheOutcomeDialogues(outcomeInfo);
                     break;
 
                 case CONTINUETALK_TAG:

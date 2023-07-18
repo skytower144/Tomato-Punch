@@ -35,6 +35,9 @@ public class Enemy_is_hurt : MonoBehaviour
 
         hitct = 0;
         guardUp = false;
+        enemy_isPunched = false;
+        enemy_isDefeated = false;
+        enemyIsHit = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {

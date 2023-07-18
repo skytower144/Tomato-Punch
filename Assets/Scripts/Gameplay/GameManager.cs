@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour
 
     [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
+
     private PlayerReviveState expectedReviveState;
+    private string[] cachedOutcomeDialogue = new string[2];
 
     public int gamepadType;
     public float stickSensitivity;
@@ -128,6 +130,9 @@ public class GameManager : MonoBehaviour
         battle_system.battleUI_Control.NormalizeBattleUI();
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
+
+        // Adjust NPC Dialogue depending on the battle outcome
+        DialogueManager.instance.current_npc.LoadNextDialogue(cachedOutcomeDialogue[Convert.ToInt32(isVictory)]);
 
         // Revive at Cafe
         if (!isVictory && (expectedReviveState == PlayerReviveState.Cafe)) {
@@ -279,5 +284,11 @@ public class GameManager : MonoBehaviour
         GameObject[] benches = GameObject.FindGameObjectsWithTag("Bench");
         Vector3 benchPos = benches[Random.Range(0, benches.Length)].transform.position;
         return new Vector3(benchPos.x, benchPos.y - 1, benchPos.z);
+    }
+
+    public void CacheOutcomeDialogues(string[] outcomeInfo)
+    {
+        Array.Clear(cachedOutcomeDialogue, 0, cachedOutcomeDialogue.Length);
+        cachedOutcomeDialogue = outcomeInfo;
     }
 }
