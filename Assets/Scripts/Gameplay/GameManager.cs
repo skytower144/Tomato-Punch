@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Random = UnityEngine.Random;
 using UnityEngine;
 using UnityEngine.InputSystem; 
-using System;
+
 
 public enum GameState { FreeRoam, Battle }
 public class GameManager : MonoBehaviour
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
+    private PlayerReviveState expectedReviveState;
 
     public int gamepadType;
     public float stickSensitivity;
@@ -62,9 +64,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Wait());
     }
 
-    void EndBattle()
+    void EndBattle(bool isVictory)
     {
-        StartCoroutine(BattleExit_Wait());
+        StartCoroutine(BattleExit_Wait(isVictory));
     }
 
     private void Update()
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Initiate_Battle() => StartBattle() => Wait()
-    public void Initiate_Battle(EnemyBase enemy_base)
+    public void Initiate_Battle(EnemyBase enemy_base, PlayerReviveState revive_state = PlayerReviveState.Cafe)
     {
         PlayerMovement.isBattle = true;
 
@@ -92,6 +94,8 @@ public class GameManager : MonoBehaviour
 
         player_x = playerMovement.transform.position.x;
         player_y = playerMovement.transform.position.y;
+
+        expectedReviveState = revive_state;
 
         Instantiate (exclamation, new Vector2 (player_x, player_y + 3.8f), Quaternion.identity);
         Invoke("battleStart_ef", 0.4f);
@@ -113,32 +117,43 @@ public class GameManager : MonoBehaviour
         DisableLevelHolder();
     }
 
-    IEnumerator BattleExit_Wait()
+    IEnumerator BattleExit_Wait(bool isVictory)
     {
         yield return new WaitForSeconds(1.5f);
 
-        foreach (GameObject level_holder in levelHolder)
-        {
+        foreach (GameObject level_holder in levelHolder) {
             level_holder.SetActive(true);
         }
 
         battle_system.battleUI_Control.NormalizeBattleUI();
         battle_system.enemy_control.ClearAnimation();
-        
         battleSystem.gameObject.SetActive(false);
-        gameState = GameState.FreeRoam;
 
-        GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (player_x, player_y - 0.05f), Quaternion.identity);
-        fadeInstance.transform.localScale = new Vector2(2f, 2f);
-        
-        mainCamera.gameObject.SetActive(true);
-
-        if (DialogueManager.instance.is_continue_talk) {
-            yield return new WaitForSeconds(0.5f);
-            DialogueManager.instance.SetIsContinueTalkBool(false);
-            PlayerMovement.instance.PlayerInteract();
+        // Revive at Cafe
+        if (!isVictory && (expectedReviveState == PlayerReviveState.Cafe)) {
+            
         }
-        
+        else {
+            // Teleport player to bench, play waking up from bench animation
+            if (!isVictory && (expectedReviveState == PlayerReviveState.Bench)) {
+                playerMovement.transform.position = GetBenchPostion();
+                playerMovement.FaceAdjustment("DOWN");
+                playerAnimator.Play("Wakeup", -1, 0f);
+                Instantiate(playerMovement.newspaper, playerAnimator.transform);
+            }
+
+            gameState = GameState.FreeRoam;
+            GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (playerMovement.transform.position.x, playerMovement.transform.position.y - 0.05f), Quaternion.identity);
+            fadeInstance.transform.localScale = new Vector2(2f, 2f);
+            mainCamera.gameObject.SetActive(true);
+
+            // Talk to currently facing NPC
+            if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk))) {
+                yield return new WaitForSeconds(0.5f);
+                DialogueManager.instance.SetIsContinueTalkBool(false);
+                PlayerMovement.instance.PlayerInteract();
+            }
+        }
         PlayerMovement.isBattle = false;
     }
 
@@ -257,5 +272,12 @@ public class GameManager : MonoBehaviour
     public void UpdateOtherItemSlots()
     {
         StartCoroutine(otherItemNavigation.UpdateSlotValues());
+    }
+
+    private Vector3 GetBenchPostion()
+    {
+        GameObject[] benches = GameObject.FindGameObjectsWithTag("Bench");
+        Vector3 benchPos = benches[Random.Range(0, benches.Length)].transform.position;
+        return new Vector3(benchPos.x, benchPos.y - 1, benchPos.z);
     }
 }

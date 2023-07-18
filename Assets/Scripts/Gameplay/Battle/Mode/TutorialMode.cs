@@ -177,7 +177,7 @@ public class TutorialMode : MonoBehaviour
 
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1.5f));
 
-        GameManager.gm_instance.battle_system.ExitBattle();
+        GameManager.gm_instance.battle_system.ExitBattle(true);
         yield break;
     }
 

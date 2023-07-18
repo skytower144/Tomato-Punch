@@ -31,6 +31,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [HideInInspector] public bool canBattle;
     [HideInInspector] public bool instantBattle;
     [HideInInspector] public EnemyBase enemyData;
+    [HideInInspector] public PlayerReviveState reviveState;
 
     [System.NonSerialized] public bool isDisabled = false;
 
@@ -140,7 +141,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         if (custom_mode != null)
             custom_mode.ChangeBattleMode();
         
-        GameManager.gm_instance.Initiate_Battle(enemy_data);
+        GameManager.gm_instance.Initiate_Battle(enemy_data, reviveState);
     }
 
     private bool ValidInteractDirection()
@@ -200,3 +201,5 @@ public class SpriteAnimation
     public int fps;
     public List<Sprite> sprites;
 }
+
+public enum PlayerReviveState { LoseTalk, Cafe, Bench }

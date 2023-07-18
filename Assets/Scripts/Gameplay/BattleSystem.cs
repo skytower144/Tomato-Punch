@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
 {
-    public event Action OnBattleOver;
+    public event Action<bool> OnBattleOver;
     public Action<EnemyBase> OnEnemyDefeat;
     public TextSpawn textSpawn;
     public BattleUI_Control battleUI_Control; 
@@ -42,10 +42,10 @@ public class BattleSystem : MonoBehaviour
     // public void HandleUpdate()
     // {
     // }
-    public void ExitBattle()
+    public void ExitBattle(bool isVictory)
     {
         Destroy(Instantiate(battle_end_circle), 2f);
-        OnBattleOver();
+        OnBattleOver?.Invoke(isVictory);
     }
 
     public void SetBg(BgName bg_name)

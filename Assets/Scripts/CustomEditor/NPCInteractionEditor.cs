@@ -5,7 +5,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
-    private SerializedProperty canBattle, instantBattle, enemyData;
+    private SerializedProperty canBattle, instantBattle, enemyData, reviveState;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -21,6 +21,7 @@ public class NPCInteractionEditor : Editor
         canBattle = serializedObject.FindProperty("canBattle");
         instantBattle = serializedObject.FindProperty("instantBattle");
         enemyData = serializedObject.FindProperty("enemyData");
+        reviveState = serializedObject.FindProperty("reviveState");
     }
     public override void OnInspectorGUI()
     {
@@ -69,6 +70,7 @@ public class NPCInteractionEditor : Editor
 
             npcControl.instantBattle = EditorGUILayout.Toggle("Instant Battle", npcControl.instantBattle);
             npcControl.enemyData = EditorGUILayout.ObjectField("Battle Data", npcControl.enemyData, typeof(EnemyBase), true) as EnemyBase;
+            npcControl.reviveState = (PlayerReviveState) EditorGUILayout.EnumPopup("Revive State", npcControl.reviveState);
             EditorGUI.indentLevel--;
         }
 

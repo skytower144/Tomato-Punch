@@ -242,7 +242,7 @@ public class DialogueManager : MonoBehaviour
                     isContinueTalk = true;
                     break;
                 
-                case PLAYERDIRECTION_TAG:
+                case PLAYERDIRECTION_TAG: //#playerdirection:LEFT@1.7
                     string[] directionInfo = CheckTagValueError(tag_value);
                     StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], float.Parse(directionInfo[1])));
                     break;

@@ -97,6 +97,6 @@ public class DefeatedText : MonoBehaviour
     {
         typeEffect.CancelInvoke();
         battleSystem.UpdatePlayerMoney(giveUpCost);
-        battleSystem.ExitBattle();
+        battleSystem.ExitBattle(false);
     }
 }

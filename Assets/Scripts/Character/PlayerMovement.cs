@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject dark_filter => darkFilter;
     public GameObject collider_obj => colliderObj;
     public GameObject fader_obj => faderObj;
+    public GameObject newspaper;
 
     [SerializeField] private float speed; public float player_speed => speed;
     private Vector2 movement;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool isBattle = false;
     private bool isInteracting = false;
     public bool is_interacting => isInteracting;
+    private bool isAnimating = false;
 
     // public event Action BeginBattle;
     public static PlayerMovement instance { get; private set; }
@@ -225,9 +227,21 @@ public class PlayerMovement : MonoBehaviour
         speed = input_speed;
     }
 
+    public void SetIsAnimating(bool state)
+    {
+        isAnimating = state;
+    }
+
     private bool PlayerCanMove()
     {
-        return (!isBattle && !isInteracting && !TitleScreen.isTitleScreen && !gameManager.save_load_menu.isLoading && collider_obj.activeSelf);
+        return (
+            !isBattle &&
+            !isInteracting &&
+            !TitleScreen.isTitleScreen &&
+            !gameManager.save_load_menu.isLoading &&
+            collider_obj.activeSelf &&
+            !isAnimating
+        );
     }
 }
 

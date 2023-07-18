@@ -223,7 +223,7 @@ public class ResultCard : MonoBehaviour
         isExit = true;
 
         CancelInvoke();
-        battleSystem.ExitBattle();
+        battleSystem.ExitBattle(true);
         battleSystem.UpdatePlayerStatus(updateLevel, max_exp, current_exp, totalExp, totalGold, droppedItems);
     }
     
