@@ -7,4 +7,5 @@ public class SuperEquip : Item
 {
     public Sprite superIcon;
     public string animTag;
+    public float skillDamage;
 }

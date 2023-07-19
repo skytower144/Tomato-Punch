@@ -27,11 +27,14 @@ public class EnemyControl : MonoBehaviour
     public Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
 
-    [HideInInspector] public static bool isPhysical = true;
-    [HideInInspector] public bool action_afterSuffer = false;
-    [HideInInspector] public bool enemy_supered = false;
-    [HideInInspector] public AttackType attackType;
-    [HideInInspector] public string pjTag;     // pj selection string
+    [System.NonSerialized] public static bool isPhysical = true;
+    [System.NonSerialized] public bool action_afterSuffer = false;
+    [System.NonSerialized] public bool enemy_supered = false;
+    [System.NonSerialized] public bool canDunk = false;
+    [System.NonSerialized] public bool isDunked = false;
+
+    [System.NonSerialized] public AttackType attackType;
+    [System.NonSerialized] public string pjTag;     // pj selection string
 
     [SerializeField] private float flashDuration, hitFlashDuration;
     
@@ -60,7 +63,7 @@ public class EnemyControl : MonoBehaviour
     void Update()
     {
         if(!Enemy_is_hurt.enemy_isDefeated && gatleCircleControl.failUppercut)
-            return_ParriedToIdle();
+            RecoverAnimation();
         
         else if(tomatoControl.enemyUppered)
         {
@@ -73,6 +76,13 @@ public class EnemyControl : MonoBehaviour
             }
 
             greyEffect.StopGreyEffect();
+        }
+        else if (isDunked) {
+            isDunked = false;
+            enemyHurt.enemyHurtDamage(tomatocontrol.dmg_dunk);
+
+            if (!enemyHurt.checkDefeat())
+                anim.Play(_base.Dunk, -1, 0f);
         }
         else
         {
@@ -196,6 +206,23 @@ public class EnemyControl : MonoBehaviour
         else if (Enemy_parried.isParried) beginStun();
         greyEffect.StartGreyEffect();
     }
+
+    void EnableDunk()
+    {
+        canDunk = true;
+    }
+    
+    void DisableDunk()
+    {
+        canDunk = false;
+        
+    }
+
+    void Bounce()
+    {
+        anim.Play(_base.Bounce, -1, 0f);
+    }
+
     void beginSuffer()
     {
         Invoke("return_CounterToIdle", 1.3f);
@@ -222,7 +249,7 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    private void return_ParriedToIdle()
+    private void RecoverAnimation()
     {
         if(Enemy_is_hurt.enemy_isDefeated) return;
 
@@ -243,6 +270,8 @@ public class EnemyControl : MonoBehaviour
         Enemy_parried.isParried = false;
         tomatocontrol.enemy_supered = false;
         enemy_supered = false;
+        canDunk = false;
+        isDunked = false;
         
         action_afterSuffer = false;
     }

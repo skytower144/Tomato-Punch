@@ -21,7 +21,7 @@ RestoreHealth : ? HP를 회복했습니다.
 
 ReviveCost_Text : 부활 비용
 
-BattleLost_MoneyMessage : ? 코인을 잃었다.
+BattleLost_MoneyMessage : ? 코인을 떨궜다.
 BattleLost_ExitMessage : 피로가 몰려온다...
 
 Resultcard_Counter_Text : 카운터

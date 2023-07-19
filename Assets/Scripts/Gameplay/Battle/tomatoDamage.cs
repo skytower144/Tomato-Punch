@@ -21,9 +21,10 @@ public class tomatoDamage : MonoBehaviour
     {
         return currentAtk * (skillDmg + 100) / 100 * 0.8f;
     }
-    public float SuperAttack(float currentAtk)
+
+    public float DunkAttack(float currentAtk)
     {
-        return currentAtk * 1.7f;
+        return currentAtk * 1.2f;
     }
 
 }

@@ -6,6 +6,7 @@ public class AssistManager : MonoBehaviour
 {
     public AssistType mato, ruby, lazer;
     [System.NonSerialized] public float assistDamage;
+    [System.NonSerialized] public bool isBlast;
 
     public string DecideSkill(int characterType, int currentFeather)
     {
@@ -20,6 +21,8 @@ public class AssistManager : MonoBehaviour
             if (assistCharacter.featherUsageOrder[i - 1] != null) {
                 GameManager.gm_instance.battle_system.featherPoints.SubtractFeatherPoint(i);
                 assistDamage = assistCharacter.featherUsageOrder[i - 1].skillDamage;
+                isBlast = i >= 3;
+                
                 return assistCharacter.featherUsageOrder[i - 1].animString;
             }
         }

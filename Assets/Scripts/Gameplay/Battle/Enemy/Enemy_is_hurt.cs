@@ -162,7 +162,7 @@ public class Enemy_is_hurt : MonoBehaviour
         tomatocontrol.playTomatoKnockback();
     }
 
-    public bool checkDefeat(string animString)
+    public bool checkDefeat(string animString = "")
     {
         if (Enemy_currentHealth == 0){
             tomatoControl.isVictory = true;
@@ -179,11 +179,11 @@ public class Enemy_is_hurt : MonoBehaviour
             }
             return true;
         }
-        else {
+        else if (animString != "") {
             HitEffect(animString);
             enemyControl.enemyHurtFlash();
-            return false;
         }
+        return false;
     }
 
     private void HitEffect(string anim_string, float distance = 4.5f)
@@ -195,11 +195,24 @@ public class Enemy_is_hurt : MonoBehaviour
             distance = 5f;
             direction = -1;
         }
-        else anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+        else if (anim_string == "L")
+            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
         
-        if (anim_string == "GP") return;
-        Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
+        else if (anim_string == "GP") {
+            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+            return;
+        }
+        else if (anim_string == "SK") {
+            if (GameManager.gm_instance.assistManager.isBlast) {
+                GameManager.gm_instance.assistManager.isBlast = false;
+                enemy_isPunched = false;
+                anim.Play(enemyBase.Blasted, -1, 0f);
+            }
+            else
+                anim.Play(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)], -1, 0f);
+        }
 
+        Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
         var spark = Instantiate(hitSpark, transform);
         spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
     }

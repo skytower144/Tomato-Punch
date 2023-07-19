@@ -57,7 +57,7 @@ public class tomatoControl : MonoBehaviour
     public float maxGuard, current_guardPt;
     public float tomatoAtk;
     public int maxStamina, currentStamina;
-    [System.NonSerialized] public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super;
+    [System.NonSerialized] public float dmg_normalPunch, dmg_gatlePunch, dmg_upperPunch, dmg_super, dmg_dunk;
 
     //Animation States: ======================================================================================================
     const string TOMATO_IDLE = "tomato_idle";
@@ -80,6 +80,7 @@ public class tomatoControl : MonoBehaviour
     [System.NonSerialized] public static bool isIntro = true;
     [System.NonSerialized] public static bool isVictory = false;
     [System.NonSerialized] public static bool isFainted = false;
+
     [System.NonSerialized] public static bool gatleButton_once = false;  // play a line once
     [System.NonSerialized] public static bool uppercutYes = false;       // player succeeded uppercut
     [System.NonSerialized] public static bool enemyUppered = false;
@@ -92,16 +93,17 @@ public class tomatoControl : MonoBehaviour
 
     void OnEnable()
     {
+        isAction = isPunch = isGatle = isGuard = isMiss = false;
+        guardRelease = true;
+
         isIntro = true;
-        isTired = false;
-        isVictory = false;
-        isFainted = false;
-        tomatoGuard.isParry = false;
+        isVictory = isFainted = isTired = tomatoGuard.isParry = gatleButton_once = uppercutYes = enemyUppered = enemyFreeze = enemy_supered = false;
 
         dmg_normalPunch = tomatodamage.NormalPunch(tomatoAtk);
         dmg_gatlePunch = tomatodamage.GatlePunch(tomatoAtk);
         dmg_upperPunch = tomatodamage.UpperPunch(tomatoAtk);
-        dmg_super = tomatodamage.SuperAttack(tomatoAtk);
+        dmg_super = tomatodamage.SkillAttack(tomatoAtk, tomatoSuperEquip.skillDamage);
+        dmg_dunk = tomatodamage.DunkAttack(tomatoAtk);
 
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
@@ -155,21 +157,29 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if (PressKey("LeftPunch"))
                 {
-                    if (!isTired){
+                    if (battleSystem.enemy_control.canDunk) {
+                        battleSystem.enemy_control.canDunk = false;
+                        tomatoAnimator.Play("tomato_dunk", -1, 0f);
+                    }
+
+                    else if (!isTired)
                         ChangeAnimationState(TOMATO_LP);
-                    }
-                    else {
+                    
+                    else
                         tomatoAnimator.Play("tomato_tiredPunch_L",-1,0f);
-                    }
                 }
                 else if (PressKey("RightPunch"))
                 {
-                    if (!isTired){
+                    if (battleSystem.enemy_control.canDunk) {
+                        battleSystem.enemy_control.canDunk = false;
+                        tomatoAnimator.Play("tomato_dunk", -1, 0f);
+                    }
+
+                    else if (!isTired)
                         ChangeAnimationState(TOMATO_RP);
-                    }
-                    else {
+                    
+                    else 
                         tomatoAnimator.Play("tomato_tiredPunch_R",-1,0f);
-                    }
                 }
                 else if (!isTired)
                 {
@@ -490,6 +500,11 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (upper_hitef);
         Instantiate (upperSmoke);
+    }
+    void enemy_Dunked()
+    {
+        //Instantiate (dunk_hitef);
+        battleSystem.enemy_control.isDunked = true;
     }
 
     void revive_to_idle()

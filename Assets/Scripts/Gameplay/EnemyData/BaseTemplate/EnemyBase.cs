@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +14,12 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
-    [SerializeField] private string idle, intro, defeated, countered, suffer, stun, uppered, recover, guard, hurtL, hurtR;
+    [SerializeField] private string idle, intro, defeated, countered, suffer, stun, uppered, recover, guard, hurtL, hurtR, blasted, bounce, dunk;
     [SerializeField] private string wait, reEngage, victory;
+    [SerializeField] List<string> otherHurtAnim;
 
     public ChiliAnimInfo chiliInfo;
+    // Add more super info
 
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyPattern;
@@ -107,6 +109,24 @@ public class EnemyBase : ScriptableObject
     {
         get { return victory; }
     }
+    public string Blasted
+    {
+        get { return blasted; }
+    }
+    public string Bounce
+    {
+        get { return bounce; }
+    }
+    public string Dunk
+    {
+        get { return dunk; }
+    }
+
+    public List<string> HurtAnimList
+    {
+        get { return otherHurtAnim.Concat(new List<string> {hurtL, hurtR}).ToList(); }
+    }
+
     public Enemy_ProjectileDetail EnemyPjSelect(string pjName)
     {
         return projectiles.Find( x=> x.EnemyPjName == pjName);

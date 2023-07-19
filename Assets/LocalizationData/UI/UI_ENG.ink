@@ -21,7 +21,7 @@ RestoreHealth : Restored ? HP.
 
 ReviveCost_Text : REVIVE COST
 
-BattleLost_MoneyMessage : You lost ? coins.
+BattleLost_MoneyMessage : You dropped ? coins.
 BattleLost_ExitMessage : Fatigue overwhelms you...
 
 Resultcard_Counter_Text : COUNTER
