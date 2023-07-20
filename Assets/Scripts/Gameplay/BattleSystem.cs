@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
-    public FeatherPoints featherPoints;
+    public BattleTimeManager battleTimeManager;
+    public FeatherPoints featherPointManager;
     
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;

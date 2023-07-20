@@ -21,7 +21,7 @@ public class FeatherPoints : MonoBehaviour
 
     public void AddFeatherPoint()
     {
-        featherPoint ++;
+        featherPoint++;
         SetFeatherUI();
     }
 

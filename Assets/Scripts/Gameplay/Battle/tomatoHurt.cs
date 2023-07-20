@@ -10,7 +10,6 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private BattleTimeManager battleTimeManager;
     [SerializeField] private TextSpawn textSpawn;
     
     void Start()
@@ -62,8 +61,8 @@ public class tomatoHurt : MonoBehaviour
             anim.Play("tomato_faint",-1,0f);
             Instantiate(faintBurstEffect);
 
-            battleTimeManager.SetSlowSetting(0.01f, 0.8f);
-            battleTimeManager.DoSlowmotion();
+            GameManager.gm_instance.battle_system.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
+            GameManager.gm_instance.battle_system.battleTimeManager.DoSlowmotion();
         }
 
         else if (tomatocontrol.current_guardPt == 0)
@@ -71,6 +70,6 @@ public class tomatoHurt : MonoBehaviour
             anim.Play("tomato_L_hurt",-1,0f);
         }
 
-        GameManager.gm_instance.battle_system.featherPoints.ResetFeather();
+        GameManager.gm_instance.battle_system.featherPointManager.ResetFeather();
     }
 }

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rupple_dunk
+  m_Name: dunksmoke
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -5447317022157727295, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
+      value: {fileID: 7882204630874162173, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
     - time: 0.1
-      value: {fileID: -44667624536598120, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
+      value: {fileID: -291450647873425595, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
     - time: 0.2
-      value: {fileID: 8841154121043016390, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
+      value: {fileID: -2845910918763054570, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
     - time: 0.3
-      value: {fileID: 503232061821026432, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
+      value: {fileID: 2196911880125438795, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - time: 0.4
+      value: {fileID: 6751951358519833858, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - time: 0.5
+      value: {fileID: 1452124640716981661, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +50,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -5447317022157727295, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
-    - {fileID: -44667624536598120, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
-    - {fileID: 8841154121043016390, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
-    - {fileID: 503232061821026432, guid: 54e968ab7913bf44a8fd05c65ec7e755, type: 3}
+    - {fileID: 7882204630874162173, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - {fileID: -291450647873425595, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - {fileID: -2845910918763054570, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - {fileID: 2196911880125438795, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - {fileID: 6751951358519833858, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
+    - {fileID: 1452124640716981661, guid: 85157ce2ce8b1884da8375624819d349, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,18 +80,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.1
-    functionName: DunkSmoke1_2
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 1
-    messageOptions: 0
-  - time: 0.4
-    functionName: Bounce
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

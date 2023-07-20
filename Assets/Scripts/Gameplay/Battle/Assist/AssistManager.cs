@@ -19,9 +19,9 @@ public class AssistManager : MonoBehaviour
         // Calculate Feather Amount, Use max possible feathers
         for (int i = currentFeather; i >= 1; i--) {
             if (assistCharacter.featherUsageOrder[i - 1] != null) {
-                GameManager.gm_instance.battle_system.featherPoints.SubtractFeatherPoint(i);
+                GameManager.gm_instance.battle_system.featherPointManager.SubtractFeatherPoint(i);
                 assistDamage = assistCharacter.featherUsageOrder[i - 1].skillDamage;
-                isBlast = i >= 3;
+                isBlast = (i >= 3);
                 
                 return assistCharacter.featherUsageOrder[i - 1].animString;
             }

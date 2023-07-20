@@ -33,7 +33,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
     [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
-    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars;
+    [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars, blastEffect, dunkEffect, dunkEffect2, sparkleEffect;
     [System.NonSerialized] public GameObject tempObj = null;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private BattleSystem battleSystem;
@@ -44,6 +44,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
+    [SerializeField] private FlashEffect flashEffect;
     
     //========================================================================================================================
 
@@ -212,10 +213,10 @@ public class tomatoControl : MonoBehaviour
                     }
                     else if (PressKey("AssistSkill1"))
                     {
-                        if (battleSystem.featherPoints.feather_point >= 1)
+                        if (battleSystem.featherPointManager.feather_point >= 1)
                         {
                             currentSkillType = SkillType.Assist_Skill;
-                            tomatoAnimator.Play(GameManager.gm_instance.assistManager.DecideSkill(1, battleSystem.featherPoints.feather_point), -1, 0f);
+                            tomatoAnimator.Play(GameManager.gm_instance.assistManager.DecideSkill(1, battleSystem.featherPointManager.feather_point), -1, 0f);
                         }
                     }
                 }
@@ -501,6 +502,7 @@ public class tomatoControl : MonoBehaviour
         Instantiate (upper_hitef);
         Instantiate (upperSmoke);
     }
+    
     void enemy_Dunked()
     {
         //Instantiate (dunk_hitef);
@@ -519,7 +521,7 @@ public class tomatoControl : MonoBehaviour
         battleSystem.resetEnemyHealth = true;
 
         battleSystem.enemy_control.enemy_Countered.ResetCounterPoints();
-        battleSystem.featherPoints.ResetFeather();
+        battleSystem.featherPointManager.ResetFeather();
         battleSystem.tomato_control.guard_bar.RestoreGuardBar();
         ResetGaksung();
         
@@ -528,7 +530,7 @@ public class tomatoControl : MonoBehaviour
         isTired = false;
     }
 
-    private void KO_effect()
+    void KO_effect()
     {
         if(Enemy_is_hurt.enemy_isDefeated){
             Instantiate(screenFlash, BattleCanvas_Parent);
@@ -538,7 +540,7 @@ public class tomatoControl : MonoBehaviour
         }
     }
 
-    private void playVictoryIdle()
+    void playVictoryIdle()
     {
         tomatoAnimator.Play("tomato_victory_idle",-1,0f);
     }
@@ -556,7 +558,7 @@ public class tomatoControl : MonoBehaviour
     {
         Invoke("playKnockBack",0.1f);
     }
-    private void playKnockBack()
+    void playKnockBack()
     {
         if(isTired)
             tomatoAnimator.Play("tomato_tiredKnockback",-1,0f);
@@ -564,10 +566,30 @@ public class tomatoControl : MonoBehaviour
             tomatoAnimator.Play("tomato_knockback",-1,0f);
     }
 
-    private void ScreenShake()
+    void ScreenShake(string dotweenID)
     {
-        DOTween.Rewind("CameraRumble");
-        DOTween.Play("CameraRumble");
+        DOTween.Rewind($"{dotweenID}");
+        DOTween.Play($"{dotweenID}");
+    }
+
+    void SparkleEffect()
+    {
+        flashEffect.Flash(0.02f);
+        GameManager.gm_instance.battle_system.battleTimeManager.SetSlowSetting(0.01f, 0.05f);
+        GameManager.gm_instance.battle_system.battleTimeManager.DoSlowmotion();
+        Instantiate (sparkleEffect);
+    }
+
+    void DunkEffect()
+    {
+        Instantiate (dunkEffect);
+        Instantiate (dunkEffect2);
+    }
+
+    public void BlastEffect()
+    {
+        Instantiate (blastEffect);
+        Instantiate (upper_hitef, new Vector2 (transform.position.x + 0.7f, transform.position.y - 0.5f), Quaternion.identity);
     }
 
     public bool CheckAnimationState(string animation_string)

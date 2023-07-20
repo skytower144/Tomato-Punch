@@ -16,7 +16,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private DuplicateRenderer duplicate_r;
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
-    [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash;
+    [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
     [SerializeField] private Transform Parent;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private tomatoGuard tomatoguard;
@@ -197,7 +197,7 @@ public class EnemyControl : MonoBehaviour
                 tomatocontrol.currentStamina = tomatocontrol.maxStamina;
             
             staminaIcon.SetStamina(tomatocontrol.currentStamina);
-            GameManager.gm_instance.battle_system.featherPoints.AddFeatherPoint();
+            GameManager.gm_instance.battle_system.featherPointManager.AddFeatherPoint();
         }
     }
     void DetermineCC()
@@ -205,6 +205,19 @@ public class EnemyControl : MonoBehaviour
         if (Enemy_countered.enemy_isCountered) beginSuffer();
         else if (Enemy_parried.isParried) beginStun();
         greyEffect.StartGreyEffect();
+    }
+
+    void WallHitEffect()
+    {
+        Instantiate(wallhitEffect);
+        StartCoroutine(WallHitCameraRumble());
+    }
+
+    IEnumerator WallHitCameraRumble()
+    {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.02f));
+        DOTween.Rewind("CameraBlast");
+        DOTween.Play("CameraBlast");
     }
 
     void EnableDunk()
@@ -215,12 +228,18 @@ public class EnemyControl : MonoBehaviour
     void DisableDunk()
     {
         canDunk = false;
-        
     }
 
     void Bounce()
     {
         anim.Play(_base.Bounce, -1, 0f);
+    }
+
+    void DunkSmoke1_2(int number)
+    {
+        Instantiate(dunkSmoke);
+        if (number == 2)
+            Instantiate(dunkSmoke2);
     }
 
     void beginSuffer()

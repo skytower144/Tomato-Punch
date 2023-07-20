@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DuplicateRenderer : MonoBehaviour
 {
-    [SerializeField] EnemyControl enemyControl;
     [SerializeField] SpriteRenderer sr, parent_sr;
     [SerializeField] private Material matYellow, matWhite;
     private int matType = 0;

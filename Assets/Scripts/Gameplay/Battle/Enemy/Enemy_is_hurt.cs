@@ -203,9 +203,12 @@ public class Enemy_is_hurt : MonoBehaviour
             return;
         }
         else if (anim_string == "SK") {
+            Debug.Log($"Feather Count is {GameManager.gm_instance.battle_system.featherPointManager.feather_point} : {GameManager.gm_instance.assistManager.isBlast}");
+            
             if (GameManager.gm_instance.assistManager.isBlast) {
                 GameManager.gm_instance.assistManager.isBlast = false;
                 enemy_isPunched = false;
+                tomatocontrol.BlastEffect();
                 anim.Play(enemyBase.Blasted, -1, 0f);
             }
             else
