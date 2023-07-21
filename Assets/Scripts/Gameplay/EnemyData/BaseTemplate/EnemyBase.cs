@@ -156,7 +156,7 @@ public class EnemyBase : ScriptableObject
 
 }
 
-public enum BgName { bg_tutorial, bg_forest }
+public enum BgName { bg_tutorial }
 
 [System.Serializable]
 public class ChiliAnimInfo

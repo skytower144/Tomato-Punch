@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Slime
   frontSprite: []
-  bgName: 1
+  bgName: 0
   enemyMaxHealth: 30
   enemyCurrentHealth: 30
   min_hitct: 0
@@ -25,21 +25,22 @@ MonoBehaviour:
   defeated: 
   countered: 
   suffer: 
-  parried: 
-  parriedToIdle: 
-  parriedAft: 
+  stun: 
   uppered: 
-  upperRecover: 
-  superedRecover: 
+  recover: 
   guard: 
   hurtL: 
   hurtR: 
+  blasted: 
+  bounce: 
+  dunk: 
   wait: 
   reEngage: 
   victory: 
-  EnemySuperedAnim:
-    m_keys: []
-    m_values: []
+  otherHurtAnim: []
+  chiliInfo:
+    hitPosition: {x: 0, y: 0}
+    hitSprite: {fileID: 0}
   projectiles: []
   enemyPattern: []
   itemReward: []
