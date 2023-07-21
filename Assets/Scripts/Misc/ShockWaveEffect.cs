@@ -1,33 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class ShockWaveEffect : MonoBehaviour
 {
-    [SerializeField] private float shockWaveTime = 0.75f;
-    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Image targetImage;
+    private float shockWaveTime;
     private Material mat;
     private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
 
     void Start()
     {
-        mat = sr.material;
+        mat = targetImage.material;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-            CallShockWave();
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown("space"))
+    //         CallShockWave();
+    // }
 
-    public void CallShockWave()
+    public void CallShockWave(float duration = 0.75f)
     {
+        shockWaveTime = duration;
         StartCoroutine(ShockWaveAction(-0.1f, 1f));
     }
 
     private IEnumerator ShockWaveAction (float startPos, float endPos)
     {
-        mat.SetFloat(_waveDistanceFromCenter, startPos);
+        mat.SetFloat(_waveDistanceFromCenter, endPos);
 
         float lerpedAmount = 0f;
         float elapsedTime = 0f;

@@ -590,6 +590,7 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (blastEffect);
         Instantiate (upper_hitef, new Vector2 (transform.position.x + 0.7f, transform.position.y - 0.5f), Quaternion.identity);
+        battleSystem.shockWaveEffect.CallShockWave(0.4f);
     }
 
     public bool CheckAnimationState(string animation_string)

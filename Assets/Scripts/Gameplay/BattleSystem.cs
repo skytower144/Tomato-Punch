@@ -17,6 +17,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
     public BattleTimeManager battleTimeManager;
     public FeatherPoints featherPointManager;
+    public ShockWaveEffect shockWaveEffect;
     
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
