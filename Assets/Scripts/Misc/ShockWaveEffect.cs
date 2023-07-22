@@ -5,9 +5,13 @@ using UnityEngine;
 public class ShockWaveEffect : MonoBehaviour
 {
     [SerializeField] private Image targetImage;
+    [SerializeField] private float duration;
+    [SerializeField] private float size;
+
     private float shockWaveTime;
     private Material mat;
     private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
+    private static int _size = Shader.PropertyToID("_Size");
 
     void Start()
     {
@@ -20,15 +24,16 @@ public class ShockWaveEffect : MonoBehaviour
     //         CallShockWave();
     // }
 
-    public void CallShockWave(float duration = 0.75f)
+    public void CallShockWave()
     {
         shockWaveTime = duration;
-        StartCoroutine(ShockWaveAction(-0.1f, 1f));
+        StartCoroutine(ShockWaveAction());
     }
 
-    private IEnumerator ShockWaveAction (float startPos, float endPos)
+    private IEnumerator ShockWaveAction (float startPos = -0.1f, float endPos = 1f)
     {
-        mat.SetFloat(_waveDistanceFromCenter, endPos);
+        mat.SetFloat(_size, size);
+        mat.SetFloat(_waveDistanceFromCenter, startPos);
 
         float lerpedAmount = 0f;
         float elapsedTime = 0f;
@@ -42,6 +47,6 @@ public class ShockWaveEffect : MonoBehaviour
 
             yield return null;
         }
-        
+        mat.SetFloat(_size, 0);
     }
 }
