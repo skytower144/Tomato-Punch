@@ -218,6 +218,12 @@ public class EnemyControl : MonoBehaviour
 
     void Bounce()
     {
+        if (!tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_dunk"))
+            anim.Play(_base.Bounce, -1, 0f);
+    }
+
+    void Dunk2Bounce()
+    {
         anim.Play(_base.Bounce, -1, 0f);
     }
 
