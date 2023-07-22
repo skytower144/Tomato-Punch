@@ -42,9 +42,7 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(battle_initiate_fade);
     }
-    // public void HandleUpdate()
-    // {
-    // }
+
     public void ExitBattle(bool isVictory)
     {
         Destroy(Instantiate(battle_end_circle), 2f);

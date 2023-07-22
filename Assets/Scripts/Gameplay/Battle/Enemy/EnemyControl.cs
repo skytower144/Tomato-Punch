@@ -10,7 +10,7 @@ public class EnemyControl : MonoBehaviour
 
     private Animator anim; public Animator enemyAnim => anim;
     private SpriteRenderer enemy_renderer; public SpriteRenderer enemyRenderer => enemy_renderer;
-    private Material matDefault;
+    private Material matDefault; public Material mat_default => matDefault;
 
     [SerializeField] private EnemyGreyEffect greyEffect;
     [SerializeField] private DuplicateRenderer duplicate_r;
@@ -140,31 +140,16 @@ public class EnemyControl : MonoBehaviour
 
     public void enemyHurtFlash()
     {
-        Invoke("ResetFlash", hitFlashDuration);
         duplicate_r.FlashEffect(hitFlashDuration, 0);
-    }
-
-    private void enemyCounterFlash()
-    {
-        Invoke("ResetFlash", flashDuration);
-        duplicate_r.FlashEffect(flashDuration, 1);
-        // enemyCounterStart();
-    }
-    private void ResetFlash()
-    {
-        // enemyCounterEnd();
-        enemy_renderer.material = matDefault;
-        duplicate_r.gameObject.SetActive(false);
     }
 
     void enemyCounterStart()
     {
-        enemyCounterFlash();
+        duplicate_r.FlashEffect(flashDuration, 1);
         counterBox.SetActive(true);
     }
     void enemyCounterEnd()
     {
-        ResetFlash();
         counterBox.SetActive(false);
     }
 
@@ -223,6 +208,7 @@ public class EnemyControl : MonoBehaviour
     void EnableDunk()
     {
         canDunk = true;
+        duplicate_r.FlashEffect(0.5f, 0);
     }
     
     void DisableDunk()

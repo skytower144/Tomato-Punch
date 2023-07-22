@@ -4,40 +4,39 @@ using UnityEngine;
 
 public class DuplicateRenderer : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer sr, parent_sr;
+    [SerializeField] SpriteRenderer d_sr, enemy_sr;
     [SerializeField] private Material matYellow, matWhite;
-    private int matType = 0;
     private float flashSpeed;
-    private bool stopFlash;
+    private bool stopFlash = true;
 
-    void OnEnable()
-    {
-        if (matType == 0)
-            parent_sr.material = matWhite;
-        else
-            parent_sr.material = matYellow;
-        stopFlash = false;
-    }
-    void OnDisable()
-    {
-        stopFlash = true;
-        sr.sprite = null;
-    }
     void Update()
     {
-        sr.sprite = parent_sr.sprite;
+        d_sr.sprite = enemy_sr.sprite;
+
         if (!stopFlash)
         {
-            Color color = parent_sr.material.color;
+            Color color = enemy_sr.material.color;
             color.a -= (0.002f + flashSpeed);
-            parent_sr.material.color = color;
+            enemy_sr.material.color = color;
         }
     }
 
     public void FlashEffect(float duration, int mat_type)
     {
         flashSpeed = (1 - duration) * 0.001f;
-        matType = mat_type;
+        enemy_sr.material = mat_type == 0 ? matWhite : matYellow;
+        stopFlash = false;
         gameObject.SetActive(true);
+        
+        StartCoroutine(ResetFlash(duration));
+    }
+    IEnumerator ResetFlash(float delay)
+    {
+        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
+
+        enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
+        d_sr.sprite = null;
+        stopFlash = true;
+        gameObject.SetActive(false);
     }
 }
