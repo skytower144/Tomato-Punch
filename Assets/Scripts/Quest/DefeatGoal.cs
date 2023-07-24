@@ -11,6 +11,11 @@ public class DefeatGoal : Goal
         GameManager.gm_instance.battle_system.OnEnemyDefeat += EnemyDefeated;
     }
 
+    public override void UnsubsribeEvent()
+    {
+        GameManager.gm_instance.battle_system.OnEnemyDefeat -= EnemyDefeated;
+    }
+
     private void EnemyDefeated(EnemyBase enemy)
     {
         if (targetEnemy.EnemyName == enemy.EnemyName)

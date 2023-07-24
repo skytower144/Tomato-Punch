@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System.Linq;
+using System;
 
-public class LocationPortal : MonoBehaviour
+public class LocationPortal : MonoBehaviour, Interactable
 {
     [SerializeField] string portal_id;
     [SerializeField] string arrival_scene;
@@ -13,21 +13,48 @@ public class LocationPortal : MonoBehaviour
 
     [SerializeField] private bool outdoor_to_indoor;
     [SerializeField] private bool indoor_to_outdoor;
-    
+
     [Header("Optional")]
     [SerializeField] private Animator enterAnimator;
     [SerializeField] private CameraSwitch camera_switch;
+    [SerializeField] private string quest_id;
 
     private PlayerMovement player_movement;
-    [SerializeField] private bool canEnter;
+    private bool canEnter = false;
 
     void Start()
     {
         player_movement = PlayerMovement.instance;
     }
+    public void Interact()
+    {
+        if (IsLocked()) {
+            TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/LocationPortal/{quest_id}");
+            DialogueManager.instance.EnterDialogue(inkJsonData, this);
+        }
+    }
+
+    private bool IsLocked()
+    {
+        if (string.IsNullOrEmpty(quest_id)) return false;
+
+        // If Quest is assigned and completed => should be unlocked
+        if ((QuestManager.instance.FindQuest(quest_id, QuestList.Unassigned) == null) && (QuestManager.instance.FindQuest(quest_id, QuestList.Assigned).is_completed)) {
+            return false;
+        }
+        return true;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (IsLocked()) return;
+        EnableDoor();
+    }
+
+    public void EnableDoor()
+    {
+        if (canEnter) return;
+        
         canEnter = true;
         if (enterAnimator != null){
             // Make sure the SpawnPoint is close enough to the Portal Collider.
@@ -38,6 +65,7 @@ public class LocationPortal : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (IsLocked()) return;
         canEnter = false;
     }
 
@@ -129,7 +157,6 @@ public class LocationPortal : MonoBehaviour
 
         Time.timeScale = 1;
     }
-
 
     public Transform SpawnPoint => spawnPoint;
 

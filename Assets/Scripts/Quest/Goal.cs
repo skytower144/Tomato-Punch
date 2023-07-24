@@ -11,6 +11,11 @@ public class Goal
         // Default initialize
     }
 
+    public virtual void UnsubsribeEvent()
+    {
+        // Default Unsub
+    }
+
     public virtual bool Evaluate()
     {
         return (currentAmount >= requiredAmount);

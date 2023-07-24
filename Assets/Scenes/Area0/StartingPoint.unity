@@ -37711,7 +37711,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: 22, z: 0}
@@ -37786,7 +37786,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 34, z: 0}
@@ -60125,7 +60125,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: 22, z: 0}
@@ -60153,7 +60153,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 28, z: 0}
@@ -60248,7 +60248,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -65058,6 +65058,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 559723188}
     m_Modifications:
     - target: {fileID: 4763838771315019150, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763838771315019150, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -66667,8 +66671,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 559723188}
     m_Modifications:
     - target: {fileID: 4763838771315019150, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763838771315019150, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6605670549373042041, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
       propertyPath: m_Name
@@ -66719,8 +66727,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7157874056100976268, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: isLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157874056100976268, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: quest_id
+      value: LockedDoor_House4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157874056100976268, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
       propertyPath: portal_id
-      value: 
+      value: h4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157874056100976268, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: arrival_scene
+      value: House4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157874056100976268, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
+      propertyPath: outdoor_to_indoor
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff74314dbdd925141a94ba2e2c9c0475, type: 3}
@@ -119509,7 +119533,7 @@ MonoBehaviour:
   indoor_to_outdoor: 0
   enterAnimator: {fileID: 2309844244722198022}
   camera_switch: {fileID: 0}
-  canEnter: 0
+  quest_id: 
 --- !u!1001 &870138243136738304
 PrefabInstance:
   m_ObjectHideFlags: 0

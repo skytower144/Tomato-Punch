@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ public class QuestManager : MonoBehaviour
         instance = this;
     }
 
-    public void AddQuest(string quest_id, bool isCompleted = false)
+    public void AddQuest(string quest_id)
     {
         Quest newQuest = FindQuest(quest_id, QuestList.Unassigned);
         Quest cache = newQuest;
@@ -27,50 +27,34 @@ public class QuestManager : MonoBehaviour
             Debug.LogError($"Quest : {quest_id} Not Found.");
             return;
         }
-        newQuest.UpdateQuestCompletion(isCompleted);
-        assignedQuests.Add(newQuest);
         unassignedQuests.Remove(cache);
+        
+        newQuest.InitQuestGoals();
+        assignedQuests.Add(newQuest);
     }
 
     public Quest FindQuest(string quest_id, QuestList questType)
     {
         List<Quest> quests = (questType == QuestList.Assigned) ? assignedQuests : unassignedQuests;
         foreach (Quest quest in quests) {
-            if (quest.QuestName == quest_id)
+            if (quest.QuestID == quest_id)
                 return quest;
         }
         return null;
     }
 
-    public List<QuestData> ReturnAssignedQuests()
+    public List<Quest> ReturnQuestState(bool isAssignedQuest)
     {
-        List<QuestData> questDataList = new List<QuestData>();
-        foreach (Quest quest in assignedQuests) {
-            QuestData bundle = new QuestData();
-            bundle.questName = quest.QuestName;
-            bundle.questCompleted = quest.is_completed;
-            questDataList.Add(bundle);
-        }
-        return questDataList;
+        return (isAssignedQuest ? assignedQuests : unassignedQuests);
     }
 
-    public void UpdateQuestState(List<QuestData> questDataList)
+    public void UpdateQuestState(List<Quest> assigned, List<Quest> unassigned)
     {
-        // Reset All Quests
-        List<Quest> allQuests = new List<Quest>();
-        if (assignedQuests != null)
-            allQuests.AddRange(assignedQuests);
-        
-        if (unassignedQuests != null)
-            allQuests.AddRange(unassignedQuests);
-        
-        assignedQuests.Clear();
-        unassignedQuests.Clear();
-        unassignedQuests = allQuests;
-        
         // Recover Quest State
-        foreach (QuestData bundle in questDataList) {
-            AddQuest(bundle.questName, bundle.questCompleted);
-        }
+        assignedQuests = assigned;
+        unassignedQuests = unassigned;
+        
+        foreach (Quest quest in assignedQuests)
+            if (!quest.is_completed) quest.InitQuestGoals();
     }
 }

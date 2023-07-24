@@ -261,7 +261,7 @@ public class ShopSystem : MonoBehaviour
 
     public void PurchaseOneItem(string itemAndPrice)
     {
-        string[] itemInfo = itemAndPrice.Split('-');
+        string[] itemInfo = itemAndPrice.Split('@');
         if (itemInfo.Length != 2)
             return;
         

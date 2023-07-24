@@ -26,11 +26,16 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private RectTransform choiceBoxPTransform;
     [SerializeField] private List<TextMeshProUGUI> choiceText;
-    
-    private UnityEngine.Object tempObject = null;
+
     private NPCController currentNpc; public NPCController current_npc => currentNpc;
-    private Story currentStory;
+    private Story currentStory; 
     private string currentSentence;
+
+    [System.NonSerialized] public string[] cachedOutcomeDialogue = new string[2];
+
+    private Interactable currentTarget;
+    private DialogueExit dialogueExit = DialogueExit.Nothing;
+
     private bool dialogueIsPlaying, isPromptChoice;
     private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
     private bool hideDialogue = false;
@@ -65,6 +70,7 @@ public class DialogueManager : MonoBehaviour
     private const string CAMERA_TAG = "camera";
     private const string TELEPORT_TAG = "teleport";
     private const string SETACTIVE_TAG = "setactive";
+    private const string UNLOCKDOOR_TAG = "unlockdoor";
 
     private void Awake()
     {
@@ -102,16 +108,17 @@ public class DialogueManager : MonoBehaviour
             ContinueStory();
     }
 
-    public void EnterDialogue(TextAsset inkJSON, NPCController current_npc)
+    public void EnterDialogue(TextAsset inkJSON, Interactable interactingTarget)
     {
         playerMovement.SetIsInteracting(true);
 
-        currentNpc = current_npc;
+        currentNpc = (interactingTarget is NPCController) ? ((NPCController)interactingTarget) : null;
+        currentTarget = interactingTarget;
+        
         currentStory = new Story(inkJSON.text);
         portrait.sprite = Resources.Load<Sprite>("Portraits/Tomato_neutral");
 
         SetDialogueBox(true);
-
         dialogueIsPlaying = true;
     }
 
@@ -128,12 +135,22 @@ public class DialogueManager : MonoBehaviour
     }
     private void InvokeEvent()
     {
-        if (tempObject is EnemyBase)
+        switch (dialogueExit)
         {
-            currentNpc.StartBattle((EnemyBase)tempObject);
+            case DialogueExit.Battle:
+                currentNpc.StartBattle(GameManager.gm_instance.battle_system.enemy_control._base);
+                break;
+            
+            case DialogueExit.UnlockDoor:
+                ((LocationPortal)currentTarget).EnableDoor();
+                break;
+            
+            default:
+                break;
         }
 
-        tempObject = null;
+        currentTarget = null;
+        dialogueExit = DialogueExit.Nothing;
     }
 
     private void ContinueStory()
@@ -226,25 +243,25 @@ public class DialogueManager : MonoBehaviour
 
             switch (tag_key)
             {
-                case PORTRAIT_TAG:
+                case PORTRAIT_TAG: // #portrait:tomato_neutral
                     SetPortraitBox(true);
                     portrait.sprite = Resources.Load<Sprite>($"Portraits/{tag_value}");
                     break;
                 
-                case HIDEPORTRAIT_TAG:
+                case HIDEPORTRAIT_TAG: // #hideportrait:_
                     SetPortraitBox(false);
                     break;
 
-                case DIALOGUE_TAG:
+                case DIALOGUE_TAG: // #nextdialogue:policeman_fainted
                     currentNpc.LoadNextDialogue(tag_value);
                     break;
                 
-                case OUTCOMEDIALOGUE_TAG: // #outcomedialogue:lose_dialogue@win_dialogue
+                case OUTCOMEDIALOGUE_TAG: // #outcomedialogue:losedialoguefile@windialoguefile
                     string[] outcomeInfo = CheckTagValueError(tag_value);
-                    GameManager.gm_instance.CacheOutcomeDialogues(outcomeInfo);
+                    CacheOutcomeDialogues(outcomeInfo);
                     break;
 
-                case CONTINUETALK_TAG:
+                case CONTINUETALK_TAG: // #continuetalk:_
                     isContinueTalk = true;
                     break;
                 
@@ -253,7 +270,7 @@ public class DialogueManager : MonoBehaviour
                     StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], float.Parse(directionInfo[1])));
                     break;
 
-                case ANIMATE_TAG:
+                case ANIMATE_TAG: // #animate:fainted
                     currentNpc.Play(tag_value);
                     break;
                 
@@ -276,7 +293,7 @@ public class DialogueManager : MonoBehaviour
                     AnimManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
                     break;
                 
-                case CHANGEIDLE_TAG: //tag:StartingPoint_Donut@isangry
+                case CHANGEIDLE_TAG: // tag:StartingPoint_Donut@isangry
                     string[] info0 = CheckTagValueError(tag_value);
 
                     NPCController npc0 = AnimManager.instance.npc_dict[info0[0]];
@@ -284,15 +301,16 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case BATTLE_TAG:
-                    tempObject = currentNpc.enemyData;
+                    dialogueExit = DialogueExit.Battle;
+                    GameManager.gm_instance.battle_system.enemy_control._base = currentNpc.enemyData;
                     break;
 
-                case BATTLETARGET_TAG: //#battletarget:StartingPoint_Donut
-                    NPCController npc1 = AnimManager.instance.npc_dict[tag_value];
-                    tempObject = npc1.enemyData;
+                case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut
+                    dialogueExit = DialogueExit.Battle;
+                    GameManager.gm_instance.battle_system.enemy_control._base = AnimManager.instance.npc_dict[tag_value].enemyData;
                     break;
 
-                case PURCHASEONE_TAG:
+                case PURCHASEONE_TAG: // #purchaseone:Donut@0    //item@price 
                     GameManager.gm_instance.ui_control.ui_shop.PurchaseOneItem(tag_value);
                     break;
 
@@ -345,7 +363,7 @@ public class DialogueManager : MonoBehaviour
                     tempQuest3?.GiveReward();
                     break;
 
-                case REMOVEITEM_TAG:
+                case REMOVEITEM_TAG: // #removeitem:Donut
                     Item targetItem = Item.ReturnMatchingItem(tag_value);
                     Inventory.instance.RemoveItem(targetItem);
                     break;
@@ -372,6 +390,10 @@ public class DialogueManager : MonoBehaviour
                     NPCController npc3 = AnimManager.instance.npc_dict[info[0]];
                     bool state = (info[1] == "true") ? true : false;
                     npc3.gameObject.SetActive(state);
+                    break;
+                
+                case UNLOCKDOOR_TAG: // #unlockdoor:_
+                    dialogueExit = DialogueExit.UnlockDoor;
                     break;
 
                 default:
@@ -444,4 +466,19 @@ public class DialogueManager : MonoBehaviour
         }
         return tag_bundle;
     }
+
+    public void CacheOutcomeDialogues(string[] outcomeInfo)
+    {
+        Array.Clear(cachedOutcomeDialogue, 0, cachedOutcomeDialogue.Length);
+        cachedOutcomeDialogue = outcomeInfo;
+    }
+
+    public void CheckOutcomeDialogue(bool is_victory)
+    {
+        if (string.IsNullOrEmpty(cachedOutcomeDialogue[0])) return;
+        currentNpc.LoadNextDialogue(cachedOutcomeDialogue[Convert.ToInt32(is_victory)]);
+        Array.Clear(cachedOutcomeDialogue, 0, cachedOutcomeDialogue.Length);
+    }
 }
+
+public enum DialogueExit { Nothing, Battle, UnlockDoor }

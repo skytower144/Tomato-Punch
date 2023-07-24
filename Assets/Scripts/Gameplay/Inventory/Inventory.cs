@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class Inventory : MonoBehaviour
 
     public delegate void OnItemChanged(ItemType item_type);
     public OnItemChanged onItemChangedCallback;
+    public Action<Item> onItemPickup;
 
     [SerializeField] private InventoryUI inventoryUI;
     public InventoryUI inventory_UI => inventoryUI;
@@ -35,12 +37,9 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(Item item, int count = 1)
     {
-        if (!item) {
-            Debug.LogWarning("Trying to add an Item that does not exist.");
+        if (!item || count == 0) {
             return;
         }
-        if (count == 0)
-            return;
         
         ItemQuantity tempItem = new ItemQuantity();
         tempItem.item = item;
@@ -68,6 +67,7 @@ public class Inventory : MonoBehaviour
         }
         
         StartCoroutine(ItemChangeEvent(item.itemType));
+        onItemPickup?.Invoke(item);
     }
 
     public void RemoveItem (Item item, int targetSlotNumber = 0, int count = 1)

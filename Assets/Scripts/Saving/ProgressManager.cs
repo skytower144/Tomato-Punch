@@ -26,7 +26,7 @@ public class ProgressManager : MonoBehaviour
 
     private FileDataHandler dataHandler;
     public FileDataHandler pm_dataHandler => dataHandler;
-    public SaveData save_data = new SaveData();
+    [System.NonSerialized] public SaveData save_data = new SaveData();
     
     private void Awake()
     {
@@ -167,7 +167,8 @@ public class ProgressManager : MonoBehaviour
         if (tomatocontrol.tomatoSuperEquip)
             tomatoData.equip_super = tomatocontrol.tomatoSuperEquip.ItemName;
 
-        tomatoData.assignedQuests = QuestManager.instance.ReturnAssignedQuests();
+        tomatoData.assignedQuests = QuestManager.instance.ReturnQuestState(true);
+        tomatoData.unassignedQuests = QuestManager.instance.ReturnQuestState(false);
 
         save_data.player_data = tomatoData;
     }
@@ -216,7 +217,7 @@ public class ProgressManager : MonoBehaviour
         inventoryUI.RecoverSlotIndex(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
         inventoryUI.UpdateEquipSlots(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
 
-        QuestManager.instance.UpdateQuestState(tomatoData.assignedQuests);
+        QuestManager.instance.UpdateQuestState(tomatoData.assignedQuests, tomatoData.unassignedQuests);
     }
 
     public Dictionary<string, SaveData> GetAllProfilesSaveData()

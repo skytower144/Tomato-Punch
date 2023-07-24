@@ -103,7 +103,7 @@ public class tomatoControl : MonoBehaviour
         dmg_normalPunch = tomatodamage.NormalPunch(tomatoAtk);
         dmg_gatlePunch = tomatodamage.GatlePunch(tomatoAtk);
         dmg_upperPunch = tomatodamage.UpperPunch(tomatoAtk);
-        dmg_super = tomatodamage.SkillAttack(tomatoAtk, tomatoSuperEquip.skillDamage);
+        if (tomatoSuperEquip) dmg_super = tomatodamage.SkillAttack(tomatoAtk, tomatoSuperEquip.skillDamage);
         dmg_dunk = tomatodamage.DunkAttack(tomatoAtk);
 
         healthBar.SetMaxHealth(maxHealth);

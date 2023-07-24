@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Quest
 {
-    [SerializeField] private string questId; public string QuestName => questId;
+    [SerializeField] private string questId; public string QuestID => questId;
     [SerializeField] private bool isCompleted; public bool is_completed => isCompleted;
 
     [TextArea(5,5)]
@@ -15,9 +15,7 @@ public class Quest
 
     public bool CheckQuestComplete()
     {
-        List<Goal> totalGoals = new List<Goal>();
-        totalGoals.AddRange(carryGoals);
-        totalGoals.AddRange(defeatGoals);
+        List<Goal> totalGoals = ReturnTotalGoals();
 
         foreach (Goal goal in totalGoals) {
             if (!goal.Evaluate())
@@ -26,11 +24,28 @@ public class Quest
         return true;
     }
 
+    public void InitQuestGoals()
+    {
+        List<Goal> totalGoals = ReturnTotalGoals();
+
+        foreach (Goal goal in totalGoals)
+            goal.Init();
+    }
+
+    public void UnsubscribeGoalEvents()
+    {
+        List<Goal> totalGoals = ReturnTotalGoals();
+
+        foreach (Goal goal in totalGoals)
+            goal.UnsubsribeEvent();
+    }
+
     public void GiveReward()
     {
         if (!isCompleted)
         {
             isCompleted = true;
+            UnsubscribeGoalEvents();
 
             foreach (ItemQuantity reward in itemRewardList)
                 Inventory.instance.AddItem(reward.item, reward.count);
@@ -40,6 +55,14 @@ public class Quest
     public void UpdateQuestCompletion(bool state)
     {
         isCompleted = state;
+    }
+
+    private List<Goal> ReturnTotalGoals()
+    {
+        List<Goal> totalGoals = new List<Goal>();
+        totalGoals.AddRange(carryGoals);
+        totalGoals.AddRange(defeatGoals);
+        return totalGoals;
     }
 }
 
