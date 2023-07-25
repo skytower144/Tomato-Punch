@@ -116,7 +116,7 @@ public class UIControl : MonoBehaviour
 
             uiFontdataDict[uiTextType] = dataList;
         }
-        localizeUI.OnEnable();
+        localizeUI.Init();
     }
 
     public void SetFontData(TextMeshProUGUI targetText, string uiTag)

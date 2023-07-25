@@ -285,3 +285,13 @@ public class GameManager : MonoBehaviour
         return new Vector3(benchPos.x, benchPos.y - 1, benchPos.z);
     }
 }
+
+public static class AppSettings
+{
+#if UNITY_EDITOR
+        public static bool IsUnityEditor = true;
+#else
+        public static bool IsUnityEditor = false;
+
+#endif
+}

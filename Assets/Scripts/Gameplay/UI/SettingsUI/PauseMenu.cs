@@ -138,7 +138,11 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         PauseMenu.is_busy = false;
-        UnityEditor.EditorApplication.isPlaying = false;
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
         Application.Quit();
     }
 

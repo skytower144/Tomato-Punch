@@ -28,6 +28,7 @@ public class LoadingScreen : MonoBehaviour
         PlayerCamera.playerCamera_instance.player_camera.enabled = false;
         loadingDisplay.SetActive(true);
         loadingCamera.enabled = true;
+        gameObject.SetActive(true);
 
         DOTween.Rewind("loading_in");
         DOTween.Play("loading_in");
@@ -36,6 +37,7 @@ public class LoadingScreen : MonoBehaviour
     private void DisableLoadingScreen()
     {
         loadingCamera.enabled = false;
+        gameObject.SetActive(false);
         loadingDisplay.SetActive(false);
                 
         PlayerCamera.playerCamera_instance.RecoverCameraState(PlayerCamera.playerCamera_instance.isCameraOff);

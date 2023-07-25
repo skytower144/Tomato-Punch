@@ -9,7 +9,7 @@ public class LocalizeUI : MonoBehaviour
 {
     [SerializeField] private StringTextGUI uiDict = new StringTextGUI();
 
-    public void OnEnable()
+    public void Init()
     {
         foreach (var bundle in uiDict) {
             bundle.Value.text = UIControl.instance.uiTextDict[bundle.Key];

@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEditor;
 
@@ -78,3 +80,4 @@ public class NPCInteractionEditor : Editor
     }
 
 }
+#endif

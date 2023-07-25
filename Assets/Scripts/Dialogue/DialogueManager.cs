@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private RectTransform choiceBoxPTransform;
     [SerializeField] private List<TextMeshProUGUI> choiceText;
 
+    string[] splitTag;
+
     private NPCController currentNpc; public NPCController current_npc => currentNpc;
     private Story currentStory; 
     private string currentSentence;
@@ -234,7 +236,7 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (string tag in currentTags)
         {
-            string[] splitTag = tag.Split(':');
+            splitTag = tag.Split(':');
             if (splitTag.Length != 2)
                 continue;
             
@@ -285,7 +287,7 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.Play(animInfo0[0], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
-                case FOCUSANIMATETARGET_TAG: // no loop // tag:StartingPoint_Donut@angry
+                case FOCUSANIMATETARGET_TAG: // #focusanimatetarget:StartingPoint_Donut@angry // no loop 
                     string[] animInfo = CheckTagValueError(tag_value);
 
                     hideDialogue = true;
@@ -293,7 +295,7 @@ public class DialogueManager : MonoBehaviour
                     AnimManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
                     break;
                 
-                case CHANGEIDLE_TAG: // tag:StartingPoint_Donut@isangry
+                case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry
                     string[] info0 = CheckTagValueError(tag_value);
 
                     NPCController npc0 = AnimManager.instance.npc_dict[info0[0]];
@@ -310,7 +312,7 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.battle_system.enemy_control._base = AnimManager.instance.npc_dict[tag_value].enemyData;
                     break;
 
-                case PURCHASEONE_TAG: // #purchaseone:Donut@0    //item@price 
+                case PURCHASEONE_TAG: // #purchaseone:Donut@0    // ItemName@price 
                     GameManager.gm_instance.ui_control.ui_shop.PurchaseOneItem(tag_value);
                     break;
 
@@ -372,7 +374,7 @@ public class DialogueManager : MonoBehaviour
                     WorldCamera.instance.PlayCameraEffect(tag_value);
                     break;
                 
-                case TELEPORT_TAG: // tag:StartingPoint_Donut@x@y
+                case TELEPORT_TAG: // #teleport:StartingPoint_Donut@x@y
                     string[] posInfo = CheckTagValueError(tag_value);
 
                     NPCController npc2 = AnimManager.instance.npc_dict[posInfo[0]];
@@ -384,7 +386,7 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.gameObject.SetActive(false);
                     break;
                 
-                case SETACTIVE_TAG: // tag:StartingPoint_Donut@true
+                case SETACTIVE_TAG: // #setactive:StartingPoint_Donut@true
                     string[] info = CheckTagValueError(tag_value);
 
                     NPCController npc3 = AnimManager.instance.npc_dict[info[0]];

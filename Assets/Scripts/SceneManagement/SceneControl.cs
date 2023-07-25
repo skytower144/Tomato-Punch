@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +20,9 @@ public class SceneControl : MonoBehaviour
 
         instance = this;
         SceneControl.instance.InitializeSceneDict();
+
+        if (!AppSettings.IsUnityEditor)
+            LoadTitleScreen();
     }
 
     public void InitializeSceneDict()
@@ -103,5 +105,10 @@ public class SceneControl : MonoBehaviour
         GameManager.gm_instance.save_load_menu.isLoading = false;
         
         StartCoroutine(LoadingScreen.instance.UncoverLoadingScreen());
+    }
+
+    private void LoadTitleScreen()
+    {
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Additive);
     }
 }
