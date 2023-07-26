@@ -63,7 +63,7 @@ public class SpriteAnimator
                     stopAnim = true;
 
                     if (!stop_after_animation)
-                        npc.Play(npc.idleAnim);
+                        npc.Play(npc.idleAnimation);
 
                     if (dialogueAction != null)
                         dialogueAction.Invoke();

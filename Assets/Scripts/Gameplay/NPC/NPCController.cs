@@ -11,17 +11,20 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
-    private string idleAnimation = "idle";
-    public string idleAnim => idleAnimation;
+    [SerializeField] private List<KeyEventDialogue> keyEventDialogues;
+    private string cacheDialogueFile;
 
     [Header("[ Dialogueless ]")]
     [SerializeField] private string interactAnimation;
+    [System.NonSerialized] public string idleAnimation = "idle";
 
     [Header("[ Graphic Control ]")]
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
     private bool isInteractAnimating = false;
+
+// DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
@@ -33,6 +36,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [HideInInspector] public EnemyBase enemyData;
     [HideInInspector] public PlayerReviveState reviveState;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     [System.NonSerialized] public bool isDisabled = false;
 
     private void Start()
@@ -41,7 +46,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
             sprite_renderer = GetComponent<SpriteRenderer>();
         Play("idle");
 
-        AnimManager.instance.npc_dict[gameObject.scene.name + "_" + gameObject.name] = this;
+        AnimManager.instance.npc_dict[ReturnID()] = this;
     }
 
     private void Update()
@@ -98,8 +103,31 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     public void InitiateTalk()
     {
         FacePlayer();
+        CheckPlayerKeyEvent();
         TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
+    }
+
+    public void LoadNextDialogue(string nextFileName)
+    {
+        cacheDialogueFile = inkFileName;
+        inkFileName = nextFileName;
+    }
+
+    public void RollbackDialogue()
+    {
+        inkFileName = cacheDialogueFile;
+    }
+
+    private void CheckPlayerKeyEvent()
+    {
+        foreach (KeyEventDialogue bundle in keyEventDialogues) {
+            if (GameManager.gm_instance.playerKeyEventManager.HasKeyEvent(bundle.keyEvent)) {
+                LoadNextDialogue(bundle.inkFileName);
+                keyEventDialogues.Remove(bundle);
+                return;
+            }
+        }
     }
 
     public void ChangeIdleAnimation(string changed)
@@ -128,11 +156,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(2f));
         Play("idle");
         isInteractAnimating = false;
-    }
-
-    public void LoadNextDialogue(string nextFileName)
-    {
-        inkFileName = nextFileName;
     }
 
     public void StartBattle(EnemyBase enemy_data)
@@ -177,6 +200,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         ProgressData game_data = new ProgressData();
         game_data.string_value_0 = inkFileName;
         game_data.bool_value_0 = isDisabled;
+        game_data.keyEventDialogues = keyEventDialogues;
 
         return game_data;
     }
@@ -186,11 +210,12 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         inkFileName = game_data.string_value_0;
         isDisabled = game_data.bool_value_0;
         gameObject.SetActive(!isDisabled);
+        keyEventDialogues = game_data.keyEventDialogues;
     }
 
     public string ReturnID()
     {
-        return this.gameObject.name;
+        return $"{gameObject.scene.name}_{gameObject.name}";
     }
 }
 

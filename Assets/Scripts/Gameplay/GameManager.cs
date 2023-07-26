@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gm_instance { get; private set; }
 
     public AssistManager assistManager;
+    public PlayerKeyEventManager playerKeyEventManager;
     [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
     [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
     [SerializeField] ResolutionMenu resolutionMenu; public ResolutionMenu resolution_menu => resolutionMenu;

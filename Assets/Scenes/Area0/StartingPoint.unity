@@ -764,6 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Sass_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -840,6 +841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -1394,6 +1396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: wakeup
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -2108,6 +2111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 177038262}
   sprite_dict:
@@ -4801,6 +4805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: smoker1_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 287812806}
   sprite_dict:
@@ -5050,6 +5055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: guy6_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1312277667}
   sprite_dict:
@@ -5205,6 +5211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Rupple_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -5866,6 +5873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: guy4_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 363760914}
   sprite_dict:
@@ -6492,6 +6500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: girl6_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 409038580}
   sprite_dict:
@@ -7343,6 +7352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: girl2_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 509997382}
   sprite_dict:
@@ -8457,6 +8467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Snowman_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 627512640}
   sprite_dict:
@@ -9250,6 +9261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Gob_first
+  keyEventDialogues:
+  - keyEvent: 0
+    inkFileName: Gob_impressed
   interactAnimation: 
   sprite_renderer: {fileID: 660367150}
   sprite_dict:
@@ -9716,6 +9730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: girl0_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -10254,6 +10269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Donut_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 771381876}
   sprite_dict:
@@ -10710,6 +10726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: policeman_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 803112004}
   sprite_dict:
@@ -11468,6 +11485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Gin_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 852602746}
   sprite_dict:
@@ -12086,6 +12104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: IcecreamKid_red
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 905842710}
   sprite_dict:
@@ -13158,6 +13177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: IcecreamKid_blue
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1052022158}
   sprite_dict:
@@ -13635,6 +13655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: kid0_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1556090447}
   sprite_dict:
@@ -37711,7 +37732,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: 22, z: 0}
@@ -37777,7 +37798,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: 32, z: 0}
@@ -37786,7 +37807,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 34, z: 0}
@@ -60153,7 +60174,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 28, z: 0}
@@ -60248,7 +60269,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -60824,6 +60845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: drunkguy_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1503603560}
   sprite_dict:
@@ -63247,6 +63269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: girl3_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 496873219}
   sprite_dict:
@@ -63602,6 +63625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -64489,6 +64513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1534453606}
   sprite_dict:
@@ -66048,6 +66073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: guy3_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1637957221}
   sprite_dict:
@@ -115765,6 +115791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: smoker0_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1881383484}
   sprite_dict:
@@ -117500,6 +117527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Tonic_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1910407686}
   sprite_dict:

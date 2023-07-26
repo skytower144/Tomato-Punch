@@ -17,7 +17,7 @@ public class ProgressAssistant : MonoBehaviour
     {
         foreach (ObjectProgress progress in objectProgressList)
         {
-            ProgressManager.instance.save_data.progress_dict[gameObject.scene.name + "_" + progress.ReturnID()] = progress.Capture();
+            ProgressManager.instance.save_data.progress_dict[progress.ReturnID()] = progress.Capture();
         }
     }
 
@@ -27,7 +27,7 @@ public class ProgressAssistant : MonoBehaviour
 
         foreach (ObjectProgress progress in objectProgressList)
         {
-            string total_key = gameObject.scene.name + "_" + progress.ReturnID();
+            string total_key = progress.ReturnID();
             if (dataDict.ContainsKey(total_key))
                 progress.Restore(dataDict[total_key]);
         }

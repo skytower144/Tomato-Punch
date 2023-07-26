@@ -170,6 +170,8 @@ public class ProgressManager : MonoBehaviour
         tomatoData.assignedQuests = QuestManager.instance.ReturnQuestState(true);
         tomatoData.unassignedQuests = QuestManager.instance.ReturnQuestState(false);
 
+        tomatoData.keyEventList = GameManager.gm_instance.playerKeyEventManager.ReturnPlayerKeyEvents();
+
         save_data.player_data = tomatoData;
     }
 
@@ -218,6 +220,7 @@ public class ProgressManager : MonoBehaviour
         inventoryUI.UpdateEquipSlots(tomatoData.slot_index_left, tomatoData.slot_index_right, tomatoData.slot_index_super);
 
         QuestManager.instance.UpdateQuestState(tomatoData.assignedQuests, tomatoData.unassignedQuests);
+        GameManager.gm_instance.playerKeyEventManager.RestorePlayerKeyEvents(tomatoData.keyEventList);
     }
 
     public Dictionary<string, SaveData> GetAllProfilesSaveData()

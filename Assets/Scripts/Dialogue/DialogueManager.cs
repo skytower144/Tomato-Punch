@@ -46,6 +46,8 @@ public class DialogueManager : MonoBehaviour
     private const string HIDEPORTRAIT_TAG = "hideportrait";
     private const string DIALOGUE_TAG = "nextdialogue";
     private const string OUTCOMEDIALOGUE_TAG = "outcomedialogue";
+    private const string MARKPLAYEREVENT_TAG = "markplayerevent";
+    private const string ROLLBACKDIALOGUE_TAG = "rollbackdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
     private const string PLAYERDIRECTION_TAG = "playerdirection";
     private const string ANIMATE_TAG = "animate";
@@ -261,6 +263,14 @@ public class DialogueManager : MonoBehaviour
                 case OUTCOMEDIALOGUE_TAG: // #outcomedialogue:losedialoguefile@windialoguefile
                     string[] outcomeInfo = CheckTagValueError(tag_value);
                     CacheOutcomeDialogues(outcomeInfo);
+                    break;
+                
+                case MARKPLAYEREVENT_TAG: // #markplayerevent:WinRupple_StartingPoint
+                    GameManager.gm_instance.playerKeyEventManager.AddKeyEvent(tag_value);
+                    break;
+                
+                case ROLLBACKDIALOGUE_TAG: // #rollbackdialogue:_
+                    currentNpc.RollbackDialogue();
                     break;
 
                 case CONTINUETALK_TAG: // #continuetalk:_
@@ -484,3 +494,10 @@ public class DialogueManager : MonoBehaviour
 }
 
 public enum DialogueExit { Nothing, Battle, UnlockDoor }
+
+[System.Serializable]
+public class KeyEventDialogue
+{
+    public PlayerKeyEvent keyEvent;
+    public string inkFileName;
+}

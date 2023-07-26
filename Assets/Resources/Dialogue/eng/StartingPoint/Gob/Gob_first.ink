@@ -17,5 +17,5 @@ Listen up.<br>.......Ya ready? #portrait:Gob_serious
     * [No.]
         I see..
         Learn the art...<br>...by becoming the punching bag.
-        ...You truly are a strong soul. #portrait:Gob_serious
+        ...Ya truly are a strong soul. #portrait:Gob_serious
         #nextdialogue:Gob_changeMind

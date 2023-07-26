@@ -20,6 +20,7 @@ public class PlayerData
     public List<SerializedItemQuantity> carrying_countable_list = new List<SerializedItemQuantity>();
     public List<Quest> assignedQuests = new List<Quest>();
     public List<Quest> unassignedQuests = new List<Quest>();
+    public List<PlayerKeyEvent> keyEventList = new List<PlayerKeyEvent>();
 }
 
 [System.Serializable]
