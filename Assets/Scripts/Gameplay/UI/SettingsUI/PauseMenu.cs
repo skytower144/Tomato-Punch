@@ -26,11 +26,13 @@ public class PauseMenu : MonoBehaviour
 
         option_bundle.SetActive(false);
         save_bundle.SetActive(false);
+        gameManager.DetermineKeyOrPad();
     }
     void OnDisable()
     {
         Time.timeScale = 1;
         NormalizeText();
+        gameManager.DetermineKeyOrPad();
     }
     void Update()
     {
