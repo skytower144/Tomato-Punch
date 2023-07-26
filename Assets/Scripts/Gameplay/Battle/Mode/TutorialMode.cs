@@ -195,6 +195,7 @@ public class TutorialMode : MonoBehaviour
     {
         keyboard_text.text = currentMapDict["BATTLE"][moveName].keyboardMap;
         gamepad_image.sprite = currentMapDict["BATTLE"][moveName].gamepadMap[GameManager.gm_instance.gamepadType];
+        pad_image.sprite = GameManager.gm_instance.control_scroll.battlePadImages[8].sprite;
     }
 
     private void DisplayControlGuide2(string moveName)

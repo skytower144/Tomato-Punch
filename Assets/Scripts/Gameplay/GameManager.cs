@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public int gamepadType;
     public float stickSensitivity;
+    string[] joystickNames;
 
     [System.NonSerialized] public float holdStartTime = float.MaxValue;
     [SerializeField] private float holdTimer;
@@ -57,6 +58,9 @@ public class GameManager : MonoBehaviour
 
         battleSystem.OnBattleOver -= EndBattle;
         battleSystem.OnBattleOver += EndBattle;
+
+        InputSystem.onDeviceChange -= DetectGamepad;
+        InputSystem.onDeviceChange += DetectGamepad;
         
         //playerMovement.BeginBattle += StartBattle;
     }
@@ -77,7 +81,6 @@ public class GameManager : MonoBehaviour
         {
             playerMovement.HandleUpdate();
         }
-        DetectGamepad();
         // else if(gameState == GameState.Battle)
         // {
         //     battleSystem.HandleUpdate();
@@ -192,41 +195,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool IsGamepad()
+    private void DetectGamepad(InputDevice device, InputDeviceChange change)
     {
-        string [] names = Input.GetJoystickNames();
-
-        foreach (string name in names)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                return true;
-            }
-        }
-        return false;
+        if (rebindKey.isBinding) return;
+        
+        if (device is Gamepad) DetermineKeyOrPad();
     }
 
-    private void DetectGamepad()
+    public void DetermineKeyOrPad()
     {
-        if (!rebindKey.isBinding)
-        {
-            string [] names = Input.GetJoystickNames();
+        joystickNames = Input.GetJoystickNames();
 
-            if (names.Length == 0){ // preventing index error
-                uiControl.UI_Update(true); // true => Activate Keyboard
-                gamepadType = 0;
-                return;
-            }
-            
-            if (IsGamepad()) {
-                UpdateGamepadType();
-                uiControl.UI_Update(false);
-            }
-            else {
-                uiControl.UI_Update(true);
-                gamepadType = 0;
-            }
+        if (joystickNames.Length == 0){ // preventing index error
+            uiControl.UI_Update(true); // true => Activate Keyboard
+            gamepadType = 0;
+            return;
         }
+        
+        if (IsGamepad()) {
+            UpdateGamepadType();
+            uiControl.UI_Update(false);
+        }
+        else {
+            uiControl.UI_Update(true);
+            gamepadType = 0;
+        }
+    }
+
+    private bool IsGamepad()
+    {
+        foreach (string name in joystickNames)
+        {
+            if (!string.IsNullOrEmpty(name))
+                return true;
+        }
+        return false;
     }
 
     public void DetectHolding(Action callback)

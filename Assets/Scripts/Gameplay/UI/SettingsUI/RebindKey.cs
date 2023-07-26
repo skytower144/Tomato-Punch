@@ -276,6 +276,7 @@ public class RebindKey : MonoBehaviour
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         isBinding = false;
         
+        GameManager.gm_instance.DetermineKeyOrPad();
         playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
     }
 

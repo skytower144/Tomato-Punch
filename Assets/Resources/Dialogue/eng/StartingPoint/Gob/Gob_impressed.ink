@@ -1,2 +1,2 @@
 Atta boy! kehehe. #portrait:Gob_neutral
-All thanks to my exquisite advice, don't ya agree? #portrait:Gob_serious
+Keep on it, and ya'll become a true legend like me. #portrait:Gob_serious
