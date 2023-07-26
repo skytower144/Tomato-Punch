@@ -35,6 +35,11 @@ public class TitleScreen : MonoBehaviour
     }
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         playerMovement = PlayerMovement.instance;
         pauseMenu = playerMovement.pause_menu;
         darkFilter = playerMovement.dark_filter;

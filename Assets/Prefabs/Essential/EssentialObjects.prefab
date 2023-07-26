@@ -306,7 +306,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
-  index: 8
+  index: 10
+  actionTag: 
 --- !u!114 &5635673226227414705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3151,7 +3152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
-  index: 8
+  index: 9
+  actionTag: 
 --- !u!114 &9119409471647005543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4995,6 +4997,8 @@ MonoBehaviour:
     - All_ConsumableIcon_Text
     - All_ItemIcon_Text
     - All_ConsumableTitle_Text
+    - Controls_Battle_9
+    - Controls_Battle_10
     m_values:
     - {fileID: 8051241148528408784}
     - {fileID: 6177424106965432439}
@@ -5048,6 +5052,8 @@ MonoBehaviour:
     - {fileID: 961909327909620373}
     - {fileID: 3320342105630850895}
     - {fileID: 7196374454025050649}
+    - {fileID: 4237831362931626023}
+    - {fileID: 750922887414242077}
 --- !u!1 &2766613873973694685
 GameObject:
   m_ObjectHideFlags: 0
@@ -5905,6 +5911,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 8
+  actionTag: 
 --- !u!114 &2766613874018331974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6440,7 +6447,28 @@ MonoBehaviour:
   - {fileID: 2766613874390354956}
   - {fileID: 659382144600940832}
   - {fileID: 7640670077302271025}
-  menuNumber: 0
+  actionTag_Roam:
+  - {fileID: 2766613874650193583}
+  - {fileID: 2766613874436441608}
+  - {fileID: 2766613874571834671}
+  - {fileID: 2766613875580993797}
+  - {fileID: 2766613875845125690}
+  - {fileID: 2766613875748371480}
+  - {fileID: 2766613874870017694}
+  - {fileID: 2766613875284914806}
+  - {fileID: 2766613875341343252}
+  actionTag_Battle:
+  - {fileID: 2766613875139831308}
+  - {fileID: 2766613874154838968}
+  - {fileID: 2766613874138595137}
+  - {fileID: 2766613874117905773}
+  - {fileID: 2766613875060250735}
+  - {fileID: 2766613874927272599}
+  - {fileID: 2766613875969787073}
+  - {fileID: 2766613876020040840}
+  - {fileID: 2766613875085704375}
+  - {fileID: 1126300737287012345}
+  - {fileID: 4014051954459864118}
 --- !u!114 &2766613874070507674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7190,6 +7218,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 3
+  actionTag: RightEvade
 --- !u!114 &2766613874117905774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7474,6 +7503,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 2
+  actionTag: LeftEvade
 --- !u!114 &2766613874138595138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7758,6 +7788,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 1
+  actionTag: Guard
 --- !u!114 &2766613874154838969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10730,6 +10761,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 5
+  actionTag: 
 --- !u!114 &2766613874363879436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10972,6 +11004,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 3
+  actionTag: 
 --- !u!114 &2766613874376558883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11397,6 +11430,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 1
+  actionTag: MoveDown
 --- !u!114 &2766613874436441610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12151,6 +12185,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 2
+  actionTag: 
 --- !u!114 &2766613874464664820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13733,6 +13768,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 6
+  actionTag: 
 --- !u!114 &2766613874557427707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14017,6 +14053,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 2
+  actionTag: MoveLeft
 --- !u!114 &2766613874571834673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14377,6 +14414,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 2
+  actionTag: 
 --- !u!114 &2766613874594265567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15281,6 +15319,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 0
+  actionTag: MoveUp
 --- !u!114 &2766613874650193585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15701,6 +15740,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 0
+  actionTag: 
 --- !u!114 &2766613874694152001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16320,6 +16360,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 0
+  actionTag: 
 --- !u!114 &2766613874721132627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17364,6 +17405,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 6
+  actionTag: LeftPage
 --- !u!114 &2766613874870017695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17590,6 +17632,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 4
+  actionTag: 
 --- !u!114 &2766613874877573885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17874,6 +17917,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 5
+  actionTag: RightPunch
 --- !u!114 &2766613874927272600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19226,6 +19270,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 7
+  actionTag: 
 --- !u!114 &2766613874948006603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20492,6 +20537,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 4
+  actionTag: LeftPunch
 --- !u!114 &2766613875060250736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21010,6 +21056,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 8
+  actionTag: SuperSkill
 --- !u!114 &2766613875085704376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21982,6 +22029,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 0
+  actionTag: Jump
 --- !u!114 &2766613875139831309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24159,6 +24207,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 7
+  actionTag: RightPage
 --- !u!114 &2766613875284914807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25229,6 +25278,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 8
+  actionTag: Status
 --- !u!114 &2766613875341343254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26202,6 +26252,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 5
+  actionTag: 
 --- !u!114 &2766613875387827518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28937,6 +28988,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 1
+  actionTag: 
 --- !u!114 &2766613875575911085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29087,6 +29139,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 3
+  actionTag: MoveRight
 --- !u!114 &2766613875580993799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31416,6 +31469,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 4
+  actionTag: 
 --- !u!114 &2766613875710973590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31832,6 +31886,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 5
+  actionTag: Cancel
 --- !u!114 &2766613875748371482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32241,6 +32296,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 6
+  actionTag: 
 --- !u!114 &2766613875793027899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32622,6 +32678,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 1
+  actionTag: 
 --- !u!114 &2766613875826906638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32867,6 +32924,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 4
+  actionTag: Interact
 --- !u!114 &2766613875845125692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34140,6 +34198,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 3
+  actionTag: 
 --- !u!114 &2766613875934745568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34473,6 +34532,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 6
+  actionTag: FirstEquip
 --- !u!114 &2766613875969787074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34838,6 +34898,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 7
+  actionTag: 
 --- !u!114 &2766613875980299472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35082,7 +35143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolutionMenu: {fileID: 2766613875361569556}
   controlScroll: {fileID: 2766613874070507672}
-  localizeUI: {fileID: 1966451221872692563}
   ui_shop: {fileID: 755170198313716737}
   ui_bundle:
   - {fileID: 2766613874943870666}
@@ -35561,6 +35621,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 8
+  actionTag: 
 --- !u!114 &2766613876016133594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35711,6 +35772,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 7
+  actionTag: SecondEquip
 --- !u!114 &2766613876020040841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40016,6 +40078,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 10
+  actionTag: AssistSkill2
 --- !u!114 &750922887414242077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43910,6 +43973,7 @@ MonoBehaviour:
   controllScroll: {fileID: 2766613874070507672}
   rebindKey: {fileID: 2766613874070507669}
   index: 9
+  actionTag: AssistSkill1
 --- !u!114 &4237831362931626023
 MonoBehaviour:
   m_ObjectHideFlags: 0

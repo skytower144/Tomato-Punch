@@ -1,49 +1,55 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using UnityEngine;
-using UnityEngine.InputSystem; 
-
+using UnityEngine.InputSystem;
 
 public enum GameState { FreeRoam, Battle }
 public class GameManager : MonoBehaviour
 {
     GameState gameState;
+    PlayerReviveState expectedReviveState;
     public static GameManager gm_instance { get; private set; }
 
     public AssistManager assistManager;
     public PlayerKeyEventManager playerKeyEventManager;
-    [SerializeField] PlayerMovement playerMovement; public PlayerMovement player_movement => playerMovement;
-    [SerializeField] BattleSystem battleSystem; public BattleSystem battle_system => battleSystem;
-    [SerializeField] ResolutionMenu resolutionMenu; public ResolutionMenu resolution_menu => resolutionMenu;
-    [SerializeField] RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
-    [SerializeField] ControlScroll controlScroll; public ControlScroll control_scroll => controlScroll;
-    [SerializeField] UIControl uiControl; public UIControl ui_control => uiControl;
-    [SerializeField] SaveLoadMenu saveLoadMenu; public SaveLoadMenu save_load_menu => saveLoadMenu;
-    [SerializeField] ItemMenuNavigation consumableNavigation, otherItemNavigation;
+    public PlayerMovement player_movement => playerMovement;
+    public BattleSystem battle_system => battleSystem;
+    public RebindKey rebind_key => rebindKey;
+    public ControlScroll control_scroll => controlScroll;
+    public UIControl ui_control => uiControl;
+    public SaveLoadMenu save_load_menu => saveLoadMenu;
     public ItemMenuNavigation consumable_navigation => consumableNavigation;
     public ItemMenuNavigation other_item_navigation => otherItemNavigation;
-    [SerializeField] equipControl equipcontrol; public equipControl equip_control => equipcontrol;
+    public equipControl equip_control => equipcontrol;
+
+    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] BattleSystem battleSystem;
+    [SerializeField] ResolutionMenu resolutionMenu;
+    [SerializeField] RebindKey rebindKey;
+    [SerializeField] ControlScroll controlScroll;
+    [SerializeField] UIControl uiControl;
+    [SerializeField] SaveLoadMenu saveLoadMenu;
+    [SerializeField] ItemMenuNavigation consumableNavigation, otherItemNavigation;
+    [SerializeField] equipControl equipcontrol;
 
     [SerializeField] Camera mainCamera;
     [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
 
     [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
-
-    private PlayerReviveState expectedReviveState;
+    private float player_x, player_y;
 
     public int gamepadType;
+    private string[] joystickNames;
     public float stickSensitivity;
-    string[] joystickNames;
-
     [System.NonSerialized] public float holdStartTime = float.MaxValue;
     [SerializeField] private float holdTimer;
     [SerializeField] private float intervalTime;
     private float delayTimer;
     public bool WasHolding => holdStartTime < Time.unscaledTime;
 
-    private float player_x, player_y;
     void Awake()
     {
         if (gm_instance != null)
@@ -63,6 +69,25 @@ public class GameManager : MonoBehaviour
         InputSystem.onDeviceChange += DetectGamepad;
         
         //playerMovement.BeginBattle += StartBattle;
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(RepeatCheckDevice());
+    }
+
+    void OnDisable()
+    {
+        battleSystem.OnBattleOver -= EndBattle;
+        InputSystem.onDeviceChange -= DetectGamepad;
+    }
+
+    IEnumerator RepeatCheckDevice()
+    {
+        for (int i = 0; i < 3; i++) {
+            DetermineKeyOrPad();
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     void StartBattle()
@@ -197,7 +222,10 @@ public class GameManager : MonoBehaviour
 
     private void DetectGamepad(InputDevice device, InputDeviceChange change)
     {
-        if (rebindKey.isBinding) return;
+        if (rebind_key.isBinding) {
+            rebind_key.ExitBind();
+            return;
+        }
         
         if (device is Gamepad) DetermineKeyOrPad();
     }

@@ -74,6 +74,8 @@ Controls_Battle_5 : * Right Punch
 Controls_Battle_6 : * 1st Equip
 Controls_Battle_7 : * 2nd Equip
 Controls_Battle_8 : * Super Skill
+Controls_Battle_9 : * 1st Assist
+Controls_Battle_10 : * 2nd Assist
 
 Wait_InputBind : Waiting for input...
 Detect_DuplicateBind : Already in use!

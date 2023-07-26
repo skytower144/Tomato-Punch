@@ -19,22 +19,25 @@ public class TutorialMode : MonoBehaviour
 
     [SerializeField] private Animator tutorialUI;
     [SerializeField] private GameObject holdArrow, exitGuide, exitGuide_key, exitGuide_pad;
-    [SerializeField] private TextMeshProUGUI key_text;
-    [SerializeField] private Image pad_image;
+
+    [SerializeField] private TextMeshProUGUI exit_key_text;
+    [SerializeField] private Image exit_pad_image;
+
+    private GameManager gm;
+    private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
     
     private Animator anim;
     private TextSpawn textSpawn;
-    private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
     private Coroutine warmupPhase;
 
     void Update()
     {
-        if ((GameManager.gm_instance.player_movement.Press_Key("SuperSkill")) && (isTutorial))
+        if ((gm.player_movement.Press_Key("SuperSkill")) && (isTutorial))
         {
             StartCoroutine(ExitTutorial());
         }
         
-        if (GameManager.gm_instance.control_scroll.isKeyBoard)
+        if (gm.control_scroll.isKeyBoard)
         {
             exitGuide_key.SetActive(true);
             exitGuide_pad.SetActive(false);
@@ -58,13 +61,6 @@ public class TutorialMode : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        // This method heavily depends on the element order of within these lists.
-        key_text.text = GameManager.gm_instance.rebind_key.ShortenKeyDisplay(8, GameManager.gm_instance.control_scroll.battleKeyTexts[8].text, "BATTLE");
-        pad_image.sprite = GameManager.gm_instance.control_scroll.battlePadImages[8].sprite;
-    }
-
     void OnDisable()
     {
         controlGuide.SetActive(false);
@@ -74,9 +70,16 @@ public class TutorialMode : MonoBehaviour
 
     void OnEnable()
     {
+        gm = GameManager.gm_instance;
+        gm.control_scroll.CaptureCurrentBind();
+        currentMapDict = gm.control_scroll.CurrentBindingsDict;
+
         textSpawn = transform.parent.gameObject.GetComponent<TextSpawn>();
-        anim = GameManager.gm_instance.battle_system.enemy_control.enemyAnim;
-        currentMapDict = GameManager.gm_instance.control_scroll.CaptureCurrentBind();
+        anim = gm.battle_system.enemy_control.enemyAnim;
+
+        // Exit Button UI
+        exit_key_text.text = currentMapDict["BATTLE"]["SuperSkill"].keyboardMap;
+        exit_pad_image.sprite = currentMapDict["BATTLE"]["SuperSkill"].gamepadMap[gm.gamepadType];
 
         GameObject temp = Instantiate(warmupText, transform);
         Destroy(temp, 3f);
@@ -104,31 +107,31 @@ public class TutorialMode : MonoBehaviour
             controlGuide.SetActive(true);
 
             PressButtonAnimation();
-            DisplayControlGuide("* Evade Left");
+            DisplayControlGuide("LeftEvade");
             yield return Play("Tutorial_LeftEvade");
             
             yield return Play("Tutorial_intro");
 
             PressButtonAnimation();
-            DisplayControlGuide("* Evade Right");
+            DisplayControlGuide("RightEvade");
             yield return Play("Tutorial_RightEvade");
 
             yield return Play("Tutorial_intro");
             
             PressButtonAnimation();
-            DisplayControlGuide("* Jump");
+            DisplayControlGuide("Jump");
             yield return Play("Tutorial_Jump");
 
             yield return Play("Tutorial_intro");
 
             PressButtonAnimation();
-            DisplayControlGuide("* Left Punch");
+            DisplayControlGuide("LeftPunch");
             yield return Play("Tutorial_LeftPunch");
 
             yield return Play("Tutorial_intro");
 
             PressButtonAnimation();
-            DisplayControlGuide("* Right Punch");
+            DisplayControlGuide("RightPunch");
             yield return Play("Tutorial_RightPunch");
 
             yield return Play("Tutorial_intro");
@@ -136,13 +139,13 @@ public class TutorialMode : MonoBehaviour
             holdArrow.SetActive(true);
             DOTween.Rewind("tutorial_hold");
             DOTween.Play("tutorial_hold");
-            DisplayControlGuide("* Guard");
+            DisplayControlGuide("Guard");
             yield return Play("Tutorial_Guard");
 
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1f));
 
             PressButtonAnimation();
-            DisplayControlGuide2("* Right Punch");
+            DisplayControlGuide2("RightPunch");
             controlGuide2.SetActive(true);
             yield return Play("Tutorial_Parry");
             controlGuide.SetActive(false);
@@ -166,10 +169,9 @@ public class TutorialMode : MonoBehaviour
         DOTween.Rewind("tutorial_exit");
         DOTween.Play("tutorial_exit");
         
-        tomatoControl tomato_control = GameManager.gm_instance.battle_system.tomato_control;
-        tomato_control.ReleaseGuard();
+        gm.battle_system.tomato_control.ReleaseGuard();
         tomatoControl.isVictory = true;
-        tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
+        gm.battle_system.tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
 
         Play("Tutorial_Finish");
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.3f));
@@ -177,7 +179,7 @@ public class TutorialMode : MonoBehaviour
 
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1.5f));
 
-        GameManager.gm_instance.battle_system.ExitBattle(true);
+        gm.battle_system.ExitBattle(true);
         yield break;
     }
 
@@ -194,13 +196,13 @@ public class TutorialMode : MonoBehaviour
     private void DisplayControlGuide(string moveName)
     {
         keyboard_text.text = currentMapDict["BATTLE"][moveName].keyboardMap;
-        gamepad_image.sprite = currentMapDict["BATTLE"][moveName].gamepadMap[GameManager.gm_instance.gamepadType];
-        pad_image.sprite = GameManager.gm_instance.control_scroll.battlePadImages[8].sprite;
+        gamepad_image.sprite = currentMapDict["BATTLE"][moveName].gamepadMap[gm.gamepadType];
+        exit_pad_image.sprite = currentMapDict["BATTLE"]["SuperSkill"].gamepadMap[gm.gamepadType];
     }
 
     private void DisplayControlGuide2(string moveName)
     {
         keyboard_text2.text = currentMapDict["BATTLE"][moveName].keyboardMap;
-        gamepad_image2.sprite = currentMapDict["BATTLE"][moveName].gamepadMap[GameManager.gm_instance.gamepadType];
+        gamepad_image2.sprite = currentMapDict["BATTLE"][moveName].gamepadMap[gm.gamepadType];
     }
 }

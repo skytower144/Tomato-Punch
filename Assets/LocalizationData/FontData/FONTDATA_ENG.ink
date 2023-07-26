@@ -68,6 +68,8 @@ Controls_Battle_5 : exepixel_66_0_0_0 //* Right Punch
 Controls_Battle_6 : exepixel_66_0_0_0 //* 1st Equip
 Controls_Battle_7 : exepixel_66_0_0_0 //* 2nd Equip
 Controls_Battle_8 : exepixel_66_0_0_0 //* Super Skill
+Controls_Battle_9 : exepixel_66_0_0_0 //* Assist 1
+Controls_Battle_10 : exepixel_66_0_0_0//* Assist 2
 
 Wait_InputBind : exepixel_57_0_0_0 //Waiting for input...
 Detect_DuplicateBind : exepixel_57_0_0_0 //Already in use!

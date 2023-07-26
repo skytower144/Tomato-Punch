@@ -51,8 +51,10 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     public List<Image> roamPadImages => roam_bindingDisplayText_pad;
     public List<Image> battlePadImages => battle_bindingDisplayText_pad;
 
+    [Header("ACTIONTAG")]
+    [SerializeField] private List<ControlScrollContent> actionTag_Roam, actionTag_Battle;
     
-    [SerializeField] private int menuNumber;
+    private int menuNumber;
     public int InputMenuNumber => menuNumber;
 
     private int showingNumber_top, showingNumber_bot;
@@ -61,7 +63,9 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
     [System.NonSerialized] public bool isKeyBoard = true;
     [System.NonSerialized] public bool isModeRoam = true;
     [System.NonSerialized] public bool isPrompt = false;
-    
+
+    private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
+    public Dictionary<string, Dictionary<string, ControlMapDisplay>> CurrentBindingsDict => currentMapDict;
 
     void OnEnable()
     {
@@ -377,14 +381,14 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
         AdjustContentSize();
     }
 
-    public Dictionary<string, Dictionary<string, ControlMapDisplay>> CaptureCurrentBind()
+    public void CaptureCurrentBind()
     {
         Dictionary<string, Dictionary<string, ControlMapDisplay>> mapDisplayDict = new Dictionary<string, Dictionary<string, ControlMapDisplay>>();
         Dictionary<string, ControlMapDisplay> roam_actionToDisplay = new Dictionary<string, ControlMapDisplay>();
         Dictionary<string, ControlMapDisplay> battle_actionToDisplay = new Dictionary<string, ControlMapDisplay>();
 
         // FREEROAM
-        for (int i = 0; i < roam_actionText.Count; i++)
+        for (int i = 0; i < actionTag_Roam.Count; i++)
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
             mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(i, roam_bindingDisplayText_key[i].text, "FREEROAM");
@@ -392,12 +396,12 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "switch");
             mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "FREEROAM"), "ps4");
 
-            roam_actionToDisplay[roam_actionText[i].text] = mapBundle;
+            roam_actionToDisplay[actionTag_Roam[i].ActionTag] = mapBundle;
         }
         mapDisplayDict["FREEROAM"] = roam_actionToDisplay;
 
         // BATTLE
-        for (int i = 0; i < battle_actionText.Count; i++)
+        for (int i = 0; i < actionTag_Battle.Count; i++)
         {
             ControlMapDisplay mapBundle = new ControlMapDisplay();
             mapBundle.keyboardMap = rebindKey.ShortenKeyDisplay(i, battle_bindingDisplayText_key[i].text, "BATTLE");
@@ -405,11 +409,11 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
             mapBundle.gamepadMap[3] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "switch");
             mapBundle.gamepadMap[0] = mapBundle.gamepadMap[2] = rebindKey.LinkSprite(-1, rebindKey.ReturnMapPath(i, 1, "BATTLE"), "ps4");
 
-            battle_actionToDisplay[battle_actionText[i].text] = mapBundle;
+            battle_actionToDisplay[actionTag_Battle[i].ActionTag] = mapBundle;
         }
         mapDisplayDict["BATTLE"] = battle_actionToDisplay;
 
-        return mapDisplayDict;
+        currentMapDict = mapDisplayDict;
     }
 
     private void AdjustContentSize()

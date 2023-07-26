@@ -12,7 +12,6 @@ public class UIControl : MonoBehaviour
 {
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private ControlScroll controlScroll;
-    [SerializeField] private LocalizeUI localizeUI;
     public ShopSystem ui_shop;
     [SerializeField] private List<GameObject> ui_bundle;
     
@@ -116,7 +115,7 @@ public class UIControl : MonoBehaviour
 
             uiFontdataDict[uiTextType] = dataList;
         }
-        localizeUI.Init();
+        LocalizeUI.OnLocalizeUI?.Invoke();
     }
 
     public void SetFontData(TextMeshProUGUI targetText, string uiTag)

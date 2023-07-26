@@ -8,6 +8,7 @@ public class ControlScrollContent : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] private ControlScroll controllScroll;
     [SerializeField] private RebindKey rebindKey;
     [SerializeField] private int index;
+    [SerializeField] private string actionTag; public string ActionTag => actionTag;
     public void OnPointerEnter(PointerEventData eventData)
     {
         controllScroll.ControlMouseSelect(index);

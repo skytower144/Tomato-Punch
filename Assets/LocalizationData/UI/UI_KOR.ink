@@ -74,6 +74,8 @@ Controls_Battle_5 : * 오른쪽 펀치
 Controls_Battle_6 : * 무기스킬 1
 Controls_Battle_7 : * 무기스킬 2
 Controls_Battle_8 : * 슈퍼스킬
+Controls_Battle_9 : * 보조스킬 1
+Controls_Battle_10 : * 보조스킬 2
 
 Wait_InputBind : 입력을 기다리고 있습니다...
 Detect_DuplicateBind : 중복이 존재합니다!

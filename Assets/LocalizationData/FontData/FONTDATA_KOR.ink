@@ -68,6 +68,8 @@ Controls_Battle_5 : galmuri11_36_0_0_0 //* Right Punch
 Controls_Battle_6 : galmuri11_36_0_0_0 //* 1st Equip
 Controls_Battle_7 : galmuri11_36_0_0_0 //* 2nd Equip
 Controls_Battle_8 : galmuri11_36_0_0_0 //* Super Skill
+Controls_Battle_9 : galmuri11_36_0_0_0 //* Assist 1
+Controls_Battle_10 : galmuri11_36_0_0_0//* Assist 2
 
 Wait_InputBind : galmuri11_30_0_0_0 //Waiting for input...
 Detect_DuplicateBind : galmuri11_30_0_0_0 //Already in use!
