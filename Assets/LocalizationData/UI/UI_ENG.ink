@@ -123,8 +123,8 @@ Icecream : Icecream
 Icecream_Description : 2 scoops of sweet icecream!
 
 // OTHER
-Pencil : Pencil
-Pencil_Description : A yellow pencil fuming with stress energy.
+RustyKey : RustyKey
+RustyKey_Description : A rusty house key.
 
 // EQUIP
 Knuckle Sandwich : Knuckle Sandwich

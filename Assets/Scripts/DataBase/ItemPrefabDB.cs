@@ -11,6 +11,8 @@ public class ItemPrefabDB
         ItemPrefabCatalog = new Dictionary<string, GameObject>();
 
         var prefabArray = Resources.LoadAll<GameObject>("ItemPrefabs/");
+        //Debug.Log(prefabArray.Length);
+
         foreach (GameObject prefab in prefabArray)
         {
             string item_name = prefab.GetComponent<ItemPickup>().targetItem.ItemName;
