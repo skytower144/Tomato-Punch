@@ -288,6 +288,11 @@ public class GameManager : MonoBehaviour
         Vector3 benchPos = benches[Random.Range(0, benches.Length)].transform.position;
         return new Vector3(benchPos.x, benchPos.y - 1, benchPos.z);
     }
+
+    public void SwitchActionMap(string mapName)
+    {
+        player_movement.PlayerInput.SwitchCurrentActionMap(mapName);
+    }
 }
 
 public static class AppSettings

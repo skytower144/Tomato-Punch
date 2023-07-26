@@ -123,11 +123,11 @@ public class tomatoControl : MonoBehaviour
         tomatoes = 0;
         counterTrack.CounterTracker();
 
-        tomatoInput.SwitchCurrentActionMap("Battle");
+        GameManager.gm_instance.SwitchActionMap("Battle");
     }
     void OnDisable()
     {
-        tomatoInput.SwitchCurrentActionMap("Player");
+        GameManager.gm_instance.SwitchActionMap("Player");
     }
     void Start()
     {

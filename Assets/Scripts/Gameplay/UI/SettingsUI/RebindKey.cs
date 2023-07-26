@@ -75,7 +75,7 @@ public class RebindKey : MonoBehaviour
         MoveCover();
         waitCover.SetActive(true);
 
-        playerMovement.PlayerInput.SwitchCurrentActionMap("Menu");
+        GameManager.gm_instance.SwitchActionMap("Menu");
 
         current_action = actionList[controlScroll.InputMenuNumber].action;
 
@@ -277,7 +277,7 @@ public class RebindKey : MonoBehaviour
         isBinding = false;
         
         GameManager.gm_instance.DetermineKeyOrPad();
-        playerMovement.PlayerInput.SwitchCurrentActionMap("Player");
+        GameManager.gm_instance.SwitchActionMap("Player");
     }
 
     private void MoveCover()
