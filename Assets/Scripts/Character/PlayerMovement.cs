@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Animator myAnim;
     private Rigidbody2D myRb;
-    private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput;
     public PlayerInput PlayerInput => playerInput;
     
     [SerializeField] GameManager gameManager;
@@ -38,7 +38,15 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
        myRb = GetComponent<Rigidbody2D>();
-       playerInput = GetComponent<PlayerInput>();
+    }
+    
+    void OnEnable()
+    {
+        playerInput.actions.Enable();
+    }
+    void OnDisable()
+    {
+        playerInput.actions.Disable();
     }
     public void HandleUpdate()
     {
