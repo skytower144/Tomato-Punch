@@ -55,6 +55,7 @@ public class OptionScript : MonoBehaviour
     }
     public void OpenOptions()
     {
+        GameManager.gm_instance.DetermineKeyOrPad();
         PlayerMovement.instance.fader_obj.SetActive(false); // Due to FaderCanvas blocking the UI canvas.
         PauseMenu.is_busy = true;
 

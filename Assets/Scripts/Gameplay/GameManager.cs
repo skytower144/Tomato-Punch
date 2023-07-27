@@ -73,21 +73,13 @@ public class GameManager : MonoBehaviour
 
     void OnEnable()
     {
-        StartCoroutine(RepeatCheckDevice());
+        DetermineKeyOrPad();
     }
 
     void OnDisable()
     {
         battleSystem.OnBattleOver -= EndBattle;
         InputSystem.onDeviceChange -= DetectGamepad;
-    }
-
-    IEnumerator RepeatCheckDevice()
-    {
-        for (int i = 0; i < 3; i++) {
-            DetermineKeyOrPad();
-            yield return new WaitForSeconds(0.5f);
-        }
     }
 
     void StartBattle()

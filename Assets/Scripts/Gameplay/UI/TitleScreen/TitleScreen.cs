@@ -132,6 +132,7 @@ public class TitleScreen : MonoBehaviour
     {
         if (!isPrompt)
         {
+            GameManager.gm_instance.DetermineKeyOrPad();
             if (menuNumber == 0)
             {
                 pauseMenu.SetMenuNumber(2);
