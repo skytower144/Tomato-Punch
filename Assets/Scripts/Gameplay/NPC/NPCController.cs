@@ -103,7 +103,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     public void InitiateTalk()
     {
         FacePlayer();
-        CheckPlayerKeyEvent();
+        GameManager.gm_instance.playerKeyEventManager.CheckPlayerKeyEvent(this, keyEventDialogues);
         TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
@@ -118,18 +118,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     {
         inkFileName = cacheDialogueFile;
     }
-
-    private void CheckPlayerKeyEvent()
-    {
-        foreach (KeyEventDialogue bundle in keyEventDialogues) {
-            if (GameManager.gm_instance.playerKeyEventManager.HasKeyEvent(bundle.keyEvent)) {
-                LoadNextDialogue(bundle.inkFileName);
-                keyEventDialogues.Remove(bundle);
-                return;
-            }
-        }
-    }
-
+    
     public void ChangeIdleAnimation(string changed)
     {
         idleAnimation = changed;

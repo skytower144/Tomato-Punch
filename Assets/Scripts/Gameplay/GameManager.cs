@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
 
-        // Adjust NPC Dialogue depending on the battle outcome
-        DialogueManager.instance.CheckOutcomeDialogue(isVictory);
+        // Update Player Key Events depending on the battle outcome
+        playerKeyEventManager.ApplyCacheKeyEvents(isVictory);
 
         // Revive at Cafe
         if (!isVictory && (expectedReviveState == PlayerReviveState.Cafe)) {
@@ -312,6 +312,12 @@ public class GameManager : MonoBehaviour
     public void SwitchActionMap(string mapName)
     {
         player_movement.PlayerInput.SwitchCurrentActionMap(mapName);
+    }
+
+    public static void DoDebug(string input)
+    {
+        if (!AppSettings.IsUnityEditor) return;
+        Debug.Log(input);
     }
 }
 

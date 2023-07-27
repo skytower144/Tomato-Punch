@@ -364,7 +364,7 @@ public class SaveLoadMenu : MonoBehaviour
         isLoadMode = false;
         isLoading = true;
 
-        Debug.Log("Covering Gamescreen.");
+        GameManager.DoDebug("Covering Gamescreen.");
         DOTween.Rewind("fader_in");
         DOTween.Play("fader_in");
 

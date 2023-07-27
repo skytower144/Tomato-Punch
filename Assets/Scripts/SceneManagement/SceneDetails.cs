@@ -20,7 +20,7 @@ public class SceneDetails : MonoBehaviour
 
     public void TriggerScene()
     {   
-        Debug.Log($"Entered {scene_name}");
+        GameManager.DoDebug($"Entered {scene_name}");
 
         LoadScene();
         

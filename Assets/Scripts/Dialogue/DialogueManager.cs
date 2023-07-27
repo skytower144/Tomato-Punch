@@ -33,8 +33,6 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory; 
     private string currentSentence;
 
-    [System.NonSerialized] public string[] cachedOutcomeDialogue = new string[2];
-
     private Interactable currentTarget;
     private DialogueExit dialogueExit = DialogueExit.Nothing;
 
@@ -45,8 +43,8 @@ public class DialogueManager : MonoBehaviour
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
     private const string DIALOGUE_TAG = "nextdialogue";
-    private const string OUTCOMEDIALOGUE_TAG = "outcomedialogue";
-    private const string MARKPLAYEREVENT_TAG = "markplayerevent";
+    private const string JUDGEKEYEVENT_TAG = "judgekeyevent";
+    private const string ADDKEYEVENT_TAG = "addkeyevent";
     private const string ROLLBACKDIALOGUE_TAG = "rollbackdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
     private const string PLAYERDIRECTION_TAG = "playerdirection";
@@ -260,12 +258,11 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.LoadNextDialogue(tag_value);
                     break;
                 
-                case OUTCOMEDIALOGUE_TAG: // #outcomedialogue:losedialoguefile@windialoguefile
-                    string[] outcomeInfo = CheckTagValueError(tag_value);
-                    CacheOutcomeDialogues(outcomeInfo);
+                case JUDGEKEYEVENT_TAG: // #judgekeyevent:Win_Rupple_StartingPoint@Lose_Rupple_StartingPoint // #judgekeyevent:Win_Rupple_StartingPoint
+                    GameManager.gm_instance.playerKeyEventManager.CacheKeyEvents(tag_value);
                     break;
                 
-                case MARKPLAYEREVENT_TAG: // #markplayerevent:WinRupple_StartingPoint
+                case ADDKEYEVENT_TAG: // #addkeyevent:Win_Rupple_StartingPoint
                     GameManager.gm_instance.playerKeyEventManager.AddKeyEvent(tag_value);
                     break;
                 
@@ -478,19 +475,6 @@ public class DialogueManager : MonoBehaviour
         }
         return tag_bundle;
     }
-
-    public void CacheOutcomeDialogues(string[] outcomeInfo)
-    {
-        Array.Clear(cachedOutcomeDialogue, 0, cachedOutcomeDialogue.Length);
-        cachedOutcomeDialogue = outcomeInfo;
-    }
-
-    public void CheckOutcomeDialogue(bool is_victory)
-    {
-        if (string.IsNullOrEmpty(cachedOutcomeDialogue[0])) return;
-        currentNpc.LoadNextDialogue(cachedOutcomeDialogue[Convert.ToInt32(is_victory)]);
-        Array.Clear(cachedOutcomeDialogue, 0, cachedOutcomeDialogue.Length);
-    }
 }
 
 public enum DialogueExit { Nothing, Battle, UnlockDoor }
@@ -500,4 +484,9 @@ public class KeyEventDialogue
 {
     public PlayerKeyEvent keyEvent;
     public string inkFileName;
+
+    public KeyEventDialogue()
+    {
+        this.keyEvent = PlayerKeyEvent.None;
+    }
 }

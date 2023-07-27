@@ -135,7 +135,7 @@ public class FileDataHandler
                 Directory.Delete(Path.GetDirectoryName(fullPath), true);
 
             else
-                Debug.LogWarning($"Data to delete was not found at path {fullPath}");
+                GameManager.DoDebug($"=== Data to delete was not found at path {fullPath} ===");
             
         }
         catch (Exception exc)
@@ -159,7 +159,7 @@ public class FileDataHandler
             string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
             if (!File.Exists(fullPath))
             {
-                Debug.LogWarning($"Skipping directory when loading all profiles because it does not contain data: {profileId}");
+                GameManager.DoDebug($"=== Skipping directory when loading all profiles because it does not contain data: {profileId} ===");
                 continue;
             }
 

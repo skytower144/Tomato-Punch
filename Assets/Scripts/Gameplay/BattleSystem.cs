@@ -9,12 +9,13 @@ public class BattleSystem : MonoBehaviour
     public event Action<bool> OnBattleOver;
     public Action<EnemyBase> OnEnemyDefeat;
     public TextSpawn textSpawn;
-    public BattleUI_Control battleUI_Control; 
+    public BattleUI_Control battleUI_Control;
 
     [SerializeField] private tomatoControl tomatocontrol; public tomatoControl tomato_control => tomatocontrol;
     [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
+    public tomatoHurt tomato_hurt;
     public BattleTimeManager battleTimeManager;
     public FeatherPoints featherPointManager;
     public ShockWaveEffect shockWaveEffect;
@@ -32,19 +33,31 @@ public class BattleSystem : MonoBehaviour
     [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
 
     private GameObject tempObj;
+    private bool enableDebug;
 
     void Start()
     {
         resetPlayerHealth = false;
         resetEnemyHealth = false;
+        enableDebug = AppSettings.IsUnityEditor;
     }
+
     void OnEnable()
     {
         Instantiate(battle_initiate_fade);
     }
 
+    
+    void Update()
+    {
+        debug_funtions();
+    }
+
     public void ExitBattle(bool isVictory)
     {
+        if (!isVictory && (tomato_control.currentHealth == 0))
+            tomato_control.currentHealth = 1;
+        
         Destroy(Instantiate(battle_end_circle), 2f);
         OnBattleOver?.Invoke(isVictory);
     }
@@ -135,4 +148,22 @@ public class BattleSystem : MonoBehaviour
     {
         return tomatocontrol.PressKey(moveName);
     }
+
+    // DEBUG ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private void debug_funtions()
+    {
+        if (!enableDebug) return;
+
+        // Kill Mato
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            tomato_hurt.TakeDamage(5000); 
+        }
+
+        // Kill Enemy
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            enemyControl.enemy_hurt.enemyHurtDamage(5000);
+            enemyControl.enemy_hurt.checkDefeat();
+        }
+    }
+    // DEBUG ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

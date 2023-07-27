@@ -53,13 +53,13 @@ public class ProgressManager : MonoBehaviour
             {
                 if (assistant.scene.name == targetSceneName) {
                     assistant.GetComponent<ProgressAssistant>().InitiateCapture();
-                    Debug.Log("capturing " + assistant.scene.name);
+                    GameManager.DoDebug("capturing " + assistant.scene.name);
                     return;
                 }
             }
             else {
                 assistant.GetComponent<ProgressAssistant>().InitiateCapture();
-                Debug.Log("capturing " + assistant.scene.name);
+                GameManager.DoDebug("capturing " + assistant.scene.name);
             }
         }
     }

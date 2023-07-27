@@ -24,6 +24,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyAIControl enemyAIControl;
     [SerializeField] private Enemy_is_hurt enemyHurt;
+    public Enemy_is_hurt enemy_hurt => enemyHurt;
     public Enemy_countered enemy_Countered;
     [SerializeField] private TextSpawn textSpawn;
 
