@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Animator myAnim;
+    [SerializeField] private Animator myAnim; public Animator playerAnim => myAnim;
     private Rigidbody2D myRb;
     [SerializeField] private PlayerInput playerInput;
     public PlayerInput PlayerInput => playerInput;
