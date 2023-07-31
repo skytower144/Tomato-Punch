@@ -133,7 +133,7 @@ public class ProgressManager : MonoBehaviour
         tomatoData.level = tomatolevel.playerLevel;
 
         if (SceneControl.instance.CurrentScene)
-            tomatoData.current_scene = SceneControl.instance.CurrentScene.scene_name;
+            tomatoData.current_scene = SceneControl.instance.CurrentScene.GetSceneName();
         tomatoData.postion = playerInventory.gameObject.transform.position;
 
         tomatoData.isCameraOff = PlayerCamera.playerCamera_instance.isCameraOff;

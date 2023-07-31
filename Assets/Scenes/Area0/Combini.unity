@@ -1451,7 +1451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: arrival_scene
-      value: StartingPoint
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: enterDirection
@@ -2002,6 +2002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: cashier_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 2007948429}
   sprite_dict:
@@ -2036,6 +2037,7 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!61 &2007948428
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2182,6 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: 
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 2017125745}
   sprite_dict:
@@ -2213,6 +2216,7 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!61 &2017125744
 BoxCollider2D:
   m_ObjectHideFlags: 0

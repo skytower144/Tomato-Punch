@@ -2480,12 +2480,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Mom_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 407956792}
   sprite_dict:
     m_keys: []
     m_values: []
-  hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
@@ -2499,6 +2499,7 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!4 &435078649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5883912408680576814, guid: 17219204406db0c44a9e8724b10710ad, type: 3}
@@ -2713,12 +2714,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Dad_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 916165326}
   sprite_dict:
     m_keys: []
     m_values: []
-  hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
@@ -2732,6 +2733,7 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!4 &971484190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1552328477698909336, guid: 907a426a580437a4e9adea916ae4118d, type: 3}
@@ -2978,7 +2980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: arrival_scene
-      value: StartingPoint
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: enterDirection

@@ -7,7 +7,7 @@ using System;
 public class LocationPortal : MonoBehaviour, Interactable
 {
     [SerializeField] string portal_id;
-    [SerializeField] string arrival_scene;
+    [SerializeField] SceneName arrival_scene;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EnterDirection enterDirection;
 
@@ -29,6 +29,7 @@ public class LocationPortal : MonoBehaviour, Interactable
     public void Interact()
     {
         if (IsLocked()) {
+            Debug.Log("interacting");
             TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/LocationPortal/{quest_id}");
             DialogueManager.instance.EnterDialogue(inkJsonData, this);
         }
@@ -113,7 +114,7 @@ public class LocationPortal : MonoBehaviour, Interactable
         foreach(GameObject trigger in GameObject.FindGameObjectsWithTag("SceneTrigger")) // inactive objects will not be targeted.
         {
             target_scene = trigger.GetComponent<SceneDetails>();
-            if (target_scene.scene_name == this.arrival_scene)
+            if (target_scene.GetSceneName() == SceneDetails.GetSceneName(arrival_scene))
                 break;
         }
 

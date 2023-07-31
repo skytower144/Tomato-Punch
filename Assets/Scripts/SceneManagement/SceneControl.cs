@@ -31,7 +31,7 @@ public class SceneControl : MonoBehaviour
 
         foreach (SceneDetails scene_detail in all_scene_details)
         {
-            sceneDict[scene_detail.scene_name] = scene_detail;
+            sceneDict[scene_detail.GetSceneName()] = scene_detail;
         }
     }
     public void SetCurrentScene(SceneDetails current_scene, bool isLoading = false)
@@ -43,11 +43,11 @@ public class SceneControl : MonoBehaviour
         CurrentScene = current_scene;
 
         if (PreviousScene)
-            previous_scene_name = PreviousScene.scene_name;
+            previous_scene_name = PreviousScene.GetSceneName();
         else
             previous_scene_name = null;
     
-        current_scene_name = CurrentScene.scene_name;
+        current_scene_name = CurrentScene.GetSceneName();
     }
     public List<Scene> ScenesExceptGameplay()
     {

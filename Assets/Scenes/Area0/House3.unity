@@ -781,12 +781,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Kid1_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 810568060}
   sprite_dict:
     m_keys: []
     m_values: []
-  hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
@@ -797,6 +797,10 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!1 &1089409704
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,12 +924,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkFileName: Kid2_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 1089409707}
   sprite_dict:
     m_keys: []
     m_values: []
-  hasPortrait: 0
   isFixedSprite: 1
   banInteractDirection: 0
   lock_u: 0
@@ -936,6 +940,10 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
+  reviveState: 0
 --- !u!1 &1131973126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,7 +2445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: arrival_scene
-      value: StartingPoint
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8765719985546093240, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: enterDirection

@@ -8,15 +8,16 @@ public class NPCFollow : MonoBehaviour
     [SerializeField] private int followDelay;
     [SerializeField] private bool enableMove;
 
-    private float followSpeed = 8.9f;
-    private float stopTime;
-    private bool playerStopped;
     private Transform leader;
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;
 
-    Vector2 direction;
-    float distance;
+    private float followSpeed = 8.9f;
+    private float stopTime;
+    private bool playerStopped;
+
+    private Vector2 direction;
+    private float distance;
 
     void Start()
     {

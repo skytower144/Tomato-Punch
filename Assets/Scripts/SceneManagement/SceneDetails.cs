@@ -1,11 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneDetails : MonoBehaviour
 {
-    public string scene_name;
+    [SerializeField] private SceneName sceneName;
+    private string cacheString = "";
     [SerializeField] private bool isIndoor;
     [SerializeField] private List<SceneDetails> connectedScenes;
     public List<SceneDetails> connected_scenes => connectedScenes;
@@ -20,7 +21,7 @@ public class SceneDetails : MonoBehaviour
 
     public void TriggerScene()
     {   
-        GameManager.DoDebug($"Entered {scene_name}");
+        GameManager.DoDebug($"Entered {GetSceneName()}");
 
         LoadScene();
         
@@ -94,7 +95,7 @@ public class SceneDetails : MonoBehaviour
     public void UnloadScene()
     {
         if (CheckSceneExists()) {
-            ProgressManager.instance.CaptureScene(true, scene_name);
+            ProgressManager.instance.CaptureScene(true, GetSceneName());
             SceneManager.UnloadSceneAsync(gameObject.name);
         }
     }
@@ -104,9 +105,25 @@ public class SceneDetails : MonoBehaviour
         for (int n = 0; n < SceneManager.sceneCount; ++n)
         {
             Scene scene = SceneManager.GetSceneAt(n);
-            if (gameObject.name == scene.name)
+            if (GetSceneName() == scene.name)
                 return true;
         }
         return false;
     }
+
+    public string GetSceneName()
+    {
+        if (cacheString == "") cacheString = sceneName.ToString();
+        return cacheString;
+    }
+
+    public static string GetSceneName(SceneName name)
+    {
+        return name.ToString();
+    }
+}
+
+public enum SceneName
+{
+    TomatoHouse, HomePoint, StartingPoint, House1, House2, House3, House4, Library, Combini, Company_FirstFloor, Company_SecondFloor
 }
