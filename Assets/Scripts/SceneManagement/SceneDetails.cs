@@ -116,11 +116,6 @@ public class SceneDetails : MonoBehaviour
         if (cacheString == "") cacheString = sceneName.ToString();
         return cacheString;
     }
-
-    public static string GetSceneName(SceneName name)
-    {
-        return name.ToString();
-    }
 }
 
 public enum SceneName
