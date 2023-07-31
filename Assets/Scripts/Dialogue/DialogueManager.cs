@@ -72,7 +72,9 @@ public class DialogueManager : MonoBehaviour
     private const string CAMERA_TAG = "camera";
     private const string TELEPORT_TAG = "teleport";
     private const string SETACTIVE_TAG = "setactive";
-    private const string UNLOCKDOOR_TAG = "unlockdoor";
+    private const string UNLOCKPORTAL_TAG = "unlockportal";
+    private const string FOLLOW_TAG = "follow";
+    private const string UNFOLLOW_TAG = "unfollow";
 
     private void Awake()
     {
@@ -401,9 +403,17 @@ public class DialogueManager : MonoBehaviour
                     npc3.gameObject.SetActive(state);
                     break;
                 
-                case UNLOCKDOOR_TAG: // #unlockdoor:_
+                case UNLOCKPORTAL_TAG: // #unlockportal:_
                     dialogueExit = DialogueExit.UnlockDoor;
                     break;
+
+                case FOLLOW_TAG: // #follow:_
+                    current_npc.gameObject.GetComponent<NPCFollow>().EnableFollow();
+                    break;
+                
+                case UNFOLLOW_TAG: // #unfollow:_
+                    current_npc.gameObject.GetComponent<NPCFollow>().DisableFollow();
+                    break; 
 
                 default:
                     Debug.Log("Tag detected but not handled." + tag);

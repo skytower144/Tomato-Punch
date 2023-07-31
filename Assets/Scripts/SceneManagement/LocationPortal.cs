@@ -29,7 +29,6 @@ public class LocationPortal : MonoBehaviour, Interactable
     public void Interact()
     {
         if (IsLocked()) {
-            Debug.Log("interacting");
             TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/LocationPortal/{quest_id}");
             DialogueManager.instance.EnterDialogue(inkJsonData, this);
         }

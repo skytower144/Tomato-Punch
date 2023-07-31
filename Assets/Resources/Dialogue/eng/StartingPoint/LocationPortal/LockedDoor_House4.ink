@@ -6,7 +6,7 @@ VAR isQuestCompleted = false
 {
     - isQuestCompleted:
     #completequest:LockedDoor_House4
-    You used the rusty key to open the door. #unlockdoor:_
+    You used the rusty key to open the door. #unlockportal:_
     The door opened.
     
     - else:

@@ -9,10 +9,10 @@ public class Quest
 
     [TextArea(5,5)]
     [SerializeField] private string ultimateGoalDescription;
-    [SerializeField] private List<ItemQuantity> itemRewardList = new List<ItemQuantity>();
     [SerializeField] private List<CarryGoal> carryGoals = new List<CarryGoal>();
     [SerializeField] private List<DefeatGoal> defeatGoals = new List<DefeatGoal>();
-
+    [SerializeField] public Reward reward;
+    
     public bool CheckQuestComplete()
     {
         List<Goal> totalGoals = ReturnTotalGoals();
@@ -47,8 +47,10 @@ public class Quest
             isCompleted = true;
             UnsubscribeGoalEvents();
 
-            foreach (ItemQuantity reward in itemRewardList)
-                Inventory.instance.AddItem(reward.item, reward.count);
+            foreach (ItemQuantity iq in reward.items)
+                Inventory.instance.AddItem(iq.item, iq.count);
+            
+            GameManager.gm_instance.battle_system.tomatostatus.UpdatePlayerMoney(reward.coinAmount);
         }
     }
 
@@ -57,6 +59,7 @@ public class Quest
         isCompleted = state;
     }
 
+    // Must update this function as goal types increase
     private List<Goal> ReturnTotalGoals()
     {
         List<Goal> totalGoals = new List<Goal>();

@@ -98,8 +98,6 @@ public class PlayerKeyEventManager : MonoBehaviour
 
 public enum PlayerKeyEvent
 {
-    None,
-    Win_Rupple_StartingPoint,
-    Lose_Rupple_StartingPoint,
-    Win_Police_StartingPoint
+    None,   Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint
+    
 }

@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class NPCFollow : MonoBehaviour
 {
+    [Header("=== THIS SCRIPT REQUIRES NPCCONTROLLER ===")]
+    public bool isFollowing;
+    [Space(10)]
     [SerializeField] private Animator anim;
     [SerializeField] private int followDelay;
-    [SerializeField] private bool enableMove;
+    [SerializeField] private List<SceneName> offLimitAreas;
 
     private Transform leader;
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;
+    private BoxCollider2D col;
 
     private float followSpeed = 8.9f;
     private float stopTime;
@@ -22,13 +26,26 @@ public class NPCFollow : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<BoxCollider2D>();
         leader = GameManager.gm_instance.player_movement.transform;
     }
 
     void FixedUpdate()
     {
-        if (!enableMove) return;
+        if (!isFollowing) return;
         Watch();
+    }
+
+    public void EnableFollow()
+    {
+        isFollowing = true;
+        col.enabled = false;
+    }
+
+    public void DisableFollow()
+    {
+        isFollowing = false;
+        col.enabled = true;
     }
 
     private void Watch()
@@ -69,7 +86,7 @@ public class NPCFollow : MonoBehaviour
             // Calculate the movement speed based on followSpeed and Time.deltaTime
             float movementSpeed = Mathf.Min(followSpeed * Time.deltaTime, distance);
 
-            // Move the cat towards the target position using the calculated speed
+            // Move the NPC towards the target position using the calculated speed
             Vector2 amount = direction.normalized * movementSpeed;
             rb.position += amount;
         }

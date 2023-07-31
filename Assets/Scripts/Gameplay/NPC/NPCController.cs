@@ -28,6 +28,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
+    [SerializeField] private bool disableSpriteAnimator;
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
 
@@ -51,7 +52,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     private void Update()
     {
-        spriteAnimator.Animate();
+        if (!disableSpriteAnimator)
+            spriteAnimator.Animate();
     }
 
     public void Interact()
@@ -110,6 +112,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     public void LoadNextDialogue(string nextFileName)
     {
+        if (nextFileName == "_") nextFileName = "";
         cacheDialogueFile = inkFileName;
         inkFileName = nextFileName;
     }
