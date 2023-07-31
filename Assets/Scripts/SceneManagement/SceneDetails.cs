@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneDetails : MonoBehaviour
 {
     [SerializeField] private SceneName sceneName;
+    public SceneName scene_name => sceneName;
     private string cacheString = "";
     [SerializeField] private bool isIndoor;
     [SerializeField] private List<SceneDetails> connectedScenes;

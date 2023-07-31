@@ -114,7 +114,7 @@ public class LocationPortal : MonoBehaviour, Interactable
         foreach(GameObject trigger in GameObject.FindGameObjectsWithTag("SceneTrigger")) // inactive objects will not be targeted.
         {
             target_scene = trigger.GetComponent<SceneDetails>();
-            if (target_scene.GetSceneName() == arrival_scene.ToString())
+            if (target_scene.scene_name == arrival_scene)
                 break;
         }
 
