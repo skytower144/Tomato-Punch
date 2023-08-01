@@ -106,7 +106,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     {
         FacePlayer();
         GameManager.gm_instance.playerKeyEventManager.CheckPlayerKeyEvent(this, keyEventDialogues);
-        TextAsset inkJsonData = Resources.Load<TextAsset>($"Dialogue/{UIControl.currentLangMode}/{gameObject.scene.name}/{gameObject.name}/{inkFileName}");
+        TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, gameObject.name, inkFileName);
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 

@@ -156,6 +156,7 @@ public class EnemyBase : ScriptableObject
 
 }
 
+// Enum names must be identical to file name within Resources folder.
 public enum BgName { bg_tutorial }
 
 [System.Serializable]

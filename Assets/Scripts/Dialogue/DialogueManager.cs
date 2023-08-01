@@ -120,7 +120,7 @@ public class DialogueManager : MonoBehaviour
         currentTarget = interactingTarget;
         
         currentStory = new Story(inkJSON.text);
-        portrait.sprite = Resources.Load<Sprite>("Portraits/Tomato_neutral");
+        portrait.sprite = SpriteDB.ReturnPortrait("Tomato_neutral");
 
         SetDialogueBox(true);
         dialogueIsPlaying = true;
@@ -247,9 +247,9 @@ public class DialogueManager : MonoBehaviour
 
             switch (tag_key)
             {
-                case PORTRAIT_TAG: // #portrait:tomato_neutral
+                case PORTRAIT_TAG: // #portrait:Tomato_neutral
                     SetPortraitBox(true);
-                    portrait.sprite = Resources.Load<Sprite>($"Portraits/{tag_value}");
+                    portrait.sprite = SpriteDB.ReturnPortrait(tag_value);
                     break;
                 
                 case HIDEPORTRAIT_TAG: // #hideportrait:_

@@ -64,9 +64,7 @@ public class BattleSystem : MonoBehaviour
 
     public void SetBg(BgName bg_name)
     {
-        string bgName = bg_name.ToString();
-        Sprite loadedBg = Resources.Load<Sprite>($"BattleBackground/{bgName}");
-        background.sprite = loadedBg;
+        background.sprite = SpriteDB.ReturnBg(bg_name.ToString());
     }
 
     public void UpdatePlayerStatus(int updated_level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)
