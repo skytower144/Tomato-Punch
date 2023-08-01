@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class NPCFollow : MonoBehaviour
 {
-    [Header("=== THIS SCRIPT REQUIRES NPCCONTROLLER ===")]
-    public bool isFollowing;
-    [Space(10)]
+    [SerializeField] private bool isFollowing;
+    [SerializeField] private Transform leader;
     [SerializeField] private Animator anim;
     [SerializeField] private int followDelay;
+    [Space(10)]
     [SerializeField] private List<SceneName> offLimitAreas;
 
-    private Transform leader;
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;
     private BoxCollider2D col;
@@ -27,7 +26,8 @@ public class NPCFollow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
-        leader = GameManager.gm_instance.player_movement.transform;
+        if (leader == null)
+            leader = GameManager.gm_instance.player_movement.transform;
     }
 
     void FixedUpdate()

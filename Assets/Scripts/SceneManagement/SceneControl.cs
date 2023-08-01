@@ -25,7 +25,7 @@ public class SceneControl : MonoBehaviour
             LoadTitleScreen();
     }
 
-    public void InitializeSceneDict()
+    private void InitializeSceneDict()
     {
         SceneDetails[] all_scene_details = transform.GetComponentsInChildren<SceneDetails>(true);
 
@@ -48,6 +48,8 @@ public class SceneControl : MonoBehaviour
             previous_scene_name = null;
     
         current_scene_name = CurrentScene.GetSceneName();
+
+        GameManager.gm_instance.itemManager.SetItemVisibility(CurrentScene.scene_name);
     }
     public List<Scene> ScenesExceptGameplay()
     {

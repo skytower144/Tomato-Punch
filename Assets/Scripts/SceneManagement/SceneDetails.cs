@@ -11,6 +11,17 @@ public class SceneDetails : MonoBehaviour
     [SerializeField] private bool isIndoor;
     [SerializeField] private List<SceneDetails> connectedScenes;
     public List<SceneDetails> connected_scenes => connectedScenes;
+
+    public static Dictionary<SceneName, List<SceneName>> connectedSceneDict = new Dictionary<SceneName, List<SceneName>>();
+
+    void Start()
+    {
+        List<SceneName> connectedSceneNames = new List<SceneName>();
+        foreach (SceneDetails sd in connectedScenes)
+            connectedSceneNames.Add(sd.scene_name);
+        
+        connectedSceneDict.Add(sceneName, connectedSceneNames);
+    }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {

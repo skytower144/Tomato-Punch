@@ -97,10 +97,13 @@ public class ResolutionMenu : MonoBehaviour
         
         for (int i = 8; i >= 1; i--)
         {
-            string option = string.Format("{0} x {1}", 240 * i, 135 * i);
-            optionList.Add(option);
+            //string option = string.Format("{0} x {1}", 240 * i, 135 * i);
+            int width = 16 * (13 - i) * 10;
+            int height = 9 * (13 - i) * 10;
+            string option = string.Format("{0} x {1}", width, height);
             
-            resolutions.Add((240 * i, 135 * i));
+            optionList.Add(option);
+            resolutions.Add((width, height));
         }
 
         resolutionDropdown.AddOptions(optionList);

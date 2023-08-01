@@ -7,7 +7,7 @@ public class StringItemLocation : SerializableDictionary<string, ItemLocationDat
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] private List<Transform> itemTrackers = new List<Transform>();
+    [SerializeField] private List<ItemHub> itemHubList = new List<ItemHub>();
 
     // if (Input.GetKeyDown(KeyCode.C))
     // {
@@ -19,9 +19,9 @@ public class ItemManager : MonoBehaviour
     {
         Dictionary<string, int> duplicateIdCheck = new Dictionary<string, int>();
 
-        for (int i = 0; i < itemTrackers.Count; i++)
+        for (int i = 0; i < itemHubList.Count; i++)
         {
-            Transform parent_scene = itemTrackers[i];
+            Transform parent_scene = itemHubList[i].transform;
             ItemPickup[] items = parent_scene.GetComponentsInChildren<ItemPickup>(true);
 
             foreach (ItemPickup itemInfo in items)
@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
                 pickedUpItems.Add(data.Key);
                 continue;
             }
-            GameObject sceneItem = Instantiate(ItemPrefabDB.ReturnItemOfName(data.Value.itemName), itemTrackers[data.Value.located_sceneIndex]);
+            GameObject sceneItem = Instantiate(ItemPrefabDB.ReturnItemOfName(data.Value.itemName), ReturnItemTransform(data.Value.located_scene));
             sceneItem.GetComponent<ItemPickup>().RecoverId(data.Key);
             sceneItem.transform.localPosition = data.Value.located_position;
         }
@@ -62,7 +62,7 @@ public class ItemManager : MonoBehaviour
 
         foreach (KeyValuePair<string, ItemLocationData> data in removedItemDict)
         {
-            Transform parent_scene = itemTrackers[data.Value.located_sceneIndex];
+            Transform parent_scene = ReturnItemTransform(data.Value.located_scene);
             foreach (Transform itemTransform in parent_scene)
             {
                 if (itemTransform.GetComponent<ItemPickup>().itemID == data.Key)
@@ -70,7 +70,23 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
-    
+
+    public void SetItemVisibility(SceneName currentScene)
+    {
+        foreach (ItemHub hub in itemHubList) {
+            hub.SetVisibility(currentScene);
+        }
+    }
+
+    private Transform ReturnItemTransform(SceneName targetScene)
+    {
+        foreach (ItemHub hub in itemHubList) {
+            if (hub.sceneName == targetScene)
+                return hub.transform;
+        }
+        Debug.LogError($"Item transform not found : {targetScene} does not exist.");
+        return transform;
+    }
 }
 
 [System.Serializable]
@@ -78,12 +94,12 @@ public class ItemLocationData
 {
     public string itemName;
     public Vector3 located_position;
-    public int located_sceneIndex;
+    public SceneName located_scene;
 
-    public ItemLocationData(string itemName, Vector3 position, int located_sceneIndex)
+    public ItemLocationData(string itemName, Vector3 position, SceneName located_scene)
     {
         this.itemName = itemName;
         this.located_position = position;
-        this.located_sceneIndex = located_sceneIndex;
+        this.located_scene = located_scene;
     }
 }

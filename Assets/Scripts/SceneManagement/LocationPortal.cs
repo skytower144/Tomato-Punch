@@ -109,15 +109,13 @@ public class LocationPortal : MonoBehaviour, Interactable
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
         player_movement.current_portalID = portal_id;
 
-        SceneDetails target_scene = null;
-        foreach(GameObject trigger in GameObject.FindGameObjectsWithTag("SceneTrigger")) // inactive objects will not be targeted.
+        foreach (SceneDetails target_scene in SceneControl.instance.sceneDict.Values)
         {
-            target_scene = trigger.GetComponent<SceneDetails>();
-            if (target_scene.scene_name == arrival_scene)
+            if (target_scene.scene_name == arrival_scene) {
+                target_scene.LoadScene(this);
                 break;
+            }
         }
-
-        target_scene.LoadScene(this);
 
         if (outdoor_to_indoor)
         {

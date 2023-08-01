@@ -100,14 +100,14 @@ public class ProgressManager : MonoBehaviour
             else
                 save_data = dataHandler.Load("Slot_New");
         }
-        
-        playerInventory.GatherEquipSlots();
-        LoadPlayerData(); // apply data to gameplay
-        
         Destroy(itemManagerPrefab);
         GameObject itemBundle = Resources.Load<GameObject>("ItemManager/Items");
         itemManagerPrefab = Instantiate(itemBundle, essential_transform);
-        itemManagerPrefab.GetComponent<ItemManager>().RecoverItemState();
+        GameManager.gm_instance.itemManager = itemManagerPrefab.GetComponent<ItemManager>();
+        GameManager.gm_instance.itemManager.RecoverItemState();
+
+        playerInventory.GatherEquipSlots();
+        LoadPlayerData(); // apply data to gameplay
     }
 
     public void DeleteSaveData(string profileId)

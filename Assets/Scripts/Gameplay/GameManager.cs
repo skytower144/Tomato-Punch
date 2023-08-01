@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public AssistManager assistManager;
     public PlayerKeyEventManager playerKeyEventManager;
+    public PartyManager partyManager;
+    public ItemManager itemManager;
     public PlayerMovement player_movement => playerMovement;
     public BattleSystem battle_system => battleSystem;
     public RebindKey rebind_key => rebindKey;

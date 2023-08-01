@@ -408,11 +408,11 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case FOLLOW_TAG: // #follow:_
-                    current_npc.gameObject.GetComponent<NPCFollow>().EnableFollow();
+                    GameManager.gm_instance.partyManager.JoinParty(current_npc);
                     break;
                 
                 case UNFOLLOW_TAG: // #unfollow:_
-                    current_npc.gameObject.GetComponent<NPCFollow>().DisableFollow();
+                    GameManager.gm_instance.partyManager.LeaveParty(current_npc.ReturnID());
                     break; 
 
                 default:

@@ -20,12 +20,12 @@ public class ItemPickup : MonoBehaviour, Interactable
     public void OnFirstCreated() // Declare this function after instantiating Item.
     {
         GenerateItemGuid();
-        ProgressManager.instance.save_data.CreatedItem_dict[id] = new ItemLocationData(item.ItemName, transform.localPosition, transform.parent.transform.GetSiblingIndex());
+        ProgressManager.instance.save_data.CreatedItem_dict[id] = new ItemLocationData(item.ItemName, transform.localPosition, transform.parent.GetComponent<ItemHub>().sceneName);
     }
     public void Interact()
     {
         Inventory.instance.AddItem(item);
-        ProgressManager.instance.save_data.RemovedItem_dict[id] = new ItemLocationData(item.ItemName, transform.localPosition, transform.parent.transform.GetSiblingIndex());
+        ProgressManager.instance.save_data.RemovedItem_dict[id] = new ItemLocationData(item.ItemName, transform.localPosition, SceneControl.instance.CurrentScene.scene_name);
         Destroy(gameObject);
     }
 }
