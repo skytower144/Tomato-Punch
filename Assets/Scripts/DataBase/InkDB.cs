@@ -11,7 +11,7 @@ public class InkDB
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];
         
-        GameManager.DoDebug($"Added\n{id} to Ink Catalog");
+        //GameManager.DoDebug($"Added\n{id} to Ink Catalog");
         InkCatalog[id] = Resources.Load<TextAsset>($"{id}");
         return InkCatalog[id];
     }
@@ -23,7 +23,7 @@ public class InkDB
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];
         
-        GameManager.DoDebug($"Added\n{id} to Ink Catalog");
+        //GameManager.DoDebug($"Added\n{id} to Ink Catalog");
         InkCatalog[id] = Resources.Load<TextAsset>($"{id}");
         return InkCatalog[id];
     }    

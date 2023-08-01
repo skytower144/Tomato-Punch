@@ -11,7 +11,7 @@ public class SpriteDB
         if (PortraitCatalog.ContainsKey(fileName))
             return PortraitCatalog[fileName];
         
-        GameManager.DoDebug($"Added\n{fileName} to Portrait Catalog");
+        //GameManager.DoDebug($"Added\n{fileName} to Portrait Catalog");
         PortraitCatalog[fileName] = Resources.Load<Sprite>($"Portraits/{fileName}");
         return PortraitCatalog[fileName];
     }
@@ -21,7 +21,7 @@ public class SpriteDB
         if (BgCatalog.ContainsKey(fileName))
             return BgCatalog[fileName];
         
-        GameManager.DoDebug($"Added\n{fileName} to Background Catalog");
+        //GameManager.DoDebug($"Added\n{fileName} to Background Catalog");
         BgCatalog[fileName] = Resources.Load<Sprite>($"BattleBackground/{fileName}");
         return BgCatalog[fileName];
     }
