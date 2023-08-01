@@ -14,8 +14,8 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private Transform essential_transform;
-    [SerializeField] private GameObject itemManagerPrefab;
-    public GameObject item_total => itemManagerPrefab;
+    [SerializeField] private GameObject itemTotal, itemTotalPrefab;
+    public GameObject item_total => itemTotal;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
@@ -100,10 +100,9 @@ public class ProgressManager : MonoBehaviour
             else
                 save_data = dataHandler.Load("Slot_New");
         }
-        Destroy(itemManagerPrefab);
-        GameObject itemBundle = Resources.Load<GameObject>("ItemManager/Items");
-        itemManagerPrefab = Instantiate(itemBundle, essential_transform);
-        GameManager.gm_instance.itemManager = itemManagerPrefab.GetComponent<ItemManager>();
+        Destroy(itemTotal);
+        itemTotal = Instantiate(itemTotalPrefab, essential_transform);
+        GameManager.gm_instance.itemManager = itemTotal.GetComponent<ItemManager>();
         GameManager.gm_instance.itemManager.RecoverItemState();
 
         playerInventory.GatherEquipSlots();
