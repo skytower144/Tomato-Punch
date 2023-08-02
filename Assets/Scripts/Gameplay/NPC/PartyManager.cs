@@ -45,11 +45,14 @@ public class PartyMember
 {
     public string id;
     public NPCFollow member;
+    public SceneName currentScene;
     private Vector2 position;
 
     public PartyMember(string id, NPCFollow member)
     {
         this.id = id;
         this.member = member;
+        this.position = member.transform.position;
+        currentScene = SceneControl.instance.GetSceneNameByPos(this.position);
     }
 }

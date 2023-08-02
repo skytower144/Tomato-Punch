@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEditor;
 
@@ -7,7 +8,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
-    private SerializedProperty canBattle, instantBattle, enemyData, reviveState;
+    private SerializedProperty isUniqueID, npcID, canBattle, instantBattle, enemyData, reviveState;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -19,6 +20,9 @@ public class NPCInteractionEditor : Editor
         lock_rd = serializedObject.FindProperty("lock_rd");
         lock_ld = serializedObject.FindProperty("lock_ld");
         lock_lu = serializedObject.FindProperty("lock_lu");
+
+        isUniqueID = serializedObject.FindProperty("isUniqueID");
+        npcID = serializedObject.FindProperty("npcID");
 
         canBattle = serializedObject.FindProperty("canBattle");
         instantBattle = serializedObject.FindProperty("instantBattle");
@@ -35,6 +39,19 @@ public class NPCInteractionEditor : Editor
 
         NPCController npcControl = target as NPCController;
 
+        EditorGUILayout.Space();
+        npcControl.isUniqueID = EditorGUILayout.Toggle("Is Unique ID", npcControl.isUniqueID);
+
+        if (npcControl.isUniqueID)
+        {
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUI.indentLevel++;
+
+            npcControl.npcID = EditorGUILayout.TextField("NPC Unique ID", npcControl.npcID);
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
         npcControl.banInteractDirection = EditorGUILayout.Toggle("Ban Interact Direction", npcControl.banInteractDirection);
 
         if (npcControl.banInteractDirection)
@@ -76,7 +93,17 @@ public class NPCInteractionEditor : Editor
             EditorGUI.indentLevel--;
         }
 
+        if (GUI.changed) MarkSceneDirty();
         serializedObject.ApplyModifiedProperties();
+    }
+
+    private void MarkSceneDirty()
+    {
+        if (!UnityEditor.EditorApplication.isPlaying) {
+            var behavior = target as MonoBehaviour;
+            if (behavior)
+                EditorSceneManager.MarkSceneDirty(behavior.gameObject.scene);
+        }
     }
 
 }

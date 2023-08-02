@@ -8,6 +8,7 @@ public class SceneDetails : MonoBehaviour
     [SerializeField] private SceneName sceneName;
     public SceneName scene_name => sceneName;
     private string cacheString = "";
+    public BoxCollider2D sceneTrigger;
     [SerializeField] private bool isIndoor;
     [SerializeField] private List<SceneDetails> connectedScenes;
     public List<SceneDetails> connected_scenes => connectedScenes;

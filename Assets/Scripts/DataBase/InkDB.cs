@@ -5,8 +5,11 @@ public class InkDB
 {
     static Dictionary<string, TextAsset> InkCatalog = new Dictionary<string, TextAsset>();
 
-    public static TextAsset ReturnTextAsset(string language, string sceneName, string npcName, string inkFileName)
+    public static TextAsset ReturnTextAsset(string language, string sceneName, string npcName, string inkFileName, bool isUniqueID)
     {
+        if (isUniqueID)
+            sceneName = "aMobile";
+        
         string id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];

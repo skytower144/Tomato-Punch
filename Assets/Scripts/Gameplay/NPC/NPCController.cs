@@ -24,11 +24,14 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     private SpriteAnimator spriteAnimator;
     private bool isInteractAnimating = false;
 
-// DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
     [SerializeField] private bool disableSpriteAnimator;
+
+// DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    [HideInInspector] public bool isUniqueID;
+    [HideInInspector] public string npcID;
+
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
 
@@ -106,7 +109,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     {
         FacePlayer();
         GameManager.gm_instance.playerKeyEventManager.CheckPlayerKeyEvent(this, keyEventDialogues);
-        TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, gameObject.name, inkFileName);
+        TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, gameObject.name, inkFileName, isUniqueID);
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 
@@ -207,6 +210,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     public string ReturnID()
     {
+        if (isUniqueID) return npcID;
         return $"{gameObject.scene.name}_{gameObject.name}";
     }
 }

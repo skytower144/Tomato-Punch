@@ -13,6 +13,7 @@ public class SceneControl : MonoBehaviour
     public SceneDetails PreviousScene { get; private set; }
     [SerializeField] private string current_scene_name, previous_scene_name;
     public Dictionary<string, SceneDetails> sceneDict = new Dictionary<string, SceneDetails>();
+    public Dictionary<SceneName, Vector2> scenePosDict = new Dictionary<SceneName, Vector2>();
 
     void Awake()
     {
@@ -22,21 +23,23 @@ public class SceneControl : MonoBehaviour
         }
 
         instance = this;
-        SceneControl.instance.InitializeSceneDict();
+        InitSceneDictionaries();
 
         if (!AppSettings.IsUnityEditor)
             LoadTitleScreen();
     }
 
-    private void InitializeSceneDict()
+    private void InitSceneDictionaries()
     {
         SceneDetails[] all_scene_details = transform.GetComponentsInChildren<SceneDetails>(true);
 
         foreach (SceneDetails scene_detail in all_scene_details)
         {
             sceneDict[scene_detail.GetSceneName()] = scene_detail;
+            scenePosDict[scene_detail.scene_name] = scene_detail.sceneTrigger.bounds.center;
         }
     }
+
     public void SetCurrentScene(SceneDetails current_scene, bool isLoading = false)
     {
         if (isLoading)
@@ -110,6 +113,23 @@ public class SceneControl : MonoBehaviour
         GameManager.gm_instance.save_load_menu.isLoading = false;
         
         StartCoroutine(LoadingScreen.instance.UncoverLoadingScreen());
+    }
+
+    public SceneName GetSceneNameByPos(Vector2 inputPosition)
+    {
+        SceneName closestSceneName = SceneName.TomatoHouse;
+        float closestMagnitude = float.MaxValue;
+
+        foreach (KeyValuePair<SceneName, Vector2> kvp in scenePosDict) {
+            float distanceMagnitude = (kvp.Value - inputPosition).sqrMagnitude;
+
+            if (distanceMagnitude < closestMagnitude)
+            {
+                closestSceneName = kvp.Key;
+                closestMagnitude = distanceMagnitude;
+            }
+        }
+        return closestSceneName;
     }
 
     private void LoadTitleScreen()
