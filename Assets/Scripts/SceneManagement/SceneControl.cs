@@ -3,6 +3,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class ScenenameGameobject : SerializableDictionary<SceneName, GameObject>{}
+
 public class SceneControl : MonoBehaviour
 {
     public static SceneControl instance { get; private set; }

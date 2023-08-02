@@ -7,7 +7,7 @@ public class StringItemLocation : SerializableDictionary<string, ItemLocationDat
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] private List<ItemHub> itemHubList = new List<ItemHub>();
+    public ScenenameGameobject sceneItemDict = new ScenenameGameobject();
 
     // if (Input.GetKeyDown(KeyCode.C))
     // {
@@ -19,9 +19,9 @@ public class ItemManager : MonoBehaviour
     {
         Dictionary<string, int> duplicateIdCheck = new Dictionary<string, int>();
 
-        for (int i = 0; i < itemHubList.Count; i++)
+        foreach (GameObject value in sceneItemDict.Values)
         {
-            Transform parent_scene = itemHubList[i].transform;
+            Transform parent_scene = value.transform;
             ItemPickup[] items = parent_scene.GetComponentsInChildren<ItemPickup>(true);
 
             foreach (ItemPickup itemInfo in items)
@@ -73,17 +73,22 @@ public class ItemManager : MonoBehaviour
 
     public void SetItemVisibility(SceneName currentScene)
     {
-        foreach (ItemHub hub in itemHubList) {
-            hub.SetVisibility(currentScene);
+        foreach (GameObject value in sceneItemDict.Values)
+            value.SetActive(false);
+        
+        if (sceneItemDict.ContainsKey(currentScene)) {
+            sceneItemDict[currentScene].SetActive(true);
+
+            foreach (SceneName connectedScene in SceneDetails.connectedSceneDict[currentScene])
+                sceneItemDict[connectedScene].SetActive(true);
         }
     }
 
     private Transform ReturnItemTransform(SceneName targetScene)
     {
-        foreach (ItemHub hub in itemHubList) {
-            if (hub.sceneName == targetScene)
-                return hub.transform;
-        }
+        if (sceneItemDict.ContainsKey(targetScene))
+            return sceneItemDict[targetScene].transform;
+        
         Debug.LogError($"Item transform not found : {targetScene} does not exist.");
         return transform;
     }
