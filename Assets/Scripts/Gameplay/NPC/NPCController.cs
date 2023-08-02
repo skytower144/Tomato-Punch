@@ -50,7 +50,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
             sprite_renderer = GetComponent<SpriteRenderer>();
         Play("idle");
 
-        AnimManager.instance.npc_dict[ReturnID()] = this;
+        NPCManager.instance.npc_dict[ReturnID()] = this;
     }
 
     private void Update()
@@ -195,6 +195,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         ProgressData game_data = new ProgressData();
         game_data.string_value_0 = inkFileName;
         game_data.bool_value_0 = isDisabled;
+        game_data.position = transform.position;
         game_data.keyEventDialogues = keyEventDialogues;
 
         return game_data;
@@ -205,6 +206,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         inkFileName = game_data.string_value_0;
         isDisabled = game_data.bool_value_0;
         gameObject.SetActive(!isDisabled);
+        transform.position = game_data.position;
         keyEventDialogues = game_data.keyEventDialogues;
     }
 

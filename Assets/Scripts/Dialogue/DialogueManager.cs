@@ -301,13 +301,13 @@ public class DialogueManager : MonoBehaviour
 
                     hideDialogue = true;
                     SetDialogueBox(false);
-                    AnimManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
+                    NPCManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
                     break;
                 
                 case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry
                     string[] info0 = CheckTagValueError(tag_value);
 
-                    NPCController npc0 = AnimManager.instance.npc_dict[info0[0]];
+                    NPCController npc0 = NPCManager.instance.npc_dict[info0[0]];
                     npc0.ChangeIdleAnimation(info0[1]);
                     break;
 
@@ -318,7 +318,7 @@ public class DialogueManager : MonoBehaviour
 
                 case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut
                     dialogueExit = DialogueExit.Battle;
-                    GameManager.gm_instance.battle_system.enemy_control._base = AnimManager.instance.npc_dict[tag_value].enemyData;
+                    GameManager.gm_instance.battle_system.enemy_control._base = NPCManager.instance.npc_dict[tag_value].enemyData;
                     break;
 
                 case PURCHASEONE_TAG: // #purchaseone:Donut@0    // ItemName@price 
@@ -386,7 +386,7 @@ public class DialogueManager : MonoBehaviour
                 case TELEPORT_TAG: // #teleport:StartingPoint_Donut@x@y
                     string[] posInfo = CheckTagValueError(tag_value);
 
-                    NPCController npc2 = AnimManager.instance.npc_dict[posInfo[0]];
+                    NPCController npc2 = NPCManager.instance.npc_dict[posInfo[0]];
                     npc2.Teleport(float.Parse(posInfo[1]), float.Parse(posInfo[2]));
                     break;
                 
@@ -398,7 +398,7 @@ public class DialogueManager : MonoBehaviour
                 case SETACTIVE_TAG: // #setactive:StartingPoint_Donut@true
                     string[] info = CheckTagValueError(tag_value);
 
-                    NPCController npc3 = AnimManager.instance.npc_dict[info[0]];
+                    NPCController npc3 = NPCManager.instance.npc_dict[info[0]];
                     bool state = (info[1] == "true") ? true : false;
                     npc3.gameObject.SetActive(state);
                     break;

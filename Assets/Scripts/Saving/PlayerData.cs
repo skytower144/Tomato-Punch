@@ -21,6 +21,7 @@ public class PlayerData
     public List<Quest> assignedQuests = new List<Quest>();
     public List<Quest> unassignedQuests = new List<Quest>();
     public List<PlayerKeyEvent> keyEventList = new List<PlayerKeyEvent>();
+    public List<PartyMember> partyMembers = new List<PartyMember>();
 }
 
 [System.Serializable]

@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
-    [SerializeField] List<PartyMember> partyMembers;
+    [SerializeField] private List<PartyMember> partyMembers;
 
-    public void JoinParty(NPCController member)
+    public void JoinParty(NPCController npc)
     {
-        if (!CanJoinParty(member.ReturnID()))
+        if (!CanJoinParty(npc.ReturnID()))
             return;
 
-        PartyMember newMember = new PartyMember(member.ReturnID(), member.gameObject.GetComponent<NPCFollow>());
-        member.transform.SetParent(transform);
+        PartyMember newMember = new PartyMember(npc);
         partyMembers.Add(newMember);
-        newMember.member.EnableFollow();
+        newMember.follow.EnableFollow();
     }
 
     public void LeaveParty(string id)
     {
         foreach (PartyMember member in partyMembers) {
             if (member.id == id) {
-                member.member.DisableFollow();
+                member.follow.DisableFollow();
                 partyMembers.Remove(member);
                 return;
             }
@@ -38,21 +37,49 @@ public class PartyManager : MonoBehaviour
         }
         return true;
     }
+
+    public List<PartyMember> ReturnPartyMembers()
+    {
+        foreach (PartyMember member in partyMembers) {
+            member.UpdateSceneName();
+        }
+        return partyMembers;
+    }
+
+    public void RestorePartyMembers(List<PartyMember> partyMembers)
+    {
+        this.partyMembers = partyMembers;
+
+        foreach (PartyMember member in partyMembers) {
+            member.follow = NPCManager.instance.npc_dict[member.id].gameObject.GetComponent<NPCFollow>();
+            member.follow.transform.position = member.position;
+            member.follow.EnableFollow();
+        }
+    }
 }
 
 [System.Serializable]
 public class PartyMember
 {
     public string id;
-    public NPCFollow member;
+    [System.NonSerialized] public NPCFollow follow;
     public SceneName currentScene;
-    private Vector2 position;
+    public Vector2 position;
 
-    public PartyMember(string id, NPCFollow member)
+    public PartyMember(NPCController npc)
     {
-        this.id = id;
-        this.member = member;
-        this.position = member.transform.position;
-        currentScene = SceneControl.instance.GetSceneNameByPos(this.position);
+        id = npc.ReturnID();
+        follow = npc.GetComponent<NPCFollow>();
+        UpdateSceneName();
+    }
+
+    public void UpdatePosition()
+    {
+        // position = 
+    }
+
+    public void UpdateSceneName()
+    {
+        currentScene = SceneControl.instance.GetSceneNameByPos(position);
     }
 }

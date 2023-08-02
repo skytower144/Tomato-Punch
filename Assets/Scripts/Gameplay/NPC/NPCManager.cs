@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class StringNpccontrol : SerializableDictionary<string, NPCController>{}
 
-public class AnimManager : MonoBehaviour
+public class NPCManager : MonoBehaviour
 {
-    public static AnimManager instance { get; private set; }
+    public static NPCManager instance { get; private set; }
     public StringNpccontrol npc_dict = new StringNpccontrol();
 
     private void Awake()

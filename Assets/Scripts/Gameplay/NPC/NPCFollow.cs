@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class NPCFollow : MonoBehaviour
 {
-    [SerializeField] private bool isFollowing;
     [SerializeField] private Transform leader;
     [SerializeField] private Animator anim;
-    [SerializeField] private int followDelay;
-    [Space(10)]
+    [SerializeField] private int followDelay; [Space(10)]
     [SerializeField] private List<SceneName> offLimitAreas;
-
+    
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;
     private BoxCollider2D col;
@@ -18,6 +16,7 @@ public class NPCFollow : MonoBehaviour
     private float followSpeed = 8.9f;
     private float stopTime;
     private bool playerStopped;
+    private bool isFollowing;
 
     private Vector2 direction;
     private float distance;
