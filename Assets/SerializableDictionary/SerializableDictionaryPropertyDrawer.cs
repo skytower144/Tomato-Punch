@@ -7,6 +7,7 @@ using UnityEditor;
 using System.Reflection;
 using System;
 
+[CustomPropertyDrawer(typeof(ScenenameAssistant))]
 [CustomPropertyDrawer(typeof(ScenenameGameobject))]
 [CustomPropertyDrawer(typeof(StringNpccontrol))]
 [CustomPropertyDrawer(typeof(StringSpriteanim))]

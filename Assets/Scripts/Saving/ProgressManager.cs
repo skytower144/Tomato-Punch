@@ -4,6 +4,8 @@ using UnityEngine;
 
 [System.Serializable]
 public class StringProgressData : SerializableDictionary<string, ProgressData>{}
+[System.Serializable]
+public class ScenenameAssistant : SerializableDictionary<string, ProgressAssistant>{}
 
 public class ProgressManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private Transform essential_transform;
     [SerializeField] private GameObject itemTotal, itemTotalPrefab;
     public GameObject item_total => itemTotal;
+    public ScenenameAssistant assistants; 
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;

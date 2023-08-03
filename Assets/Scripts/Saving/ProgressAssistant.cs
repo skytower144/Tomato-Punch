@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class ProgressAssistant : MonoBehaviour
 {
+    public GameObject levelHolder;
+
     [SerializeField]
     [ProgressInterface(typeof(ObjectProgress))]
     private List<Object> objectProgressList; // Interface List;
 
     void Start()
     {
+        if (!ProgressManager.instance.assistants.ContainsValue(this))
+            ProgressManager.instance.assistants.Add(gameObject.scene.name, this);
         InitiateRestore();
+    }
+
+    void OnDestroy()
+    {
+        if (!string.IsNullOrEmpty(gameObject.scene.name) && ProgressManager.instance.assistants.ContainsValue(this))
+            ProgressManager.instance.assistants.Remove(gameObject.scene.name);
     }
 
     public void InitiateCapture()

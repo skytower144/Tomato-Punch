@@ -19,6 +19,8 @@ public class LocationPortal : MonoBehaviour, Interactable
     [SerializeField] private CameraSwitch camera_switch;
     [SerializeField] private string quest_id;
 
+    private static string outdoorSceneName = "";
+
     private PlayerMovement player_movement;
     private bool canEnter = false;
 
@@ -74,15 +76,14 @@ public class LocationPortal : MonoBehaviour, Interactable
         if (canEnter)
         {
             string direction = player_movement.Press_Direction();
+
             if (direction == this.enterDirection.ToString()) {
                 canEnter = false;
                 Time.timeScale = 0;
-
                 player_movement.FaceAdjustment(direction);
                 
                 if (enterAnimator != null)
                     StartCoroutine(DelayEnter(0.5f));
-
                 else
                 {
                     FadeAndTeleport();
@@ -116,14 +117,23 @@ public class LocationPortal : MonoBehaviour, Interactable
                 break;
             }
         }
+    }
 
+    public void TeleportPlayer()
+    {
         if (outdoor_to_indoor)
         {
+            outdoorSceneName = SceneControl.instance.CurrentScene.GetSceneName();
+            if (ProgressManager.instance.assistants.ContainsKey(outdoorSceneName))
+                ProgressManager.instance.assistants[outdoorSceneName].levelHolder.SetActive(false);
+
             SceneControl.instance.CurrentScene.UnloadChainedScenes();
         }
         else if (indoor_to_outdoor)
         {
-            ;
+            if (ProgressManager.instance.assistants.ContainsKey(outdoorSceneName))
+                ProgressManager.instance.assistants[outdoorSceneName].levelHolder.SetActive(true);
+            
             // var unloading_scene = SceneControl.instance.CurrentScene;
             // TeleportPlayer();
             // unloading_scene.UnloadScene();
@@ -132,10 +142,7 @@ public class LocationPortal : MonoBehaviour, Interactable
         {
             SceneControl.instance.CurrentScene.UnloadScene();
         }
-    }
 
-    public void TeleportPlayer()
-    {
         LocationPortal destinationPortal = null;
         foreach(GameObject portal in GameObject.FindGameObjectsWithTag("LocationPortal"))
         {
