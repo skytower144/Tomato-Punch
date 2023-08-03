@@ -90,7 +90,7 @@ public class SceneDetails : MonoBehaviour
     {
         if (!CheckSceneExists())
         {
-            var loading_process = SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
+            var loading_process = SceneManager.LoadSceneAsync(GetSceneName(), LoadSceneMode.Additive);
             
             loading_process.completed += (AsyncOperation operation) =>
             {

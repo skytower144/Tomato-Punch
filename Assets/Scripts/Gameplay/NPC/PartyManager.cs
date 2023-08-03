@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
+    public PartyCandidateControl candidateControl;
     [SerializeField] private List<PartyMember> partyMembers;
 
     public void JoinParty(NPCController npc)
@@ -40,21 +41,21 @@ public class PartyManager : MonoBehaviour
 
     public List<PartyMember> ReturnPartyMembers()
     {
-        foreach (PartyMember member in partyMembers) {
-            member.UpdateSceneName();
-        }
         return partyMembers;
     }
 
-    public void RestorePartyMembers(List<PartyMember> partyMembers)
+    public void RestorePartyMembers(List<PartyMember> party_members)
     {
-        this.partyMembers = partyMembers;
+        for (int i = partyMembers.Count - 1; i >= 0; i--)
+            LeaveParty(partyMembers[i].id);
+
+        partyMembers = party_members;
 
         foreach (PartyMember member in partyMembers) {
             member.follow = NPCManager.instance.npc_dict[member.id].gameObject.GetComponent<NPCFollow>();
-            member.follow.transform.position = member.position;
             member.follow.EnableFollow();
         }
+        candidateControl.progressAssistant.InitiateRestore();
     }
 }
 
@@ -63,23 +64,10 @@ public class PartyMember
 {
     public string id;
     [System.NonSerialized] public NPCFollow follow;
-    public SceneName currentScene;
-    public Vector2 position;
 
     public PartyMember(NPCController npc)
     {
         id = npc.ReturnID();
         follow = npc.GetComponent<NPCFollow>();
-        UpdateSceneName();
-    }
-
-    public void UpdatePosition()
-    {
-        // position = 
-    }
-
-    public void UpdateSceneName()
-    {
-        currentScene = SceneControl.instance.GetSceneNameByPos(position);
     }
 }

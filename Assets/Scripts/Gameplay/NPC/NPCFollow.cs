@@ -44,6 +44,9 @@ public class NPCFollow : MonoBehaviour
     public void DisableFollow()
     {
         isFollowing = false;
+        playerStopped = true;
+        Animate(false);
+        record = new Queue<Vector2>();
         col.enabled = true;
     }
 

@@ -27,6 +27,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
     [SerializeField] private bool disableSpriteAnimator;
+    [SerializeField] private bool savePosition;
 
 // DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [HideInInspector] public bool isUniqueID;
@@ -193,11 +194,12 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     public ProgressData Capture()
     {
         ProgressData game_data = new ProgressData();
+        
         game_data.string_value_0 = inkFileName;
         game_data.bool_value_0 = isDisabled;
         game_data.position = transform.position;
         game_data.keyEventDialogues = keyEventDialogues;
-
+        
         return game_data;
     }
 
@@ -206,6 +208,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         inkFileName = game_data.string_value_0;
         isDisabled = game_data.bool_value_0;
         gameObject.SetActive(!isDisabled);
+
         transform.position = game_data.position;
         keyEventDialogues = game_data.keyEventDialogues;
     }

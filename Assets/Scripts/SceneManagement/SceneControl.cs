@@ -55,7 +55,8 @@ public class SceneControl : MonoBehaviour
     
         current_scene_name = CurrentScene.GetSceneName();
 
-        GameManager.gm_instance.itemManager.SetItemVisibility(CurrentScene.scene_name);
+        GameManager.gm_instance.itemManager.SetVisibility(CurrentScene.scene_name);
+        GameManager.gm_instance.partyManager.candidateControl.SetVisibility(CurrentScene.scene_name);
     }
     public List<Scene> ScenesExceptGameplay()
     {

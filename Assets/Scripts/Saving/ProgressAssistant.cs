@@ -21,7 +21,7 @@ public class ProgressAssistant : MonoBehaviour
         }
     }
 
-    private void InitiateRestore()
+    public void InitiateRestore()
     {
         StringProgressData dataDict = ProgressManager.instance.save_data.progress_dict;
 
@@ -30,7 +30,6 @@ public class ProgressAssistant : MonoBehaviour
             string total_key = progress.ReturnID();
             if (dataDict.ContainsKey(total_key))
                 progress.Restore(dataDict[total_key]);
-        }
-        
+        }   
     }
 }

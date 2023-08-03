@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
 
         resolutionMenu.SetupGraphic();
         resolutionMenu.LoadResolutionSetting();
+        
+        itemManager.HideAllItems();
 
         battleSystem.OnBattleOver -= EndBattle;
         battleSystem.OnBattleOver += EndBattle;

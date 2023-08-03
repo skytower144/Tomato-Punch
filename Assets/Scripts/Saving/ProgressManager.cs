@@ -78,6 +78,8 @@ public class ProgressManager : MonoBehaviour
     private void BackupCleanSlot()
     {
         save_data = new SaveData(); // Make sure save_data is a clean save
+        GameManager.gm_instance.partyManager.candidateControl.progressAssistant.InitiateCapture();
+        
         dataHandler.Save(save_data, "Slot_New");
     }
 

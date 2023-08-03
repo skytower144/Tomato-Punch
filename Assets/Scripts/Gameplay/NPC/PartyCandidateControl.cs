@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class PartyCandidateControl : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public ProgressAssistant progressAssistant;
+    private List<SceneName> visibleScenes;
+
     void Start()
     {
-        
+        foreach (Transform candidate in transform)
+            candidate.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetVisibility(SceneName currentScene)
     {
-        
+        visibleScenes = new List<SceneName> { currentScene };
+        visibleScenes.AddRange(SceneDetails.connectedSceneDict[currentScene]);
+
+        foreach (Transform candidate in transform)
+            candidate.gameObject.SetActive(IsCandidateNearby(candidate));
+    }
+
+    private bool IsCandidateNearby(Transform candidate)
+    {
+        return visibleScenes.Contains(SceneControl.instance.GetSceneNameByPos(candidate.position));
     }
 }

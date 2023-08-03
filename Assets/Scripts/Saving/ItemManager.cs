@@ -71,7 +71,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public void SetItemVisibility(SceneName currentScene)
+    public void SetVisibility(SceneName currentScene)
     {
         foreach (GameObject value in sceneItemDict.Values)
             value.SetActive(false);
@@ -82,6 +82,12 @@ public class ItemManager : MonoBehaviour
             foreach (SceneName connectedScene in SceneDetails.connectedSceneDict[currentScene])
                 sceneItemDict[connectedScene].SetActive(true);
         }
+    }
+
+    public void HideAllItems()
+    {
+        foreach (Transform itemHub in transform)
+            itemHub.gameObject.SetActive(false);
     }
 
     private Transform ReturnItemTransform(SceneName targetScene)
