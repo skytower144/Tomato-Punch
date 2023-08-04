@@ -44,10 +44,21 @@ public class NPCFollow : MonoBehaviour
     public void DisableFollow()
     {
         isFollowing = false;
+        col.enabled = true;
+        ClearRecord();
+    }
+
+    public void Teleport(Vector2 teleportPos)
+    {
+        transform.position = teleportPos;
+        ClearRecord();
+    }
+
+    private void ClearRecord()
+    {
         playerStopped = true;
         Animate(false);
         record = new Queue<Vector2>();
-        col.enabled = true;
     }
 
     private void Watch()

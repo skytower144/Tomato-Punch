@@ -151,7 +151,11 @@ public class LocationPortal : MonoBehaviour, Interactable
                 break;
         }
         
+        foreach (PartyMember member in GameManager.gm_instance.partyManager.partyMembers)
+            member.follow.Teleport(destinationPortal.spawnPoint.position);
+        
         player_movement.transform.position = destinationPortal.spawnPoint.position;
+
 
         // Toggle camera view
         if (camera_switch != null)

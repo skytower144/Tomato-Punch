@@ -5,7 +5,7 @@ using UnityEngine;
 public class PartyManager : MonoBehaviour
 {
     public PartyCandidateControl candidateControl;
-    [SerializeField] private List<PartyMember> partyMembers;
+    public List<PartyMember> partyMembers;
 
     public void JoinParty(NPCController npc)
     {
