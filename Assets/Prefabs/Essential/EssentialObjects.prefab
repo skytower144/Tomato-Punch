@@ -690,6 +690,9 @@ MonoBehaviour:
   essential_transform: {fileID: 2766613874621510960}
   itemTotal: {fileID: 6940624076871693471}
   itemTotalPrefab: {fileID: 8274997007756892908, guid: c438c2f9ac702a94392d26c56d0191bd, type: 3}
+  assistants:
+    m_keys: []
+    m_values: []
   fileName: progress_data.game
   useEncryption: 0
 --- !u!114 &6984592889712643212
@@ -11821,6 +11824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myAnim: {fileID: 2766613875202064466}
   playerInput: {fileID: 2766613874449132821}
+  cameraControl: {fileID: 4983161594019117957}
   gameManager: {fileID: 2766613875996047746}
   pauseMenu: {fileID: 2766613875652078260}
   playerUI: {fileID: 2766613874704403573}
@@ -32540,10 +32544,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_camera: {fileID: 2766613875799240032}
   player_uiCanvas: {fileID: 2766613873956444291}
+  uicanvas_pos: {fileID: 2766613873956444294}
   uiCanvas: {fileID: 2766613873956444295}
   essential_transform: {fileID: 2766613874621510960}
-  player_transform: {fileID: 2766613874449132824}
-  uiCanvas_transform: {fileID: 2766613873956444294}
 --- !u!1 &2766613875816104652
 GameObject:
   m_ObjectHideFlags: 0
@@ -40721,6 +40724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d438fda18119abb4d82693231365f28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelHolder: {fileID: 0}
   objectProgressList:
   - {fileID: 8721058645217390746}
 --- !u!1 &5890593125063929798

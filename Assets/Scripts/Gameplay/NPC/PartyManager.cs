@@ -51,11 +51,19 @@ public class PartyManager : MonoBehaviour
 
         partyMembers = party_members;
 
+        InvokeRepeating("InitPartyMember", 0.1f, 0.1f);
+        candidateControl.progressAssistant.InitiateRestore();
+    }
+
+    public void InitPartyMember()
+    {
+        if (NPCManager.instance.npc_dict.Count <= 0) return;
+        
         foreach (PartyMember member in partyMembers) {
             member.follow = NPCManager.instance.npc_dict[member.id].gameObject.GetComponent<NPCFollow>();
             member.follow.EnableFollow();
         }
-        candidateControl.progressAssistant.InitiateRestore();
+        CancelInvoke("InitPartyMember");
     }
 
     public bool HasMember(string id)

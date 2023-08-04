@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRb;
     [SerializeField] private PlayerInput playerInput;
     public PlayerInput PlayerInput => playerInput;
+    public PlayerCamera cameraControl;
     
     [SerializeField] GameManager gameManager;
     [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement instance { get; private set; }
     private void Awake()
     {
+        if (instance != null) return;
         instance = this;
     }
     void Start()

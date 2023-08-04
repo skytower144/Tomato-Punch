@@ -7,9 +7,7 @@ public class PlayerData
 {
     public string current_scene =  "HomePoint";
     public Vector3 postion;
-    public bool isCameraOff = false;
-    public Vector3 uiCanvas_position;
-    public float backup_canvas_x, backup_canvas_y;
+    public bool isCameraFixated;
     public int stat_points, money, level;
     public float max_health, current_health, max_guard, attack, total_exp, left_exp, expBar_max, expBar_current;
     public string equip_left, equip_right, equip_super;

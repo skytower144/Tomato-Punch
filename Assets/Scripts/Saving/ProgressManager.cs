@@ -140,10 +140,7 @@ public class ProgressManager : MonoBehaviour
             tomatoData.current_scene = SceneControl.instance.CurrentScene.GetSceneName();
         tomatoData.postion = playerInventory.gameObject.transform.position;
 
-        tomatoData.isCameraOff = PlayerCamera.playerCamera_instance.isCameraOff;
-        tomatoData.uiCanvas_position = PlayerCamera.playerCamera_instance.uiCanvas_transform.localPosition;
-        tomatoData.backup_canvas_x = PlayerCamera.playerCamera_instance.canvas_x;
-        tomatoData.backup_canvas_y = PlayerCamera.playerCamera_instance.canvas_y;
+        tomatoData.isCameraFixated = PlayerMovement.instance.cameraControl.isCameraFixated;
 
         foreach (ItemQuantity consumable in playerInventory.consumableItems)
         {
@@ -200,10 +197,7 @@ public class ProgressManager : MonoBehaviour
         SceneControl.instance.SetCurrentScene(SceneControl.instance.sceneDict[tomatoData.current_scene], true);
         playerInventory.gameObject.transform.position = tomatoData.postion;
 
-        PlayerCamera.playerCamera_instance.isCameraOff = tomatoData.isCameraOff;
-        PlayerCamera.playerCamera_instance.uiCanvas_vector = tomatoData.uiCanvas_position;
-        PlayerCamera.playerCamera_instance.canvas_x = tomatoData.backup_canvas_x;
-        PlayerCamera.playerCamera_instance.canvas_y = tomatoData.backup_canvas_y;
+        PlayerMovement.instance.cameraControl.RestoreCameraState(tomatoData.isCameraFixated);
         
         playerInventory.consumableItems.Clear();
         playerInventory.otherItems.Clear();

@@ -12,8 +12,8 @@ public class CameraSwitch : MonoBehaviour
     {
         SetPlayerSpeed();
 
-        PlayerCamera.playerCamera_instance.DisablePlayerCamera();
-        PlayerCamera.playerCamera_instance.StapleUICanvas(gameObject.transform);
+        PlayerMovement.instance.cameraControl.SetPlayerCamera(false);
+        PlayerMovement.instance.cameraControl.FixateUICanvas(gameObject.transform);
         customCamera.enabled = true;
         SetCustomView();
     }
@@ -26,14 +26,14 @@ public class CameraSwitch : MonoBehaviour
 
     public void ReturnToPlayerCamera() // OnExit
     {
-        PlayerCamera.playerCamera_instance.EnablePlayerCamera();
+        PlayerMovement.instance.cameraControl.SetPlayerCamera(true);
         customCamera.enabled = false;
-        // PlayerCamera.playerCamera_instance.SetPlayerView(); --> Change_UI_Hierarchy
+        // PlayerMovement.instance.cameraControl.SetPlayerView(); --> Change_UI_Hierarchy
     }
 
     private void SetCustomView()
     {
-        PlayerCamera.playerCamera_instance.player_uiCanvas.worldCamera = customCamera;
+        PlayerMovement.instance.cameraControl.player_uiCanvas.worldCamera = customCamera;
     }
 
     private void SetPlayerSpeed()

@@ -16,14 +16,14 @@ public class WorldCamera : MonoBehaviour
     public void PlayCameraEffect(string camera_tag)
     {
         gameObject.SetActive(true);
-        PlayerCamera.playerCamera_instance.player_camera.enabled = false;
+        PlayerMovement.instance.cameraControl.player_camera.enabled = false;
         cameraAnim.Play(camera_tag, -1, 0f);
     }
 
     public void ResetCamera()
     {
         cameraAnim.Play("default", -1, 0f);
-        PlayerCamera.playerCamera_instance.player_camera.enabled = true;
+        PlayerMovement.instance.cameraControl.player_camera.enabled = true;
         gameObject.SetActive(false);
     }
 }

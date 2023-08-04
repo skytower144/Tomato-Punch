@@ -25,7 +25,7 @@ public class LoadingScreen : MonoBehaviour
         loadingText.text = UIControl.instance.uiTextDict["LoadingText"];
         UIControl.instance.SetFontData(loadingText, "LoadingText");
         
-        PlayerCamera.playerCamera_instance.player_camera.enabled = false;
+        PlayerMovement.instance.cameraControl.player_camera.enabled = false;
         loadingDisplay.SetActive(true);
         loadingCamera.enabled = true;
         gameObject.SetActive(true);
@@ -39,11 +39,8 @@ public class LoadingScreen : MonoBehaviour
         loadingCamera.enabled = false;
         gameObject.SetActive(false);
         loadingDisplay.SetActive(false);
-                
-        PlayerCamera.playerCamera_instance.RecoverCameraState(PlayerCamera.playerCamera_instance.isCameraOff);
-        PlayerCamera.playerCamera_instance.Change_UI_Hierarchy(true);
-        PlayerCamera.playerCamera_instance.RecoverCanvasCurrentPosition(PlayerCamera.playerCamera_instance.uiCanvas_vector);
-        PlayerCamera.playerCamera_instance.RecoverCanvasBackupPosition(PlayerCamera.playerCamera_instance.canvas_x, PlayerCamera.playerCamera_instance.canvas_y);
+
+        PlayerMovement.instance.cameraControl.SetPlayerCamera(!PlayerMovement.instance.cameraControl.isCameraFixated);
         
         GameManager.gm_instance.save_load_menu.PrepareMenu();
         PlayerMovement.instance.collider_obj.SetActive(true);
