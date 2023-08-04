@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour
     private const string GIVEQUEST_TAG = "givequest";
     private const string CHECKQUEST_TAG = "checkquest";
     private const string COMPLETEQUEST_TAG = "completequest";
+    private const string CHECKPARTY_TAG = "checkparty";
     private const string REMOVEITEM_TAG = "removeitem";
     private const string CAMERA_TAG = "camera";
     private const string TELEPORT_TAG = "teleport";
@@ -372,6 +373,10 @@ public class DialogueManager : MonoBehaviour
                 case COMPLETEQUEST_TAG:
                     var tempQuest3 = QuestManager.instance.FindQuest(tag_value, QuestList.Assigned);
                     tempQuest3?.GiveReward();
+                    break;
+                
+                case CHECKPARTY_TAG: // #checkparty:npcid
+                    currentStory.variablesState["hasMember"] = GameManager.gm_instance.partyManager.HasMember(tag_value);
                     break;
 
                 case REMOVEITEM_TAG: // #removeitem:Donut

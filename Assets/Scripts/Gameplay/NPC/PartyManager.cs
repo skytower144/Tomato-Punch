@@ -57,6 +57,15 @@ public class PartyManager : MonoBehaviour
         }
         candidateControl.progressAssistant.InitiateRestore();
     }
+
+    public bool HasMember(string id)
+    {
+        foreach (PartyMember member in partyMembers) {
+            if (member.id == id)
+                return true;
+        }
+        return false;
+    }
 }
 
 [System.Serializable]

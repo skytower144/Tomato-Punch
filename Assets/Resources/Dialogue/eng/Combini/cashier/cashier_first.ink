@@ -1,8 +1,14 @@
 VAR totalPrice = 0
+VAR hasMember = false
+
 -> main
 
 === main ===
-#viewshop:_ #portrait:Cashier_neutral #movechoicebox:_
+Hello! #checkparty:BabyCat #viewshop:_ #portrait:Cashier_neutral #movechoicebox:_
+{
+    -hasMember:
+    Um....<br>Sorry, no pets allowed.
+}
 What can I help you?
 
     + [ConfirmPurchase]
