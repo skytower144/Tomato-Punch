@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
     private const string CHANGEIDLE_TAG = "changeidle";
     private const string BATTLE_TAG = "battle";
     private const string BATTLETARGET_TAG = "battletarget";
-    private const string PURCHASEONE_TAG = "purchaseone";
+    private const string PURCHASE_TAG = "purchase";
     private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
     private const string MOVECHOICEBOX_TAG = "movechoicebox";
     private const string RESETCHOICEBOX_TAG = "resetchoicebox";
@@ -115,6 +115,8 @@ public class DialogueManager : MonoBehaviour
 
     public void EnterDialogue(TextAsset inkJSON, Interactable interactingTarget)
     {
+        if (inkJSON == null) return;
+
         playerMovement.SetIsInteracting(true);
 
         currentNpc = (interactingTarget is NPCController) ? ((NPCController)interactingTarget) : null;
@@ -322,8 +324,8 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.battle_system.enemy_control._base = NPCManager.instance.npc_dict[tag_value].enemyData;
                     break;
 
-                case PURCHASEONE_TAG: // #purchaseone:Donut@0    // ItemName@price 
-                    GameManager.gm_instance.ui_control.ui_shop.PurchaseOneItem(tag_value);
+                case PURCHASE_TAG: // #purchase:Donut@0 // #purchase:Donut@0@3 // ItemName@price@_amount
+                    GameManager.gm_instance.ui_control.ui_shop.PurchaseItemByTag(tag_value);
                     break;
 
                 case CHECKPLAYERMONEY_TAG:
@@ -417,7 +419,8 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case UNFOLLOW_TAG: // #unfollow:_
-                    GameManager.gm_instance.partyManager.LeaveParty(current_npc.ReturnID());
+                    string leavingMemberName = (tag_value == "_") ? current_npc.ReturnID() : tag_value;
+                    GameManager.gm_instance.partyManager.LeaveParty(leavingMemberName);
                     break; 
 
                 default:

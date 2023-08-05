@@ -10,9 +10,6 @@ public class Consumable : Item
     public int restoreAmount;
     public bool restoreFullHp;
 
-    [Header("Status Conditions")]
-    public bool recoverAllStatus;
-
     public override ItemUseInfo Use(tomatoControl tomatoControl)
     {
         ItemUseInfo info = new ItemUseInfo();

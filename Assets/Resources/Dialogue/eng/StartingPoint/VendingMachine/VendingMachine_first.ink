@@ -5,7 +5,7 @@ VAR enoughMoney = true
     * [Yes]
         {
         - enoughMoney:
-         #purchaseone:Soda@10
+         #purchase:Soda@10
         \* One soda popped out from the machine.
         - else:
         \* Not enough money.

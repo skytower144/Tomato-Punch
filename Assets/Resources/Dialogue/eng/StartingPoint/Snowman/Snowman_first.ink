@@ -25,7 +25,7 @@ Anyways, here's a little gift, my friend. #portrait:Snowman_neutral
 
 #focusanimate:icecream
 
-\* Obtained an Icecream! #hideportrait:_ #purchaseone:Icecream@0
+\* Obtained an Icecream! #hideportrait:_ #purchase:Icecream@0
 
 Really?<br>...Thanks. #portrait:Tomato_surprised
 

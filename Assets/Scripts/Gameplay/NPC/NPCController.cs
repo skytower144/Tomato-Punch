@@ -27,7 +27,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
     [SerializeField] private bool disableSpriteAnimator;
-    [SerializeField] private bool savePosition;
 
 // DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [HideInInspector] public bool isUniqueID;
@@ -76,7 +75,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
                 {
                     StartBattle(enemyData);
                 }
-                else if (!String.IsNullOrEmpty(inkFileName))
+                else
                 {
                     InitiateTalk();
                 }

@@ -109,7 +109,7 @@ Shop_Clear_Text : 장바구니 비우기 >
 InventoryGuide : 이동키로 메뉴를 둘러볼 수 있습니다.<br>위의 키로 메뉴와 상호작용이 가능합니다.
 
 // CONSUMABLE
-Donut : Donut
+Donut : 도넛
 Donut_Description : 수상해보이는 도넛이다...
 
 Soda : 소다
@@ -123,6 +123,9 @@ Onigiri_Description : 참치마요 맛의 삼각김밥입니다.
 
 Icecream : Icecream
 Icecream_Description :  2 스쿱의 달콤한 아이스크림.
+
+Milk Bottle : 우유병
+Milk Bottle_Description : 고양이 갱으로부터 선물받은 신성한 음료.
 
 // OTHER
 Pencil : 연필

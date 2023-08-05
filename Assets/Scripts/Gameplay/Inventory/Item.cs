@@ -13,7 +13,7 @@ public class Item : ScriptableObject
         if (EquipDB.equipCatalog.ContainsKey(name))
             return EquipDB.ReturnItemOfName(name);
         
-        Debug.LogWarning("Trying to return an Item that does not exist.");
+        Debug.LogError($"Trying to return an Item that does not exist : {name}");
         return null;
     }
 

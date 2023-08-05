@@ -259,23 +259,6 @@ public class ShopSystem : MonoBehaviour
         }
     }
 
-    public void PurchaseOneItem(string itemAndPrice)
-    {
-        string[] itemInfo = itemAndPrice.Split('@');
-        if (itemInfo.Length != 2)
-            return;
-        
-        string itemName = itemInfo[0].Trim();
-        int itemPrice = int.Parse(itemInfo[1].Trim());
-
-        tomatoStatus tomatostatus = GameManager.gm_instance.battle_system.tomatostatus;
-        
-        if (tomatostatus.CheckEnoughMoney(itemPrice)) {
-            Inventory.instance.AddItem(Item.ReturnMatchingItem(itemName));
-            tomatostatus.UpdatePlayerMoney(-itemPrice);
-        }   
-    }
-
     private void PromptPayment()
     {
         clearGuide.SetActive(false);
@@ -308,5 +291,29 @@ public class ShopSystem : MonoBehaviour
         slotList[slot_number].CartArrowToggle(true);
 
         shopInteraction = ShopInteraction.IsShopping;
+    }
+    public void PurchaseItemByTag(string item_price_amount)
+    {
+        string[] itemInfo = item_price_amount.Split('@');
+        if (itemInfo.Length < 2) {
+            Debug.LogError($"Incorrect Item dialogue tag : {item_price_amount}");
+            return;
+        }
+        
+        string itemName = itemInfo[0].Trim();
+        int itemPrice = int.Parse(itemInfo[1].Trim());
+        int itemAmount = 1;
+
+        if (itemInfo.Length == 3)
+            itemAmount = int.Parse(itemInfo[2].Trim());
+
+        tomatoStatus tomatostatus = GameManager.gm_instance.battle_system.tomatostatus;
+        
+        if (tomatostatus.CheckEnoughMoney(itemPrice * itemAmount)) {
+            for (int i = 0; i < itemAmount; i++) {
+                Inventory.instance.AddItem(Item.ReturnMatchingItem(itemName));
+                tomatostatus.UpdatePlayerMoney(-itemPrice);
+            }
+        }
     }
 }

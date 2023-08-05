@@ -7,6 +7,8 @@ public class InkDB
 
     public static TextAsset ReturnTextAsset(string language, string sceneName, string npcName, string inkFileName, bool isUniqueID)
     {
+        if (string.IsNullOrEmpty(inkFileName)) return null;
+
         if (isUniqueID)
             sceneName = "aMobile";
         
