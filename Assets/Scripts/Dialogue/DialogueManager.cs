@@ -324,7 +324,7 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.battle_system.enemy_control._base = NPCManager.instance.npc_dict[tag_value].enemyData;
                     break;
 
-                case PURCHASE_TAG: // #purchase:Donut@0 // #purchase:Donut@0@3 // ItemName@price@_amount
+                case PURCHASE_TAG: // #purchase:Milk Bottle@0 // #purchase:Donut@0@3 // ItemName@price@_amount
                     GameManager.gm_instance.ui_control.ui_shop.PurchaseItemByTag(tag_value);
                     break;
 
