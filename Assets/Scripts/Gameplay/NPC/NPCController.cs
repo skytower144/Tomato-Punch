@@ -8,6 +8,9 @@ public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{
 
 public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 {
+    [Header("[ SAVING ]")]
+    [SerializeField] private bool isSaveTarget = true;
+    [SerializeField] private bool isPartyCandidate = false;
 
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
@@ -43,14 +46,25 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [System.NonSerialized] public bool isDisabled = false;
+    private bool initOnce = false;
 
-    private void Start()
+    private void OnEnable()
     {
+        if (initOnce) return;
+
         if (sprite_renderer == null)
             sprite_renderer = GetComponent<SpriteRenderer>();
         Play("idle");
 
         NPCManager.instance.npc_dict[ReturnID()] = this;
+
+        if (!isSaveTarget) return;
+        string sceneName = isPartyCandidate ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
+        
+        if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
+            ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
+        
+        initOnce = true;
     }
 
     private void Update()

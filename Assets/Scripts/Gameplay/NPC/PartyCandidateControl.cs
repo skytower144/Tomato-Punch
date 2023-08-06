@@ -6,6 +6,7 @@ public class PartyCandidateControl : MonoBehaviour
 {
     public ProgressAssistant progressAssistant;
     private List<SceneName> visibleScenes;
+    [System.NonSerialized] public string sceneName = "CandidateControl";
 
     void Start()
     {

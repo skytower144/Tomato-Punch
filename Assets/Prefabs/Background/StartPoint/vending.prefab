@@ -238,14 +238,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSaveTarget: 0
+  isPartyCandidate: 0
   inkFileName: VendingMachine_first
+  keyEventDialogues: []
   interactAnimation: 
   sprite_renderer: {fileID: 7502365586207111232}
   sprite_dict:
     m_keys: []
     m_values: []
-  hasPortrait: 0
   isFixedSprite: 1
+  disableSpriteAnimator: 0
+  isUniqueID: 0
+  npcID: 
   banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
@@ -258,3 +263,4 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
+  reviveState: 0

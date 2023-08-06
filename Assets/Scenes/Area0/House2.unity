@@ -2300,7 +2300,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00059890747, y: -0.40532303}
+  m_Offset: {x: -0.00059890747, y: -0.372406}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2311,7 +2311,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3522263, y: 1.2746735}
+  m_Size: {x: 1.3522263, y: 1.3405075}
   m_EdgeRadius: 0
 --- !u!212 &1410891498
 SpriteRenderer:
@@ -2376,6 +2376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSaveTarget: 0
+  isPartyCandidate: 0
   inkFileName: Kid_homework
   keyEventDialogues: []
   interactAnimation: 
@@ -2399,6 +2401,9 @@ MonoBehaviour:
       sprites:
       - {fileID: 21300000, guid: 7893bc28dee627749a20922fe8fceff4, type: 3}
   isFixedSprite: 0
+  disableSpriteAnimator: 0
+  isUniqueID: 0
+  npcID: 
   banInteractDirection: 1
   lock_u: 0
   lock_ru: 0

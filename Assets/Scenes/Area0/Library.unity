@@ -3218,6 +3218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSaveTarget: 1
+  isPartyCandidate: 0
   inkFileName: Kid_first
   keyEventDialogues: []
   interactAnimation: 
@@ -3243,6 +3245,9 @@ MonoBehaviour:
       - {fileID: 7978282747390937135, guid: 01a724fe5706458459c60386d4617852, type: 3}
       - {fileID: 7978282747390937135, guid: 01a724fe5706458459c60386d4617852, type: 3}
   isFixedSprite: 1
+  disableSpriteAnimator: 0
+  isUniqueID: 0
+  npcID: 
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -4383,8 +4388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d438fda18119abb4d82693231365f28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectProgressList:
-  - {fileID: 1245972757}
+  levelHolder: {fileID: 0}
+  isCandidateAssistant: 0
+  objectProgressList: []
 --- !u!4 &1286896682
 Transform:
   m_ObjectHideFlags: 0

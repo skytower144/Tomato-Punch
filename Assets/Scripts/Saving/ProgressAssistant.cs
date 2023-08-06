@@ -5,15 +5,23 @@ using UnityEngine;
 public class ProgressAssistant : MonoBehaviour
 {
     public GameObject levelHolder;
+    [SerializeField] private bool isCandidateAssistant;
 
     [SerializeField]
     [ProgressInterface(typeof(ObjectProgress))]
-    private List<Object> objectProgressList; // Interface List;
+    public List<Object> objectProgressList; // Interface List;
+
+
+    void OnEnable()
+    {
+        string sceneName = isCandidateAssistant ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
+
+        if (!ProgressManager.instance.assistants.ContainsValue(this))
+            ProgressManager.instance.assistants.Add(sceneName, this);
+    }
 
     void Start()
     {
-        if (!ProgressManager.instance.assistants.ContainsValue(this))
-            ProgressManager.instance.assistants.Add(gameObject.scene.name, this);
         InitiateRestore();
     }
 
