@@ -20,7 +20,7 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         #changeidle:StartingPoint_Donut@isangry
         #teleport:StartingPoint_Donut@30@41
         #setactive:StartingPoint_Donut@true
-        #focusanimatetarget:StartingPoint_Donut@angry
+        #focusanimate:StartingPoint_Donut@angry
         #battletarget:StartingPoint_Donut
         #continuetalk:_
         #nextdialogue:policeman_fainted

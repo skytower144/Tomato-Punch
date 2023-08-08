@@ -50,8 +50,6 @@ public class DialogueManager : MonoBehaviour
     private const string PLAYERDIRECTION_TAG = "playerdirection";
     private const string ANIMATE_TAG = "animate";
     private const string FOCUSANIMATE_TAG = "focusanimate";
-    private const string ANIAMTETARGET_TAG = "animatetarget";
-    private const string FOCUSANIMATETARGET_TAG = "focusanimatetarget";
     private const string CHANGEIDLE_TAG = "changeidle";
     private const string BATTLE_TAG = "battle";
     private const string BATTLETARGET_TAG = "battletarget";
@@ -288,21 +286,16 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.Play(tag_value);
                     break;
                 
-                case FOCUSANIMATE_TAG: // no loop
+                case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:StartingPoint_Donut@angry@stop
                     bool stopAnimation = false;
-                    string[] animInfo0 = tag_value.Split('@');
-                    if (animInfo0.Length > 1)
+                    string[] animInfo = tag_value.Split('@');
+                    NPCController npc = ((animInfo[0] == "_") || (animInfo[0] == "this")) ? currentNpc : NPCManager.instance.npc_dict[animInfo[0]];
+
+                    if (animInfo.Length > 2)
                         stopAnimation = true;
                     
                     HideDialogue();
-                    currentNpc.Play(animInfo0[0], ShowAndContinueDialogue, stopAnimation);
-                    break;
-                
-                case FOCUSANIMATETARGET_TAG: // #focusanimatetarget:StartingPoint_Donut@angry // no loop 
-                    string[] animInfo = CheckTagValueError(tag_value);
-
-                    HideDialogue();
-                    NPCManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
+                    npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry

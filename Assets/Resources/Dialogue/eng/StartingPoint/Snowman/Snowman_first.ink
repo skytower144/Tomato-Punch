@@ -1,4 +1,4 @@
-#portrait:Snowman_neutral #focusanimate:greeting
+#portrait:Snowman_neutral #focusanimate:this@greeting
 Oh, hello Mato.<br>How're you doing?
 
 Oh you know, the usual. #portrait:Tomato_neutral
@@ -23,7 +23,7 @@ It's a beautiful place,<br>snow glittering across the sky throughout the year. #
 
 Anyways, here's a little gift, my friend. #portrait:Snowman_neutral
 
-#focusanimate:icecream
+#focusanimate:this@icecream
 
 \* Obtained an Icecream! #hideportrait:_ #purchase:Icecream@0
 
