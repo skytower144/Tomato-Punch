@@ -7,14 +7,10 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(Equip))]
 public class EquipEditor : Editor
 {
-    Equip value;
-
-    void OnEnable()
-    {
-        value = (Equip)target;
-    }
     public override void OnInspectorGUI()
     {
+        Equip value = (Equip)target;
+        
         value.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon", value.ItemIcon, typeof(Sprite), true);
         
         base.OnInspectorGUI();

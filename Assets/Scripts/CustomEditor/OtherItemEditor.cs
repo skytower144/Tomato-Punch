@@ -7,14 +7,10 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(OtherItem))]
 public class OtherItemEditor : Editor
 {
-    OtherItem value;
-
-    void OnEnable()
-    {
-        value = (OtherItem)target;
-    }
     public override void OnInspectorGUI()
     {
+        OtherItem value = (OtherItem)target;
+
         value.ItemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon", value.ItemIcon, typeof(Sprite), true);
         
         base.OnInspectorGUI();
