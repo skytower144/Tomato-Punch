@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New SuperEquip", menuName = "Inventory/SuperEquipment")]
 public class SuperEquip : Item
 {
-    public Sprite superIcon;
+    [HideInInspector] public Sprite superIcon;
     public string animTag;
+    [Space(10)]
     public float skillDamage;
 }

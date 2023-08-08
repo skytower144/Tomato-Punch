@@ -74,14 +74,14 @@ public class EnemyHealthBar : MonoBehaviour
     }
     private void faceChange()
     {
-        if (slider.normalizedValue >= 0.3f){
-            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(1);
+        if (slider.normalizedValue >= 0.5f){
+            enemyFace.sprite = battleSystem.GetEnemyBase().defaultFace;
         }
-        else if(0 < slider.normalizedValue && slider.normalizedValue < 0.3f){
-            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(2);
+        else if(0 < slider.normalizedValue && slider.normalizedValue < 0.5f){
+            enemyFace.sprite = battleSystem.GetEnemyBase().hurtFace;
         }
         else if(slider.normalizedValue == 0){
-            enemyFace.sprite = battleSystem.GetEnemyBase().EnemyFace(3);
+            enemyFace.sprite = battleSystem.GetEnemyBase().koFace;
         }
     }
 

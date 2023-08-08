@@ -2,8 +2,10 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string ItemName;
-    public Sprite ItemIcon;
-    public ItemType itemType; 
+    [HideInInspector] public Sprite ItemIcon;
+    [Space(10)]
+    public ItemType itemType;
+
 
     public static Item ReturnMatchingItem(string name) // Type in public ItemName, not object name.
     {

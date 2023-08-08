@@ -8,8 +8,8 @@ public class StringStringDictionary : SerializableDictionary<string, string>{}
 [CreateAssetMenu(fileName = "Enemy", menuName = "Create Enemy Base Data")]
 public class EnemyBase : ScriptableObject
 {   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
-    [SerializeField] private string enemyName;
-    [SerializeField] private List<Sprite> frontSprite;
+    [SerializeField, Space(10)] private string enemyName;
+    [HideInInspector] public Sprite koFace, hurtFace, defaultFace;
     public BgName bgName;
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
@@ -31,15 +31,6 @@ public class EnemyBase : ScriptableObject
     public string EnemyName
     {
         get { return enemyName; }
-    }
-    public Sprite EnemyFace(int number)
-    {
-        if (number == 2)
-            return frontSprite[1];
-        else if(number == 3)
-            return frontSprite[2];
-        
-        return frontSprite[0];
     }
     public float EnemyMaxHealth
     {
