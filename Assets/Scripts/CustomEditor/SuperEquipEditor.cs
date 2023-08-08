@@ -24,10 +24,9 @@ public class SuperEquipEditor : Editor
         if (!GUI.changed) return;
 
         if (!UnityEditor.EditorApplication.isPlaying) {
-            var behavior = target as MonoBehaviour;
+            var behavior = target as SuperEquip;
             if (behavior) {
                 EditorUtility.SetDirty(behavior);
-                EditorSceneManager.MarkSceneDirty(behavior.gameObject.scene);
             }
         }
     }

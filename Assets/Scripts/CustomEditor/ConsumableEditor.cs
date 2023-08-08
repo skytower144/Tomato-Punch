@@ -22,10 +22,9 @@ public class ConsumableEditor : Editor
         if (!GUI.changed) return;
 
         if (!UnityEditor.EditorApplication.isPlaying) {
-            var behavior = target as MonoBehaviour;
+            var behavior = target as Consumable;
             if (behavior) {
                 EditorUtility.SetDirty(behavior);
-                EditorSceneManager.MarkSceneDirty(behavior.gameObject.scene);
             }
         }
     }
