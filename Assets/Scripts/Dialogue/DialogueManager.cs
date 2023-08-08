@@ -294,16 +294,14 @@ public class DialogueManager : MonoBehaviour
                     if (animInfo0.Length > 1)
                         stopAnimation = true;
                     
-                    hideDialogue = true;
-                    SetDialogueBox(false);
+                    HideDialogue();
                     currentNpc.Play(animInfo0[0], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case FOCUSANIMATETARGET_TAG: // #focusanimatetarget:StartingPoint_Donut@angry // no loop 
                     string[] animInfo = CheckTagValueError(tag_value);
 
-                    hideDialogue = true;
-                    SetDialogueBox(false);
+                    HideDialogue();
                     NPCManager.instance.npc_dict[animInfo[0]].Play(animInfo[1], ShowAndContinueDialogue);
                     break;
                 
@@ -450,6 +448,12 @@ public class DialogueManager : MonoBehaviour
         SetDialogueBox(true);
         DisplayDialogue();
         hideDialogue = false;
+    }
+
+    private void HideDialogue()
+    {
+        hideDialogue = true;
+        SetDialogueBox(false);
     }
 
     public void SetPortraitBox(bool hasPortrait)

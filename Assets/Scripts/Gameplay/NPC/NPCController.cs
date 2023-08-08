@@ -50,21 +50,21 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     private void OnEnable()
     {
-        if (initOnce) return;
+        if (!initOnce) {
+            if (sprite_renderer == null)
+                sprite_renderer = GetComponent<SpriteRenderer>();
+            Play("idle");
 
-        if (sprite_renderer == null)
-            sprite_renderer = GetComponent<SpriteRenderer>();
-        Play("idle");
+            NPCManager.instance.npc_dict[ReturnID()] = this;
 
-        NPCManager.instance.npc_dict[ReturnID()] = this;
-
-        if (!isSaveTarget) return;
-        string sceneName = isPartyCandidate ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
-        
-        if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
-            ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
-        
-        initOnce = true;
+            if (!isSaveTarget) return;
+            string sceneName = isPartyCandidate ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
+            
+            if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
+                ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
+            
+            initOnce = true;
+        }
     }
 
     private void Update()
