@@ -373,7 +373,7 @@ public class SaveLoadMenu : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         if (TitleScreen.isTitleScreen)
-            EssentialLoader.instance.RestorePortablePosition(ProceedLoad_1, startNewGame); // Normalize hierarchy
+            EssentialObjects.instance.RestorePortablePosition(ProceedLoad_1, startNewGame); // Normalize hierarchy
         else
             ProceedLoad_1(startNewGame);
     }

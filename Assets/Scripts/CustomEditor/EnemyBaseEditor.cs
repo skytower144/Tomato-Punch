@@ -2,6 +2,7 @@
 
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(EnemyBase))]
 public class EnemyBaseEditor : Editor
@@ -23,6 +24,8 @@ public class EnemyBaseEditor : Editor
         EditorGUILayout.Space();
 
         base.OnInspectorGUI();
+        MarkSceneDirty();
+        serializedObject.ApplyModifiedProperties();
     }
 
     void GUILine( int lineHeight = 1 ) {
@@ -31,6 +34,19 @@ public class EnemyBaseEditor : Editor
         rect.height = lineHeight;
         EditorGUI.DrawRect(rect, new Color ( 0.5f,0.5f,0.5f, 1 ) );
         EditorGUILayout.Space();
-   }
+    }
+
+    private void MarkSceneDirty()
+    {
+        if (!GUI.changed) return;
+
+        if (!UnityEditor.EditorApplication.isPlaying) {
+            var behavior = target as MonoBehaviour;
+            if (behavior) {
+                EditorUtility.SetDirty(behavior);
+                EditorSceneManager.MarkSceneDirty(behavior.gameObject.scene);
+            }
+        }
+    }
 }
 #endif

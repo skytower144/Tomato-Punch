@@ -101,8 +101,10 @@ public class NPCInteractionEditor : Editor
     {
         if (!UnityEditor.EditorApplication.isPlaying) {
             var behavior = target as MonoBehaviour;
-            if (behavior)
+            if (behavior) {
+                EditorUtility.SetDirty(behavior);
                 EditorSceneManager.MarkSceneDirty(behavior.gameObject.scene);
+            }
         }
     }
 
