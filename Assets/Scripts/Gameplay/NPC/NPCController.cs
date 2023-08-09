@@ -29,11 +29,13 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
-    [SerializeField] private bool disableSpriteAnimator;
 
 // DO NOT CHANGE [HideInInspector] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [HideInInspector] public bool isUniqueID;
     [HideInInspector] public string npcID;
+
+    [HideInInspector] public bool disableSpriteAnimator;
+    [HideInInspector] public Animator npcAnim;
 
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;

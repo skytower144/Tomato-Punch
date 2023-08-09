@@ -38,7 +38,7 @@ public class DialogueManager : MonoBehaviour
 
     private bool dialogueIsPlaying, isPromptChoice;
     private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
-    private bool hideDialogue = false;
+    private bool hideDialogue = false; public bool hide_dialogue => hideDialogue;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
@@ -286,10 +286,13 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case ANIMATE_TAG: // #animate:fainted
-                    currentNpc.Play(tag_value);
+                    if (currentNpc.disableSpriteAnimator)
+                        currentNpc.npcAnim.Play(tag_value, -1, 0f);
+                    else
+                        currentNpc.Play(tag_value);
                     break;
                 
-                case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:StartingPoint_Donut@angry@stop
+                case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:this@drop@stop // use with #changeidle
                     bool stopAnimation = false;
                     string[] animInfo = tag_value.Split('@');
                     NPCController npc = ((animInfo[0] == "_") || (animInfo[0] == "this")) ? currentNpc : NPCManager.instance.npc_dict[animInfo[0]];
@@ -298,7 +301,11 @@ public class DialogueManager : MonoBehaviour
                         stopAnimation = true;
                     
                     HideDialogue();
-                    npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
+
+                    if (currentNpc.disableSpriteAnimator)
+                        currentNpc.npcAnim.Play(tag_value, -1, 0f);
+                    else
+                        npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry
@@ -437,7 +444,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void ShowAndContinueDialogue()
+    public void ShowAndContinueDialogue()
     {
         SetDialogueBox(true);
         DisplayDialogue();

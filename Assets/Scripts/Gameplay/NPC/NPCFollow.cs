@@ -81,11 +81,11 @@ public class NPCFollow : MonoBehaviour
             record.Enqueue(leader.position);
 
         if (record.Count > followDelay) {
-            Follow(record.Dequeue());
+            Move(record.Dequeue());
         }
     }
 
-    private void Follow(Vector2 movePos)
+    private void Move(Vector2 movePos)
     {
         direction = movePos - rb.position;
         distance = direction.magnitude;

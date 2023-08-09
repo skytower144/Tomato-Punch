@@ -8,7 +8,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
-    private SerializedProperty isUniqueID, npcID, canBattle, instantBattle, enemyData, reviveState;
+    private SerializedProperty isUniqueID, npcID, disableSpriteAnimator, npcAnim, canBattle, instantBattle, enemyData, reviveState;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -23,6 +23,9 @@ public class NPCInteractionEditor : Editor
 
         isUniqueID = serializedObject.FindProperty("isUniqueID");
         npcID = serializedObject.FindProperty("npcID");
+
+        disableSpriteAnimator = serializedObject.FindProperty("disableSpriteAnimator");
+        npcAnim = serializedObject.FindProperty("npcAnim");
 
         canBattle = serializedObject.FindProperty("canBattle");
         instantBattle = serializedObject.FindProperty("instantBattle");
@@ -48,6 +51,18 @@ public class NPCInteractionEditor : Editor
             EditorGUI.indentLevel++;
 
             npcControl.npcID = EditorGUILayout.TextField("NPC Unique ID", npcControl.npcID);
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
+        npcControl.disableSpriteAnimator = EditorGUILayout.Toggle("Disable Sprite Anim", npcControl.disableSpriteAnimator);
+
+        if (npcControl.disableSpriteAnimator)
+        {
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUI.indentLevel++;
+
+            npcControl.npcAnim = EditorGUILayout.ObjectField("Unity Animator", npcControl.npcAnim, typeof(Animator), true) as Animator;
             EditorGUI.indentLevel--;
         }
 
