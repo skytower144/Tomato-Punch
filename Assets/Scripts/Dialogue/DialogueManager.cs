@@ -163,6 +163,9 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue){
             currentSentence = currentStory.Continue();
             HandleTags(currentStory.currentTags);
+            
+            if (!hideDialogue)
+                DisplayDialogue();
         }
         else
             ExitDialogue();
@@ -239,8 +242,6 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (string tag in currentTags)
         {
-            Debug.Log(tag);
-            
             splitTag = tag.Split(':');
             if (splitTag.Length != 2)
                 continue;
@@ -421,8 +422,6 @@ public class DialogueManager : MonoBehaviour
                     break;
             }
         }
-        if (!hideDialogue)
-            DisplayDialogue();
     }
 
     private void DisplayDialogue()
