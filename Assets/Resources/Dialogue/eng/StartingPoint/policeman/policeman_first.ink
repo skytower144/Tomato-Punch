@@ -1,5 +1,6 @@
 VAR isQuestActive = false
 VAR isQuestCompleted = false
+VAR br = "<br>"
 
 #hideportrait:_
 Hmph. 
@@ -12,8 +13,8 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         - isQuestCompleted:
         Is it a scrumptious donut that I smell?
         \* You gave the scrumptious donut to the policeman. #removeitem:Donut
-        YES! YES! This is the one!<br>What a lifesaver!
-        wait a minute...<br>this donut...
+        YES! YES! This is the one!{br}What a lifesaver!
+        wait a minute...{br}this donut...
         OH MY GOODNESS! #animate:shocked
         #playerdirection:LEFT@1.7
         #animate:fainted
@@ -32,7 +33,7 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         
         ...... #hideportrait:_
         
-        It's long past my snack time,<br>and all I find is some crumbs on a random kid's face.
+        It's long past my snack time,{br}and all I find is some crumbs on a random kid's face.
         Where on earth is my stupid donut?
         It's gotta be Bob. I just know it's those greedy cheeks.
         
@@ -42,5 +43,5 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
     #completequest:FindTheDonut
 
     - else:
-    If you find one with the beautiful sprinkles,<br>let me know.
+    If you find one with the beautiful sprinkles,{br}let me know.
 }

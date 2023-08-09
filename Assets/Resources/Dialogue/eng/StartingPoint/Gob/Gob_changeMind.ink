@@ -1,3 +1,4 @@
+VAR br = "<br>"
 ....Changed ya mind becomin' the punching bag? #portrait:Gob_serious
 
     * [Yes]
@@ -5,9 +6,9 @@
         
         Then listen to my words carefully... #portrait:Gob_serious
 
-        Left evade the left punches,<br>Right evade the right punches.
+        Left evade the left punches,{br}Right evade the right punches.
         
-        ...............and um...<br>...jump for the low attacks.
+        ...............and um...{br}...jump for the low attacks.
         #nextdialogue:Gob_encourage
     
     * [No]

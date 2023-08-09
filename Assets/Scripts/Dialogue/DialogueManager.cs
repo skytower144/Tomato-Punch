@@ -239,6 +239,8 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (string tag in currentTags)
         {
+            Debug.Log(tag);
+            
             splitTag = tag.Split(':');
             if (splitTag.Length != 2)
                 continue;
