@@ -8,8 +8,8 @@ public class EnemyControl : MonoBehaviour
 {
     [HideInInspector] public EnemyBase _base;
 
-    private Animator anim; public Animator enemyAnim => anim;
-    private SpriteRenderer enemy_renderer; public SpriteRenderer enemyRenderer => enemy_renderer;
+    [SerializeField] private Animator anim; public Animator enemyAnim => anim;
+    [SerializeField] private SpriteRenderer enemy_renderer; public SpriteRenderer enemyRenderer => enemy_renderer;
     private Material matDefault; public Material mat_default => matDefault;
 
     [SerializeField] private EnemyGreyEffect greyEffect;
@@ -46,10 +46,8 @@ public class EnemyControl : MonoBehaviour
     {
         disableBools();
 
-        enemy_renderer = GetComponent<SpriteRenderer>();
         matDefault = enemy_renderer.material;
 
-        anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = _base.AnimationController;
         enemyAIControl.pattern_list = _base.EnemyPattern;
         enemyAIControl.InvokeRepeating("ProceedAction",1f,1f);

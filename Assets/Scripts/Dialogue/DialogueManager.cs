@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Ink.Runtime;
@@ -10,6 +11,7 @@ public enum ChoiceType { OXChoice, ShopChoice }
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance { get; private set; }
+    public CutsceneHandler cutsceneHandler;
     private PlayerMovement playerMovement;
     private ChoiceType choiceType = ChoiceType.OXChoice;
     
@@ -38,7 +40,7 @@ public class DialogueManager : MonoBehaviour
 
     private bool dialogueIsPlaying, isPromptChoice;
     private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
-    private bool hideDialogue = false; public bool hide_dialogue => hideDialogue;
+    private bool hideDialogue = false;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
@@ -105,10 +107,10 @@ public class DialogueManager : MonoBehaviour
             if (dialogue_typeEffect.isPrinting)
                 dialogue_typeEffect.SetMessage(currentSentence);
             else
-                ContinueStory();
+                StartCoroutine(ContinueStory());
         }
         else if (dialogueIsPlaying && (currentSentence == ""))
-            ContinueStory();
+            StartCoroutine(ContinueStory());
     }
 
     public void EnterDialogue(TextAsset inkJSON, Interactable interactingTarget)
@@ -158,17 +160,26 @@ public class DialogueManager : MonoBehaviour
         dialogueExit = DialogueExit.Nothing;
     }
 
-    private void ContinueStory()
+    private IEnumerator ContinueStory()
     {
         if (currentStory.canContinue){
-            currentSentence = currentStory.Continue();
-            HandleTags(currentStory.currentTags);
+            currentSentence = currentStory.Continue().Trim();
+            
+            if (currentSentence == "/cut") {
+                HideDialogue();
+                yield return cutsceneHandler.HandleCutsceneTags(currentStory.currentTags);
+                ShowAndContinueDialogue();
+                yield break;
+            }
+            else
+                HandleTags(currentStory.currentTags);
             
             if (!hideDialogue)
                 DisplayDialogue();
         }
         else
             ExitDialogue();
+        yield break;
     }
 
     private bool CheckChoiceSentence()
@@ -234,7 +245,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentStory.ChooseChoiceIndex(choiceNumber);
-        ContinueStory();
+        StartCoroutine(ContinueStory());
         isPromptChoice = false;
     }
 
@@ -286,10 +297,7 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case ANIMATE_TAG: // #animate:fainted
-                    if (currentNpc.disableSpriteAnimator)
-                        currentNpc.npcAnim.Play(tag_value, -1, 0f);
-                    else
-                        currentNpc.Play(tag_value);
+                    currentNpc.Play(tag_value);
                     break;
                 
                 case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:this@drop@stop // use with #changeidle
@@ -301,11 +309,7 @@ public class DialogueManager : MonoBehaviour
                         stopAnimation = true;
                     
                     HideDialogue();
-
-                    if (currentNpc.disableSpriteAnimator)
-                        currentNpc.npcAnim.Play(tag_value, -1, 0f);
-                    else
-                        npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
+                    npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry
@@ -433,8 +437,8 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayDialogue()
     {
-        if (String.IsNullOrEmpty(currentSentence))
-            ContinueStory();
+        if (String.IsNullOrEmpty(currentSentence) || currentSentence == "/cut")
+            StartCoroutine(ContinueStory());
         
         else {
             if (CheckChoiceSentence()) {
@@ -446,9 +450,9 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowAndContinueDialogue()
     {
+        hideDialogue = false;
         SetDialogueBox(true);
         DisplayDialogue();
-        hideDialogue = false;
     }
 
     private void HideDialogue()

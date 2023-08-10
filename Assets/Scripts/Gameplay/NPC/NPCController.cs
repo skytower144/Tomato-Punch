@@ -49,14 +49,16 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     [System.NonSerialized] public bool isDisabled = false;
     private bool initOnce = false;
+    private bool isAnimating = false;
+    public bool IsAnimating => isAnimating;
 
     private void OnEnable()
     {
         if (!initOnce) {
             if (sprite_renderer == null)
                 sprite_renderer = GetComponent<SpriteRenderer>();
-            Play("idle");
-
+            
+            if (!disableSpriteAnimator) Play("idle");
             NPCManager.instance.npc_dict[ReturnID()] = this;
 
             if (!isSaveTarget) return;
@@ -148,7 +150,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
 
     public void Play(string animTag, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
-        if (sprite_dict.ContainsKey(animTag))
+        if (disableSpriteAnimator)
+            npcAnim.Play(animTag, -1, 0f);
+        
+        else if (sprite_dict.ContainsKey(animTag))
         {
             SpriteAnimation animation = sprite_dict[animTag];
             spriteAnimator = new SpriteAnimator(this, sprite_renderer, animation.sprites, animation.fps, animation.is_loop, dialogueAction, stopAfterAnimation);
@@ -232,6 +237,11 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     {
         if (isUniqueID) return npcID;
         return $"{gameObject.scene.name}_{gameObject.name}";
+    }
+
+    public void SetIsAnimating(bool state)
+    {
+        isAnimating = state;
     }
 }
 

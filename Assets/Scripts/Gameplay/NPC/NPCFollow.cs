@@ -31,8 +31,7 @@ public class NPCFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isFollowing) return;
-        Watch();
+        if (isFollowing) Follow();
     }
 
     public void EnableFollow()
@@ -61,7 +60,7 @@ public class NPCFollow : MonoBehaviour
         record = new Queue<Vector2>();
     }
 
-    private void Watch()
+    private void Follow()
     {
         if (PlayerHasStopped()) {
             if (!playerStopped) {
@@ -85,7 +84,7 @@ public class NPCFollow : MonoBehaviour
         }
     }
 
-    private void Move(Vector2 movePos)
+    private void Move(Vector2 movePos, bool isSpriteAnimator = false)
     {
         direction = movePos - rb.position;
         distance = direction.magnitude;
@@ -103,7 +102,8 @@ public class NPCFollow : MonoBehaviour
             Vector2 amount = direction.normalized * movementSpeed;
             rb.position += amount;
         }
-        Animate(true, direction);
+        if (isSpriteAnimator) Animate(direction);
+        else Animate(true, direction);
     }
 
     private void Animate(bool isAnimating, Vector2 direction = default)
@@ -121,6 +121,11 @@ public class NPCFollow : MonoBehaviour
         direction = direction.normalized;
         anim.SetFloat("moveX", Mathf.Round(direction.x));
         anim.SetFloat("moveY", Mathf.Round(direction.y));
+    }
+
+    private void Animate(Vector2 direction)
+    {
+
     }
 
     private void FlattenPos()

@@ -26,7 +26,7 @@ public class TutorialMode : MonoBehaviour
     private GameManager gm;
     private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
     
-    private Animator anim;
+    [SerializeField] private Animator anim;
     private TextSpawn textSpawn;
     private Coroutine warmupPhase;
 

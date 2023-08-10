@@ -1980,7 +1980,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806408456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1018443485}
@@ -8914,6 +8914,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _base: {fileID: 0}
+  anim: {fileID: 384357809064918363}
+  enemy_renderer: {fileID: 384357809064918362}
   greyEffect: {fileID: 8533154929030946978}
   duplicate_r: {fileID: 384357809863535612}
   counterBox: {fileID: 8337482528303953723}
@@ -36380,6 +36382,7 @@ GameObject:
   - component: {fileID: 4798630511657076216}
   - component: {fileID: 6200140922976342323}
   - component: {fileID: 2143475732390185097}
+  - component: {fileID: 416209738536729474}
   m_Layer: 9
   m_Name: cat_escort_image
   m_TagString: Untagged
@@ -36387,6 +36390,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &416209738536729474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416209738536729473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0381d6ee75e2c749978296dc2c2fcbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcControl: {fileID: 6500404470884367044}
 --- !u!114 &426889654105165122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45338,6 +45354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a92456dbc4f59042a2472a5be7bb52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutsceneHandler: {fileID: 5687445233469994944}
   dialogueBox: {fileID: 1469308880962276017}
   portraitBox: {fileID: 2415257439586847105}
   portrait: {fileID: 1927572146233669995}
@@ -50589,6 +50606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5781907141091208739}
   - component: {fileID: 3461579163774410871}
+  - component: {fileID: 5687445233469994944}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -50596,6 +50614,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5687445233469994944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687445233469994943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f829e53e61c2e4898a6091df14eccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &5720401617676818904
 CanvasRenderer:
   m_ObjectHideFlags: 0

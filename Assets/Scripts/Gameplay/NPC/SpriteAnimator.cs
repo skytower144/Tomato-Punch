@@ -15,7 +15,7 @@ public class SpriteAnimator
     private int currentFrame;
     private int totalFrames;
     private float timer;
-    private bool stopAnim = false;
+    private bool stopAnim = true;
     private bool stop_after_animation = false;
 
     // Constructor
@@ -61,6 +61,7 @@ public class SpriteAnimator
 
                 if ((nextFrame == totalFrames) && (!isLoop)) {
                     stopAnim = true;
+                    npc.SetIsAnimating(false);
 
                     if (!stop_after_animation)
                         npc.Play(npc.idleAnimation);

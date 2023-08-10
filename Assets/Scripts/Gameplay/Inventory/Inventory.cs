@@ -125,7 +125,7 @@ public class Inventory : MonoBehaviour
     }
 
     public bool IsCarrying(Item targetItem, int requiredAmount)
-    {       
+    {
         switch (targetItem.itemType)
         {
             case ItemType.Consumable:
