@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCFollow : MonoBehaviour
+public class NPCMove : MonoBehaviour
 {
     [SerializeField] private Transform leader;
     [SerializeField] private Animator anim;
-    [SerializeField] private int followDelay; [Space(10)]
-    [SerializeField] private List<SceneName> offLimitAreas;
+    [SerializeField] private int followDelay;
+    [Space(10), SerializeField] private List<SceneName> offLimitAreas;
     
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;

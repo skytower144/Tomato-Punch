@@ -8,7 +8,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
-    private SerializedProperty isUniqueID, npcID, disableSpriteAnimator, npcAnim, canBattle, instantBattle, enemyData, reviveState;
+    private SerializedProperty isUniqueID, npcID, willMove, npcMove, disableSpriteAnimator, hasNoDialogue, interactAnimation, npcAnim, canBattle, instantBattle, enemyData, reviveState;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -24,8 +24,14 @@ public class NPCInteractionEditor : Editor
         isUniqueID = serializedObject.FindProperty("isUniqueID");
         npcID = serializedObject.FindProperty("npcID");
 
+        willMove = serializedObject.FindProperty("willMove");
+        npcMove = serializedObject.FindProperty("npcMove");
+
         disableSpriteAnimator = serializedObject.FindProperty("disableSpriteAnimator");
         npcAnim = serializedObject.FindProperty("npcAnim");
+
+        hasNoDialogue = serializedObject.FindProperty("hasNoDialogue");
+        interactAnimation = serializedObject.FindProperty("interactAnimation");
 
         canBattle = serializedObject.FindProperty("canBattle");
         instantBattle = serializedObject.FindProperty("instantBattle");
@@ -43,7 +49,7 @@ public class NPCInteractionEditor : Editor
         NPCController npcControl = target as NPCController;
 
         EditorGUILayout.Space();
-        npcControl.isUniqueID = EditorGUILayout.Toggle("Is Unique ID", npcControl.isUniqueID);
+        npcControl.isUniqueID = EditorGUILayout.Toggle("[ Is Unique ID ]", npcControl.isUniqueID);
 
         if (npcControl.isUniqueID)
         {
@@ -55,7 +61,19 @@ public class NPCInteractionEditor : Editor
         }
 
         EditorGUILayout.Space();
-        npcControl.disableSpriteAnimator = EditorGUILayout.Toggle("Disable Sprite Anim", npcControl.disableSpriteAnimator);
+        npcControl.willMove = EditorGUILayout.Toggle("[ NPC Will Move ]", npcControl.willMove);
+
+        if (npcControl.willMove)
+        {
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUI.indentLevel++;
+
+            npcControl.npcMove = EditorGUILayout.ObjectField("NPCMove Component", npcControl.npcMove, typeof(NPCMove), true) as NPCMove;
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
+        npcControl.disableSpriteAnimator = EditorGUILayout.Toggle("[ Disable Sprite Anim ]", npcControl.disableSpriteAnimator);
 
         if (npcControl.disableSpriteAnimator)
         {
@@ -67,7 +85,19 @@ public class NPCInteractionEditor : Editor
         }
 
         EditorGUILayout.Space();
-        npcControl.banInteractDirection = EditorGUILayout.Toggle("Ban Interact Direction", npcControl.banInteractDirection);
+        npcControl.hasNoDialogue = EditorGUILayout.Toggle("[ Has No Dialogue ]", npcControl.hasNoDialogue);
+
+        if (npcControl.hasNoDialogue)
+        {
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUI.indentLevel++;
+
+            npcControl.interactAnimation = EditorGUILayout.TextField("Interact Animation Name", npcControl.interactAnimation);
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
+        npcControl.banInteractDirection = EditorGUILayout.Toggle("[ Ban Interact Direction ]", npcControl.banInteractDirection);
 
         if (npcControl.banInteractDirection)
         {
@@ -93,7 +123,7 @@ public class NPCInteractionEditor : Editor
         }
 
         EditorGUILayout.Space();
-        npcControl.canBattle = EditorGUILayout.Toggle("Can Battle", npcControl.canBattle);
+        npcControl.canBattle = EditorGUILayout.Toggle("[ Can Battle ]", npcControl.canBattle);
         
 
         if (npcControl.canBattle)

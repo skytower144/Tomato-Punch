@@ -11,6 +11,9 @@ public class PartyManager : MonoBehaviour
     {
         if (!CanJoinParty(npc.ReturnID()))
             return;
+        
+        if (npc.npcMove == null)
+            Debug.LogError($"Party Join Failed. NPC {npc.ReturnID()} does not contain NPCMove component.");
 
         PartyMember newMember = new PartyMember(npc);
         partyMembers.Add(newMember);
@@ -60,7 +63,7 @@ public class PartyManager : MonoBehaviour
         if (NPCManager.instance.npc_dict.Count <= 0) return;
         
         foreach (PartyMember member in partyMembers) {
-            member.follow = NPCManager.instance.npc_dict[member.id].gameObject.GetComponent<NPCFollow>();
+            member.follow = NPCManager.instance.npc_dict[member.id].npcMove;
             member.follow.EnableFollow();
         }
         CancelInvoke("InitPartyMember");
@@ -80,11 +83,11 @@ public class PartyManager : MonoBehaviour
 public class PartyMember
 {
     public string id;
-    [System.NonSerialized] public NPCFollow follow;
+    [System.NonSerialized] public NPCMove follow;
 
     public PartyMember(NPCController npc)
     {
         id = npc.ReturnID();
-        follow = npc.GetComponent<NPCFollow>();
+        follow = npc.npcMove;
     }
 }

@@ -17,15 +17,13 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [SerializeField] private List<KeyEventDialogue> keyEventDialogues;
     private string cacheDialogueFile;
 
-    [Header("[ Dialogueless ]")]
-    [SerializeField] private string interactAnimation;
+    private bool isInteractAnimating = false;
     [System.NonSerialized] public string idleAnimation = "idle";
 
     [Header("[ Graphic Control ]")]
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
-    private bool isInteractAnimating = false;
 
     [Header("[ Player Viewpoint Standard ]")]
     [SerializeField] private bool isFixedSprite;
@@ -34,8 +32,14 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [HideInInspector] public bool isUniqueID;
     [HideInInspector] public string npcID;
 
+    [HideInInspector] public bool willMove;
+    [HideInInspector] public NPCMove npcMove;
+
     [HideInInspector] public bool disableSpriteAnimator;
     [HideInInspector] public Animator npcAnim;
+
+    [HideInInspector] public bool hasNoDialogue;
+    [HideInInspector] public string interactAnimation;
 
     [HideInInspector] public bool banInteractDirection;
     [HideInInspector] public bool lock_u, lock_ru, lock_r, lock_rd, lock_d, lock_ld, lock_l, lock_lu;
@@ -83,7 +87,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
         {
             if (!isInteractAnimating)
             {
-                if (!String.IsNullOrEmpty(interactAnimation))
+                if (hasNoDialogue && !string.IsNullOrEmpty(interactAnimation))
                 {
                     isInteractAnimating = true;
                     StartCoroutine(PlayInteractAnimation());
