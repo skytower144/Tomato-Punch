@@ -77,6 +77,14 @@ public class PartyManager : MonoBehaviour
         }
         return false;
     }
+
+    public void SetMemberFollow(bool state)
+    {
+        foreach (PartyMember member in partyMembers) {
+            if (state) member.follow.EnableFollow();
+            else member.follow.DisableFollow(true);
+        }
+    }
 }
 
 [System.Serializable]

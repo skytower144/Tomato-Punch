@@ -71,7 +71,7 @@ public class RebindKey : MonoBehaviour
     public void StartRebinding()
     {
         isBinding = true;
-        playerMovement.PlayerInput.actions.Disable();
+        playerMovement.playerInput.actions.Disable();
 
         MoveCover();
         waitCover.SetActive(true);
@@ -264,7 +264,7 @@ public class RebindKey : MonoBehaviour
     public void ExitBind()
     {
         rebindingOperation.Dispose(); // stop allocating memory space
-        playerMovement.PlayerInput.actions.Enable();
+        playerMovement.playerInput.actions.Enable();
 
         if (!bindFail.activeSelf)
             waitCover.SetActive(false);

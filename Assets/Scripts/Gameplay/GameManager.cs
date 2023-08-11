@@ -275,7 +275,7 @@ public class GameManager : MonoBehaviour
             // Allowing Button fast navigation
             else if(playerMovement.Press_Key("Move"))
             {
-                string currentScheme = playerMovement.PlayerInput.actions["Move"].activeControl.ToString();
+                string currentScheme = playerMovement.playerInput.actions["Move"].activeControl.ToString();
 
                 if  (
                     (!currentScheme.Contains("leftStick") && !currentScheme.Contains("rightStick")) &&
@@ -315,7 +315,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchActionMap(string mapName)
     {
-        player_movement.PlayerInput.SwitchCurrentActionMap(mapName);
+        player_movement.playerInput.SwitchCurrentActionMap(mapName);
     }
 
     public static void DoDebug(string input)

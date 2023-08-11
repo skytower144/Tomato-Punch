@@ -31,16 +31,17 @@ public class DialogueManager : MonoBehaviour
 
     string[] splitTag;
 
-    private NPCController currentNpc; public NPCController current_npc => currentNpc;
+    public NPCController current_npc => currentNpc;
+    public bool is_continue_talk => isContinueTalk;
+
+    private NPCController currentNpc;
     private Story currentStory; 
     private string currentSentence;
 
     private Interactable currentTarget;
     private DialogueExit dialogueExit = DialogueExit.Nothing;
 
-    private bool dialogueIsPlaying, isPromptChoice;
-    private bool isContinueTalk = false; public bool is_continue_talk => isContinueTalk;
-    private bool hideDialogue = false;
+    private bool dialogueIsPlaying, isPromptChoice, isContinueTalk, hideDialogue;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
@@ -49,7 +50,7 @@ public class DialogueManager : MonoBehaviour
     private const string ADDKEYEVENT_TAG = "addkeyevent";
     private const string ROLLBACKDIALOGUE_TAG = "rollbackdialogue";
     private const string CONTINUETALK_TAG = "continuetalk";
-    private const string PLAYERDIRECTION_TAG = "playerdirection";
+    private const string TURNPLAYER_TAG = "turnplayer";
     private const string ANIMATE_TAG = "animate";
     private const string FOCUSANIMATE_TAG = "focusanimate";
     private const string CHANGEIDLE_TAG = "changeidle";
@@ -74,8 +75,8 @@ public class DialogueManager : MonoBehaviour
     private const string TELEPORT_TAG = "teleport";
     private const string SETACTIVE_TAG = "setactive";
     private const string UNLOCKPORTAL_TAG = "unlockportal";
-    private const string FOLLOW_TAG = "follow";
-    private const string UNFOLLOW_TAG = "unfollow";
+    private const string JOINPARTY_TAG = "joinparty";
+    private const string LEAVEPARTY_TAG = "leaveparty";
 
     private void Awake()
     {
@@ -121,6 +122,8 @@ public class DialogueManager : MonoBehaviour
 
         currentNpc = (interactingTarget is NPCController) ? ((NPCController)interactingTarget) : null;
         currentTarget = interactingTarget;
+
+        GameManager.gm_instance.partyManager.SetMemberFollow(false);
         
         currentStory = new Story(inkJSON.text);
         portrait.sprite = SpriteDB.ReturnPortrait("Tomato_neutral");
@@ -138,6 +141,8 @@ public class DialogueManager : MonoBehaviour
         currentSentence = "";
 
         playerMovement.SetIsInteracting(false);
+        GameManager.gm_instance.partyManager.SetMemberFollow(true);
+
         InvokeEvent();
     }
     private void InvokeEvent()
@@ -291,9 +296,14 @@ public class DialogueManager : MonoBehaviour
                     isContinueTalk = true;
                     break;
                 
-                case PLAYERDIRECTION_TAG: //#playerdirection:LEFT@1.7
+                case TURNPLAYER_TAG: //#turnplayer:LEFT@1.7// #turnplayer:LEFT
                     string[] directionInfo = CheckTagValueError(tag_value);
-                    StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], float.Parse(directionInfo[1])));
+                    float delay = 0f;
+
+                    if (directionInfo.Length == 2)
+                        delay = float.Parse(directionInfo[1]);
+                    
+                    StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], delay));
                     break;
 
                 case ANIMATE_TAG: // #animate:fainted
@@ -419,11 +429,11 @@ public class DialogueManager : MonoBehaviour
                     dialogueExit = DialogueExit.UnlockDoor;
                     break;
 
-                case FOLLOW_TAG: // #follow:_
+                case JOINPARTY_TAG: // #joinparty:_
                     GameManager.gm_instance.partyManager.JoinParty(current_npc);
                     break;
                 
-                case UNFOLLOW_TAG: // #unfollow:_
+                case LEAVEPARTY_TAG: // #leaveparty:_
                     string leavingMemberName = (tag_value == "_") ? current_npc.ReturnID() : tag_value;
                     GameManager.gm_instance.partyManager.LeaveParty(leavingMemberName);
                     break; 

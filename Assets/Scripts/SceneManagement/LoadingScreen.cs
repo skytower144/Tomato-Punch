@@ -43,7 +43,7 @@ public class LoadingScreen : MonoBehaviour
         PlayerMovement.instance.cameraControl.SetPlayerCamera(!PlayerMovement.instance.cameraControl.isCameraFixated);
         
         GameManager.gm_instance.save_load_menu.PrepareMenu();
-        PlayerMovement.instance.collider_obj.SetActive(true);
+        PlayerMovement.instance.myCol.gameObject.SetActive(true);
 
         DOTween.Rewind("fader_out");
         DOTween.Play("fader_out");

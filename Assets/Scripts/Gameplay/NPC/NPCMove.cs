@@ -40,10 +40,10 @@ public class NPCMove : MonoBehaviour
         col.enabled = false;
     }
 
-    public void DisableFollow()
+    public void DisableFollow(bool setCollider = false)
     {
         isFollowing = false;
-        col.enabled = true;
+        col.enabled = setCollider ? false : true;
         ClearRecord();
     }
 
@@ -84,14 +84,10 @@ public class NPCMove : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayMoveActions(NPCController npc, string[] posStrings, float moveSpeed)
+    public IEnumerator PlayMoveActions(NPCController npc, string[] posStrings, float moveSpeed, bool isAnimate)
     {
         string[] posString;
-        bool wasFollowing = isFollowing;
         float originalSpeed = followSpeed;
-
-        if (wasFollowing)
-            DisableFollow();
         
         npc.boxCollider.enabled = false;
 
@@ -103,18 +99,15 @@ public class NPCMove : MonoBehaviour
             Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
 
             while ((targetPos - rb.position).magnitude >= 0.01f) {
-                yield return Move(targetPos);
+                yield return Move(targetPos, isAnimate);
             }
         }
         followSpeed = originalSpeed;
         Animate(false, default, false);
         npc.boxCollider.enabled = true;
-
-        if (wasFollowing)
-            EnableFollow();
     }
 
-    public IEnumerator Move(Vector2 movePos)
+    public IEnumerator Move(Vector2 movePos, bool isAnimate = true)
     {
         direction = movePos - rb.position;
         distance = direction.magnitude;
@@ -132,7 +125,7 @@ public class NPCMove : MonoBehaviour
             Vector2 amount = direction.normalized * movementSpeed;
             rb.position += amount;
         }
-        Animate(true, direction);
+        if (isAnimate) Animate(true, direction);
     }
 
     private void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
@@ -159,6 +152,6 @@ public class NPCMove : MonoBehaviour
 
     private bool PlayerHasStopped()
     {
-        return !GameManager.gm_instance.player_movement.playerAnim.GetBool("isWalking");
+        return !GameManager.gm_instance.player_movement.myAnim.GetBool("isWalking");
     }
 }

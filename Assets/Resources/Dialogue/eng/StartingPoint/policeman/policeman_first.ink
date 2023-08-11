@@ -16,7 +16,7 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         YES! YES! This is the one!{br}What a lifesaver!
         wait a minute...{br}this donut...
         OH MY GOODNESS! #animate:shocked
-        #playerdirection:LEFT@1.7
+        #turnplayer:LEFT@1.7
         #animate:fainted
         #changeidle:StartingPoint_Donut@isangry
         #teleport:StartingPoint_Donut@30@41

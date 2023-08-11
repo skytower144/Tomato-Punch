@@ -388,7 +388,7 @@ public class SaveLoadMenu : MonoBehaviour
             targetFileName = $"Slot_{slotNumber}";
         ProgressManager.instance.ChangeSelectedProfileId(targetFileName);
         
-        PlayerMovement.instance.collider_obj.SetActive(false);
+        PlayerMovement.instance.myCol.gameObject.SetActive(false);
 
         SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), ProceedLoad_2, startNewGame);
         SimulateEscape();

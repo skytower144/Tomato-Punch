@@ -21,7 +21,7 @@ public class EssentialObjects : MonoBehaviour
 
         TitleScreen.isTitleScreen = true;
         
-        PlayerMovement.instance.collider_obj.SetActive(false);
+        PlayerMovement.instance.myCol.gameObject.SetActive(false);
 
         PortableBundle.transform.SetParent(transform.parent);
         PortableBundle.transform.position = new Vector3(-113.435f, -0.02000007f, 0f);

@@ -41,8 +41,8 @@ public class TitleScreen : MonoBehaviour
     public void Init()
     {
         playerMovement = PlayerMovement.instance;
-        pauseMenu = playerMovement.pause_menu;
-        darkFilter = playerMovement.dark_filter;
+        pauseMenu = playerMovement.pauseMenu;
+        darkFilter = playerMovement.darkFilter;
         displayCanvas = pauseMenu.display_canvas;
 
         pauseMenu.gameObject.GetComponent<Image>().enabled = false;

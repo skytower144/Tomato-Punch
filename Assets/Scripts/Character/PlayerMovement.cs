@@ -5,33 +5,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Animator myAnim; public Animator playerAnim => myAnim;
-    private Rigidbody2D myRb;
-    [SerializeField] private PlayerInput playerInput;
-    public PlayerInput PlayerInput => playerInput;
+    public static PlayerMovement instance { get; private set; }
+    public LayerMask interactableLayer;
+    public Animator myAnim;
+    public BoxCollider2D myCol;
+    public PlayerInput playerInput;
     public PlayerCamera cameraControl;
-    
-    [SerializeField] GameManager gameManager;
-    [SerializeField] private PauseMenu pauseMenu; public PauseMenu pause_menu => pauseMenu;
-    [SerializeField] private GameObject playerUI, pauseObj, darkFilter, colliderObj, faderObj;
-    public GameObject dark_filter => darkFilter;
-    public GameObject collider_obj => colliderObj;
-    public GameObject fader_obj => faderObj;
-    public GameObject newspaper;
+    public GameManager gameManager;
+    public PauseMenu pauseMenu;
 
-    [SerializeField] private float speed; public float player_speed => speed;
+    public GameObject playerUI, pauseObj, darkFilter, faderObj;
+    public GameObject newspaper;
+    private Rigidbody2D myRb;
+
+    [SerializeField] private float speed;
+    public float player_speed => speed;
     private Vector2 movement;
 
     [System.NonSerialized] public string current_portalID;
-    public LayerMask interactableLayer;
     
     public static bool isBattle = false;
-    private bool isInteracting = false;
     public bool is_interacting => isInteracting;
+    private bool isInteracting = false;
     private bool isAnimating = false;
 
     // public event Action BeginBattle;
-    public static PlayerMovement instance { get; private set; }
+
     private void Awake()
     {
         if (instance != null) return;
@@ -95,6 +94,55 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public IEnumerator PlayMoveActions(string[] posStrings, float moveSpeed, bool isAnimate)
+    {
+        string[] posString;
+        float originalSpeed = speed;
+        myCol.enabled = false;
+
+        if (moveSpeed != -1f)
+            speed = moveSpeed;
+
+        foreach (string xy in posStrings) {
+            posString = xy.Split('-');
+            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+
+            while ((targetPos - myRb.position).magnitude >= 0.01f) {
+                yield return Walk(targetPos, isAnimate);
+            }
+        }
+        speed = originalSpeed;
+        myRb.velocity = Vector2.zero;
+
+        Animate(false, default, false);
+        myCol.enabled = true;
+    }
+
+    IEnumerator Walk(Vector2 movePos, bool isAnimate)
+    {
+        Vector2 direction = movePos - myRb.position;
+        float distance = direction.magnitude;
+
+        float movementSpeed = Mathf.Min(speed * Time.deltaTime, distance);
+        Vector2 amount = direction.normalized * movementSpeed;
+
+        myRb.position += amount;
+        
+        if (isAnimate) Animate(true, direction);
+        yield break;
+    }
+
+    private void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
+    {
+        myAnim.SetBool("isWalking", isAnimating);
+
+        if (!isAnimating) return;
+        
+        direction = direction.normalized;
+        myAnim.SetFloat("moveX", Mathf.Round(direction.x));
+        myAnim.SetFloat("moveY", Mathf.Round(direction.y));
+    }
+
     public bool InputDetection(Vector2 move)
     {
         return (move.x >= gameManager.stickSensitivity || move.x <= -gameManager.stickSensitivity|| move.y >= gameManager.stickSensitivity || move.y <= -gameManager.stickSensitivity);
@@ -118,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             // ? --> prevents crashing when GetComponent Fails.
         }
 
-        Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
+        if (AppSettings.IsUnityEditor) Debug.DrawLine(temp, interactPos, Color.green, 0.5f);
     }
 
     IEnumerator IsInteracting(float interval)
@@ -186,6 +234,8 @@ public class PlayerMovement : MonoBehaviour
             face_x = -1f;
         else if (facing_direction == "RIGHT")
             face_x = 1f;
+        else
+            Debug.LogError($"{facing_direction} : Wrong direction string.");
 
         myAnim.SetFloat("moveX", face_x);
         myAnim.SetFloat("moveY", face_y);
@@ -249,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
             !isInteracting &&
             !TitleScreen.isTitleScreen &&
             !gameManager.save_load_menu.isLoading &&
-            collider_obj.activeSelf &&
+            myCol.gameObject.activeSelf &&
             !isAnimating
         );
     }

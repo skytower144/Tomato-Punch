@@ -1980,7 +1980,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806408456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 23, z: -10}
+  m_LocalPosition: {x: 8, y: 23, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1018443485}
@@ -29186,7 +29186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f58ab5c5ec583945885e9056f45dca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
   myAnim: {fileID: 384357808947218956}
+  myCol: {fileID: 384357808947218954}
   playerInput: {fileID: 384357810404681547}
   cameraControl: {fileID: 7356279093002023387}
   gameManager: {fileID: 384357809796248540}
@@ -29194,13 +29198,9 @@ MonoBehaviour:
   playerUI: {fileID: 384357810651530795}
   pauseObj: {fileID: 384357809435500774}
   darkFilter: {fileID: 384357808811420912}
-  colliderObj: {fileID: 384357808947218952}
   faderObj: {fileID: 9160916661571448329}
   newspaper: {fileID: 9194146303937799575, guid: c649bba9b963b2f4a87b9007e43bd816, type: 3}
   speed: 9
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &384357810404681539
 GameObject:
   m_ObjectHideFlags: 0

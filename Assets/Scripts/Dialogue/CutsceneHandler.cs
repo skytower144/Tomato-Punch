@@ -19,17 +19,19 @@ public class CutsceneHandler : MonoBehaviour
     /*
     0. REQUIRES UNITY ANIMATOR BLEND TREE
 
-    1. #cutmove:target:@x-y@speed@wait
+    1. #cutmove:target:@x-y@speed@animate@wait
 
-    2. #cutmove:Babycat@2-4@13
-    3. #cutmove:Babycat@2-4@13@wait
-    4. #cutmove:Babycat@2-3,4-3,5-5@13@wait
+    2. #cutmove:Babycat@2-4@13@false
+    3. #cutmove:Babycat@2-4@13@true@wait
+    4. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
+    5. #cutmove:player@10-22,11-24,8-21@5@true@wait
     */
 
     private const string WAIT = "cutwait";
     /*
     1. #cutwait:duration
     */
+    
     [System.NonSerialized] public NPCController targetNpc;
     private string[] splitTag, valueArray, posStrings;
     private Vector2[] posArray;
@@ -64,17 +66,35 @@ public class CutsceneHandler : MonoBehaviour
                     break;
                 
                 case MOVE:
-                    if (TagCountBelow(3)) break;
-                    
-                    targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
+                    if (TagCountBelow(4)) break;
+
+                    bool isPlayer = false;
+
+                    if ((valueArray[0].ToLower() == "player"))
+                        isPlayer = true;
+                    else
+                        targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
+
                     posStrings = valueArray[1].Split(',');
                     float moveSpeed = float.Parse(valueArray[2]);
-                    dontWait = valueArray.Length < 4;
+
+                    bool isAnimate = (valueArray[3].ToLower() == "false") ? false : true;
+                    dontWait = valueArray.Length < 5;
                     
-                    if (dontWait)
-                        StartCoroutine(targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed));
+                    if (isPlayer)
+                    {
+                        if (dontWait)
+                            StartCoroutine(PlayerMovement.instance.PlayMoveActions(posStrings, moveSpeed, isAnimate));
+                        else
+                            yield return PlayerMovement.instance.PlayMoveActions(posStrings, moveSpeed, isAnimate);
+                    }
                     else
-                        yield return targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed);
+                    {
+                        if (dontWait)
+                            StartCoroutine(targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed, isAnimate));
+                        else
+                            yield return targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed, isAnimate);
+                    }
                     break;
                 
                 case WAIT:

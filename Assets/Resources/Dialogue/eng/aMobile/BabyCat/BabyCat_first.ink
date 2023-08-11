@@ -2,5 +2,5 @@ VAR cut = "/cut"
 
 Meow! #hideportrait:_
 #addkeyevent:Find_BabyCat_StartingPoint
-#follow:_
+#joinparty:_
 #nextdialogue:_
