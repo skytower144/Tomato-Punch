@@ -21,6 +21,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [System.NonSerialized] public string idleAnimation = "idle";
 
     [Header("[ Graphic Control ]")]
+    public BoxCollider2D boxCollider;
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;

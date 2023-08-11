@@ -6,15 +6,24 @@ public class CutsceneHandler : MonoBehaviour
 {
     private const string PLAY = "cutplay";
     /*
-    1. #cutplay:target@anim@wait (once)
-    2. #cutplay:target@anim      (once/loop)
-    3. If using wait, animation should NOT be loop
+    0. If using wait, animation should NOT be LOOP
+
+    1. #cutplay:target@animstring@wait (once)
+    2. #cutplay:target@animstring      (once/loop)
+
+    3. #cutplay:BabyCat@ztest2@wait
+    4. #cutplay:BabyCat@escort_cat
     */
 
     private const string MOVE = "cutmove";
     /*
+    0. REQUIRES UNITY ANIMATOR BLEND TREE
+
     1. #cutmove:target:@x-y@speed@wait
-    2. #cutmove:Babycat@(2-3,4-3,5-5)@13@wait
+
+    2. #cutmove:Babycat@2-4@13
+    3. #cutmove:Babycat@2-4@13@wait
+    4. #cutmove:Babycat@2-3,4-3,5-5@13@wait
     */
 
     private const string WAIT = "cutwait";
@@ -22,8 +31,10 @@ public class CutsceneHandler : MonoBehaviour
     1. #cutwait:duration
     */
     [System.NonSerialized] public NPCController targetNpc;
-    private string[] splitTag, valueArray;
+    private string[] splitTag, valueArray, posStrings;
+    private Vector2[] posArray;
     string currentTag;
+    bool dontWait;
     
     public IEnumerator HandleCutsceneTags(List<string> tags)
     {
@@ -45,17 +56,25 @@ public class CutsceneHandler : MonoBehaviour
                     targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
                     targetNpc.Play(valueArray[1]);
 
-                    if (valueArray.Length < 3) break;
+                    dontWait = valueArray.Length < 3;
+                    if (dontWait) break;
 
                     targetNpc.SetIsAnimating(true);
                     while (targetNpc.IsAnimating) yield return null;
                     break;
                 
-                case MOVE: // #cutmove:Babycat@2-4@13@wait
-                    if (TagCountBelow(2)) break;
+                case MOVE:
+                    if (TagCountBelow(3)) break;
                     
                     targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
+                    posStrings = valueArray[1].Split(',');
+                    float moveSpeed = float.Parse(valueArray[2]);
+                    dontWait = valueArray.Length < 4;
                     
+                    if (dontWait)
+                        StartCoroutine(targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed));
+                    else
+                        yield return targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed);
                     break;
                 
                 case WAIT:

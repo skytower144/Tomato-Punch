@@ -58,7 +58,7 @@ public class PartyManager : MonoBehaviour
         candidateControl.progressAssistant.InitiateRestore();
     }
 
-    public void InitPartyMember()
+    private void InitPartyMember()
     {
         if (NPCManager.instance.npc_dict.Count <= 0) return;
         

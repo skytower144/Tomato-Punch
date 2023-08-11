@@ -80,18 +80,48 @@ public class NPCMove : MonoBehaviour
             record.Enqueue(leader.position);
 
         if (record.Count > followDelay) {
-            Move(record.Dequeue());
+            StartCoroutine(Move(record.Dequeue()));
         }
     }
 
-    private void Move(Vector2 movePos, bool isSpriteAnimator = false)
+    public IEnumerator PlayMoveActions(NPCController npc, string[] posStrings, float moveSpeed)
+    {
+        string[] posString;
+        bool wasFollowing = isFollowing;
+        float originalSpeed = followSpeed;
+
+        if (wasFollowing)
+            DisableFollow();
+        
+        npc.boxCollider.enabled = false;
+
+        if (moveSpeed != -1f)
+            followSpeed = moveSpeed;
+
+        foreach (string xy in posStrings) {
+            posString = xy.Split('-');
+            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+
+            while ((targetPos - rb.position).magnitude >= 0.01f) {
+                yield return Move(targetPos);
+            }
+        }
+        followSpeed = originalSpeed;
+        Animate(false, default, false);
+        npc.boxCollider.enabled = true;
+
+        if (wasFollowing)
+            EnableFollow();
+    }
+
+    public IEnumerator Move(Vector2 movePos)
     {
         direction = movePos - rb.position;
         distance = direction.magnitude;
 
         if (distance < 0.01f) {
             rb.position = movePos;
-            return;
+            yield break;
         }
         else
         {
@@ -102,13 +132,12 @@ public class NPCMove : MonoBehaviour
             Vector2 amount = direction.normalized * movementSpeed;
             rb.position += amount;
         }
-        if (isSpriteAnimator) Animate(direction);
-        else Animate(true, direction);
+        Animate(true, direction);
     }
 
-    private void Animate(bool isAnimating, Vector2 direction = default)
+    private void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
     {
-        if (anim.GetBool("isWalking") && !isAnimating)
+        if (anim.GetBool("isWalking") && !isAnimating && flattenPos)
             FlattenPos();
         
         anim.SetBool("isWalking", isAnimating);
@@ -121,11 +150,6 @@ public class NPCMove : MonoBehaviour
         direction = direction.normalized;
         anim.SetFloat("moveX", Mathf.Round(direction.x));
         anim.SetFloat("moveY", Mathf.Round(direction.y));
-    }
-
-    private void Animate(Vector2 direction)
-    {
-
     }
 
     private void FlattenPos()

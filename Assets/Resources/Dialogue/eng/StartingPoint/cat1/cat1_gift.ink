@@ -1,5 +1,11 @@
-#hideportrait:_
+VAR cut = "/cut"
+
+#hideportrait:_ 
 Meow meow.
+
+#cutmove:BabyCat@7.4-24,3.57-24,3.57-22.14@5@wait
+{cut}
+
 .....Human.
 I extend my gratitude...
 ...for the recovery of our missing little kitten.
