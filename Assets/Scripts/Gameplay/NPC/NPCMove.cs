@@ -9,9 +9,13 @@ public class NPCMove : MonoBehaviour
     [SerializeField] private int followDelay;
     [Space(10), SerializeField] private List<SceneName> offLimitAreas;
     
+    public float FollowSpeed => followSpeed;
+    public Rigidbody2D npcRb => rb;
+
     private Queue<Vector2> record = new Queue<Vector2>();
     private Rigidbody2D rb;
     private BoxCollider2D col;
+
 
     private float followSpeed = 8.9f;
     private float stopTime;
@@ -84,29 +88,6 @@ public class NPCMove : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayMoveActions(NPCController npc, string[] posStrings, float moveSpeed, bool isAnimate)
-    {
-        string[] posString;
-        float originalSpeed = followSpeed;
-        
-        npc.boxCollider.enabled = false;
-
-        if (moveSpeed != -1f)
-            followSpeed = moveSpeed;
-
-        foreach (string xy in posStrings) {
-            posString = xy.Split('-');
-            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
-
-            while ((targetPos - rb.position).magnitude >= 0.01f) {
-                yield return Move(targetPos, isAnimate);
-            }
-        }
-        followSpeed = originalSpeed;
-        Animate(false, default, false);
-        npc.boxCollider.enabled = true;
-    }
-
     public IEnumerator Move(Vector2 movePos, bool isAnimate = true)
     {
         direction = movePos - rb.position;
@@ -128,7 +109,7 @@ public class NPCMove : MonoBehaviour
         if (isAnimate) Animate(true, direction);
     }
 
-    private void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
+    public void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
     {
         if (anim.GetBool("isWalking") && !isAnimating && flattenPos)
             FlattenPos();
@@ -153,5 +134,10 @@ public class NPCMove : MonoBehaviour
     private bool PlayerHasStopped()
     {
         return !GameManager.gm_instance.player_movement.myAnim.GetBool("isWalking");
+    }
+
+    public void SetFollowSpeed(float speed)
+    {
+        followSpeed = speed;
     }
 }

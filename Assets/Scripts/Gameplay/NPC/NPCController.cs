@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class StringSpriteanim : SerializableDictionary<string, SpriteAnimation>{}
 
-public class NPCController : MonoBehaviour, Interactable, ObjectProgress
+public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Character
 {
     [Header("[ SAVING ]")]
     [SerializeField] private bool isSaveTarget = true;
@@ -21,7 +21,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [System.NonSerialized] public string idleAnimation = "idle";
 
     [Header("[ Graphic Control ]")]
-    public BoxCollider2D boxCollider;
+    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
@@ -55,7 +55,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     [System.NonSerialized] public bool isDisabled = false;
     private bool initOnce = false;
     private bool isAnimating = false;
-    public bool IsAnimating => isAnimating;
 
     private void OnEnable()
     {
@@ -247,6 +246,34 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress
     public void SetIsAnimating(bool state)
     {
         isAnimating = state;
+    }
+
+    public bool IsAnimating()
+    {
+        return isAnimating;
+    }
+
+    public IEnumerator PlayMoveActions(string[] posStrings, float moveSpeed, bool isAnimate)
+    {
+        string[] posString;
+        float originalSpeed = npcMove.FollowSpeed;
+        
+        boxCollider.enabled = false;
+
+        if (moveSpeed != -1f)
+            npcMove.SetFollowSpeed(moveSpeed);
+
+        foreach (string xy in posStrings) {
+            posString = xy.Split('-');
+            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+
+            while ((targetPos - npcMove.npcRb.position).magnitude >= 0.01f) {
+                yield return npcMove.Move(targetPos, isAnimate);
+            }
+        }
+        npcMove.SetFollowSpeed(originalSpeed);
+        npcMove.Animate(false, default, false);
+        boxCollider.enabled = true;
     }
 }
 

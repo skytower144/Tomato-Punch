@@ -11,7 +11,7 @@ public class CutsceneHandler : MonoBehaviour
     1. #cutplay:target@animstring@wait (once)
     2. #cutplay:target@animstring      (once/loop)
 
-    3. #cutplay:BabyCat@ztest2@wait
+    3. #cutplay:player@Wakeup@wait
     4. #cutplay:BabyCat@escort_cat
     */
 
@@ -33,6 +33,7 @@ public class CutsceneHandler : MonoBehaviour
     */
     
     [System.NonSerialized] public NPCController targetNpc;
+    private Character character;
     private string[] splitTag, valueArray, posStrings;
     private Vector2[] posArray;
     string currentTag;
@@ -55,46 +56,31 @@ public class CutsceneHandler : MonoBehaviour
                 case PLAY:
                     if (TagCountBelow(2)) break;
 
-                    targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
-                    targetNpc.Play(valueArray[1]);
+                    character = (valueArray[0].ToLower() == "player") ? PlayerMovement.instance.GetComponent<Character>() : NPCManager.instance.npc_dict[valueArray[0]].GetComponent<Character>();
+                    character.Play(valueArray[1]);
 
                     dontWait = valueArray.Length < 3;
                     if (dontWait) break;
 
-                    targetNpc.SetIsAnimating(true);
-                    while (targetNpc.IsAnimating) yield return null;
+                    character.SetIsAnimating(true);
+                    while (character.IsAnimating()) yield return null;
                     break;
                 
                 case MOVE:
                     if (TagCountBelow(4)) break;
 
-                    bool isPlayer = false;
-
-                    if ((valueArray[0].ToLower() == "player"))
-                        isPlayer = true;
-                    else
-                        targetNpc = NPCManager.instance.npc_dict[valueArray[0]];
+                    character = (valueArray[0].ToLower() == "player") ? PlayerMovement.instance.GetComponent<Character>() : NPCManager.instance.npc_dict[valueArray[0]].GetComponent<Character>();
 
                     posStrings = valueArray[1].Split(',');
                     float moveSpeed = float.Parse(valueArray[2]);
 
                     bool isAnimate = (valueArray[3].ToLower() == "false") ? false : true;
                     dontWait = valueArray.Length < 5;
-                    
-                    if (isPlayer)
-                    {
-                        if (dontWait)
-                            StartCoroutine(PlayerMovement.instance.PlayMoveActions(posStrings, moveSpeed, isAnimate));
-                        else
-                            yield return PlayerMovement.instance.PlayMoveActions(posStrings, moveSpeed, isAnimate);
-                    }
+
+                    if (dontWait)
+                        StartCoroutine(character.PlayMoveActions(posStrings, moveSpeed, isAnimate));
                     else
-                    {
-                        if (dontWait)
-                            StartCoroutine(targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed, isAnimate));
-                        else
-                            yield return targetNpc.npcMove.PlayMoveActions(targetNpc, posStrings, moveSpeed, isAnimate);
-                    }
+                        yield return character.PlayMoveActions(posStrings, moveSpeed, isAnimate);
                     break;
                 
                 case WAIT:
@@ -107,15 +93,15 @@ public class CutsceneHandler : MonoBehaviour
         yield break;
     }
 
-    public void AfterAnimComplete(NPCController npc, float delay)
+    public void AfterAnimComplete(Object targetCharacter, float delay)
     {
-        StartCoroutine(AfterAnimExecute(npc, delay));
+        StartCoroutine(AfterAnimExecute((Character)targetCharacter, delay));
     }
 
-    IEnumerator AfterAnimExecute(NPCController npc, float delay)
+    IEnumerator AfterAnimExecute(Character targetCharacter, float delay)
     {
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
-        npc.SetIsAnimating(false);
+        targetCharacter.SetIsAnimating(false);
     }
 
     private bool TagCountBelow(int minTagCount, bool isSplitTag = false)

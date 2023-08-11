@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, Character
 {
     public static PlayerMovement instance { get; private set; }
     public LayerMask interactableLayer;
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         yield break;
     }
 
-    private void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
+    public void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
     {
         myAnim.SetBool("isWalking", isAnimating);
 
@@ -290,6 +290,16 @@ public class PlayerMovement : MonoBehaviour
     public void SetIsAnimating(bool state)
     {
         isAnimating = state;
+    }
+
+    public bool IsAnimating()
+    {
+        return isAnimating;
+    }
+
+    public void Play(string animTag, Action dialogueAction = null, bool stopAfterAnimation = false)
+    {
+        myAnim.Play(animTag, -1, 0f);
     }
 
     private bool PlayerCanMove()

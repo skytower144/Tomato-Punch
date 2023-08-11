@@ -49,6 +49,7 @@ public class TypeEffect : MonoBehaviour
     {
         //End Animation
         if (index == targetMessage.Length) {
+            messageText.maxVisibleCharacters++;
             if (isPrinting)
                 EffectEnd();
             yield break;
