@@ -63,6 +63,11 @@ public class CutsceneHandler : MonoBehaviour
                     if (dontWait) break;
 
                     character.SetIsAnimating(true);
+
+                    if (character.UsesDefaultAnimator()) {
+                        AnimationClip playingClip = ReturnAnimationClip(character.UsesDefaultAnimator(), valueArray[1]);
+                        Invoke("SetIsAnimatingFalse", playingClip.length);
+                    }
                     while (character.IsAnimating()) yield return null;
                     break;
                 
@@ -113,5 +118,20 @@ public class CutsceneHandler : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private AnimationClip ReturnAnimationClip(Animator animator, string clipName)
+    {
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
+            if (clip.name == clipName)
+                return clip;
+        }
+        Debug.LogError($"Animation clip not found : {clipName}");
+        return null;
+    }
+
+    private void SetIsAnimatingFalse()
+    {
+        character.SetIsAnimating(false);
     }
 }

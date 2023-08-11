@@ -297,9 +297,14 @@ public class PlayerMovement : MonoBehaviour, Character
         return isAnimating;
     }
 
-    public void Play(string animTag, Action dialogueAction = null, bool stopAfterAnimation = false)
+    public Animator UsesDefaultAnimator()
     {
-        myAnim.Play(animTag, -1, 0f);
+        return myAnim;
+    }
+
+    public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
+    {
+        myAnim.Play(clipName, -1, 0f);
     }
 
     private bool PlayerCanMove()

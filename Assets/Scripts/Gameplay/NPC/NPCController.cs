@@ -152,14 +152,14 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         idleAnimation = changed;
     }
 
-    public void Play(string animTag, Action dialogueAction = null, bool stopAfterAnimation = false)
+    public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
         if (disableSpriteAnimator)
-            npcAnim.Play(animTag, -1, 0f);
+            npcAnim.Play(clipName, -1, 0f);
         
-        else if (sprite_dict.ContainsKey(animTag))
+        else if (sprite_dict.ContainsKey(clipName))
         {
-            SpriteAnimation animation = sprite_dict[animTag];
+            SpriteAnimation animation = sprite_dict[clipName];
             spriteAnimator = new SpriteAnimator(this, sprite_renderer, animation.sprites, animation.fps, animation.is_loop, dialogueAction, stopAfterAnimation);
         }
         else
@@ -251,6 +251,11 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     public bool IsAnimating()
     {
         return isAnimating;
+    }
+
+    public Animator UsesDefaultAnimator()
+    {
+        return npcAnim;
     }
 
     public IEnumerator PlayMoveActions(string[] posStrings, float moveSpeed, bool isAnimate)
