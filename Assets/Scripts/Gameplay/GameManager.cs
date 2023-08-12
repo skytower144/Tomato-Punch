@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
             // Teleport player to bench, play waking up from bench animation
             if (!isVictory && (expectedReviveState == PlayerReviveState.Bench)) {
                 playerMovement.transform.position = GetBenchPostion();
-                playerMovement.FaceAdjustment("DOWN");
+                CutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
                 playerAnimator.Play("Wakeup", -1, 0f);
                 Instantiate(playerMovement.newspaper, playerAnimator.transform);
             }

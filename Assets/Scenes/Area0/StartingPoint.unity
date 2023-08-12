@@ -767,6 +767,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: Sass_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -853,6 +854,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: 
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -1417,6 +1419,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: 
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys:
@@ -2141,6 +2144,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: 
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 177038262}
   sprite_dict:
     m_keys:
@@ -4844,6 +4848,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: smoker1_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 287812806}
   sprite_dict:
     m_keys:
@@ -5103,6 +5108,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: guy6_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1312277667}
   sprite_dict:
     m_keys:
@@ -5270,6 +5276,7 @@ MonoBehaviour:
   keyEventDialogues:
   - keyEvent: 1
     inkFileName: Rupple_battleOver
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -5941,6 +5948,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: guy4_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 363760914}
   sprite_dict:
     m_keys: []
@@ -6577,6 +6585,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: girl6_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 409038580}
   sprite_dict:
     m_keys:
@@ -7438,6 +7447,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: girl2_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 509997382}
   sprite_dict:
     m_keys:
@@ -8562,6 +8572,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: Snowman_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 627512640}
   sprite_dict:
     m_keys:
@@ -9369,13 +9380,14 @@ MonoBehaviour:
     inkFileName: Gob_impressed
   - keyEvent: 2
     inkFileName: Gob_concerned
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 660367150}
   sprite_dict:
     m_keys:
-    - left
-    - right
-    - up
-    - down
+    - LEFT
+    - RIGHT
+    - UP
+    - DOWN
     m_values:
     - is_loop: 0
       fps: 0
@@ -9845,6 +9857,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: girl0_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -10393,6 +10406,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: Donut_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 771381876}
   sprite_dict:
     m_keys:
@@ -10859,6 +10873,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: policeman_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 803112004}
   sprite_dict:
     m_keys:
@@ -11627,13 +11642,14 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: Gin_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 852602746}
   sprite_dict:
     m_keys:
-    - left
-    - right
-    - up
-    - down
+    - LEFT
+    - RIGHT
+    - UP
+    - DOWN
     m_values:
     - is_loop: 0
       fps: 0
@@ -12255,6 +12271,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: IcecreamKid_red
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 905842710}
   sprite_dict:
     m_keys:
@@ -13337,6 +13354,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: IcecreamKid_blue
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1052022158}
   sprite_dict:
     m_keys:
@@ -13824,6 +13842,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: kid0_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1556090447}
   sprite_dict:
     m_keys:
@@ -37878,7 +37897,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 31, y: 15, z: 0}
@@ -38050,7 +38069,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -19, y: 52, z: 0}
@@ -60378,7 +60397,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 5, y: 32, z: 0}
@@ -60406,7 +60425,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 37, z: 0}
@@ -61023,6 +61042,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: drunkguy_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1503603560}
   sprite_dict:
     m_keys:
@@ -63456,6 +63476,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: girl3_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 496873219}
   sprite_dict:
     m_keys:
@@ -63821,6 +63842,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: 
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -64720,6 +64742,7 @@ MonoBehaviour:
   keyEventDialogues:
   - keyEvent: 3
     inkFileName: cat1_gift
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1534453606}
   sprite_dict:
     m_keys:
@@ -66289,6 +66312,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: guy3_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1637957221}
   sprite_dict:
     m_keys: []
@@ -116016,6 +116040,7 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: smoker0_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1881383484}
   sprite_dict:
     m_keys:
@@ -117761,13 +117786,14 @@ MonoBehaviour:
   isPartyCandidate: 0
   inkFileName: Tonic_first
   keyEventDialogues: []
+  boxCollider: {fileID: 0}
   sprite_renderer: {fileID: 1910407686}
   sprite_dict:
     m_keys:
-    - left
-    - right
-    - up
-    - down
+    - LEFT
+    - RIGHT
+    - UP
+    - DOWN
     m_values:
     - is_loop: 0
       fps: 0

@@ -56,6 +56,12 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     private bool initOnce = false;
     private bool isAnimating = false;
 
+    public string ReturnID()
+    {
+        if (isUniqueID) return npcID;
+        return $"{gameObject.scene.name}_{gameObject.name}";
+    }
+
     private void OnEnable()
     {
         if (!initOnce) {
@@ -237,12 +243,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         keyEventDialogues = game_data.keyEventDialogues;
     }
 
-    public string ReturnID()
-    {
-        if (isUniqueID) return npcID;
-        return $"{gameObject.scene.name}_{gameObject.name}";
-    }
-
     public void SetIsAnimating(bool state)
     {
         isAnimating = state;
@@ -279,6 +279,14 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         npcMove.SetFollowSpeed(originalSpeed);
         npcMove.Animate(false, default, false);
         boxCollider.enabled = true;
+    }
+
+    public void Turn(string direction)
+    {
+        if (disableSpriteAnimator)
+            CutsceneHandler.FaceAdjustment(npcAnim, direction);
+        else
+            Play($"{direction}");
     }
 }
 

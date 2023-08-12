@@ -80,7 +80,7 @@ public class LocationPortal : MonoBehaviour, Interactable
             if (direction == this.enterDirection.ToString()) {
                 canEnter = false;
                 Time.timeScale = 0;
-                player_movement.FaceAdjustment(direction);
+                CutsceneHandler.FaceAdjustment(player_movement.myAnim, direction);
                 
                 if (enterAnimator != null)
                     StartCoroutine(DelayEnter(0.5f));

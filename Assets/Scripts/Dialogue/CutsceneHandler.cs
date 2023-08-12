@@ -20,23 +20,34 @@ public class CutsceneHandler : MonoBehaviour
     0. REQUIRES UNITY ANIMATOR BLEND TREE
 
     1. #cutmove:target:@x-y@speed@animate@wait
+    2. #cutmove:target:@x-y@speed@animate
 
-    2. #cutmove:Babycat@2-4@13@false
-    3. #cutmove:Babycat@2-4@13@true@wait
-    4. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
-    5. #cutmove:player@10-22,11-24,8-21@5@true@wait
+    3. #cutmove:Babycat@2-4@13@false
+    4. #cutmove:Babycat@2-4@13@true@wait
+    5. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
+    6. #cutmove:player@10-22,11-24,8-21@5@true@wait
+    */
+
+    private const string TURN = "cutturn";
+    /*
+    1. #cutturn:target@DIR-duration@wait
+    2. #cutturn:target@DIR-duration
+    
+    3. #cutturn:player@UP-0.5,LEFT-1.2
+    4. #cutturn:StartingPoint_Gob@RIGHT-0.5,DOWN-0.5,LEFT-0.5,UP-0.5@wait
     */
 
     private const string WAIT = "cutwait";
     /*
     1. #cutwait:duration
+    
+    2. #cutwait:0.5
     */
     
-    [System.NonSerialized] public NPCController targetNpc;
     private Character character;
-    private string[] splitTag, valueArray, posStrings;
-    private Vector2[] posArray;
+    private string[] splitTag, valueArray;
     string currentTag;
+    float duration;
     bool dontWait;
     
     public IEnumerator HandleCutsceneTags(List<string> tags)
@@ -56,7 +67,7 @@ public class CutsceneHandler : MonoBehaviour
                 case PLAY:
                     if (TagCountBelow(2)) break;
 
-                    character = (valueArray[0].ToLower() == "player") ? PlayerMovement.instance.GetComponent<Character>() : NPCManager.instance.npc_dict[valueArray[0]].GetComponent<Character>();
+                    character = GetTargetCharacter(valueArray[0]);
                     character.Play(valueArray[1]);
 
                     dontWait = valueArray.Length < 3;
@@ -74,9 +85,8 @@ public class CutsceneHandler : MonoBehaviour
                 case MOVE:
                     if (TagCountBelow(4)) break;
 
-                    character = (valueArray[0].ToLower() == "player") ? PlayerMovement.instance.GetComponent<Character>() : NPCManager.instance.npc_dict[valueArray[0]].GetComponent<Character>();
-
-                    posStrings = valueArray[1].Split(',');
+                    character = GetTargetCharacter(valueArray[0]);
+                    string[] posStrings = valueArray[1].Split(',');
                     float moveSpeed = float.Parse(valueArray[2]);
 
                     bool isAnimate = (valueArray[3].ToLower() == "false") ? false : true;
@@ -88,7 +98,22 @@ public class CutsceneHandler : MonoBehaviour
                         yield return character.PlayMoveActions(posStrings, moveSpeed, isAnimate);
                     break;
                 
+                case TURN:
+                    if (TagCountBelow(2)) break;
+
+                    character = GetTargetCharacter(valueArray[0]);
+                    string[] dirStrings = valueArray[1].Split(',');
+                    dontWait = valueArray.Length < 3;
+
+                    if (dontWait)
+                        StartCoroutine(PlayTurnActions(character, dirStrings));
+                    else
+                        yield return PlayTurnActions(character, dirStrings);
+                    break;
+                
                 case WAIT:
+                    duration = float.Parse(valueArray[0]);
+                    yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(duration));
                     break;
                 
                 default:
@@ -98,15 +123,9 @@ public class CutsceneHandler : MonoBehaviour
         yield break;
     }
 
-    public void AfterAnimComplete(Object targetCharacter, float delay)
+    private Character GetTargetCharacter(string name)
     {
-        StartCoroutine(AfterAnimExecute((Character)targetCharacter, delay));
-    }
-
-    IEnumerator AfterAnimExecute(Character targetCharacter, float delay)
-    {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
-        targetCharacter.SetIsAnimating(false);
+        return (name.ToLower() == "player") ? PlayerMovement.instance.GetComponent<Character>() : NPCManager.instance.npc_dict[name].GetComponent<Character>();
     }
 
     private bool TagCountBelow(int minTagCount, bool isSplitTag = false)
@@ -130,8 +149,66 @@ public class CutsceneHandler : MonoBehaviour
         return null;
     }
 
-    private void SetIsAnimatingFalse()
+    private void SetIsAnimatingFalse() // Invoke
     {
         character.SetIsAnimating(false);
+    }
+
+    public static void FaceAdjustment(Animator anim, string facing_direction)
+    {
+        float face_x = 0f;
+        float face_y = 0f;
+
+        switch (facing_direction) {
+            case "UP":
+                face_y = 1f;
+                break;
+            
+            case "RU":
+                (face_x, face_y) = (1f, 1f);
+                break;
+            
+            case "RIGHT":
+                face_x = 1f;
+                break;
+            
+            case "RD":
+                (face_x, face_y) = (1f, -1f);
+                break;
+            
+            case "DOWN":
+                face_y = -1f;
+                break;
+            
+            case "LD":
+                (face_x, face_y) = (-1f, -1f);
+                break;
+            
+            case "LEFT":
+                face_x = -1f;
+                break;
+            
+            case "LU":
+                (face_x, face_y) = (-1f, 1f);
+                break;
+            
+            default:
+                Debug.LogError($"{facing_direction} : Wrong direction string.");
+                break;
+        }
+        anim.SetFloat("moveX", face_x);
+        anim.SetFloat("moveY", face_y);
+    }
+
+    IEnumerator PlayTurnActions(Character character, string[] dirStrings)
+    {
+        string[] dirString;
+        
+        foreach (string dir_dur in dirStrings) {
+            dirString = dir_dur.Split('-');
+            character.Turn(dirString[0].ToUpper());
+
+            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(float.Parse(dirString[1])));
+        }
     }
 }

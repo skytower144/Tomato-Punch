@@ -3,7 +3,8 @@ VAR cut = "/cut"
 #hideportrait:_ 
 Meow meow.
 
-#cutmove:BabyCat@7.4-24,3.57-24,3.57-22.14@5@true@wait
+#cutmove:BabyCat@7.4-24,3.57-24,3.57-22.14@5@true
+#cutturn:player@UP-0.5,LEFT-1.2@wait
 {cut}
 
 .....Human.

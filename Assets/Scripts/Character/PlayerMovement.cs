@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour, Character
@@ -94,44 +93,6 @@ public class PlayerMovement : MonoBehaviour, Character
         }
     }
 
-    public IEnumerator PlayMoveActions(string[] posStrings, float moveSpeed, bool isAnimate)
-    {
-        string[] posString;
-        float originalSpeed = speed;
-        myCol.enabled = false;
-
-        if (moveSpeed != -1f)
-            speed = moveSpeed;
-
-        foreach (string xy in posStrings) {
-            posString = xy.Split('-');
-            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
-
-            while ((targetPos - myRb.position).magnitude >= 0.01f) {
-                yield return Walk(targetPos, isAnimate);
-            }
-        }
-        speed = originalSpeed;
-        myRb.velocity = Vector2.zero;
-
-        Animate(false, default, false);
-        myCol.enabled = true;
-    }
-
-    IEnumerator Walk(Vector2 movePos, bool isAnimate)
-    {
-        Vector2 direction = movePos - myRb.position;
-        float distance = direction.magnitude;
-
-        float movementSpeed = Mathf.Min(speed * Time.deltaTime, distance);
-        Vector2 amount = direction.normalized * movementSpeed;
-
-        myRb.position += amount;
-        
-        if (isAnimate) Animate(true, direction);
-        yield break;
-    }
-
     public void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
     {
         myAnim.SetBool("isWalking", isAnimating);
@@ -218,27 +179,7 @@ public class PlayerMovement : MonoBehaviour, Character
     public IEnumerator DelayFaceAdjustment(string direction, float delay)
     {
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
-        FaceAdjustment(direction);
-    }
-
-    public void FaceAdjustment(string facing_direction)
-    {
-        float face_x = 0f;
-        float face_y = 0f;
-
-        if (facing_direction == "UP")
-            face_y = 1f;
-        else if (facing_direction == "DOWN")
-            face_y = -1f;
-        else if (facing_direction == "LEFT")
-            face_x = -1f;
-        else if (facing_direction == "RIGHT")
-            face_x = 1f;
-        else
-            Debug.LogError($"{facing_direction} : Wrong direction string.");
-
-        myAnim.SetFloat("moveX", face_x);
-        myAnim.SetFloat("moveY", face_y);
+        CutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 
     public bool CheckFacingDirection(string checking_direction)
@@ -287,6 +228,44 @@ public class PlayerMovement : MonoBehaviour, Character
         speed = input_speed;
     }
 
+    public IEnumerator PlayMoveActions(string[] posStrings, float moveSpeed, bool isAnimate)
+    {
+        string[] posString;
+        float originalSpeed = speed;
+        myCol.enabled = false;
+
+        if (moveSpeed != -1f)
+            speed = moveSpeed;
+
+        foreach (string xy in posStrings) {
+            posString = xy.Split('-');
+            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+
+            while ((targetPos - myRb.position).magnitude >= 0.01f) {
+                yield return Walk(targetPos, isAnimate);
+            }
+        }
+        speed = originalSpeed;
+        myRb.velocity = Vector2.zero;
+
+        Animate(false, default, false);
+        myCol.enabled = true;
+    }
+
+    IEnumerator Walk(Vector2 movePos, bool isAnimate)
+    {
+        Vector2 direction = movePos - myRb.position;
+        float distance = direction.magnitude;
+
+        float movementSpeed = Mathf.Min(speed * Time.deltaTime, distance);
+        Vector2 amount = direction.normalized * movementSpeed;
+
+        myRb.position += amount;
+        
+        if (isAnimate) Animate(true, direction);
+        yield break;
+    }
+
     public void SetIsAnimating(bool state)
     {
         isAnimating = state;
@@ -305,6 +284,11 @@ public class PlayerMovement : MonoBehaviour, Character
     public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
         myAnim.Play(clipName, -1, 0f);
+    }
+
+    public void Turn(string direction)
+    {
+        CutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 
     private bool PlayerCanMove()
