@@ -4,7 +4,7 @@ VAR cut = "/cut"
 Meow meow.
 
 #cutmove:BabyCat@7.4-24,3.57-24,3.57-22.14@5@true
-#cutturn:player@UP-0.5,LEFT-1.2@wait
+#cutturn:player@UP-0.7,LEFT-1.1@wait
 {cut}
 
 .....Human.
