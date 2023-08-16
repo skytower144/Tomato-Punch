@@ -120,16 +120,16 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             PlayerMovement playerMovement = PlayerMovement.instance;
             
             if ((playerMovement.CheckFacingDirection("DOWN")) || (playerMovement.CheckFacingDirection("LD")) || playerMovement.CheckFacingDirection("RD"))
-                Play("up");
+                Turn("up");
             
             else if ((playerMovement.CheckFacingDirection("UP")) || (playerMovement.CheckFacingDirection("LU")) || playerMovement.CheckFacingDirection("RU"))
-                Play("down");
+                Turn("down");
             
             else if (playerMovement.CheckFacingDirection("RIGHT"))
-                Play("left");
+                Turn("left");
             
             else if (playerMovement.CheckFacingDirection("LEFT"))
-                Play("right");
+                Turn("right");
         }
     }
 
@@ -283,6 +283,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Turn(string direction)
     {
+        direction = direction.ToUpper();
+
         if (disableSpriteAnimator)
             CutsceneHandler.FaceAdjustment(npcAnim, direction);
         else

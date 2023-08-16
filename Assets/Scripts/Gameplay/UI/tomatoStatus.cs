@@ -19,6 +19,10 @@ public class tomatoStatus : MonoBehaviour
     private int AtkIncrease = 2;
     private int DefIncrease = 5;
 
+    [SerializeField] private List<Color32> levelEffectColors;
+    private float levelEffect_x = -106.6f;
+    private float[] levelEffect_y = new float[] { 43f, 126f, 211.89f };
+
     public int playerMoney;
     public void OnEnable()
     {
@@ -117,18 +121,13 @@ public class tomatoStatus : MonoBehaviour
         GameObject effect = Instantiate(status_up_effect, spawnPoint);
         Instantiate(frameshine_effect, spawnPoint);
 
-        if (number == 2){ // HP
-            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 211.89f);
-            effect.GetComponent<SpriteRenderer>().color = new Color32(102, 255, 142, 157);
-        }
-        else if (number == 1){ // ATK
-            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 126f);
-            effect.GetComponent<SpriteRenderer>().color = new Color32(255, 78, 100, 157);
-        }
-        else if (number == 0){ // DEF
-            effect.transform.localPosition = new Vector3(effect.transform.localPosition.x, 43f);
-            effect.GetComponent<SpriteRenderer>().color = new Color32(100, 243, 255, 157);
-        }
+        SpriteRenderer effectSr = effect.GetComponent<SpriteRenderer>();
+
+        effect.transform.localPosition = new Vector2(levelEffect_x, levelEffect_y[number]);
+        effectSr.color = levelEffectColors[number];
+
+        effect.transform.SetParent(GameManager.gm_instance.transform.parent);
+        effect.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public bool CheckEnoughMoney(int loss)

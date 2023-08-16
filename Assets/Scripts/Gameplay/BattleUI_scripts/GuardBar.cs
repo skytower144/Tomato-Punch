@@ -36,7 +36,7 @@ public class GuardBar : MonoBehaviour
     public void RestoreGuardBar()
     {
         guardFill.value = tomatocontrol.current_guardPt = tomatocontrol.maxGuard;
-        Instantiate(guardBar_shineEffect);
+        Instantiate(guardBar_shineEffect, transform);
     }
 
     public void guardDamaged(float difference_guardPt)

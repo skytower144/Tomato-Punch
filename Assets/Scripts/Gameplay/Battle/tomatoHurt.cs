@@ -60,6 +60,7 @@ public class tomatoHurt : MonoBehaviour
             
             anim.Play("tomato_faint",-1,0f);
             Instantiate(faintBurstEffect);
+            tomatocontrol.ResetGaksung();
 
             GameManager.gm_instance.battle_system.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
             GameManager.gm_instance.battle_system.battleTimeManager.DoSlowmotion();

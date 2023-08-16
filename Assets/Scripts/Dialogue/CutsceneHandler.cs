@@ -206,7 +206,7 @@ public class CutsceneHandler : MonoBehaviour
         
         foreach (string dir_dur in dirStrings) {
             dirString = dir_dur.Split('-');
-            character.Turn(dirString[0].ToUpper());
+            character.Turn(dirString[0]);
 
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(float.Parse(dirString[1])));
         }

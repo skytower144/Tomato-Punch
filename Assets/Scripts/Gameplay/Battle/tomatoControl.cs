@@ -293,7 +293,7 @@ public class tomatoControl : MonoBehaviour
             isTired = false;
         }
     }
-    void smoothPunch()          //allows to rapidly switch between LP and RP
+    void smoothPunch() //allows to rapidly switch between LP and RP
     {
         isPunch = true;
     }
@@ -523,7 +523,6 @@ public class tomatoControl : MonoBehaviour
         battleSystem.enemy_control.enemy_Countered.ResetCounterPoints();
         battleSystem.featherPointManager.ResetFeather();
         battleSystem.tomato_control.guard_bar.RestoreGuardBar();
-        ResetGaksung();
         
         currentStamina = maxStamina;
         staminaIcon.SetStamina(maxStamina);
@@ -677,7 +676,7 @@ public class tomatoControl : MonoBehaviour
         }
     }
 
-    private void ResetGaksung()
+    public void ResetGaksung()
     {
         parryBar.gaksungOn = false;
         parryBar.parryFill.fillAmount = 0;

@@ -13,7 +13,7 @@ public class ParryFull : MonoBehaviour
 
     void parryFulleffect()
     {
-        Instantiate (parryFullEffect);
+        Instantiate (parryFullEffect, transform.parent);
     }
 
 }

@@ -23,6 +23,11 @@ public class ResolutionMenu : MonoBehaviour
     [SerializeField] private List<LanguageSetting> languageList = new List<LanguageSetting>();
     private int languageIndex = 0;
 
+    void Start()
+    {
+        resolutionToggle.isOn = Screen.fullScreen;
+    }
+
     private void OnEnable()
     {
         NormalizeMenu();
@@ -107,10 +112,6 @@ public class ResolutionMenu : MonoBehaviour
         }
 
         resolutionDropdown.AddOptions(optionList);
-
-        // resolutionDropdown.value = 0;
-        // SetResolution(0);
-        // SetFullScreen(true);
     }
     public void SetFullScreen (bool isFullscreen)
     {
@@ -183,9 +184,9 @@ public class ResolutionMenu : MonoBehaviour
     public void LoadResolutionSetting()
     {
         int loaded_fullscreen = PlayerPrefs.GetInt("FullScreenState");
-        resolutionToggle.isOn = Convert.ToBoolean(loaded_fullscreen);
+        SetFullScreen(Convert.ToBoolean(loaded_fullscreen));
 
-        int loaded_resolution = PlayerPrefs.GetInt("ResolutionState");
+        int loaded_resolution = PlayerPrefs.GetInt("ResolutionState", resolutions.Count - 1);
         resolutionDropdown.value = loaded_resolution;
         SetResolution(loaded_resolution);
     }
