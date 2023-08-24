@@ -11,10 +11,10 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private string enemyName;
     
     [HideInInspector] public Sprite koFace, hurtFace, defaultFace;
-    [HideInInspector] public bool isFixedBg;
-    [HideInInspector] public bool isParallaxBg;
+    [HideInInspector] public bool isFixedBg, isParallaxBg;
     [HideInInspector] public List<Sprite> bgSprites;
-    [HideInInspector] public Sprite parallaxBgSprite;
+    [HideInInspector] public Texture2D bgTexture;
+    [HideInInspector] public Vector2 parallaxDirection;
 
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;

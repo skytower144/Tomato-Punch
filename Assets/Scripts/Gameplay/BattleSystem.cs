@@ -19,6 +19,8 @@ public class BattleSystem : MonoBehaviour
     public BattleTimeManager battleTimeManager;
     public FeatherPoints featherPointManager;
     public ShockWaveEffect shockWaveEffect;
+    public BackgroundAnimator backgroundAnim;
+    public BackgroundParallax parallax;
     
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
@@ -49,7 +51,12 @@ public class BattleSystem : MonoBehaviour
         Instantiate(battle_initiate_fade);
     }
 
-    
+    void OnDisable()
+    {
+        fixedBg.sprite = null;
+        parallaxBg.texture = null;
+    }
+
     void Update()
     {
         debug_funtions();
@@ -66,12 +73,18 @@ public class BattleSystem : MonoBehaviour
 
     public void SetBg(EnemyBase enemyBase)
     {
-        if (enemyBase.isFixedBg)
-            fixedBg.sprite = enemyBase.bgSprites[0];
-        
-        if (enemyBase.isParallaxBg)
-            parallaxBg.texture = SpriteDB.ReturnSpriteTexture2D(enemyBase.parallaxBgSprite);
+        fixedBg.gameObject.SetActive(false);
+        parallaxBg.gameObject.SetActive(false);
 
+        if (enemyBase.isFixedBg) {
+            backgroundAnim.SetBackground(enemyBase.bgSprites);
+            fixedBg.gameObject.SetActive(true);
+        }
+        if (enemyBase.isParallaxBg) {
+            parallaxBg.texture = enemyBase.bgTexture;
+            parallax.SetParallaxDirection(enemyBase.parallaxDirection);
+            parallaxBg.gameObject.SetActive(true);
+        }
     }
 
     public void UpdatePlayerStatus(int updated_level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)

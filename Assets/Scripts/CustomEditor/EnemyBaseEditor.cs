@@ -7,14 +7,15 @@ using UnityEngine;
 [CustomEditor(typeof(EnemyBase))]
 public class EnemyBaseEditor : Editor
 {
-    private SerializedProperty isFixedBg, isParallaxBg, bgSprites, parallaxBgSprite;
+    private SerializedProperty isFixedBg, isParallaxBg, bgSprites, bgTexture, parallaxDirection;
 
     internal void OnEnable()
     {
         isFixedBg = serializedObject.FindProperty("isFixedBg");
         isParallaxBg = serializedObject.FindProperty("isParallaxBg");
         bgSprites = serializedObject.FindProperty("bgSprites");
-        parallaxBgSprite = serializedObject.FindProperty("parallaxBgSprite");
+        bgTexture = serializedObject.FindProperty("bgTexture");
+        parallaxDirection = serializedObject.FindProperty("parallaxDirection");
     }
 
     public override void OnInspectorGUI()
@@ -42,8 +43,11 @@ public class EnemyBaseEditor : Editor
         if (value.isParallaxBg)
         {
             EditorGUI.indentLevel++;
+            
+            value.parallaxDirection = EditorGUILayout.Vector2Field("Direction", value.parallaxDirection);
+
             EditorGUIUtility.labelWidth = 200;
-            value.parallaxBgSprite = (Sprite)EditorGUILayout.ObjectField("Parallax", value.parallaxBgSprite, typeof(Sprite), true);
+            value.bgTexture = (Texture2D)EditorGUILayout.ObjectField("Parallax", value.bgTexture, typeof(Texture2D), true);
             EditorGUI.indentLevel--;
         }
         GUILine(4);

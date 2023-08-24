@@ -128,7 +128,7 @@ public class LocationPortal : MonoBehaviour, Interactable
         }
         else if (indoor_to_outdoor)
         {
-            outdoorLevelHolder.SetActive(true);
+            if (outdoorLevelHolder) outdoorLevelHolder.SetActive(true);
             
             // var unloading_scene = SceneControl.instance.CurrentScene;
             // TeleportPlayer();
