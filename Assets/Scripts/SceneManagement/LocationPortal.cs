@@ -19,7 +19,7 @@ public class LocationPortal : MonoBehaviour, Interactable
     [SerializeField] private CameraSwitch camera_switch;
     [SerializeField] private string quest_id;
 
-    private static string outdoorSceneName = "";
+    private static GameObject outdoorLevelHolder;
 
     private PlayerMovement player_movement;
     private bool canEnter = false;
@@ -123,16 +123,12 @@ public class LocationPortal : MonoBehaviour, Interactable
     {
         if (outdoor_to_indoor)
         {
-            outdoorSceneName = SceneControl.instance.CurrentScene.GetSceneName();
-            if (ProgressManager.instance.assistants.ContainsKey(outdoorSceneName))
-                ProgressManager.instance.assistants[outdoorSceneName].levelHolder.SetActive(false);
-
+            DisableOutdoorLevelHolder(false);
             SceneControl.instance.CurrentScene.UnloadChainedScenes();
         }
         else if (indoor_to_outdoor)
         {
-            if (ProgressManager.instance.assistants.ContainsKey(outdoorSceneName))
-                ProgressManager.instance.assistants[outdoorSceneName].levelHolder.SetActive(true);
+            outdoorLevelHolder.SetActive(true);
             
             // var unloading_scene = SceneControl.instance.CurrentScene;
             // TeleportPlayer();
@@ -165,6 +161,20 @@ public class LocationPortal : MonoBehaviour, Interactable
         DOTween.Play("fader_out");
 
         Time.timeScale = 1;
+    }
+
+    private void DisableOutdoorLevelHolder(bool state)
+    {
+        string outdoorSceneName = SceneControl.instance.CurrentScene.GetSceneName();
+        GameObject[] levelHolders = GameObject.FindGameObjectsWithTag("LevelHolder");
+
+        foreach (GameObject holder in levelHolders) {
+            if (holder.scene.name == outdoorSceneName) {
+                outdoorLevelHolder = holder;
+                holder.SetActive(state);
+                return;
+            }
+        }
     }
 
     public Transform SpawnPoint => spawnPoint;

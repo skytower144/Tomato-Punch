@@ -23,7 +23,9 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
-    [SerializeField] private Image background;
+
+    [SerializeField] private Image fixedBg;
+    [SerializeField] private RawImage parallaxBg;
 
     [SerializeField] private float parryBounusPoints; public float parryBonus => parryBounusPoints;
     [SerializeField] private int missPenaltyStamina; public int missStamina => missPenaltyStamina;
@@ -62,9 +64,14 @@ public class BattleSystem : MonoBehaviour
         OnBattleOver?.Invoke(isVictory);
     }
 
-    public void SetBg(BgName bg_name)
+    public void SetBg(EnemyBase enemyBase)
     {
-        background.sprite = SpriteDB.ReturnBg(bg_name.ToString());
+        if (enemyBase.isFixedBg)
+            fixedBg.sprite = enemyBase.bgSprites[0];
+        
+        if (enemyBase.isParallaxBg)
+            parallaxBg.texture = SpriteDB.ReturnSpriteTexture2D(enemyBase.parallaxBgSprite);
+
     }
 
     public void UpdatePlayerStatus(int updated_level, float maxExp, float currentExp, float gainExp, int coin, List<RewardDetail> dropList)

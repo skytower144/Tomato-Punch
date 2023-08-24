@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ProgressAssistant : MonoBehaviour
 {
-    public GameObject levelHolder;
     [SerializeField] private bool isCandidateAssistant;
 
     [SerializeField]
     [ProgressInterface(typeof(ObjectProgress))]
     public List<Object> objectProgressList; // Interface List;
-
 
     void OnEnable()
     {

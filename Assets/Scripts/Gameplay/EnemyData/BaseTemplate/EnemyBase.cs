@@ -11,7 +11,11 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private string enemyName;
     
     [HideInInspector] public Sprite koFace, hurtFace, defaultFace;
-    public BgName bgName;
+    [HideInInspector] public bool isFixedBg;
+    [HideInInspector] public bool isParallaxBg;
+    [HideInInspector] public List<Sprite> bgSprites;
+    [HideInInspector] public Sprite parallaxBgSprite;
+
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
@@ -147,9 +151,6 @@ public class EnemyBase : ScriptableObject
     }
 
 }
-
-// Enum names must be identical to file name within Resources folder.
-public enum BgName { bg_tutorial }
 
 [System.Serializable]
 public class ChiliAnimInfo

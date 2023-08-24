@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         playerAnimator.SetBool("isWalking",false);
 
         battleSystem.enemy_control._base = enemy_base;
-        battle_system.SetBg(enemy_base.bgName);
+        battle_system.SetBg(enemy_base);
 
         player_x = playerMovement.transform.position.x;
         player_y = playerMovement.transform.position.y;

@@ -1,12 +1,22 @@
 #if UNITY_EDITOR
 
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(EnemyBase))]
 public class EnemyBaseEditor : Editor
 {
+    private SerializedProperty isFixedBg, isParallaxBg, bgSprites, parallaxBgSprite;
+
+    internal void OnEnable()
+    {
+        isFixedBg = serializedObject.FindProperty("isFixedBg");
+        isParallaxBg = serializedObject.FindProperty("isParallaxBg");
+        bgSprites = serializedObject.FindProperty("bgSprites");
+        parallaxBgSprite = serializedObject.FindProperty("parallaxBgSprite");
+    }
+
     public override void OnInspectorGUI()
     {
         EnemyBase value = (EnemyBase)target;
@@ -14,6 +24,28 @@ public class EnemyBaseEditor : Editor
         value.defaultFace = (Sprite)EditorGUILayout.ObjectField("Def", value.defaultFace, typeof(Sprite), true);
         value.hurtFace = (Sprite)EditorGUILayout.ObjectField("Hurt", value.hurtFace, typeof(Sprite), true);
         value.koFace = (Sprite)EditorGUILayout.ObjectField("KO", value.koFace, typeof(Sprite), true);
+        
+        GUILine(4);
+        EditorGUILayout.Space();
+
+        value.isFixedBg = EditorGUILayout.Toggle("Fixed BG", value.isFixedBg);
+        if (value.isFixedBg)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUIUtility.labelWidth = 200;
+            EditorGUILayout.PropertyField(bgSprites, new GUIContent("Sprite List"));
+            EditorGUI.indentLevel--;
+        }
+        EditorGUILayout.Space();
+
+        value.isParallaxBg = EditorGUILayout.Toggle("Parallax BG", value.isParallaxBg);
+        if (value.isParallaxBg)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUIUtility.labelWidth = 200;
+            value.parallaxBgSprite = (Sprite)EditorGUILayout.ObjectField("Parallax", value.parallaxBgSprite, typeof(Sprite), true);
+            EditorGUI.indentLevel--;
+        }
         GUILine(4);
         EditorGUILayout.Space();
 

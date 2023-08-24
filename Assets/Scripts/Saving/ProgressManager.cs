@@ -17,8 +17,9 @@ public class ProgressManager : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private Transform essential_transform;
     [SerializeField] private GameObject itemTotal, itemTotalPrefab;
+
     public GameObject item_total => itemTotal;
-    public ScenenameAssistant assistants; 
+    public ScenenameAssistant assistants = new ScenenameAssistant();
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;

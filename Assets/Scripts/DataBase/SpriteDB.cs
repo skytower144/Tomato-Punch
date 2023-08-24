@@ -4,7 +4,6 @@ using UnityEngine;
 public class SpriteDB
 {
     static Dictionary<string, Sprite> PortraitCatalog = new Dictionary<string, Sprite>();
-    static Dictionary<string, Sprite> BgCatalog = new Dictionary<string, Sprite>();
 
     public static Sprite ReturnPortrait(string fileName)
     {
@@ -16,13 +15,19 @@ public class SpriteDB
         return PortraitCatalog[fileName];
     }
 
-    public static Sprite ReturnBg(string fileName)
+    public static Texture2D ReturnSpriteTexture2D(Sprite sprite)
     {
-        if (BgCatalog.ContainsKey(fileName))
-            return BgCatalog[fileName];
-        
-        //GameManager.DoDebug($"Added\n{fileName} to Background Catalog");
-        BgCatalog[fileName] = Resources.Load<Sprite>($"BattleBackground/{fileName}");
-        return BgCatalog[fileName];
+        var croppedTexture = new Texture2D( (int)sprite.rect.width, (int)sprite.rect.height );
+
+        var pixels = sprite.texture.GetPixels(
+            (int)sprite.textureRect.x, 
+            (int)sprite.textureRect.y, 
+            (int)sprite.textureRect.width, 
+            (int)sprite.textureRect.height
+        );
+        croppedTexture.SetPixels( pixels );
+        croppedTexture.Apply();
+
+        return croppedTexture;
     }
 }

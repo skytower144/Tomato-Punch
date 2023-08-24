@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShockWaveEffect : MonoBehaviour
 {
     [SerializeField] private Image targetImage;
+    [SerializeField] private RawImage rawImage;
 
     private float shockWaveTime;
     private Material mat;
@@ -13,14 +14,8 @@ public class ShockWaveEffect : MonoBehaviour
 
     void Start()
     {
-        mat = targetImage.material;
+        mat = targetImage ? targetImage.material : rawImage.material;
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown("space"))
-    //         CallShockWave();
-    // }
 
     public void CallShockWave(float duration, float size)
     {

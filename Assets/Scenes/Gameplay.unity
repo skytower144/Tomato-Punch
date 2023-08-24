@@ -2383,6 +2383,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2014901551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014901552}
+  - component: {fileID: 2014901555}
+  - component: {fileID: 2014901554}
+  - component: {fileID: 2014901553}
+  m_Layer: 6
+  m_Name: ParallaxBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2014901552
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014901551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 384357809614087741}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000276, y: 0.000233}
+  m_SizeDelta: {x: 830.77045, y: 467.30872}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2014901553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014901551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: a5ff161ec47767d46aa04f3bba329b3e, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &2014901554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014901551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018d56f8d59702b4da3e8c7b121d0e10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 0}
+  rawImage: {fileID: 2014901553}
+--- !u!222 &2014901555
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014901551}
+  m_CullTransparentMesh: 1
 --- !u!1001 &2086148549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7726,7 +7813,8 @@ MonoBehaviour:
   darkScreen: {fileID: 3107236779830929705, guid: d0124715de340a54a8751ae723b303e8, type: 3}
   coinFlip: {fileID: 35641194223493076, guid: 6aa9755774f345741a72dc5c9288f826, type: 3}
   battle_end_circle: {fileID: 6256539079404525266, guid: f3a5f37fd8d79a4418e1314a668b3a74, type: 3}
-  background: {fileID: 384357809815357185}
+  fixedBg: {fileID: 384357809815357185}
+  parallaxBg: {fileID: 2014901553}
   parryBounusPoints: 0.008
   missPenaltyStamina: 2
   blockPenaltyStamina: 3
@@ -8883,7 +8971,7 @@ Transform:
   - {fileID: 384357808746845054}
   - {fileID: 6633392154055329747}
   m_Father: {fileID: 384357809614087741}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &384357809064918361
 GameObject:
@@ -11258,7 +11346,7 @@ RectTransform:
   - {fileID: 177099877250065840}
   - {fileID: 384357809665552909}
   m_Father: {fileID: 384357809614087741}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17297,6 +17385,7 @@ RectTransform:
   m_LocalScale: {x: 0.022222223, y: 0.022222223, z: 0.022222223}
   m_Children:
   - {fileID: 384357809815357310}
+  - {fileID: 2014901552}
   - {fileID: 384357809660484709}
   - {fileID: 384357809064918360}
   - {fileID: 384357809221301295}
@@ -18121,7 +18210,7 @@ Transform:
   - {fileID: 8477465724452235264}
   - {fileID: 384357808855182974}
   m_Father: {fileID: 384357809614087741}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &384357809660484710
 MonoBehaviour:
@@ -20944,7 +21033,7 @@ GameObject:
   - component: {fileID: 384357809815357185}
   - component: {fileID: 6604742654420866622}
   m_Layer: 6
-  m_Name: BattleBackground
+  m_Name: BattleBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40677,7 +40766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d438fda18119abb4d82693231365f28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelHolder: {fileID: 0}
   isCandidateAssistant: 1
   objectProgressList: []
 --- !u!1 &2473940293843363494
@@ -52241,6 +52329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 384357809815357185}
+  rawImage: {fileID: 0}
 --- !u!114 &6611915368377788151
 MonoBehaviour:
   m_ObjectHideFlags: 0
