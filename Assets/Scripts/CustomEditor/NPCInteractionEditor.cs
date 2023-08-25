@@ -8,7 +8,7 @@ using UnityEditor;
 public class NPCInteractionEditor : Editor
 {
     private SerializedProperty lock_u, lock_r, lock_d, lock_l, lock_ru, lock_rd, lock_ld, lock_lu;
-    private SerializedProperty isUniqueID, npcID, willMove, npcMove, disableSpriteAnimator, hasNoDialogue, interactAnimation, npcAnim, canBattle, instantBattle, enemyData, reviveState;
+    private SerializedProperty isUniqueID, npcID, willMove, npcMove, npcCollider, disableSpriteAnimator, hasNoDialogue, interactAnimation, npcAnim, canBattle, instantBattle, enemyData, reviveState;
     internal void OnEnable()
     {
         lock_u = serializedObject.FindProperty("lock_u");
@@ -26,6 +26,7 @@ public class NPCInteractionEditor : Editor
 
         willMove = serializedObject.FindProperty("willMove");
         npcMove = serializedObject.FindProperty("npcMove");
+        npcCollider = serializedObject.FindProperty("npcCollider");
 
         disableSpriteAnimator = serializedObject.FindProperty("disableSpriteAnimator");
         npcAnim = serializedObject.FindProperty("npcAnim");
@@ -69,6 +70,7 @@ public class NPCInteractionEditor : Editor
             EditorGUI.indentLevel++;
 
             npcControl.npcMove = EditorGUILayout.ObjectField("NPCMove Component", npcControl.npcMove, typeof(NPCMove), true) as NPCMove;
+            npcControl.npcCollider = EditorGUILayout.ObjectField("BoxCollider2D", npcControl.npcCollider, typeof(BoxCollider2D), true) as BoxCollider2D;
             EditorGUI.indentLevel--;
         }
 

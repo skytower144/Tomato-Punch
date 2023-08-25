@@ -8,7 +8,8 @@ public class BackgroundAnimator : MonoBehaviour
     private List<Sprite> _bgSprites;
     private bool _isMovingBg;
 
-    private int _currentFrame, _totalFrames, _fps;
+    [SerializeField] private int _fps;
+    private int _currentFrame, _totalFrames;
     private float _frameRate, _timer;
 
     void Update()

@@ -21071,6 +21071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 384357809815357185}
+  _fps: 10
 --- !u!224 &384357809823879896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52100,7 +52101,6 @@ MonoBehaviour:
   isPartyCandidate: 1
   inkFileName: BabyCat_first
   keyEventDialogues: []
-  boxCollider: {fileID: 1735682757356874366}
   sprite_renderer: {fileID: 6200140922976342323}
   sprite_dict:
     m_keys: []
@@ -52110,6 +52110,7 @@ MonoBehaviour:
   npcID: BabyCat
   willMove: 1
   npcMove: {fileID: 3387038921327445911}
+  npcCollider: {fileID: 1735682757356874366}
   disableSpriteAnimator: 1
   npcAnim: {fileID: 2143475732390185097}
   hasNoDialogue: 0

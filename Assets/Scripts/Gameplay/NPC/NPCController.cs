@@ -21,7 +21,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     [System.NonSerialized] public string idleAnimation = "idle";
 
     [Header("[ Graphic Control ]")]
-    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private SpriteRenderer sprite_renderer;
     [SerializeField] private StringSpriteanim sprite_dict= new StringSpriteanim();
     private SpriteAnimator spriteAnimator;
@@ -35,6 +34,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     [HideInInspector] public bool willMove;
     [HideInInspector] public NPCMove npcMove;
+    [HideInInspector] public BoxCollider2D npcCollider;
 
     [HideInInspector] public bool disableSpriteAnimator;
     [HideInInspector] public Animator npcAnim;
@@ -263,7 +263,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         string[] posString;
         float originalSpeed = npcMove.FollowSpeed;
         
-        boxCollider.enabled = false;
+        npcCollider.enabled = false;
 
         if (moveSpeed != -1f)
             npcMove.SetFollowSpeed(moveSpeed);
@@ -278,7 +278,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         }
         npcMove.SetFollowSpeed(originalSpeed);
         npcMove.Animate(false, default, false);
-        boxCollider.enabled = true;
+        npcCollider.enabled = true;
     }
 
     public void Turn(string direction)
