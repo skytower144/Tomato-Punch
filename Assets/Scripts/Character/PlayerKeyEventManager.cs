@@ -16,12 +16,11 @@ public class PlayerKeyEventManager : MonoBehaviour
 
     public void AddKeyEvent(PlayerKeyEvent keyEvent)
     {
-        if (keyEvent is PlayerKeyEvent.None)
-            GameManager.DoDebug($"=== {keyEvent} : Keyevent is None. ===");
-        
+        if (keyEvent is PlayerKeyEvent.None) {
+            // Do nothing
+        }
         else if (HasKeyEvent(keyEvent))
             GameManager.DoDebug($"=== {keyEvent} : Keyevent already exists. ===");
-        
         else
             playerKeyevents.Add(keyEvent);
 
@@ -78,16 +77,10 @@ public class PlayerKeyEventManager : MonoBehaviour
 
     public void ApplyCacheKeyEvents(bool is_victory)
     {
-        if (NoCacheKeyEvents()) return;
-        
         int result = is_victory ? 0 : 1;
+
         PlayerKeyEvent outcomeKeyEvent = cacheKeyEvents[result];  // [WIN, LOSE]
         AddKeyEvent(outcomeKeyEvent);
-    }
-
-    private bool NoCacheKeyEvents()
-    {
-        return cacheKeyEvents[0] == PlayerKeyEvent.None;
     }
 
     private void ClearCacheKeyEvents()
@@ -98,6 +91,6 @@ public class PlayerKeyEventManager : MonoBehaviour
 
 public enum PlayerKeyEvent
 {
-    None,   Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint
-    
+    None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint, Win_Number2,
+    Lose_Number2
 }

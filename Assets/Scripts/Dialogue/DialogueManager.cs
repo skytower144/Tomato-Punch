@@ -284,7 +284,7 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.playerKeyEventManager.CacheKeyEvents(tag_value);
                     break;
                 
-                case ADDKEYEVENT_TAG: // #addkeyevent:Win_Rupple_StartingPoint
+                case ADDKEYEVENT_TAG: // #addkeyevent:Find_BabyCat_StartingPoint
                     GameManager.gm_instance.playerKeyEventManager.AddKeyEvent(tag_value);
                     break;
                 

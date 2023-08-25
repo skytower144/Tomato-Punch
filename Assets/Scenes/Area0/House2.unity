@@ -1853,7 +1853,7 @@ Transform:
   - {fileID: 1374293546}
   - {fileID: 1081416813}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &901430666
 PrefabInstance:
@@ -1960,7 +1960,7 @@ Transform:
   - {fileID: 866215552}
   - {fileID: 2100789029}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &915011716
 PrefabInstance:
@@ -1987,7 +1987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6408474362291255737, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6408474362291255737, guid: 506d61e2dba7da24798df421f24e6d9b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2376,11 +2376,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSaveTarget: 0
+  isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Kid_homework
-  keyEventDialogues: []
-  interactAnimation: 
+  keyEventDialogues:
+  - keyEvent: 4
+    inkFileName: Kid_solved
+  - keyEvent: 5
+    inkFileName: Kid_disappoint
   sprite_renderer: {fileID: 1410891498}
   sprite_dict:
     m_keys:
@@ -2401,9 +2404,15 @@ MonoBehaviour:
       sprites:
       - {fileID: 21300000, guid: 7893bc28dee627749a20922fe8fceff4, type: 3}
   isFixedSprite: 0
-  disableSpriteAnimator: 0
   isUniqueID: 0
   npcID: 
+  willMove: 0
+  npcMove: {fileID: 0}
+  npcCollider: {fileID: 0}
+  disableSpriteAnimator: 0
+  npcAnim: {fileID: 0}
+  hasNoDialogue: 0
+  interactAnimation: 
   banInteractDirection: 1
   lock_u: 0
   lock_ru: 0
@@ -2413,9 +2422,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 1
   lock_lu: 0
-  canBattle: 0
+  canBattle: 1
   instantBattle: 0
-  enemyData: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: 0c8ad2f15f936f04fb371008ab14d28c, type: 2}
   reviveState: 0
 --- !u!1001 &1526537658
 PrefabInstance:
@@ -2479,6 +2488,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1552328477698909336, guid: 907a426a580437a4e9adea916ae4118d, type: 3}
   m_PrefabInstance: {fileID: 1526537658}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1621704653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621704655}
+  - component: {fileID: 1621704654}
+  m_Layer: 0
+  m_Name: ProgressAssistant
+  m_TagString: ProgressAssistant
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621704654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621704653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d438fda18119abb4d82693231365f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCandidateAssistant: 0
+  objectProgressList: []
+--- !u!4 &1621704655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621704653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1655214223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2586,7 +2640,7 @@ Transform:
   - {fileID: 2115995769}
   - {fileID: 1410891496}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1940946379
 PrefabInstance:

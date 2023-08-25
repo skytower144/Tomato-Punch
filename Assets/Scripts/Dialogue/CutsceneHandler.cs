@@ -2,46 +2,51 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
+/* FORMAT
+    #tag:value
+    #tag:value
+    /cut
+*/
 public class CutsceneHandler : MonoBehaviour
 {
     private const string PLAY = "cutplay";
     /*
-    0. If using wait, animation should NOT be LOOP
+        0. If using wait, animation should NOT be LOOP
 
-    1. #cutplay:target@animstring@wait (once)
-    2. #cutplay:target@animstring      (once/loop)
+        1. #cutplay:target@animstring@wait (once)
+        2. #cutplay:target@animstring      (once/loop)
 
-    3. #cutplay:player@Wakeup@wait
-    4. #cutplay:BabyCat@escort_cat
+        3. #cutplay:player@Wakeup@wait
+        4. #cutplay:BabyCat@escort_cat
     */
 
     private const string MOVE = "cutmove";
     /*
-    0. REQUIRES UNITY ANIMATOR BLEND TREE
+        0. REQUIRES UNITY ANIMATOR BLEND TREE
 
-    1. #cutmove:target:@x-y@speed@animate@wait
-    2. #cutmove:target:@x-y@speed@animate
+        1. #cutmove:target:@x-y@speed@animate@wait
+        2. #cutmove:target:@x-y@speed@animate
 
-    3. #cutmove:Babycat@2-4@13@false
-    4. #cutmove:Babycat@2-4@13@true@wait
-    5. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
-    6. #cutmove:player@10-22,11-24,8-21@5@true@wait
+        3. #cutmove:Babycat@2-4@13@false
+        4. #cutmove:Babycat@2-4@13@true@wait
+        5. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
+        6. #cutmove:player@10-22,11-24,8-21@5@true@wait
     */
 
     private const string TURN = "cutturn";
     /*
-    1. #cutturn:target@DIR-duration@wait
-    2. #cutturn:target@DIR-duration
-    
-    3. #cutturn:player@UP-0.5,LEFT-1.2
-    4. #cutturn:StartingPoint_Gob@RIGHT-0.5,DOWN-0.5,LEFT-0.5,UP-0.5@wait
+        1. #cutturn:target@DIR-duration@wait
+        2. #cutturn:target@DIR-duration
+        
+        3. #cutturn:player@UP-0.5,LEFT-1.2
+        4. #cutturn:StartingPoint_Gob@RIGHT-0.5,DOWN-0.5,LEFT-0.5,UP-0.5@wait
     */
 
     private const string WAIT = "cutwait";
     /*
-    1. #cutwait:duration
-    
-    2. #cutwait:0.5
+        1. #cutwait:duration
+        
+        2. #cutwait:0.5
     */
     
     private Character character;
