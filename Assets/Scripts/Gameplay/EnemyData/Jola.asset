@@ -16,7 +16,11 @@ MonoBehaviour:
   koFace: {fileID: 21300000, guid: 08bd5bec24af9244893b395d99b931a8, type: 3}
   hurtFace: {fileID: 21300000, guid: ec0568d6ffb8c394c9fdba64a0f3997e, type: 3}
   defaultFace: {fileID: 21300000, guid: 469fe6d864bcde543a6d958229067b42, type: 3}
-  bgName: 0
+  isFixedBg: 0
+  isParallaxBg: 0
+  bgSprites: []
+  bgTexture: {fileID: 0}
+  parallaxDirection: {x: 0, y: 0}
   enemyMaxHealth: 30
   enemyCurrentHealth: 30
   min_hitct: 4
@@ -47,11 +51,6 @@ MonoBehaviour:
   - EnemyPjName: battleJola_HatAttack
     EnemyProjectile: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
   enemyPattern:
-  - EnemyAttackName: battleJola_idle
-    PhysicalAttack: 0
-    percentage: 60
-    EnemyAttackDmg: 0
-    EnemyAttackType: 4
   - EnemyAttackName: battleJola_LA
     PhysicalAttack: 1
     percentage: 15

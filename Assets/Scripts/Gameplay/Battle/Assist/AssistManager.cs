@@ -22,7 +22,7 @@ public class AssistManager : MonoBehaviour
                 GameManager.gm_instance.battle_system.featherPointManager.SubtractFeatherPoint(i);
                 assistDamage = assistCharacter.featherUsageOrder[i - 1].skillDamage;
                 isBlast = (i >= 3);
-                Debug.Log($"{i} : {isBlast}");
+                GameManager.DoDebug($"{i} : {isBlast}");
                 
                 return assistCharacter.featherUsageOrder[i - 1].animString;
             }

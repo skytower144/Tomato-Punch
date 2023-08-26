@@ -8,9 +8,7 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
-    [System.NonSerialized] public List<Enemy_AttackDetail> pattern_list = new List<Enemy_AttackDetail>();
-
-    // private bool isCondition = false;
+    private List<Enemy_AttackDetail> pattern_list = new List<Enemy_AttackDetail>();
 
     private int idleCount = 0;
 
@@ -94,5 +92,10 @@ public class EnemyAIControl : MonoBehaviour
 
         idleCount = 0;
         return true;
+    }
+
+    public void LoadEnemyPattern(List<Enemy_AttackDetail> patternList)
+    {
+        pattern_list = patternList;
     }
 }

@@ -47,9 +47,9 @@ public class EnemyControl : MonoBehaviour
         disableBools();
 
         matDefault = enemy_renderer.material;
-
         anim.runtimeAnimatorController = _base.AnimationController;
-        enemyAIControl.pattern_list = _base.EnemyPattern;
+        InitEnemyPattern();
+
         enemyAIControl.InvokeRepeating("ProceedAction",1f,1f);
     }
 
@@ -107,7 +107,31 @@ public class EnemyControl : MonoBehaviour
                 greyEffect.StopGreyEffect();
             }
         }
+    }
+
+    private void InitEnemyPattern()
+    {
+        List<Enemy_AttackDetail> deepCopiedPatterns = new List<Enemy_AttackDetail>();
+        int sumPercentage = 0;
+
+        foreach (Enemy_AttackDetail readingPattern in _base.EnemyPattern) {
+            deepCopiedPatterns.Add(
+                new Enemy_AttackDetail(
+                    readingPattern.EnemyAttackName,
+                    readingPattern.PhysicalAttack,
+                    readingPattern.percentage,
+                    readingPattern.EnemyAttackDmg,
+                    readingPattern.EnemyAttackType
+            ));
+            sumPercentage += readingPattern.percentage;
+        }
+        if (sumPercentage >= 100)
+            Debug.LogError($"Enemy total action percentage error : {sumPercentage}");
         
+        deepCopiedPatterns.Add(
+            new Enemy_AttackDetail(_base.Idle_AnimationString, false, 100 - sumPercentage, 0, AttackType.NEUTRAL)
+        );
+        enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
     }
 
     void enemyIntroOver()
