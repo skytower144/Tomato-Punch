@@ -172,7 +172,7 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    void detectEvasion()
+    public void detectEvasion()
     {
         if(!tomatoHurt.isTomatoHurt && !tomatoControl.isGuard)
         {
