@@ -236,6 +236,18 @@ public class EnemyControl : MonoBehaviour
         canDunk = true;
         duplicate_r.FlashEffect(0.5f, 0);
     }
+
+    public void BlastShrink()
+    {
+        transform.localPosition = new Vector3(216.77f, 121.93f, transform.localPosition.z);
+        transform.localScale = new Vector3(21f, 21f, 21f);
+    }
+
+    public void RecoverShrink()
+    {
+        transform.localPosition = new Vector3(0f, 0f, transform.position.z);
+        transform.localScale = new Vector3(45f, 45f, 45f);
+    }
     
     public void DisableDunk()
     {

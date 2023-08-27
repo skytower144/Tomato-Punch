@@ -10,7 +10,7 @@ public class EnemyAnimControl : MonoBehaviour
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
-        "RecoverAnimation"
+        "BlastShrink", "RecoverShrink", "RecoverAnimation"
     };
 
     void Start()
@@ -57,6 +57,8 @@ public class EnemyAnimControl : MonoBehaviour
 
         _enemyControl.WallHitEffect();
         _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("BlastShrink", 1 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("RecoverShrink", 2 / _fpsDict[animName].Item1);
         _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
         _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
     }
