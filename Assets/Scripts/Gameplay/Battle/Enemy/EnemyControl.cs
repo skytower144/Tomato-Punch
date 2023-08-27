@@ -17,7 +17,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
-    [SerializeField] private Transform Parent;
+    [SerializeField] private Transform AttackBoxes;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
@@ -68,7 +68,7 @@ public class EnemyControl : MonoBehaviour
         
         else if(tomatoControl.enemyUppered)
         {
-            anim.Play(_base.Uppered_AnimationString,-1,0f);
+            enemyAnimControl.Uppered(_base.Uppered_AnimationString);
             enemyHurt.ParryBonus();
 
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_upperPunch);
@@ -91,6 +91,8 @@ public class EnemyControl : MonoBehaviour
             {
                 tomatoControl.enemyFreeze = false;
                 anim.enabled = false;
+                EraseAllAttacks();
+                enemyAnimControl.CancelScheduledInvokes();
             }
             else if(tomatocontrol.enemy_supered)
             {
@@ -137,7 +139,7 @@ public class EnemyControl : MonoBehaviour
         enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
     }
 
-    void enemyIntroOver()
+    public void enemyIntroOver()
     {
         anim.Play(_base.Idle_AnimationString,-1,0f);
     }
@@ -183,19 +185,19 @@ public class EnemyControl : MonoBehaviour
     {
         if(attackType == AttackType.LA)
         {   
-            Instantiate (enemy_LA, Parent);
+            Instantiate (enemy_LA, AttackBoxes);
         }
         else if(attackType == AttackType.RA)
         {
-            Instantiate (enemy_RA, Parent);
+            Instantiate (enemy_RA, AttackBoxes);
         }
         else if(attackType == AttackType.DA)
         {
-            Instantiate (enemy_DA, Parent);
+            Instantiate (enemy_DA, AttackBoxes);
         }
         else if(attackType == AttackType.PJ)
         {
-            Instantiate (enemy_PJ, Parent);
+            Instantiate (enemy_PJ, AttackBoxes);
         }
     }
 
@@ -328,7 +330,7 @@ public class EnemyControl : MonoBehaviour
         enemyHurt.hitct = 0;
     }
 
-    void freezeAnimation() // when KO
+    public void freezeAnimation() // when KO
     {
         Invoke("UnFreeze", 0.6f);
         anim.enabled = false;
@@ -347,7 +349,7 @@ public class EnemyControl : MonoBehaviour
                 DOTween.Pause("ShakeEnemy");
                 transform.localPosition = new Vector2(0, 0);
                 anim.enabled = true;
-                anim.Play(_base.Uppered_AnimationString);
+                enemyAnimControl.Uppered(_base.Uppered_AnimationString);
                 break;
 
             default:
@@ -381,7 +383,7 @@ public class EnemyControl : MonoBehaviour
 
     public void EraseAllAttacks()
     {
-        foreach (Transform attack in Parent.transform)
+        foreach (Transform attack in AttackBoxes)
         {
             Destroy(attack.gameObject);
         }

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyAnimControl : MonoBehaviour
 {
+    /// <summary>
+    /// This system is built on the principle that almost all animation frames must be consistent across all enemies.
+    /// ATTACKS, UNIQUE BEHAVIOURS are excluded from the principle.
+    /// For example, Blast animation must ALWAYS be total 7 frames.
+    /// </summary>
+
     private EnemyControl _enemyControl;
     private Animator _anim;
     private Dictionary<string, (float, float)> _fpsDict = new Dictionary<string, (float, float)>();
@@ -37,6 +43,28 @@ public class EnemyAnimControl : MonoBehaviour
         _anim.Play(animName, -1, 0f);
 
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
+    }
+
+    public void Intro(string animName)
+    {
+        _anim.Play(animName, -1, 0f);
+        _enemyControl.Invoke("enemyIntroOver", _fpsDict[animName].Item2);
+    }
+
+    public void KO(string animName)
+    {
+        CancelScheduledInvokes();
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.Invoke("freezeAnimation", 1 / _fpsDict[animName].Item1);
+    }
+
+    public void Uppered(string animName)
+    {
+        CancelScheduledInvokes();
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
     }
 
     public void KnockBack(string animName)

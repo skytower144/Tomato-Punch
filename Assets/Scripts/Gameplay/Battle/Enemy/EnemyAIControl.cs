@@ -35,7 +35,8 @@ public class EnemyAIControl : MonoBehaviour
             !Enemy_parried.isParried &&
             !Enemy_countered.enemy_isCountered &&
             !Enemy_is_hurt.enemy_isPunched &&
-            !enemyCtrl.enemy_supered
+            !enemyCtrl.enemy_supered &&
+            enemyCtrl.enemyAnim.enabled
         );
     }
 

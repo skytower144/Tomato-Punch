@@ -56,7 +56,7 @@ public class TextSpawn : MonoBehaviour
     private void playIntro()
     {
         tomatocontrol.tomatoAnim.Play("tomato_intro",-1, 0f);
-        enemyControl.enemyAnim.Play(enemyControl._base.Intro_AnimationString, -1, 0f);
+        enemyControl.enemyAnimControl.Intro(enemyControl._base.Intro_AnimationString);
     }
 
     public void spawn_KO_text()

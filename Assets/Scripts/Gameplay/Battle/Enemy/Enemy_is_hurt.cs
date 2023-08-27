@@ -171,7 +171,7 @@ public class Enemy_is_hurt : MonoBehaviour
             enemy_isDefeated = true;
 
             tomatoAnim.enabled = false;
-            anim.Play(enemyBase.Defeated_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.KO(enemyBase.Defeated_AnimationString);
 
             Instantiate(defeatedEffect_beam);
             Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
@@ -208,8 +208,8 @@ public class Enemy_is_hurt : MonoBehaviour
             if (GameManager.gm_instance.assistManager.isBlast) {
                 GameManager.gm_instance.assistManager.isBlast = false;
                 enemy_isPunched = false;
+                
                 tomatocontrol.BlastEffect();
-
                 enemyControl.enemyAnimControl.Blast(enemyBase.Blasted);
             }
             else
