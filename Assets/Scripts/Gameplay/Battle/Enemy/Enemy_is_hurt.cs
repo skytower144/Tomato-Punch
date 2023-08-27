@@ -41,6 +41,8 @@ public class Enemy_is_hurt : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
+        enemyControl.enemyAnimControl.CancelAttackInvokes();
+        
         if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             //GATLING MODE

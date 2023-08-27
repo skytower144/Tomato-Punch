@@ -41,6 +41,8 @@ public class Enemy_countered : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) 
     {
+        enemyControl.enemyAnimControl.CancelAttackInvokes();
+        
         Enemy_is_hurt.enemy_isPunched = false;
         Enemy_is_hurt.enemyIsHit = false;
         enemy_isCountered = true;

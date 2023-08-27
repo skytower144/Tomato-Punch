@@ -26,6 +26,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Enemy_is_hurt enemyHurt;
     public Enemy_is_hurt enemy_hurt => enemyHurt;
     public Enemy_countered enemy_Countered;
+    public EnemyAnimControl enemyAnimControl;
     [SerializeField] private TextSpawn textSpawn;
 
     [System.NonSerialized] public static bool isPhysical = true;
@@ -48,6 +49,7 @@ public class EnemyControl : MonoBehaviour
 
         matDefault = enemy_renderer.material;
         anim.runtimeAnimatorController = _base.AnimationController;
+        enemyAnimControl.InitFrameDict(anim);
         InitEnemyPattern();
 
         enemyAIControl.InvokeRepeating("ProceedAction",1f,1f);
@@ -121,7 +123,8 @@ public class EnemyControl : MonoBehaviour
                     readingPattern.PhysicalAttack,
                     readingPattern.percentage,
                     readingPattern.EnemyAttackDmg,
-                    readingPattern.EnemyAttackType
+                    readingPattern.EnemyAttackType,
+                    readingPattern.FrameInfo
             ));
             sumPercentage += readingPattern.percentage;
         }
@@ -138,7 +141,7 @@ public class EnemyControl : MonoBehaviour
     {
         anim.Play(_base.Idle_AnimationString,-1,0f);
     }
-    void actionOver()
+    public void actionOver()
     {
         enemy_supered = false;
         if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
@@ -166,17 +169,17 @@ public class EnemyControl : MonoBehaviour
         duplicate_r.FlashEffect(hitFlashDuration, 0);
     }
 
-    void enemyCounterStart()
+    public void enemyCounterStart()
     {
         duplicate_r.FlashEffect(flashDuration, 1);
         counterBox.SetActive(true);
     }
-    void enemyCounterEnd()
+    public void enemyCounterEnd()
     {
         counterBox.SetActive(false);
     }
 
-    void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.            
+    public void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.            
     {
         if(attackType == AttackType.LA)
         {   
@@ -310,7 +313,7 @@ public class EnemyControl : MonoBehaviour
         action_afterSuffer = false;
     }
 
-    void guardDown() // apply to all enemy attack animations' first frame
+    public void guardDown() // apply to all enemy attack animations' first frame
     {
         enemyHurt.guardUp = false;
         enemyHurt.hitct = 0;

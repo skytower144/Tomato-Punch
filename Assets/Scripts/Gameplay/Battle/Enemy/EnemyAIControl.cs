@@ -23,7 +23,8 @@ public class EnemyAIControl : MonoBehaviour
         tomatoguard.damage = move.EnemyAttackDmg;
         enemyCtrl.attackType = move.EnemyAttackType;
         enemyCtrl.pjTag = move.EnemyAttackName;
-        battleAnim.Play(move.EnemyAttackName);
+        
+        enemyCtrl.enemyAnimControl.Attack(move);
     }
 
     private bool ShouldActivate()
