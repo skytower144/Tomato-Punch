@@ -515,7 +515,7 @@ public class tomatoControl : MonoBehaviour
         textSpawn.spawn_FIGHT_text();
 
         string enemyReEngage = battleSystem.GetEnemyBase().ReEngage;
-        battleSystem.GetEnemyAnim().Play(enemyReEngage);
+        battleSystem.enemy_control.enemyAnimControl.SimpleAct(enemyReEngage);
 
         battleSystem.resetPlayerHealth = true;
         battleSystem.resetEnemyHealth = true;

@@ -63,7 +63,7 @@ public class EnemyControl : MonoBehaviour
     
     void Update()
     {
-        if(!Enemy_is_hurt.enemy_isDefeated && gatleCircleControl.failUppercut)
+        if(gatleCircleControl.failUppercut)
             RecoverAnimation();
         
         else if(tomatoControl.enemyUppered)
@@ -211,7 +211,7 @@ public class EnemyControl : MonoBehaviour
             GameManager.gm_instance.battle_system.featherPointManager.AddFeatherPoint();
         }
     }
-    void DetermineCC()
+    public void DetermineCC()
     {
         if (Enemy_countered.enemy_isCountered) beginSuffer();
         else if (Enemy_parried.isParried) beginStun();
@@ -300,7 +300,7 @@ public class EnemyControl : MonoBehaviour
         if(Enemy_is_hurt.enemy_isDefeated) return;
 
         greyEffect.StopGreyEffect();
-        anim.Play(_base.Recover_AnimationString,-1,0f);
+        enemyAnimControl.SimpleAct(_base.Recover_AnimationString);
     }
 
     void projectileSpawn()

@@ -137,7 +137,7 @@ public class Enemy_is_hurt : MonoBehaviour
     {
         if (guardUp || hitct >= enemyBase.max_hitct)
         {
-            anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.SimpleAct(enemyBase.Guard_AnimationString);
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
@@ -147,7 +147,7 @@ public class Enemy_is_hurt : MonoBehaviour
         int randct = Random.Range(enemyBase.min_hitct, enemyBase.max_hitct);
         if (hitct == randct)
         {
-            anim.Play(enemyBase.Guard_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.SimpleAct(enemyBase.Guard_AnimationString);
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;

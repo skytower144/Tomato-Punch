@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_parried : MonoBehaviour
 {
     private Animator anim;
-    private string string_parried;
+    private EnemyControl enemyControl;
     [SerializeField] private GameObject parryEffect, parryCircle;
     [HideInInspector] public static bool isParried = false;
     [HideInInspector] public static bool pjParried = false;
@@ -13,7 +13,7 @@ public class Enemy_parried : MonoBehaviour
     void OnEnable()
     {
         anim = GetComponentInParent<Animator>();
-        string_parried = GameManager.gm_instance.battle_system.enemy_control._base.Countered_AnimationString;
+        enemyControl = GameManager.gm_instance.battle_system.enemy_control;
         isParried = pjParried = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
@@ -30,7 +30,7 @@ public class Enemy_parried : MonoBehaviour
             {
                 isParried = true;
                 Instantiate (parryCircle, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
-                anim.Play(string_parried);
+                enemyControl.enemyAnimControl.KnockBack(enemyControl._base.Countered_AnimationString);
             }
             else
             {

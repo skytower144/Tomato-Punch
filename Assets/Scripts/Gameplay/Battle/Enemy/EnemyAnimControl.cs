@@ -10,7 +10,7 @@ public class EnemyAnimControl : MonoBehaviour
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
-        "BlastShrink", "RecoverShrink", "RecoverAnimation"
+        "BlastShrink", "RecoverShrink", "RecoverAnimation", "actionOver"
     };
 
     void Start()
@@ -31,12 +31,25 @@ public class EnemyAnimControl : MonoBehaviour
             _fpsDict[clip.name] = (clip.frameRate, clip.length);
     }
 
+    public void SimpleAct(string animName)
+    {
+        CancelScheduledInvokes();
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
+    }
+
+    public void KnockBack(string animName)
+    {
+        CancelScheduledInvokes();
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
+    }
+
     public void Dunk(string animName)
     {
-        _enemyControl.CancelInvoke("EnableDunk");
-        _enemyControl.CancelInvoke("DisableDunk");
-        _enemyControl.CancelInvoke("Bounce");
-
+        CancelScheduledInvokes();
         _anim.Play(animName, -1, 0f);
 
         _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
@@ -53,12 +66,13 @@ public class EnemyAnimControl : MonoBehaviour
 
     public void Blast(string animName)
     {
+        CancelScheduledInvokes();
         _anim.Play(animName, -1, 0f);
 
         _enemyControl.WallHitEffect();
         _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("BlastShrink", 1 / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("RecoverShrink", 2 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("BlastShrink", 0.08f);
+        _enemyControl.Invoke("RecoverShrink", 0.182f);
         _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
         _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
     }

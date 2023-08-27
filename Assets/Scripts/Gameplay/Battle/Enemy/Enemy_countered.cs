@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy_countered : MonoBehaviour
 {
     private Animator anim;
-    [SerializeField] private string string_countered;
     [SerializeField] private EnemyControl enemyControl;
     
     [SerializeField] private Enemy_is_hurt enemy_is_hurt;
@@ -16,7 +15,6 @@ public class Enemy_countered : MonoBehaviour
     [HideInInspector] public bool counter_is_initialized = false;
 
     [System.NonSerialized] public int totalCounter = 0;
-    private EnemyBase _enemyBase;
     private GameObject instance1;
     void OnEnable()
     {
@@ -25,9 +23,7 @@ public class Enemy_countered : MonoBehaviour
             counter_is_initialized = true;
             enemy_isCountered = false;
             
-            _enemyBase = enemyControl._base;
             anim = GetComponentInParent<Animator>();
-            string_countered = _enemyBase.Countered_AnimationString;
         }
     }
 
@@ -63,7 +59,7 @@ public class Enemy_countered : MonoBehaviour
             
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
             
-            anim.Play(string_countered,-1,0f);
+            enemyControl.enemyAnimControl.KnockBack(enemyControl._base.Countered_AnimationString);
             gameObject.SetActive(false);
         }
     }
