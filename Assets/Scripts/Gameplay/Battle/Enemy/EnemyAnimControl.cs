@@ -16,7 +16,8 @@ public class EnemyAnimControl : MonoBehaviour
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
-        "BlastShrink", "RecoverShrink", "RecoverAnimation", "actionOver"
+        "BlastShrink", "RecoverShrink", "RecoverAnimation", "actionOver",
+        "enemy_isPunchedEnd", "hurtOver"
     };
 
     void Start()
@@ -57,6 +58,17 @@ public class EnemyAnimControl : MonoBehaviour
         _anim.Play(animName, -1, 0f);
 
         _enemyControl.Invoke("freezeAnimation", 1 / _fpsDict[animName].Item1);
+    }
+
+    public void Hurt(string animName)
+    {
+        CancelScheduledInvokes();
+        _anim.Play(animName, -1, 0f);
+
+        float frameDelay = 1 / _fpsDict[animName].Item1;
+
+        _enemyControl.Invoke("enemy_isPunchedEnd", _fpsDict[animName].Item2 - frameDelay);
+        _enemyControl.Invoke("hurtOver", _fpsDict[animName].Item2);
     }
 
     public void Uppered(string animName)

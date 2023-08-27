@@ -149,19 +149,22 @@ public class EnemyControl : MonoBehaviour
         if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
             anim.Play(_base.Idle_AnimationString,-1,0f);
     }
-    void enemy_isPunchedEnd()
+    public void enemy_isPunchedEnd()
     {
         Enemy_is_hurt.enemy_isPunched = false;
     }
 
-    void hurtOver()
+    public void hurtOver()
     {
         Enemy_is_hurt.enemyIsHit = false;
-        if(Enemy_parried.isParried && EnemyControl.isPhysical)                             // punching enemy when enemy is parried
+
+        if(Enemy_parried.isParried && EnemyControl.isPhysical)                          // punching enemy when enemy is parried
             anim.Play(_base.Stun_AnimationString,-1,0f);
+        
         else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
             anim.Play(_base.Suffer_AnimationString,-1,0f);
-        else if(!Enemy_is_hurt.enemy_isPunched){                                            // go back to idle when player did not attack
+        
+        else if(!Enemy_is_hurt.enemy_isPunched) {                                       // go back to idle when player did not attack
             anim.Play(_base.Idle_AnimationString,-1,0f);
         }
     }

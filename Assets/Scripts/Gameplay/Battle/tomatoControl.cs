@@ -216,6 +216,7 @@ public class tomatoControl : MonoBehaviour
                         if (battleSystem.featherPointManager.feather_point >= 1)
                         {
                             currentSkillType = SkillType.Assist_Skill;
+                            GameManager.gm_instance.assistManager.SetIsBlast(false);
                             tomatoAnimator.Play(GameManager.gm_instance.assistManager.DecideSkill(1, battleSystem.featherPointManager.feather_point), -1, 0f);
                         }
                     }

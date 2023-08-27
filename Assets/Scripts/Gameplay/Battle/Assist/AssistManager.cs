@@ -6,7 +6,7 @@ public class AssistManager : MonoBehaviour
 {
     public AssistType mato, ruby, lazer;
     [System.NonSerialized] public float assistDamage;
-    [System.NonSerialized] public bool isBlast;
+    public bool isBlast { get; private set; }
 
     public string DecideSkill(int characterType, int currentFeather)
     {
@@ -38,6 +38,11 @@ public class AssistManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void SetIsBlast(bool state)
+    {
+        isBlast = state;
     }
 
 }

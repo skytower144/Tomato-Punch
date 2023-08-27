@@ -193,27 +193,27 @@ public class Enemy_is_hurt : MonoBehaviour
         int direction = 1;
 
         if (anim_string == "R") {
-            anim.Play(enemyBase.HurtR_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtR_AnimationString);
             distance = 5f;
             direction = -1;
         }
         else if (anim_string == "L")
-            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtL_AnimationString);
         
         else if (anim_string == "GP") {
-            anim.Play(enemyBase.HurtL_AnimationString,-1,0f);
+            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtL_AnimationString);
             return;
         }
         else if (anim_string == "SK") {
-            if (GameManager.gm_instance.assistManager.isBlast) {
-                GameManager.gm_instance.assistManager.isBlast = false;
+            if (GameManager.gm_instance.assistManager.isBlast && tomatocontrol.currentSkillType == SkillType.Assist_Skill) {
+                GameManager.gm_instance.assistManager.SetIsBlast(false);
                 enemy_isPunched = false;
                 
                 tomatocontrol.BlastEffect();
                 enemyControl.enemyAnimControl.Blast(enemyBase.Blasted);
             }
             else
-                anim.Play(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)], -1, 0f);
+                enemyControl.enemyAnimControl.Hurt(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)]);
         }
 
         Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
