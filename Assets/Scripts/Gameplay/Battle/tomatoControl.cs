@@ -505,7 +505,7 @@ public class tomatoControl : MonoBehaviour
     
     void enemy_Dunked()
     {
-        //Instantiate (dunk_hitef);
+        battleSystem.enemy_control.CancelInvoke("Bounce");
         battleSystem.enemy_control.isDunked = true;
     }
 

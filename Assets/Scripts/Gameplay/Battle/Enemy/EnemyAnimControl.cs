@@ -7,6 +7,11 @@ public class EnemyAnimControl : MonoBehaviour
     private EnemyControl _enemyControl;
     private Animator _anim;
     private Dictionary<string, (float, float)> _fpsDict = new Dictionary<string, (float, float)>();
+    private string[] _invokeMethods = {
+        "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
+        "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
+        "RecoverAnimation"
+    };
 
     void Start()
     {
@@ -26,6 +31,36 @@ public class EnemyAnimControl : MonoBehaviour
             _fpsDict[clip.name] = (clip.frameRate, clip.length);
     }
 
+    public void Dunk(string animName)
+    {
+        _enemyControl.CancelInvoke("EnableDunk");
+        _enemyControl.CancelInvoke("DisableDunk");
+        _enemyControl.CancelInvoke("Bounce");
+
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
+    }
+
+    public void Bounce(string animName)
+    {
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.DunkBounceSmoke2();
+        _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
+    }
+
+    public void Blast(string animName)
+    {
+        _anim.Play(animName, -1, 0f);
+
+        _enemyControl.WallHitEffect();
+        _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
+    }
+
     public void Attack(Enemy_AttackDetail attackDetail)
     {
         string animName = attackDetail.EnemyAttackName;
@@ -41,11 +76,9 @@ public class EnemyAnimControl : MonoBehaviour
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
     }
 
-    public void CancelAttackInvokes()
+    public void CancelScheduledInvokes()
     {
-        _enemyControl.CancelInvoke("enemyCounterStart");
-        _enemyControl.CancelInvoke("enemyCounterEnd");
-        _enemyControl.CancelInvoke("hitFrame");
-        _enemyControl.CancelInvoke("actionOver");
+        foreach (string methodName in _invokeMethods)
+            _enemyControl.CancelInvoke(methodName);
     }
 }

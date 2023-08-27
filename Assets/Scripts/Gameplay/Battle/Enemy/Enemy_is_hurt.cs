@@ -41,7 +41,7 @@ public class Enemy_is_hurt : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
-        enemyControl.enemyAnimControl.CancelAttackInvokes();
+        enemyControl.enemyAnimControl.CancelScheduledInvokes();
         
         if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
@@ -209,7 +209,8 @@ public class Enemy_is_hurt : MonoBehaviour
                 GameManager.gm_instance.assistManager.isBlast = false;
                 enemy_isPunched = false;
                 tomatocontrol.BlastEffect();
-                anim.Play(enemyBase.Blasted, -1, 0f);
+
+                enemyControl.enemyAnimControl.Blast(enemyBase.Blasted);
             }
             else
                 anim.Play(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)], -1, 0f);

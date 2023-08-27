@@ -83,7 +83,7 @@ public class EnemyControl : MonoBehaviour
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_dunk);
 
             if (!enemyHurt.checkDefeat())
-                anim.Play(_base.Dunk, -1, 0f);
+                enemyAnimControl.Dunk(_base.Dunk);
         }
         else
         {
@@ -218,7 +218,7 @@ public class EnemyControl : MonoBehaviour
         greyEffect.StartGreyEffect();
     }
 
-    void WallHitEffect()
+    public void WallHitEffect()
     {
         Instantiate(wallhitEffect);
         StartCoroutine(WallHitCameraRumble());
@@ -231,33 +231,30 @@ public class EnemyControl : MonoBehaviour
         DOTween.Play("CameraBlast");
     }
 
-    void EnableDunk()
+    public void EnableDunk()
     {
         canDunk = true;
         duplicate_r.FlashEffect(0.5f, 0);
     }
     
-    void DisableDunk()
+    public void DisableDunk()
     {
         canDunk = false;
     }
 
-    void Bounce()
+    public void Bounce()
     {
-        if (!tomatoAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_dunk"))
-            anim.Play(_base.Bounce, -1, 0f);
+        enemyAnimControl.Bounce(_base.Bounce);
     }
 
-    void Dunk2Bounce()
+    public void DunkBounceSmoke2()
     {
-        anim.Play(_base.Bounce, -1, 0f);
+        Instantiate(dunkSmoke2);
     }
 
-    void DunkSmoke1_2(int number)
+    public void DunkBounceSmoke()
     {
         Instantiate(dunkSmoke);
-        if (number == 2)
-            Instantiate(dunkSmoke2);
     }
 
     void beginSuffer()
@@ -286,7 +283,7 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    private void RecoverAnimation()
+    public void RecoverAnimation()
     {
         if(Enemy_is_hurt.enemy_isDefeated) return;
 
