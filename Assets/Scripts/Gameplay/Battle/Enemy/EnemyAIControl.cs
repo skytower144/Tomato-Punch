@@ -24,7 +24,7 @@ public class EnemyAIControl : MonoBehaviour
         enemyCtrl.attackType = move.EnemyAttackType;
         enemyCtrl.pjTag = move.EnemyAttackName;
         
-        enemyCtrl.enemyAnimControl.Attack(move);
+        enemyCtrl.enemyAnimControl.Act(move);
     }
 
     private bool ShouldActivate()
@@ -35,6 +35,7 @@ public class EnemyAIControl : MonoBehaviour
             !Enemy_parried.isParried &&
             !Enemy_countered.enemy_isCountered &&
             !Enemy_is_hurt.enemy_isPunched &&
+            !GameManager.gm_instance.assistManager.isBlast &&
             !enemyCtrl.enemy_supered &&
             enemyCtrl.enemyAnim.enabled
         );

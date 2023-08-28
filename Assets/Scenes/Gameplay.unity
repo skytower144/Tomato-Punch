@@ -4050,7 +4050,7 @@ GameObject:
   - component: {fileID: 384357808746845054}
   - component: {fileID: 384357808746844929}
   m_Layer: 6
-  m_Name: Enemy_AI
+  m_Name: AIControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9095,7 +9095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94d87d48d5d86544ad466679471afd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 384357809064918363}
+  _collider: {fileID: 384357810682219710}
 --- !u!114 &384357809064918365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33746,7 +33746,7 @@ GameObject:
   - component: {fileID: 384357810682219710}
   - component: {fileID: 384357810682219711}
   m_Layer: 6
-  m_Name: Enemy_hitbox
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33759,7 +33759,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384357810682219709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -56312,7 +56312,7 @@ GameObject:
   - component: {fileID: 4237864853032058434}
   - component: {fileID: 5820148391002691455}
   m_Layer: 6
-  m_Name: enemy_counterbox
+  m_Name: CounterBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

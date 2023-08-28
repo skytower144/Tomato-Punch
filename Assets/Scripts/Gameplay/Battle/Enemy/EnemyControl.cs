@@ -141,13 +141,13 @@ public class EnemyControl : MonoBehaviour
 
     public void enemyIntroOver()
     {
-        anim.Play(_base.Idle_AnimationString,-1,0f);
+        enemyAnimControl.Idle(_base.Idle_AnimationString);
     }
     public void actionOver()
     {
         enemy_supered = false;
         if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
-            anim.Play(_base.Idle_AnimationString,-1,0f);
+            enemyAnimControl.Idle(_base.Idle_AnimationString);
     }
     public void enemy_isPunchedEnd()
     {
@@ -159,13 +159,13 @@ public class EnemyControl : MonoBehaviour
         Enemy_is_hurt.enemyIsHit = false;
 
         if(Enemy_parried.isParried && EnemyControl.isPhysical)                          // punching enemy when enemy is parried
-            anim.Play(_base.Stun_AnimationString,-1,0f);
+            enemyAnimControl.Act(_base.Stun_AnimationString, BattleActType.Stun);
         
         else if(!Enemy_is_hurt.enemy_isPunched && Enemy_countered.enemy_isCountered)    // punching enemy when enemy is countered
-            anim.Play(_base.Suffer_AnimationString,-1,0f);
+            enemyAnimControl.Act(_base.Suffer_AnimationString, BattleActType.Suffer);
         
         else if(!Enemy_is_hurt.enemy_isPunched) {                                       // go back to idle when player did not attack
-            anim.Play(_base.Idle_AnimationString,-1,0f);
+            enemyAnimControl.Idle(_base.Idle_AnimationString);
         }
     }
 
@@ -278,12 +278,12 @@ public class EnemyControl : MonoBehaviour
     {
         Invoke("return_CounterToIdle", 1.3f);
         if(!Enemy_is_hurt.enemy_isPunched)     // when enemy is hurt at the exact frame transitioning to the suffer animation, 
-            anim.Play(_base.Suffer_AnimationString,-1,0f);   // the 'if' statement makes it prioritize the hurt animation.
+            enemyAnimControl.Act(_base.Suffer_AnimationString, BattleActType.Suffer);   // the 'if' statement makes it prioritize the hurt animation.
     }
 
     void beginStun()
     {
-        anim.Play(_base.Stun_AnimationString,-1,0f);
+        enemyAnimControl.Act(_base.Stun_AnimationString, BattleActType.Stun);
     }
     void return_CounterToIdle()
     {
@@ -295,9 +295,17 @@ public class EnemyControl : MonoBehaviour
             
             action_afterSuffer = true;
             if(!Enemy_is_hurt.enemyIsHit){
-                anim.Play(_base.Idle_AnimationString);
+                enemyAnimControl.Idle(_base.Idle_AnimationString);
             }
         }
+    }
+
+    public void CancelCounterState()
+    {
+        if (!Enemy_countered.enemy_isCountered) return;
+        CancelInvoke("return_CounterToIdle");
+        greyEffect.StopGreyEffect();
+        Enemy_countered.enemy_isCountered = false;
     }
 
     public void RecoverAnimation()

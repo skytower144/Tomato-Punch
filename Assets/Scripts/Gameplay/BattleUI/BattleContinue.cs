@@ -27,7 +27,7 @@ public class BattleContinue : MonoBehaviour
         DOTween.Play("insert_coin");
 
         string waitAnimation = battle_system.GetEnemyBase().Wait;
-        battle_system.GetEnemyAnim().Play(waitAnimation, -1, 0f);
+        battle_system.enemy_control.enemyAnimControl.Act(waitAnimation, BattleActType.Wait);
     }
 
     void Update()
