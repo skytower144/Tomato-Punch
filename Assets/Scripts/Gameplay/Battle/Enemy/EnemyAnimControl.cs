@@ -11,7 +11,7 @@ public class EnemyAnimControl : MonoBehaviour
     /// </summary>
 
     private EnemyControl _enemyControl;
-    private Animator _anim;
+    [SerializeField] private Animator _anim;
     private Dictionary<string, (float, float)> _fpsDict = new Dictionary<string, (float, float)>();
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
@@ -27,13 +27,11 @@ public class EnemyAnimControl : MonoBehaviour
 
     void OnDisable()
     {
-        _anim = null;
         _fpsDict.Clear();
     }
 
     public void InitFrameDict(Animator anim)
     {
-        _anim = anim;
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
             _fpsDict[clip.name] = (clip.frameRate, clip.length);
     }
