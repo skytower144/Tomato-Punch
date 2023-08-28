@@ -38,83 +38,62 @@ public class EnemyAnimControl : MonoBehaviour
             _fpsDict[clip.name] = (clip.frameRate, clip.length);
     }
 
-    public void SimpleAct(string animName)
+    public void Act(string animName, BattleActType actType)
     {
         CancelScheduledInvokes();
         _anim.Play(animName, -1, 0f);
 
-        _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
-    }
+        switch (actType) {
+            case BattleActType.Recover:
+            case BattleActType.Guard:
+            case BattleActType.ReEngage:
+                _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Intro:
+                _enemyControl.Invoke("enemyIntroOver", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Defeated:
+                _enemyControl.Invoke("freezeAnimation", 1 / _fpsDict[animName].Item1);
+                break;
 
-    public void Intro(string animName)
-    {
-        _anim.Play(animName, -1, 0f);
-        _enemyControl.Invoke("enemyIntroOver", _fpsDict[animName].Item2);
-    }
-
-    public void KO(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.Invoke("freezeAnimation", 1 / _fpsDict[animName].Item1);
-    }
-
-    public void Hurt(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        float frameDelay = 1 / _fpsDict[animName].Item1;
-
-        _enemyControl.Invoke("enemy_isPunchedEnd", _fpsDict[animName].Item2 - frameDelay);
-        _enemyControl.Invoke("hurtOver", _fpsDict[animName].Item2);
-    }
-
-    public void Uppered(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
-    }
-
-    public void KnockBack(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
-    }
-
-    public void Dunk(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
-    }
-
-    public void Bounce(string animName)
-    {
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.DunkBounceSmoke2();
-        _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
-    }
-
-    public void Blast(string animName)
-    {
-        CancelScheduledInvokes();
-        _anim.Play(animName, -1, 0f);
-
-        _enemyControl.WallHitEffect();
-        _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("BlastShrink", 0.08f);
-        _enemyControl.Invoke("RecoverShrink", 0.182f);
-        _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
+            case BattleActType.Hurt:
+                float frameDelay = 1 / _fpsDict[animName].Item1;
+                _enemyControl.Invoke("enemy_isPunchedEnd", _fpsDict[animName].Item2 - frameDelay);
+                _enemyControl.Invoke("hurtOver", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Uppered:
+                _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Knockback:
+                _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Bounce:
+                _enemyControl.DunkBounceSmoke2();
+                _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Blast:
+                _enemyControl.WallHitEffect();
+                _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
+                _enemyControl.Invoke("BlastShrink", 0.08f);
+                _enemyControl.Invoke("RecoverShrink", 0.182f);
+                _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
+                _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
+                break;
+            
+            case BattleActType.Dunk:
+                _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
+                _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
+                break;
+            
+            default:
+                break;
+        }
     }
 
     public void Attack(Enemy_AttackDetail attackDetail)
@@ -137,4 +116,11 @@ public class EnemyAnimControl : MonoBehaviour
         foreach (string methodName in _invokeMethods)
             _enemyControl.CancelInvoke(methodName);
     }
+}
+
+public enum BattleActType {
+    None, Intro, Defeated, Knockback, Suffer,
+    Stun, Uppered, Recover, Guard, Hurt,
+    Wait, ReEngage, Victory, Blast, Bounce,
+    Dunk
 }

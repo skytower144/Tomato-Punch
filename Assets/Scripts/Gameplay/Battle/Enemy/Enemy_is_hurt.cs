@@ -137,7 +137,7 @@ public class Enemy_is_hurt : MonoBehaviour
     {
         if (guardUp || hitct >= enemyBase.max_hitct)
         {
-            enemyControl.enemyAnimControl.SimpleAct(enemyBase.Guard_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.Guard_AnimationString, BattleActType.Guard);
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
@@ -147,7 +147,7 @@ public class Enemy_is_hurt : MonoBehaviour
         int randct = Random.Range(enemyBase.min_hitct, enemyBase.max_hitct);
         if (hitct == randct)
         {
-            enemyControl.enemyAnimControl.SimpleAct(enemyBase.Guard_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.Guard_AnimationString, BattleActType.Guard);
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
@@ -171,7 +171,7 @@ public class Enemy_is_hurt : MonoBehaviour
             enemy_isDefeated = true;
 
             tomatoAnim.enabled = false;
-            enemyControl.enemyAnimControl.KO(enemyBase.Defeated_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.Defeated_AnimationString, BattleActType.Defeated);
 
             Instantiate(defeatedEffect_beam);
             Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
@@ -193,15 +193,15 @@ public class Enemy_is_hurt : MonoBehaviour
         int direction = 1;
 
         if (anim_string == "R") {
-            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtR_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.HurtR_AnimationString, BattleActType.Hurt);
             distance = 5f;
             direction = -1;
         }
         else if (anim_string == "L")
-            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtL_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.HurtL_AnimationString, BattleActType.Hurt);
         
         else if (anim_string == "GP") {
-            enemyControl.enemyAnimControl.Hurt(enemyBase.HurtL_AnimationString);
+            enemyControl.enemyAnimControl.Act(enemyBase.HurtL_AnimationString, BattleActType.Hurt);
             return;
         }
         else if (anim_string == "SK") {
@@ -210,10 +210,10 @@ public class Enemy_is_hurt : MonoBehaviour
                 enemy_isPunched = false;
                 
                 tomatocontrol.BlastEffect();
-                enemyControl.enemyAnimControl.Blast(enemyBase.Blasted);
+                enemyControl.enemyAnimControl.Act(enemyBase.Blasted, BattleActType.Blast);
             }
             else
-                enemyControl.enemyAnimControl.Hurt(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)]);
+                enemyControl.enemyAnimControl.Act(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)], BattleActType.Hurt);
         }
 
         Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);

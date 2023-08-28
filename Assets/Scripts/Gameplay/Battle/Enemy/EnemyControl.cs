@@ -68,7 +68,7 @@ public class EnemyControl : MonoBehaviour
         
         else if(tomatoControl.enemyUppered)
         {
-            enemyAnimControl.Uppered(_base.Uppered_AnimationString);
+            enemyAnimControl.Act(_base.Uppered_AnimationString, BattleActType.Uppered);
             enemyHurt.ParryBonus();
 
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_upperPunch);
@@ -83,7 +83,7 @@ public class EnemyControl : MonoBehaviour
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_dunk);
 
             if (!enemyHurt.checkDefeat())
-                enemyAnimControl.Dunk(_base.Dunk);
+                enemyAnimControl.Act(_base.Dunk, BattleActType.Dunk);
         }
         else
         {
@@ -261,7 +261,7 @@ public class EnemyControl : MonoBehaviour
 
     public void Bounce()
     {
-        enemyAnimControl.Bounce(_base.Bounce);
+        enemyAnimControl.Act(_base.Bounce, BattleActType.Bounce);
     }
 
     public void DunkBounceSmoke2()
@@ -305,7 +305,7 @@ public class EnemyControl : MonoBehaviour
         if(Enemy_is_hurt.enemy_isDefeated) return;
 
         greyEffect.StopGreyEffect();
-        enemyAnimControl.SimpleAct(_base.Recover_AnimationString);
+        enemyAnimControl.Act(_base.Recover_AnimationString, BattleActType.Recover);
     }
 
     void projectileSpawn()
@@ -352,7 +352,7 @@ public class EnemyControl : MonoBehaviour
                 DOTween.Pause("ShakeEnemy");
                 transform.localPosition = new Vector2(0, 0);
                 anim.enabled = true;
-                enemyAnimControl.Uppered(_base.Uppered_AnimationString);
+                enemyAnimControl.Act(_base.Uppered_AnimationString, BattleActType.Uppered);
                 break;
 
             default:
