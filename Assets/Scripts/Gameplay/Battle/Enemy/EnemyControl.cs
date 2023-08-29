@@ -36,7 +36,9 @@ public class EnemyControl : MonoBehaviour
     [System.NonSerialized] public bool isDunked = false;
 
     [System.NonSerialized] public AttackType attackType;
-    [System.NonSerialized] public string pjTag;     // pj selection string
+
+    [SerializeField] private Transform projectileSpawnPoint;
+    [System.NonSerialized] public string selectedPj;
 
     [SerializeField] private float flashDuration, hitFlashDuration;
     
@@ -316,9 +318,15 @@ public class EnemyControl : MonoBehaviour
         enemyAnimControl.Act(_base.Recover_AnimationString, BattleActType.Recover);
     }
 
-    void projectileSpawn()
+    public void projectileSpawn()
     {
-        Instantiate(_base.EnemyPjSelect(pjTag).EnemyProjectile);
+        Instantiate(_base.EnemyPjSelect(selectedPj).EnemyProjectile, projectileSpawnPoint);
+    }
+
+    public void DestroyProjectiles()
+    {
+        foreach (Transform projectile in projectileSpawnPoint)
+            Destroy(projectile.gameObject);
     }
 
     void disableBools()

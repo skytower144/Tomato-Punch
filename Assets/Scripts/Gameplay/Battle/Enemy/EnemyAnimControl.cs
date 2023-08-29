@@ -18,7 +18,7 @@ public class EnemyAnimControl : MonoBehaviour
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
         "BlastShrink", "RecoverShrink", "RecoverAnimation", "actionOver",
-        "enemy_isPunchedEnd", "hurtOver"
+        "enemy_isPunchedEnd", "hurtOver", "projectileSpawn"
     };
 
     void Start()
@@ -139,8 +139,10 @@ public class EnemyAnimControl : MonoBehaviour
         StartCoroutine(SetCollider(true, (frameInfo.HitFrame + 1)/ _fpsDict[animName].Item1));
 
         _enemyControl.guardDown();
-        _enemyControl.Invoke("enemyCounterStart", frameInfo.CounterStartFrame / _fpsDict[animName].Item1);
-        _enemyControl.Invoke("enemyCounterEnd", frameInfo.CounterEndFrame / _fpsDict[animName].Item1);
+        if (attackDetail.EnemyAttackType != AttackType.PJ) {
+            _enemyControl.Invoke("enemyCounterStart", frameInfo.CounterStartFrame / _fpsDict[animName].Item1);
+            _enemyControl.Invoke("enemyCounterEnd", frameInfo.CounterEndFrame / _fpsDict[animName].Item1);
+        }
         _enemyControl.Invoke("hitFrame", frameInfo.HitFrame / _fpsDict[animName].Item1);
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
     }

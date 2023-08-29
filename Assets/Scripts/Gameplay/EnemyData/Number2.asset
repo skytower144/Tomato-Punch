@@ -43,11 +43,17 @@ MonoBehaviour:
   wait: Number2_wait
   reEngage: Number2_waitover
   victory: Number2_victory
-  otherHurtAnim: []
+  otherHurtAnim:
+  - Number2_hurt_1
+  - Number2_hurt_2
   chiliInfo:
     hitPosition: {x: -190, y: 60}
     hitSprite: {fileID: -3578979351328043505, guid: ec63bf1c39066dd428bfb786917c9b6b, type: 3}
-  projectiles: []
+  projectiles:
+  - EnemyPjName: Number2_attack_boomerang
+    EnemyProjectile: {fileID: 0}
+  - EnemyPjName: Number2_attack_equal
+    EnemyProjectile: {fileID: 0}
   enemyPattern:
   - EnemyAttackName: Number2_attack_boomerang
     PhysicalAttack: 0
@@ -57,7 +63,7 @@ MonoBehaviour:
     FrameInfo:
       CounterStartFrame: 0
       CounterEndFrame: 0
-      HitFrame: 0
+      HitFrame: 7
   - EnemyAttackName: Number2_attack_equal
     PhysicalAttack: 0
     percentage: 0
@@ -66,25 +72,25 @@ MonoBehaviour:
     FrameInfo:
       CounterStartFrame: 0
       CounterEndFrame: 0
-      HitFrame: 0
+      HitFrame: 5
   - EnemyAttackName: Number2_attack_oneplus
     PhysicalAttack: 1
     percentage: 0
     EnemyAttackDmg: 0
     EnemyAttackType: 0
     FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
+      CounterStartFrame: 21
+      CounterEndFrame: 23
+      HitFrame: 24
   - EnemyAttackName: Number2_attack_sword
     PhysicalAttack: 1
     percentage: 0
     EnemyAttackDmg: 0
     EnemyAttackType: 1
     FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
+      CounterStartFrame: 6
+      CounterEndFrame: 9
+      HitFrame: 10
   itemReward: []
   battleExp: 30
   battleCoin: 0

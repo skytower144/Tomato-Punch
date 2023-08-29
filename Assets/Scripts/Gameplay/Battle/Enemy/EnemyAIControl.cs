@@ -22,7 +22,7 @@ public class EnemyAIControl : MonoBehaviour
         EnemyControl.isPhysical = move.PhysicalAttack;
         tomatoguard.damage = move.EnemyAttackDmg;
         enemyCtrl.attackType = move.EnemyAttackType;
-        enemyCtrl.pjTag = move.EnemyAttackName;
+        enemyCtrl.selectedPj = move.EnemyAttackName;
         
         enemyCtrl.enemyAnimControl.Act(move);
     }

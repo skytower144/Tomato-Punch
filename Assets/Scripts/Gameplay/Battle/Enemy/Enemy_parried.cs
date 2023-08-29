@@ -35,6 +35,7 @@ public class Enemy_parried : MonoBehaviour
             else
             {
                 Enemy_parried.pjParried = true;
+                enemyControl.DestroyProjectiles();
                 Invoke("TurnOffPjParried", 0.1f);
             }
         }
