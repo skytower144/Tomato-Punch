@@ -59,7 +59,7 @@ public class Enemy_countered : MonoBehaviour
             
             Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
             
-            enemyControl.enemyAnimControl.Act(enemyControl._base.Countered_AnimationString, BattleActType.Knockback);
+            enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             gameObject.SetActive(false);
         }
     }

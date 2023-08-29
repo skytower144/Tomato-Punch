@@ -19,7 +19,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private float enemyMaxHealth, enemyCurrentHealth;
     public int min_hitct, max_hitct;
     [SerializeField] private RuntimeAnimatorController animationController;
-    [SerializeField] private string idle, intro, defeated, countered, suffer, stun, uppered, recover, guard, hurtL, hurtR, blasted, bounce, dunk;
+    [SerializeField] private string idle, intro, defeated, knockback, suffer, stun, uppered, recover, guard, hurtL, hurtR, blasted, bounce, dunk;
     [SerializeField] private string wait, reEngage, victory;
     [SerializeField] List<string> otherHurtAnim;
 
@@ -61,9 +61,9 @@ public class EnemyBase : ScriptableObject
     {
         get { return defeated; }
     }
-    public string Countered_AnimationString
+    public string Knockback_AnimationString
     {
-        get { return countered; }
+        get { return knockback; }
     }
     public string Suffer_AnimationString
     {

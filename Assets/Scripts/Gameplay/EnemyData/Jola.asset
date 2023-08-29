@@ -29,7 +29,7 @@ MonoBehaviour:
   idle: battleJola_idle
   intro: battleJola_intro
   defeated: battleJola_defeated
-  countered: battleJola_countered
+  knockback: battleJola_countered
   suffer: battleJola_suffer
   stun: 
   uppered: battleJola_uppered
@@ -56,21 +56,37 @@ MonoBehaviour:
     percentage: 15
     EnemyAttackDmg: 2
     EnemyAttackType: 0
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
   - EnemyAttackName: battleJola_RA
     PhysicalAttack: 1
     percentage: 15
     EnemyAttackDmg: 2
     EnemyAttackType: 1
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
   - EnemyAttackName: battleJola_DA
     PhysicalAttack: 1
     percentage: 5
     EnemyAttackDmg: 1
     EnemyAttackType: 2
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
   - EnemyAttackName: battleJola_HatAttack
     PhysicalAttack: 0
     percentage: 5
     EnemyAttackDmg: 0.5
     EnemyAttackType: 3
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
   itemReward:
   - RewardItem: {fileID: 11400000, guid: 9499252a5832d5f418fd1f458614be12, type: 2}
     DropChance: 80

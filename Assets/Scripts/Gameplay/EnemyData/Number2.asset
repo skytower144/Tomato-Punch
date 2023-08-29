@@ -12,43 +12,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f39d6aeef65614fb295ea86167b835, type: 3}
   m_Name: Number2
   m_EditorClassIdentifier: 
-  enemyName: 
+  enemyName: Number 2
   koFace: {fileID: 0}
   hurtFace: {fileID: 0}
-  defaultFace: {fileID: 0}
+  defaultFace: {fileID: 21300000, guid: a7c42faa1deba3a4d86a920ef1fcd29a, type: 3}
   isFixedBg: 0
   isParallaxBg: 1
   bgSprites: []
   bgTexture: {fileID: 2800000, guid: 14c9b1916b106fc4b979ad45d7bc12a4, type: 3}
   parallaxDirection: {x: -0.05, y: 0.05}
-  enemyMaxHealth: 0
-  enemyCurrentHealth: 0
-  min_hitct: 0
-  max_hitct: 0
-  animationController: {fileID: 0}
-  idle: 
-  intro: 
-  defeated: 
-  countered: 
-  suffer: 
-  stun: 
-  uppered: 
-  recover: 
-  guard: 
-  hurtL: 
-  hurtR: 
-  blasted: 
-  bounce: 
-  dunk: 
-  wait: 
-  reEngage: 
-  victory: 
+  enemyMaxHealth: 100
+  enemyCurrentHealth: 100
+  min_hitct: 5
+  max_hitct: 9
+  animationController: {fileID: 9100000, guid: 4468e76d3bbf36f4bb36daaf7c49fe74, type: 2}
+  idle: Number2_idle
+  intro: Number2_intro
+  defeated: Number2_recover
+  knockback: Number2_guard
+  suffer: Number2_suffer
+  stun: Number2_stun
+  uppered: Number2_uppered
+  recover: Number2_recover
+  guard: Number2_guard
+  hurtL: Number2_hurt_L
+  hurtR: Number2_hurt_R
+  blasted: Number2_blast
+  bounce: Number2_bounce
+  dunk: Number2_dunked
+  wait: Number2_wait
+  reEngage: Number2_waitover
+  victory: Number2_victory
   otherHurtAnim: []
   chiliInfo:
-    hitPosition: {x: 0, y: 0}
-    hitSprite: {fileID: 0}
+    hitPosition: {x: -190, y: 60}
+    hitSprite: {fileID: -3578979351328043505, guid: ec63bf1c39066dd428bfb786917c9b6b, type: 3}
   projectiles: []
-  enemyPattern: []
+  enemyPattern:
+  - EnemyAttackName: Number2_attack_boomerang
+    PhysicalAttack: 0
+    percentage: 0
+    EnemyAttackDmg: 0
+    EnemyAttackType: 3
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
+  - EnemyAttackName: Number2_attack_equal
+    PhysicalAttack: 0
+    percentage: 0
+    EnemyAttackDmg: 0
+    EnemyAttackType: 3
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
+  - EnemyAttackName: Number2_attack_oneplus
+    PhysicalAttack: 1
+    percentage: 0
+    EnemyAttackDmg: 0
+    EnemyAttackType: 0
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
+  - EnemyAttackName: Number2_attack_sword
+    PhysicalAttack: 1
+    percentage: 0
+    EnemyAttackDmg: 0
+    EnemyAttackType: 1
+    FrameInfo:
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+      HitFrame: 0
   itemReward: []
-  battleExp: 0
+  battleExp: 30
   battleCoin: 0

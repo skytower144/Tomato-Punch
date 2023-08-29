@@ -6,7 +6,7 @@ public class EnemyAnimControl : MonoBehaviour
 {
     /// <summary>
     /// This system is built on the principle that almost all animation frames must be consistent across all enemies.
-    /// ATTACKS, UNIQUE BEHAVIOURS are excluded from the principle.
+    /// ATTACKS, UNIQUE BEHAVIOURS are exempt from the principle.
     /// For example, Blast animation must ALWAYS be total 7 frames.
     /// </summary>
 
@@ -107,8 +107,8 @@ public class EnemyAnimControl : MonoBehaviour
                 _enemyControl.CancelCounterState();
                 _enemyControl.WallHitEffect();
                 _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
-                _enemyControl.Invoke("BlastShrink", 0.08f);
-                _enemyControl.Invoke("RecoverShrink", 0.182f);
+                _enemyControl.Invoke("BlastShrink", 0.9f / _fpsDict[animName].Item1);
+                _enemyControl.Invoke("RecoverShrink", 2 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
                 break;

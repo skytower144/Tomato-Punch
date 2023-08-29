@@ -30,7 +30,7 @@ public class Enemy_parried : MonoBehaviour
             {
                 isParried = true;
                 Instantiate (parryCircle, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
-                enemyControl.enemyAnimControl.Act(enemyControl._base.Countered_AnimationString, BattleActType.Knockback);
+                enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             }
             else
             {
