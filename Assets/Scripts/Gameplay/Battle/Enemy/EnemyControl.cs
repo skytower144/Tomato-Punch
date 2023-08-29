@@ -38,8 +38,7 @@ public class EnemyControl : MonoBehaviour
     [System.NonSerialized] public AttackType attackType;
 
     [SerializeField] private Transform projectileSpawnPoint;
-    [System.NonSerialized] public string selectedPj;
-
+    [System.NonSerialized] public GameObject currentProjectile = null;
     [SerializeField] private float flashDuration, hitFlashDuration;
     
     public static int totalParry = 0;
@@ -117,18 +116,34 @@ public class EnemyControl : MonoBehaviour
 
     private void InitEnemyPattern()
     {
-        List<Enemy_AttackDetail> deepCopiedPatterns = new List<Enemy_AttackDetail>();
+        List<EnemyActDetail> deepCopiedPatterns = new List<EnemyActDetail>();
         int sumPercentage = 0;
 
         foreach (Enemy_AttackDetail readingPattern in _base.EnemyPattern) {
             deepCopiedPatterns.Add(
                 new Enemy_AttackDetail(
-                    readingPattern.EnemyAttackName,
-                    readingPattern.PhysicalAttack,
+                    readingPattern.Name,
                     readingPattern.percentage,
-                    readingPattern.EnemyAttackDmg,
+                    readingPattern.Damage,
                     readingPattern.EnemyAttackType,
-                    readingPattern.FrameInfo
+
+                    readingPattern.CounterStartFrame,
+                    readingPattern.CounterEndFrame,
+                    readingPattern.HitFrame
+            ));
+            sumPercentage += readingPattern.percentage;
+        }
+        foreach (Enemy_ProjectileDetail readingPattern in _base.EnemyProjectilePattern) {
+            deepCopiedPatterns.Add(
+                new Enemy_ProjectileDetail(
+                    readingPattern.Name,
+                    readingPattern.percentage,
+                    readingPattern.Damage,
+                    readingPattern.EnemyAttackType,
+
+                    readingPattern.SpawnFrame,
+                    readingPattern.HitFrame,
+                    readingPattern.Projectile
             ));
             sumPercentage += readingPattern.percentage;
         }
@@ -136,7 +151,7 @@ public class EnemyControl : MonoBehaviour
             Debug.LogError($"Enemy total action percentage error : {sumPercentage}");
         
         deepCopiedPatterns.Add(
-            new Enemy_AttackDetail(_base.Idle_AnimationString, false, 100 - sumPercentage, 0, AttackType.NEUTRAL)
+            new Enemy_AttackDetail(_base.Idle_AnimationString, 100 - sumPercentage, 0, AttackType.NEUTRAL)
         );
         enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
     }
@@ -320,7 +335,7 @@ public class EnemyControl : MonoBehaviour
 
     public void projectileSpawn()
     {
-        Instantiate(_base.EnemyPjSelect(selectedPj).EnemyProjectile, projectileSpawnPoint);
+        if (currentProjectile) Instantiate(currentProjectile, projectileSpawnPoint);
     }
 
     public void DestroyProjectiles()

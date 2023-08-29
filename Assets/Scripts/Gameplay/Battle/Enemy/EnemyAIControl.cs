@@ -8,7 +8,7 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
-    private List<Enemy_AttackDetail> pattern_list = new List<Enemy_AttackDetail>();
+    private List<EnemyActDetail> pattern_list = new List<EnemyActDetail>();
 
     private int idleCount = 0;
 
@@ -17,13 +17,11 @@ public class EnemyAIControl : MonoBehaviour
         enemy_isIntro = true;
         idleCount = 0;
     }
-    void EnemyMove(Enemy_AttackDetail move)
+    void EnemyMove(EnemyActDetail move)
     {
         EnemyControl.isPhysical = move.PhysicalAttack;
-        tomatoguard.damage = move.EnemyAttackDmg;
+        tomatoguard.damage = move.Damage;
         enemyCtrl.attackType = move.EnemyAttackType;
-        enemyCtrl.selectedPj = move.EnemyAttackName;
-        
         enemyCtrl.enemyAnimControl.Act(move);
     }
 
@@ -61,7 +59,7 @@ public class EnemyAIControl : MonoBehaviour
                     sumPercent += pattern_list[i].percentage;
                     if (sumPercent >= randomPercent)
                     {
-                        Enemy_AttackDetail selectedMove = pattern_list[i];
+                        EnemyActDetail selectedMove = pattern_list[i];
                         
                         if (OverMaxIdleCount(selectedMove)) {
                             //Debug.Log("=== Forcing Enemy Action! ===");
@@ -81,9 +79,9 @@ public class EnemyAIControl : MonoBehaviour
         return battleAnim.GetCurrentAnimatorStateInfo(0).IsName(enemyCtrl._base.Idle_AnimationString);
     }
 
-    private bool OverMaxIdleCount(Enemy_AttackDetail selectedMove)
+    private bool OverMaxIdleCount(EnemyActDetail selectedMove)
     {
-        if (selectedMove.EnemyAttackName != enemyCtrl._base.Idle_AnimationString) {
+        if (selectedMove.Name != enemyCtrl._base.Idle_AnimationString) {
             idleCount = 0;
             return false;
         }
@@ -97,7 +95,7 @@ public class EnemyAIControl : MonoBehaviour
         return true;
     }
 
-    public void LoadEnemyPattern(List<Enemy_AttackDetail> patternList)
+    public void LoadEnemyPattern(List<EnemyActDetail> patternList)
     {
         pattern_list = patternList;
     }

@@ -41,6 +41,7 @@ public class Enemy_countered : MonoBehaviour
         
         Enemy_is_hurt.enemy_isPunched = false;
         Enemy_is_hurt.enemyIsHit = false;
+        GameManager.gm_instance.assistManager.SetIsBlast(false);
         enemy_isCountered = true;
         
         totalCounter += 1;

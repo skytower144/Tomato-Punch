@@ -52,42 +52,34 @@ MonoBehaviour:
     hitSprite: {fileID: -3113025987203293026, guid: 0aeaef9b38833304d935c0808079c63d, type: 3}
   projectiles: []
   enemyPattern:
-  - EnemyAttackName: Rupple_lefthook
-    PhysicalAttack: 1
+  - Name: Rupple_lefthook
     percentage: 15
-    EnemyAttackDmg: 2
+    Damage: 2
     EnemyAttackType: 0
-    FrameInfo:
-      CounterStartFrame: 3
-      CounterEndFrame: 4
-      HitFrame: 5
-  - EnemyAttackName: Rupple_righthook
-    PhysicalAttack: 1
+    HitFrame: 5
+    CounterStartFrame: 1
+    CounterEndFrame: 4
+  - Name: Rupple_righthook
     percentage: 15
-    EnemyAttackDmg: 3
+    Damage: 3
     EnemyAttackType: 1
-    FrameInfo:
-      CounterStartFrame: 3
-      CounterEndFrame: 5
-      HitFrame: 6
-  - EnemyAttackName: Rupple_lowkick
-    PhysicalAttack: 1
+    HitFrame: 6
+    CounterStartFrame: 2
+    CounterEndFrame: 5
+  - Name: Rupple_lowkick
     percentage: 6
-    EnemyAttackDmg: 2
+    Damage: 2
     EnemyAttackType: 2
-    FrameInfo:
-      CounterStartFrame: 2
-      CounterEndFrame: 5
-      HitFrame: 6
-  - EnemyAttackName: Rupple_leftupper
-    PhysicalAttack: 1
+    HitFrame: 6
+    CounterStartFrame: 2
+    CounterEndFrame: 5
+  - Name: Rupple_leftupper
     percentage: 4
-    EnemyAttackDmg: 5
+    Damage: 5
     EnemyAttackType: 0
-    FrameInfo:
-      CounterStartFrame: 5
-      CounterEndFrame: 7
-      HitFrame: 8
+    HitFrame: 8
+    CounterStartFrame: 5
+    CounterEndFrame: 7
   itemReward: []
   battleExp: 50
   battleCoin: 100

@@ -283,12 +283,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Turn(string direction)
     {
-        direction = direction.ToUpper();
-
         if (disableSpriteAnimator)
-            CutsceneHandler.FaceAdjustment(npcAnim, direction);
+            CutsceneHandler.FaceAdjustment(npcAnim, direction.ToUpper());
         else
-            Play($"{direction}");
+            Play($"{direction.ToLower()}");
     }
 }
 

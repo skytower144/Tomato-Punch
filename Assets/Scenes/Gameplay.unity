@@ -1170,6 +1170,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d60262bff5e4242823044435fdb300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &933909585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933909586}
+  m_Layer: 6
+  m_Name: Projectiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933909586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933909585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 384357809064918360}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952275572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,7 +2445,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 384357809614087741}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8988,6 +9018,7 @@ Transform:
   - {fileID: 2249192040184301605}
   - {fileID: 384357808746845054}
   - {fileID: 6633392154055329747}
+  - {fileID: 933909586}
   m_Father: {fileID: 384357809614087741}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9135,6 +9166,7 @@ MonoBehaviour:
   enemy_Countered: {fileID: 5820148391002691455}
   enemyAnimControl: {fileID: 384357809064918364}
   textSpawn: {fileID: 384357809665552908}
+  projectileSpawnPoint: {fileID: 933909586}
   flashDuration: 0.13
   hitFlashDuration: 0.08
 --- !u!1 &384357809072484966
@@ -17417,8 +17449,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 0.022222223, y: 0.022222223, z: 0.022222223}
   m_Children:
-  - {fileID: 384357809815357310}
   - {fileID: 2014901552}
+  - {fileID: 384357809815357310}
   - {fileID: 384357809660484709}
   - {fileID: 384357809064918360}
   - {fileID: 384357809221301295}
@@ -21046,7 +21078,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 384357809614087741}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

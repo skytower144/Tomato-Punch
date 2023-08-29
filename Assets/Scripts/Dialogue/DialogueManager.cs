@@ -58,6 +58,7 @@ public class DialogueManager : MonoBehaviour
     private const string BATTLETARGET_TAG = "battletarget";
     private const string PURCHASE_TAG = "purchase";
     private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
+    private const string EARNMONEY_TAG = "earnmoney";
     private const string MOVECHOICEBOX_TAG = "movechoicebox";
     private const string RESETCHOICEBOX_TAG = "resetchoicebox";
     private const string VIEWSHOP_TAG = "viewshop";
@@ -347,6 +348,11 @@ public class DialogueManager : MonoBehaviour
                     int amount = int.Parse(tag_value);
                     if (!GameManager.gm_instance.battle_system.tomatostatus.CheckEnoughMoney(amount))
                         currentStory.variablesState["enoughMoney"] = false;
+                    break;
+                
+                case EARNMONEY_TAG: //#earnmoney:2
+                    int earnedMoney = int.Parse(tag_value);
+                    GameManager.gm_instance.battle_system.tomatostatus.UpdatePlayerMoney(earnedMoney);
                     break;
                 
                 case MOVECHOICEBOX_TAG:

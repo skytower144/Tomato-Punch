@@ -48,45 +48,35 @@ MonoBehaviour:
     hitPosition: {x: 0, y: 0}
     hitSprite: {fileID: 0}
   projectiles:
-  - EnemyPjName: battleJola_HatAttack
-    EnemyProjectile: {fileID: 7068217840848596775, guid: e01811a7ae6705f439181d7d82e86489, type: 3}
-  enemyPattern:
-  - EnemyAttackName: battleJola_LA
-    PhysicalAttack: 1
-    percentage: 15
-    EnemyAttackDmg: 2
-    EnemyAttackType: 0
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
-  - EnemyAttackName: battleJola_RA
-    PhysicalAttack: 1
-    percentage: 15
-    EnemyAttackDmg: 2
-    EnemyAttackType: 1
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
-  - EnemyAttackName: battleJola_DA
-    PhysicalAttack: 1
+  - Name: 
     percentage: 5
-    EnemyAttackDmg: 1
-    EnemyAttackType: 2
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
-  - EnemyAttackName: battleJola_HatAttack
-    PhysicalAttack: 0
-    percentage: 5
-    EnemyAttackDmg: 0.5
+    Damage: 0
     EnemyAttackType: 3
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 0
+    HitFrame: 0
+    SpawnFrame: 0
+    Projectile: {fileID: 0}
+  enemyPattern:
+  - Name: 
+    percentage: 15
+    Damage: 0
+    EnemyAttackType: 0
+    HitFrame: 0
+    CounterStartFrame: 0
+    CounterEndFrame: 0
+  - Name: 
+    percentage: 15
+    Damage: 0
+    EnemyAttackType: 1
+    HitFrame: 0
+    CounterStartFrame: 0
+    CounterEndFrame: 0
+  - Name: 
+    percentage: 5
+    Damage: 0
+    EnemyAttackType: 2
+    HitFrame: 0
+    CounterStartFrame: 0
+    CounterEndFrame: 0
   itemReward:
   - RewardItem: {fileID: 11400000, guid: 9499252a5832d5f418fd1f458614be12, type: 2}
     DropChance: 80

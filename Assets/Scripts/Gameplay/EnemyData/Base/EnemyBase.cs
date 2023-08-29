@@ -123,18 +123,14 @@ public class EnemyBase : ScriptableObject
         get { return otherHurtAnim.Concat(new List<string> {hurtL, hurtR}).ToList(); }
     }
 
-    public Enemy_ProjectileDetail EnemyPjSelect(string pjName)
-    {
-        return projectiles.Find( x=> x.EnemyPjName == pjName);
-    }
-    public Enemy_AttackDetail EnemyAttack(string attackName)
-    {
-        return enemyPattern.Find( x=> x.EnemyAttackName == attackName);
-    }
-
     public List<Enemy_AttackDetail> EnemyPattern
     {
         get { return enemyPattern; }
+    }
+
+    public List<Enemy_ProjectileDetail> EnemyProjectilePattern
+    {
+        get { return projectiles; }
     }
 
     public List<RewardDetail> ItemReward

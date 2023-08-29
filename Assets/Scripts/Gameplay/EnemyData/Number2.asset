@@ -16,9 +16,10 @@ MonoBehaviour:
   koFace: {fileID: 0}
   hurtFace: {fileID: 0}
   defaultFace: {fileID: 21300000, guid: a7c42faa1deba3a4d86a920ef1fcd29a, type: 3}
-  isFixedBg: 0
+  isFixedBg: 1
   isParallaxBg: 1
-  bgSprites: []
+  bgSprites:
+  - {fileID: 21300000, guid: 1f407c95c9d8a6744a41f3fbb2df884c, type: 3}
   bgTexture: {fileID: 2800000, guid: 14c9b1916b106fc4b979ad45d7bc12a4, type: 3}
   parallaxDirection: {x: -0.05, y: 0.05}
   enemyMaxHealth: 100
@@ -50,47 +51,35 @@ MonoBehaviour:
     hitPosition: {x: -190, y: 60}
     hitSprite: {fileID: -3578979351328043505, guid: ec63bf1c39066dd428bfb786917c9b6b, type: 3}
   projectiles:
-  - EnemyPjName: Number2_attack_boomerang
-    EnemyProjectile: {fileID: 0}
-  - EnemyPjName: Number2_attack_equal
-    EnemyProjectile: {fileID: 0}
+  - Name: Number2_attack_boomerang
+    percentage: 20
+    Damage: 2
+    EnemyAttackType: 3
+    HitFrame: 7
+    SpawnFrame: 2
+    Projectile: {fileID: 596274545546477243, guid: ce9a3e56aac6e5142ab897f0659445b9, type: 3}
+  - Name: Number2_attack_equal
+    percentage: 20
+    Damage: 2
+    EnemyAttackType: 3
+    HitFrame: 5
+    SpawnFrame: 3
+    Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
   enemyPattern:
-  - EnemyAttackName: Number2_attack_boomerang
-    PhysicalAttack: 0
-    percentage: 0
-    EnemyAttackDmg: 0
-    EnemyAttackType: 3
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 7
-  - EnemyAttackName: Number2_attack_equal
-    PhysicalAttack: 0
-    percentage: 0
-    EnemyAttackDmg: 0
-    EnemyAttackType: 3
-    FrameInfo:
-      CounterStartFrame: 0
-      CounterEndFrame: 0
-      HitFrame: 5
-  - EnemyAttackName: Number2_attack_oneplus
-    PhysicalAttack: 1
-    percentage: 0
-    EnemyAttackDmg: 0
+  - Name: Number2_attack_oneplus
+    percentage: 10
+    Damage: 6
     EnemyAttackType: 0
-    FrameInfo:
-      CounterStartFrame: 21
-      CounterEndFrame: 23
-      HitFrame: 24
-  - EnemyAttackName: Number2_attack_sword
-    PhysicalAttack: 1
-    percentage: 0
-    EnemyAttackDmg: 0
+    HitFrame: 23
+    CounterStartFrame: 20
+    CounterEndFrame: 22
+  - Name: Number2_attack_sword
+    percentage: 14
+    Damage: 4
     EnemyAttackType: 1
-    FrameInfo:
-      CounterStartFrame: 6
-      CounterEndFrame: 9
-      HitFrame: 10
+    HitFrame: 9
+    CounterStartFrame: 5
+    CounterEndFrame: 8
   itemReward: []
   battleExp: 30
   battleCoin: 0

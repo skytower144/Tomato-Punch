@@ -124,26 +124,37 @@ public class EnemyAnimControl : MonoBehaviour
         StartCoroutine(SetCollider(false));
     }
 
-    public void Act(Enemy_AttackDetail attackDetail)
+    public void Act(EnemyActDetail attackDetail)
     {
-        string animName = attackDetail.EnemyAttackName;
+        string animName = attackDetail.Name;
 
-        if (attackDetail.EnemyAttackType is AttackType.NEUTRAL) {
-            ManageNeutralAct(animName);
-            return;
+        switch (attackDetail.EnemyAttackType) {
+            case AttackType.NEUTRAL:
+                ManageNeutralAct(animName);
+                return;
+            
+            case AttackType.LA:
+            case AttackType.RA:
+            case AttackType.DA:
+                Enemy_AttackDetail attack = ((Enemy_AttackDetail)attackDetail);
+                StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
+                _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
+                _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
+                break;
+            
+            case AttackType.PJ:
+                Enemy_ProjectileDetail pj = ((Enemy_ProjectileDetail)attackDetail);
+                _enemyControl.currentProjectile = pj.Projectile;
+                _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
+                break;
+            
+            default:
+                break;
         }
         _anim.Play(animName);
-
-        AttackFrameInfo frameInfo = attackDetail.FrameInfo;
         StartCoroutine(SetCollider(false));
-        StartCoroutine(SetCollider(true, (frameInfo.HitFrame + 1)/ _fpsDict[animName].Item1));
-
         _enemyControl.guardDown();
-        if (attackDetail.EnemyAttackType != AttackType.PJ) {
-            _enemyControl.Invoke("enemyCounterStart", frameInfo.CounterStartFrame / _fpsDict[animName].Item1);
-            _enemyControl.Invoke("enemyCounterEnd", frameInfo.CounterEndFrame / _fpsDict[animName].Item1);
-        }
-        _enemyControl.Invoke("hitFrame", frameInfo.HitFrame / _fpsDict[animName].Item1);
+        _enemyControl.Invoke("hitFrame", attackDetail.HitFrame / _fpsDict[animName].Item1);
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
     }
 
