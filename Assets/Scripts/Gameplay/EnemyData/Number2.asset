@@ -29,8 +29,8 @@ MonoBehaviour:
   animationController: {fileID: 9100000, guid: 4468e76d3bbf36f4bb36daaf7c49fe74, type: 2}
   idle: Number2_idle
   intro: Number2_intro
-  defeated: Number2_recover
-  knockback: Number2_guard
+  defeated: Number2_ko
+  knockback: Number2_knockback
   suffer: Number2_suffer
   stun: Number2_stun
   uppered: Number2_uppered
@@ -67,15 +67,15 @@ MonoBehaviour:
     Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
   enemyPattern:
   - Name: Number2_attack_oneplus
-    percentage: 10
-    Damage: 6
+    percentage: 8
+    Damage: 5
     EnemyAttackType: 0
     HitFrame: 23
     CounterStartFrame: 20
     CounterEndFrame: 22
   - Name: Number2_attack_sword
-    percentage: 14
-    Damage: 4
+    percentage: 10
+    Damage: 3
     EnemyAttackType: 1
     HitFrame: 9
     CounterStartFrame: 5

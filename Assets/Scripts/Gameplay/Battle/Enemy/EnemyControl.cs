@@ -59,7 +59,9 @@ public class EnemyControl : MonoBehaviour
     void OnDisable()
     {
         enemy_Countered.counter_is_initialized = false;
+        CancelInvoke();
         enemyAIControl.CancelInvoke();
+        enemyCounterEnd();
     }
     
     void Update()
