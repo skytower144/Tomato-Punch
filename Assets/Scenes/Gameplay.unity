@@ -1488,8 +1488,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 162.77011, y: -22.902}
-  m_SizeDelta: {x: 96.42, y: 80.96}
+  m_AnchoredPosition: {x: 162.77011, y: -23.855988}
+  m_SizeDelta: {x: 96.42, y: 82.868}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1063206033
 MonoBehaviour:
@@ -2423,9 +2423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2014901552}
   - component: {fileID: 2014901555}
-  - component: {fileID: 2014901554}
   - component: {fileID: 2014901553}
-  - component: {fileID: 2014901556}
   m_Layer: 6
   m_Name: ParallaxBG
   m_TagString: Untagged
@@ -2479,20 +2477,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2014901554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014901551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018d56f8d59702b4da3e8c7b121d0e10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetImage: {fileID: 0}
-  rawImage: {fileID: 2014901553}
 --- !u!222 &2014901555
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2501,21 +2485,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014901551}
   m_CullTransparentMesh: 1
---- !u!114 &2014901556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014901551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2420950bb3bf7bf4a85125daee4b6f93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 2014901553}
-  _x: -0.05
-  _y: 0.05
 --- !u!1001 &2086148549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7850,9 +7819,9 @@ MonoBehaviour:
   tomato_hurt: {fileID: 384357810755073106}
   battleTimeManager: {fileID: 384357809232785338}
   featherPointManager: {fileID: 2420788721604305317}
-  shockWaveEffect: {fileID: 6604742654420866622}
   backgroundAnim: {fileID: 384357809815357312}
-  parallax: {fileID: 2014901556}
+  ShockWaveControl: {fileID: 384357809614087739}
+  parallax: {fileID: 0}
   tomatoAnim: {fileID: 384357809660484707}
   enemyAnim: {fileID: 384357809064918363}
   battleCanvas_transform: {fileID: 384357809614087741}
@@ -7867,6 +7836,12 @@ MonoBehaviour:
   missPenaltyStamina: 2
   blockPenaltyStamina: 3
   evadeBonusStamina: 5
+  <BlastShockWave>k__BackingField:
+    Duration: 0.3
+    Size: 0.1
+  <DunkShockWave>k__BackingField:
+    Duration: 0.2
+    Size: 0.1
 --- !u!4 &384357809004606581
 Transform:
   m_ObjectHideFlags: 0
@@ -9139,11 +9114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884f28d7af9bdf54089a11e029b2b262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 0}
+  enemy_Countered: {fileID: 5820148391002691455}
+  enemyAnimControl: {fileID: 384357809064918364}
+  duplicate_r: {fileID: 384357809863535612}
+  greyEffect: {fileID: 8533154929030946978}
   anim: {fileID: 384357809064918363}
   enemy_renderer: {fileID: 384357809064918362}
-  greyEffect: {fileID: 8533154929030946978}
-  duplicate_r: {fileID: 384357809863535612}
   counterBox: {fileID: 8337482528303953723}
   enemy_LA: {fileID: 1532408246453528815, guid: cd4dad395d738814882d5fb994b6e096, type: 3}
   enemy_RA: {fileID: 4425042731320507169, guid: bf90562c9f06cc74ea6b72a7736ce079, type: 3}
@@ -9163,8 +9139,6 @@ MonoBehaviour:
   staminaIcon: {fileID: 384357809837640120}
   enemyAIControl: {fileID: 384357808746844929}
   enemyHurt: {fileID: 384357810682219711}
-  enemy_Countered: {fileID: 5820148391002691455}
-  enemyAnimControl: {fileID: 384357809064918364}
   textSpawn: {fileID: 384357809665552908}
   projectileSpawnPoint: {fileID: 933909586}
   flashDuration: 0.13
@@ -17414,6 +17388,7 @@ GameObject:
   - component: {fileID: 384357809614087742}
   - component: {fileID: 384357809614087743}
   - component: {fileID: 384357809614087740}
+  - component: {fileID: 384357809614087739}
   m_Layer: 6
   m_Name: BattleCanvas
   m_TagString: Untagged
@@ -17421,6 +17396,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &384357809614087739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357809614087738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018d56f8d59702b4da3e8c7b121d0e10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 384357809815357185}
+  rawImage: {fileID: 2014901553}
 --- !u!114 &384357809614087740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18218,7 +18207,6 @@ MonoBehaviour:
   gaksung_objAnim: {fileID: 384357808855182848}
   gaksung_anim: {fileID: 384357809524014894}
   gaksung_OBJ: {fileID: 384357808855182975}
-  hitbox: {fileID: 384357810755073109}
   tomato_LP: {fileID: 9153540378895875570, guid: 0fec72aa88abccc48a3670d09d0b2f30, type: 3}
   tomato_RP: {fileID: 7716932830166677569, guid: 63909ad01d6c5c3478cab85a19d5ce73, type: 3}
   tomato_G: {fileID: 3522030292886607902}
@@ -18246,6 +18234,7 @@ MonoBehaviour:
   parryBar: {fileID: 384357809045350140}
   staminaIcon: {fileID: 384357809837640120}
   counterTrack: {fileID: 384357810723291688}
+  tomatohurt: {fileID: 384357810755073106}
   tomatodamage: {fileID: 384357809660484710}
   textSpawn: {fileID: 384357809665552908}
   flashEffect: {fileID: 8677502982703303286}
@@ -20713,6 +20702,7 @@ MonoBehaviour:
   stickSensitivity: 0.65
   holdTimer: 0.2
   intervalTime: 0.1
+  EnableDebug: 0
 --- !u!1 &384357809796248541
 GameObject:
   m_ObjectHideFlags: 0
@@ -21096,7 +21086,6 @@ GameObject:
   - component: {fileID: 384357809815357310}
   - component: {fileID: 384357809815357184}
   - component: {fileID: 384357809815357185}
-  - component: {fileID: 6604742654420866622}
   - component: {fileID: 384357809815357312}
   m_Layer: 6
   m_Name: BattleBG
@@ -34307,6 +34296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f16fa4cce16182438b957be60c0bcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 384357810755073109}
   hurtEffect: {fileID: 6591653107828056527, guid: 8291993d08dc51847a178d4ae5e2c9a1, type: 3}
   faintBurstEffect: {fileID: 2280391110547374306, guid: 7d714edae3c7dd945a93ea444ee10475, type: 3}
   tomatocontrol: {fileID: 384357809660484708}
@@ -52395,20 +52385,6 @@ RectTransform:
   m_AnchoredPosition: {x: 11, y: 171}
   m_SizeDelta: {x: 216.18, y: 190.23}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6604742654420866622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384357809815357311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018d56f8d59702b4da3e8c7b121d0e10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetImage: {fileID: 384357809815357185}
-  rawImage: {fileID: 0}
 --- !u!114 &6611915368377788151
 MonoBehaviour:
   m_ObjectHideFlags: 0

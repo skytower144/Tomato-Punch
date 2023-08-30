@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float holdTimer;
     [SerializeField] private float intervalTime;
     private float delayTimer;
+
     public bool WasHolding => holdStartTime < Time.unscaledTime;
+    public bool EnableDebug;
 
     void Awake()
     {
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
         }
 
         gm_instance = this;
+        EnableDebug = AppSettings.IsUnityEditor;
 
         resolutionMenu.SetupGraphic();
         resolutionMenu.LoadResolutionSetting();
@@ -115,7 +118,7 @@ public class GameManager : MonoBehaviour
 
         playerAnimator.SetBool("isWalking",false);
 
-        battleSystem.enemy_control._base = enemy_base;
+        battleSystem.enemy_control.LoadEnemyBaseData(enemy_base);
         battle_system.SetBg(enemy_base);
 
         player_x = playerMovement.transform.position.x;

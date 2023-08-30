@@ -141,6 +141,7 @@ public class Enemy_is_hurt : MonoBehaviour
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
+            GameManager.gm_instance.assistManager.SetIsBlast(false);
             return;
         }
 
@@ -151,6 +152,7 @@ public class Enemy_is_hurt : MonoBehaviour
             Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
+            GameManager.gm_instance.assistManager.SetIsBlast(false);
         }
     }
 

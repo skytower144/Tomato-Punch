@@ -23,10 +23,8 @@ public class EnemyHealthBar : MonoBehaviour
             INCREASE_SPEED = EqualizeSpeed();
             float increased_hp = slider.value + (INCREASE_SPEED * 1.5f) * Time.deltaTime;
 
-            if (increased_hp > slider.maxValue){
-                battleSystem.resetEnemyHealth = false;
-                checkOnce = false;
-
+            if (increased_hp >= slider.maxValue){
+                battleSystem.resetEnemyHealth = checkOnce = false;
                 increased_hp = slider.maxValue;
                 Enemy_setDamageFill();
             }

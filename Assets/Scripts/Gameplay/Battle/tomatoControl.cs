@@ -4,26 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
 
-/* DEFAULT DEBUG CODE
-    if(Input.GetKeyDown(KeyCode.T))
-    {
-        Debug.Log("isAction : " + isAction);
-        Debug.Log("isPunch : " + isPunch);
-        Debug.Log("isGatle : " + isGatle);
-        Debug.Log("isGuard : " + isGuard);
-
-        Debug.Log("isParry : " + tomatoGuard.isParry);
-        Debug.Log("isHurt : " + tomatoHurt.isTomatoHurt);
-        Debug.Log("isFainted : " + isFainted);
-
-        Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
-        Debug.Log("enemy_isParried : " + Enemy_parried.isParried);
-        Debug.Log("enemy_isCountered : " + Enemy_countered.enemy_isCountered);
-        Debug.Log("enemy_isPunched : " + Enemy_is_hurt.enemy_isPunched);
-        Debug.Log("enemy_isHit : " + Enemy_is_hurt.enemyIsHit);
-        Debug.Log("enemy_isDefeated : " + Enemy_is_hurt.enemy_isDefeated);
-    }
-*/
 public class tomatoControl : MonoBehaviour
 {
     [SerializeField] private PlayerInput tomatoInput;
@@ -31,7 +11,6 @@ public class tomatoControl : MonoBehaviour
     private GameObject _parryInstance;
     [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
     [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
-    [SerializeField] private BoxCollider2D hitbox;
     [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars, blastEffect, dunkEffect, dunkEffect2, sparkleEffect;
     [System.NonSerialized] public GameObject tempObj = null;
@@ -42,6 +21,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private CounterTrack counterTrack;
+    [SerializeField] private tomatoHurt tomatohurt;
     [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
     [SerializeField] private FlashEffect flashEffect;
@@ -67,16 +47,17 @@ public class tomatoControl : MonoBehaviour
     const string TOMATO_GUARD = "tomato_guard"; const string TOMATO_GUARDAFT = "tomato_guardAft";
     const string TOMATO_GATLING = "tomato_gatling"; const string TOMATO_GATLINGIDLE = "tomato_gatlingIdle"; const string TOMATO_GLP = "tomato_GLP"; const string TOMATO_GRP = "tomato_GRP";
     //========================================================================================================================
+    public bool IsAction => isAction;
+    public bool IsPunch => isPunch;
+    public bool GuardRelease => guardRelease;
+    public bool IsTired => isTired;
+
     private bool isAction = false;
-    
-    private bool isPunch = false; // smoothen punch input (enabling cancel)
+    private bool isPunch = false;   // smoothen punch input (enabling cancel)
+    private bool guardRelease = true;      // prevent multiple animations trying to play at a single frame (esp during animation transition)
     [System.NonSerialized] public static bool isGatle = false; 
-
     [System.NonSerialized] public static bool isGuard = false;
-
     [System.NonSerialized] public bool isMiss = false;
-    
-    private bool guardRelease;               // prevent multiple animations trying to play at a single frame (esp during animation transition)
 
     [System.NonSerialized] public static bool isIntro = true;
     [System.NonSerialized] public static bool isVictory = false;
@@ -122,6 +103,7 @@ public class tomatoControl : MonoBehaviour
 
         tomatoes = 0;
         counterTrack.CounterTracker();
+        tomatohurt.SetHitBox(true);
 
         GameManager.gm_instance.SwitchActionMap("Battle");
     }
@@ -390,7 +372,7 @@ public class tomatoControl : MonoBehaviour
     public void ReleaseGuard()
     {
         Destroy(_parryInstance);
-        hitbox.enabled = true;
+        tomatohurt.SetHitBox(true);
 
         guardRelease = true;
         
@@ -417,7 +399,7 @@ public class tomatoControl : MonoBehaviour
     {
         if(!tomatoHurt.isTomatoHurt)
         {
-            hitbox.enabled = false;
+            tomatohurt.SetHitBox(false);
             _parryInstance = Instantiate (tomato_PRY, Parent);
             Invoke("parryDeactivate",0.05f);
         }
@@ -427,7 +409,7 @@ public class tomatoControl : MonoBehaviour
     {
         Destroy(_parryInstance);
         if(!Enemy_parried.isParried) {
-            hitbox.enabled = true;
+            tomatohurt.SetHitBox(true);
         }
     }
 
@@ -443,7 +425,7 @@ public class tomatoControl : MonoBehaviour
     void endGatle()
     {
         BattleUI_Control.stopGatle = false;
-        hitbox.enabled = true;
+        tomatohurt.SetHitBox(true);
     }
 
     void gatlingPunch()
@@ -490,7 +472,7 @@ public class tomatoControl : MonoBehaviour
         BattleUI_Control.stopGatle = false;
         gatleButton_once = false;
 
-        hitbox.enabled = true;
+        tomatohurt.SetHitBox(true);
     }
     void enemy_Uppered()
     {
@@ -545,10 +527,21 @@ public class tomatoControl : MonoBehaviour
         tomatoAnimator.Play("tomato_victory_idle",-1,0f);
     }
 
+    void DisableHitBox()
+    {
+        tomatohurt.SetHitBox(false);
+    }
+
+    void EnableHitBox()
+    {
+        tomatohurt.SetHitBox(true);
+    }
+
     void spawnFaintStars()
     {
         Invoke("createStars", 0.8f);
     }
+
     private void createStars()
     {
         tempObj = Instantiate(faintStars, transform);
@@ -584,14 +577,14 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (dunkEffect);
         Instantiate (dunkEffect2);
-        battleSystem.shockWaveEffect.CallShockWave(0.2f, 0.1f);
+        battleSystem.ShockWaveControl.CallShockWave(battleSystem.DunkShockWave.Duration, battleSystem.DunkShockWave.Size);
     }
 
     public void BlastEffect()
     {
         Instantiate (blastEffect);
         Instantiate (upper_hitef, new Vector2 (transform.position.x + 0.7f, transform.position.y - 0.5f), Quaternion.identity);
-        battleSystem.shockWaveEffect.CallShockWave(0.3f, 0.1f);
+        battleSystem.ShockWaveControl.CallShockWave(battleSystem.BlastShockWave.Duration, battleSystem.BlastShockWave.Size);
     }
 
     public bool CheckAnimationState(string animation_string)

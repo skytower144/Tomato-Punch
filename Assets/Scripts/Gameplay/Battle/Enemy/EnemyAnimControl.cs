@@ -45,6 +45,7 @@ public class EnemyAnimControl : MonoBehaviour
 
     public void Idle(string animName, bool noDelay = true)
     {
+        _enemyControl.disableBools();
         if (noDelay) _anim.Play(animName, -1, 0f);
         else _anim.Play(animName);
         StartCoroutine(SetCollider(true));
@@ -91,6 +92,7 @@ public class EnemyAnimControl : MonoBehaviour
                 return;
             
             case BattleActType.Uppered:
+                StartCoroutine(_enemyControl.duplicate_r.BlinkEffect(4, 0.02f));
                 _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
                 break;
             
@@ -180,8 +182,8 @@ public class EnemyAnimControl : MonoBehaviour
 }
 
 public enum BattleActType {
-    None, Intro, Defeated, Knockback, Suffer,
-    Stun, Uppered, Recover, Guard, Hurt,
-    Wait, ReEngage, Victory, Blast, Bounce,
-    Dunk
+    None,
+    Intro,      Defeated,   Knockback,  Suffer, Stun,
+    Uppered,    Recover,    Guard,      Hurt,   Wait,
+    ReEngage,   Victory,    Blast,      Bounce, Dunk
 }

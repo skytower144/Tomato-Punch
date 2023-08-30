@@ -332,12 +332,12 @@ public class DialogueManager : MonoBehaviour
 
                 case BATTLE_TAG:
                     dialogueExit = DialogueExit.Battle;
-                    GameManager.gm_instance.battle_system.enemy_control._base = currentNpc.enemyData;
+                    GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(currentNpc.enemyData);
                     break;
 
                 case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut
                     dialogueExit = DialogueExit.Battle;
-                    GameManager.gm_instance.battle_system.enemy_control._base = NPCManager.instance.npc_dict[tag_value].enemyData;
+                    GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(NPCManager.instance.npc_dict[tag_value].enemyData);
                     break;
 
                 case PURCHASE_TAG: // #purchase:Milk Bottle@0 // #purchase:Donut@0@3 // ItemName@price@_amount

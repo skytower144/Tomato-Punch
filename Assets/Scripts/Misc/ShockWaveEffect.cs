@@ -43,3 +43,9 @@ public class ShockWaveEffect : MonoBehaviour
         mat.SetFloat(_size, 0);
     }
 }
+
+[System.Serializable]
+public class ShockWaveInfo
+{
+    public float Duration, Size;
+}

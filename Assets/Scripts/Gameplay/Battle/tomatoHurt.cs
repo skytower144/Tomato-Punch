@@ -6,6 +6,7 @@ public class tomatoHurt : MonoBehaviour
 {
     private Animator anim;
     [System.NonSerialized] static public bool isTomatoHurt = false;
+    [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private GameObject hurtEffect, faintBurstEffect;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoGuard tomatoguard;
@@ -72,5 +73,10 @@ public class tomatoHurt : MonoBehaviour
         }
 
         GameManager.gm_instance.battle_system.featherPointManager.ResetFeather();
+    }
+
+    public void SetHitBox(bool state)
+    {
+        _collider.enabled = state;
     }
 }

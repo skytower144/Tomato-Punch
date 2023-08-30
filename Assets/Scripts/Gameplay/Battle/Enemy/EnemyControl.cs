@@ -6,14 +6,19 @@ using DG.Tweening;
 
 public class EnemyControl : MonoBehaviour
 {
-    [HideInInspector] public EnemyBase _base;
+    public EnemyBase _base { get; private set; }
+    public Enemy_countered enemy_Countered;
+    public EnemyAnimControl enemyAnimControl;
+    public DuplicateRenderer duplicate_r;
 
-    [SerializeField] private Animator anim; public Animator enemyAnim => anim;
-    [SerializeField] private SpriteRenderer enemy_renderer; public SpriteRenderer enemyRenderer => enemy_renderer;
-    private Material matDefault; public Material mat_default => matDefault;
+    public Enemy_is_hurt enemy_hurt => enemyHurt;
+    public Animator enemyAnim => anim;
+    public Material mat_default => matDefault;
+    public SpriteRenderer enemyRenderer => enemy_renderer;
 
     [SerializeField] private EnemyGreyEffect greyEffect;
-    [SerializeField] private DuplicateRenderer duplicate_r;
+    [SerializeField] private Animator anim; 
+    [SerializeField] private SpriteRenderer enemy_renderer;
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
@@ -24,10 +29,8 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyAIControl enemyAIControl;
     [SerializeField] private Enemy_is_hurt enemyHurt;
-    public Enemy_is_hurt enemy_hurt => enemyHurt;
-    public Enemy_countered enemy_Countered;
-    public EnemyAnimControl enemyAnimControl;
     [SerializeField] private TextSpawn textSpawn;
+    private Material matDefault;
 
     [System.NonSerialized] public static bool isPhysical = true;
     [System.NonSerialized] public bool action_afterSuffer = false;
@@ -36,9 +39,9 @@ public class EnemyControl : MonoBehaviour
     [System.NonSerialized] public bool isDunked = false;
 
     [System.NonSerialized] public AttackType attackType;
+    [System.NonSerialized] public GameObject currentProjectile = null;
 
     [SerializeField] private Transform projectileSpawnPoint;
-    [System.NonSerialized] public GameObject currentProjectile = null;
     [SerializeField] private float flashDuration, hitFlashDuration;
     
     public static int totalParry = 0;
@@ -47,6 +50,8 @@ public class EnemyControl : MonoBehaviour
     void OnEnable()
     {
         disableBools();
+        action_afterSuffer = false;
+        GameManager.gm_instance.assistManager.SetIsBlast(false);
 
         matDefault = enemy_renderer.material;
         anim.runtimeAnimatorController = _base.AnimationController;
@@ -156,6 +161,7 @@ public class EnemyControl : MonoBehaviour
             new Enemy_AttackDetail(_base.Idle_AnimationString, 100 - sumPercentage, 0, AttackType.NEUTRAL)
         );
         enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
+        GameManager.DoDebug($"Enemy idle percent : {100 - sumPercentage}%");
     }
 
     public void enemyIntroOver()
@@ -346,18 +352,17 @@ public class EnemyControl : MonoBehaviour
             Destroy(projectile.gameObject);
     }
 
-    void disableBools()
+    public void disableBools()
     {
         Enemy_is_hurt.enemy_isPunched = false;
         Enemy_is_hurt.enemy_isDefeated = false;
+        Enemy_is_hurt.enemyIsHit = false;
         Enemy_countered.enemy_isCountered = false;
         Enemy_parried.isParried = false;
         tomatocontrol.enemy_supered = false;
         enemy_supered = false;
         canDunk = false;
         isDunked = false;
-        
-        action_afterSuffer = false;
     }
 
     public void guardDown() // apply to all enemy attack animations' first frame
@@ -423,5 +428,10 @@ public class EnemyControl : MonoBehaviour
         {
             Destroy(attack.gameObject);
         }
+    }
+
+    public void LoadEnemyBaseData(EnemyBase enemyBase)
+    {
+        _base = enemyBase;
     }
 }

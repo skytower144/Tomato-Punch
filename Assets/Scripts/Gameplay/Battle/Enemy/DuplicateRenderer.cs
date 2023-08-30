@@ -8,6 +8,7 @@ public class DuplicateRenderer : MonoBehaviour
     [SerializeField] private Material matYellow, matWhite;
     private float flashSpeed;
     private bool stopFlash = true;
+    public bool StopFlash => stopFlash;
 
     void Update()
     {
@@ -21,12 +22,24 @@ public class DuplicateRenderer : MonoBehaviour
         }
     }
 
+    public IEnumerator BlinkEffect(int repeat, float interval)
+    {
+        for (int i = 0; i < repeat; i++) {
+            enemy_sr.material = matWhite;
+            yield return new WaitForSecondsRealtime(interval);
+            enemy_sr.material  = GameManager.gm_instance.battle_system.enemy_control.mat_default;
+            yield return new WaitForSecondsRealtime(interval);
+        }
+        yield break;
+    }
+
     public void FlashEffect(float duration, int mat_type)
     {
         flashSpeed = (1 - duration) * 0.001f;
         enemy_sr.material = mat_type == 0 ? matWhite : matYellow;
         stopFlash = false;
         gameObject.SetActive(true);
+        enemy_sr.color = Color.white;
         
         StartCoroutine(ResetFlash(duration));
     }

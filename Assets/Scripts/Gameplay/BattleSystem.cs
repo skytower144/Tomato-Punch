@@ -18,8 +18,8 @@ public class BattleSystem : MonoBehaviour
     public tomatoHurt tomato_hurt;
     public BattleTimeManager battleTimeManager;
     public FeatherPoints featherPointManager;
-    public ShockWaveEffect shockWaveEffect;
     public BackgroundAnimator backgroundAnim;
+    public ShockWaveEffect ShockWaveControl;
     public BackgroundParallax parallax;
     
     [SerializeField] private Animator tomatoAnim, enemyAnim;
@@ -34,16 +34,16 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private int blockPenaltyStamina; public int blockStamina => blockPenaltyStamina;
     [SerializeField] private int evadeBonusStamina; public int evadeStamina => evadeBonusStamina;
 
-    [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
+    [field: SerializeField] public ShockWaveInfo BlastShockWave { get; private set; }
+    [field: SerializeField] public ShockWaveInfo DunkShockWave { get; private set; }
 
+    [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
     private GameObject tempObj;
-    private bool enableDebug;
 
     void Start()
     {
         resetPlayerHealth = false;
         resetEnemyHealth = false;
-        enableDebug = AppSettings.IsUnityEditor;
     }
 
     void OnEnable()
@@ -59,7 +59,7 @@ public class BattleSystem : MonoBehaviour
 
     void Update()
     {
-        debug_funtions();
+        DebugBools.DebugFunctions();
     }
 
     public void ExitBattle(bool isVictory)
@@ -81,9 +81,9 @@ public class BattleSystem : MonoBehaviour
             fixedBg.gameObject.SetActive(true);
         }
         if (enemyBase.isParallaxBg) {
-            parallaxBg.texture = enemyBase.bgTexture;
-            parallax.SetParallaxDirection(enemyBase.parallaxDirection);
-            parallaxBg.gameObject.SetActive(true);
+            // parallaxBg.texture = enemyBase.bgTexture;
+            // parallax.SetParallaxDirection(enemyBase.parallaxDirection);
+            // parallaxBg.gameObject.SetActive(true);
         }
     }
 
@@ -166,22 +166,4 @@ public class BattleSystem : MonoBehaviour
     {
         return tomatocontrol.PressKey(moveName);
     }
-
-    // DEBUG ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void debug_funtions()
-    {
-        if (!enableDebug) return;
-
-        // Kill Mato
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            tomato_hurt.TakeDamage(5000); 
-        }
-
-        // Kill Enemy
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            enemyControl.enemy_hurt.enemyHurtDamage(5000);
-            enemyControl.enemy_hurt.checkDefeat();
-        }
-    }
-    // DEBUG ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
