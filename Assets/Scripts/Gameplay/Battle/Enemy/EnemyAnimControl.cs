@@ -67,6 +67,7 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Guard:
+                GameManager.gm_instance.assistManager.SetIsBlast(false);
                 StartCoroutine(SetCollider(true));
                 _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
                 return;
@@ -106,6 +107,7 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Blast:
+                GameManager.gm_instance.assistManager.SetIsBlast(false);
                 _enemyControl.CancelCounterState();
                 _enemyControl.WallHitEffect();
                 _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
