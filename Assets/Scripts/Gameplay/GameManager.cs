@@ -204,8 +204,8 @@ public class GameManager : MonoBehaviour
         var cur_gamepad = Gamepad.current;
         string gamepadName = "";
 
-        if (cur_gamepad != null)
-            gamepadName = cur_gamepad.name.ToLower();
+        if (cur_gamepad != null) gamepadName = cur_gamepad.name.ToLower();
+        else return;
 
         if (gamepadName.Contains("xinput") || gamepadName.Contains("xbox") )
             gamepadType = 1;
@@ -225,18 +225,24 @@ public class GameManager : MonoBehaviour
             rebind_key.ExitBind();
             return;
         }
-        
-        if (device is Gamepad) DetermineKeyOrPad();
+        DetermineKeyOrPad();
     }
 
     public void DetermineKeyOrPad()
     {
+        if (gameObject.activeSelf)
+            StartCoroutine(DelayDetermine());
+    }
+
+    public IEnumerator DelayDetermine()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
         joystickNames = Input.GetJoystickNames();
 
         if (joystickNames.Length == 0){ // preventing index error
             uiControl.UI_Update(true); // true => Activate Keyboard
             gamepadType = 0;
-            return;
+            yield break;
         }
         
         if (IsGamepad()) {

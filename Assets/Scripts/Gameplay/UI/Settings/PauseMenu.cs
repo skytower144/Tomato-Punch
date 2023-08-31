@@ -32,7 +32,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         NormalizeText();
-        gameManager.DetermineKeyOrPad();
     }
     void Update()
     {
