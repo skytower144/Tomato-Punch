@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class ShockWaveEffect : MonoBehaviour
 {
-    [SerializeField] private Image targetImage;
-    [SerializeField] private RawImage rawImage;
-
     private float shockWaveTime;
-    private Material mat;
+    [SerializeField] private Material mat;
     private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
     private static int _size = Shader.PropertyToID("_Size");
-
-    void Start()
-    {
-        mat = targetImage ? targetImage.material : rawImage.material;
-    }
 
     public void CallShockWave(float duration, float size)
     {

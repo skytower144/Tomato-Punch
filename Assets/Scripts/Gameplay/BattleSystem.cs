@@ -81,9 +81,9 @@ public class BattleSystem : MonoBehaviour
             fixedBg.gameObject.SetActive(true);
         }
         if (enemyBase.isParallaxBg) {
-            // parallaxBg.texture = enemyBase.bgTexture;
-            // parallax.SetParallaxDirection(enemyBase.parallaxDirection);
-            // parallaxBg.gameObject.SetActive(true);
+            parallaxBg.texture = enemyBase.bgTexture;
+            parallax.SetParallaxDirection(enemyBase.parallaxDirection);
+            parallaxBg.gameObject.SetActive(true);
         }
     }
 

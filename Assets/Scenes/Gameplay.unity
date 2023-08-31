@@ -2424,6 +2424,7 @@ GameObject:
   - component: {fileID: 2014901552}
   - component: {fileID: 2014901555}
   - component: {fileID: 2014901553}
+  - component: {fileID: 2014901554}
   m_Layer: 6
   m_Name: ParallaxBG
   m_TagString: Untagged
@@ -2477,6 +2478,21 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &2014901554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014901551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2420950bb3bf7bf4a85125daee4b6f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2014901553}
+  _x: 0.05
+  _y: -0.05
 --- !u!222 &2014901555
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7821,7 +7837,7 @@ MonoBehaviour:
   featherPointManager: {fileID: 2420788721604305317}
   backgroundAnim: {fileID: 384357809815357312}
   ShockWaveControl: {fileID: 384357809614087739}
-  parallax: {fileID: 0}
+  parallax: {fileID: 2014901554}
   tomatoAnim: {fileID: 384357809660484707}
   enemyAnim: {fileID: 384357809064918363}
   battleCanvas_transform: {fileID: 384357809614087741}
@@ -17408,8 +17424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018d56f8d59702b4da3e8c7b121d0e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetImage: {fileID: 384357809815357185}
-  rawImage: {fileID: 2014901553}
+  mat: {fileID: 2100000, guid: a5ff161ec47767d46aa04f3bba329b3e, type: 2}
 --- !u!114 &384357809614087740
 MonoBehaviour:
   m_ObjectHideFlags: 0

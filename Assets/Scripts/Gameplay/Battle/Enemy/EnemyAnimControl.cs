@@ -118,6 +118,7 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Dunk:
+                StartCoroutine(_enemyControl.duplicate_r.BlinkEffect(6, 0.02f));
                 _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
                 break;

@@ -40,6 +40,7 @@ public class TextSpawn : MonoBehaviour
             miss.transform.position = randomPosition;
 
             decreaseStamina();
+            GameManager.gm_instance.assistManager.SetIsBlast(false);
             tomatocontrol.isMiss = false;
         }
     }
