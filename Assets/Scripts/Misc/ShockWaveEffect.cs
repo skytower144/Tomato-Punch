@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ShockWaveEffect : MonoBehaviour
 {
-    private float shockWaveTime;
     [SerializeField] private Material mat;
     private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
     private static int _waveStrength = Shader.PropertyToID("_ShockWaveStrength");
     private static int _size = Shader.PropertyToID("_Size");
+    private float shockWaveTime;
     private float _cacheSize;
 
     public void CallShockWave(float duration, float size, float strength)
     {
+        GameManager.gm_instance.battle_system.parallax.enabled = false;
         _cacheSize = size;
         shockWaveTime = duration;
         mat.SetFloat(_size, size);
@@ -42,6 +43,7 @@ public class ShockWaveEffect : MonoBehaviour
             yield return null;
         }
         ResetMat();
+        GameManager.gm_instance.battle_system.parallax.enabled = true;
     }
 
     public void ResetMat()

@@ -6,7 +6,7 @@ public class BackgroundParallax : MonoBehaviour
     [SerializeField] private RawImage _image;
     [SerializeField] private float _x, _y;
 
-    void Update()
+    void FixedUpdate()
     {
         _image.uvRect = new Rect(_image.uvRect.position + Time.deltaTime * new Vector2(_x,_y) , _image.uvRect.size);
     }
