@@ -101,13 +101,13 @@ public class LocationPortal : MonoBehaviour, Interactable
     }
     IEnumerator DelayEnter(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         FadeAndTeleport();
     }
 
     IEnumerator ManageScenes(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         player_movement.current_portalID = portal_id;
 
         foreach (SceneDetails target_scene in SceneControl.instance.sceneDict.Values)

@@ -67,7 +67,7 @@ public class TypeEffect : MonoBehaviour
             messageText.maxVisibleCharacters++;
 
         index++;
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(inputInterval));
+        yield return WaitForCache.GetWaitForSecondReal(inputInterval);
 
         //Recursive
         StartCoroutine(Effecting(interval));

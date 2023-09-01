@@ -9,20 +9,23 @@ public class EnemyGreyEffect : MonoBehaviour
     [SerializeField] private Color greyedColor;
     [SerializeField] private float interval;
     [System.NonSerialized] public bool isGreyed = false;
+    private WaitForSecondsRealtime _greyInterval;
 
     void Start()
     {
         sr = GameManager.gm_instance.battle_system.enemy_control.enemyRenderer;
         dr = GameManager.gm_instance.battle_system.enemy_control.duplicate_r;
+
+        _greyInterval = new WaitForSecondsRealtime(interval);
     }
     
     IEnumerator GreyEffect()
     {
         while (isGreyed) {
             if (dr.StopFlash) sr.color = greyedColor;
-            yield return new WaitForSecondsRealtime(interval);
+            yield return _greyInterval;
             sr.color = Color.white;
-            yield return new WaitForSecondsRealtime(interval);
+            yield return _greyInterval;
         }
     }
 

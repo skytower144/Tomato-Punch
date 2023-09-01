@@ -32,7 +32,7 @@ public class FlashEffect : MonoBehaviour
     private IEnumerator FlashRoutine()
     {
         spriteRenderer.material = flashMaterial;
-        yield return new WaitForSeconds(duration);
+        yield return WaitForCache.GetWaitForSecond(duration);
         spriteRenderer.material = originalMaterial;
 
         flashRoutine = null;

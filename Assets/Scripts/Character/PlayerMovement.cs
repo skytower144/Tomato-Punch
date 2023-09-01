@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour, Character
 
     IEnumerator IsInteracting(float interval)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(interval));
+        yield return WaitForCache.GetWaitForSecondReal(interval);
         isInteracting = !isInteracting;
         myAnim.SetBool("isWalking",false);
     }
@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour, Character
 
     public IEnumerator DelayFaceAdjustment(string direction, float delay)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
+        yield return WaitForCache.GetWaitForSecondReal(delay);
         CutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 

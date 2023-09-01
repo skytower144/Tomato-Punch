@@ -11,10 +11,11 @@ public class WanderBehaviour : MonoBehaviour
     [SerializeField] private string idleAnimationTag, movingAnimationTag, randomBehaviourTag;
     private Animator anim;
     private Vector2 wayPoint;
+    private WaitForSeconds _restDelay;
     private float range = 0.5f;
     private float timeRemaining;
     private bool isResting, stopWander;
-    
+
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class WanderBehaviour : MonoBehaviour
         anim.Play(movingAnimationTag, -1, 0f);
 
         timeRemaining = timer;
+        _restDelay = new WaitForSeconds(restingTime);
     }
 
     void OnEnable()
@@ -66,7 +68,7 @@ public class WanderBehaviour : MonoBehaviour
         isResting = true;
 
         anim.Play(idleAnimationTag, -1, 0f);
-        yield return new WaitForSeconds(restingTime);
+        yield return _restDelay;
         yield return RandomBehaviour();
 
         isResting = false;
@@ -84,10 +86,10 @@ public class WanderBehaviour : MonoBehaviour
         if(Random.value > 0.6)
         {
             anim.Play(randomBehaviourTag, -1, 0f);
-            yield return new WaitForSeconds(1f);
+            yield return WaitForCache.WaitSeconds1;
             
             anim.Play(idleAnimationTag, -1, 0f);
-            yield return new WaitForSeconds(1f);
+            yield return WaitForCache.WaitSeconds1;;
         }
         yield break;
     }

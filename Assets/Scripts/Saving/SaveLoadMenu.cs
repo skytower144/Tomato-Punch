@@ -370,7 +370,7 @@ public class SaveLoadMenu : MonoBehaviour
 
         ProgressManager.instance.item_total.SetActive(false);
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return WaitForCache.GetWaitForSecondReal(0.5f);
 
         if (TitleScreen.isTitleScreen)
             EssentialObjects.instance.RestorePortablePosition(ProceedLoad_1, startNewGame); // Normalize hierarchy

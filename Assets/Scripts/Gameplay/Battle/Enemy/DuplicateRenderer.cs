@@ -26,9 +26,9 @@ public class DuplicateRenderer : MonoBehaviour
     {
         for (int i = 0; i < repeat; i++) {
             enemy_sr.material = matWhite;
-            yield return new WaitForSecondsRealtime(interval);
+            yield return WaitForCache.GetWaitForSecondReal(interval);
             enemy_sr.material  = GameManager.gm_instance.battle_system.enemy_control.mat_default;
-            yield return new WaitForSecondsRealtime(interval);
+            yield return WaitForCache.GetWaitForSecondReal(interval);
         }
         yield break;
     }
@@ -45,7 +45,7 @@ public class DuplicateRenderer : MonoBehaviour
     }
     IEnumerator ResetFlash(float delay)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(delay));
+        yield return WaitForCache.GetWaitForSecondReal(delay);
 
         enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
         d_sr.sprite = null;

@@ -256,7 +256,7 @@ public class EnemyControl : MonoBehaviour
 
     IEnumerator WallHitCameraRumble()
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.02f));
+        yield return WaitForCache.GetWaitForSecondReal(0.02f);
         DOTween.Rewind("CameraBlast");
         DOTween.Play("CameraBlast");
     }
@@ -386,7 +386,7 @@ public class EnemyControl : MonoBehaviour
                 DOTween.Rewind("ShakeEnemy");
                 DOTween.Play("ShakeEnemy");
 
-                yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.8f));
+                yield return WaitForCache.GetWaitForSecondReal(0.8f);
                 DOTween.Pause("ShakeEnemy");
                 transform.localPosition = new Vector2(0, 0);
                 anim.enabled = true;

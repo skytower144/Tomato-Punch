@@ -12,11 +12,13 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private bool flip_car;
     private float spawnWait;
     private bool start_spawn_cars;
+    private WaitForSeconds _spawnDelay;
 
     void OnEnable()
     {
         start_spawn_cars = true;
         StartCoroutine(SpawnCar());
+        _spawnDelay = new WaitForSeconds(spawnWait);
     }
 
     private IEnumerator SpawnCar()
@@ -37,7 +39,7 @@ public class CarSpawner : MonoBehaviour
             if (flip_car)
                 car.transform.Rotate(new Vector3(0, 180, 0));
 
-            yield return new WaitForSeconds(spawnWait);
+            yield return _spawnDelay;
         }
     }
 

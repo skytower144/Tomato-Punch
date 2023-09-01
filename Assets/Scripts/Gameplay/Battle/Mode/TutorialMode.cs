@@ -142,7 +142,7 @@ public class TutorialMode : MonoBehaviour
             DisplayControlGuide("Guard");
             yield return Play("Tutorial_Guard");
 
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1f));
+            yield return WaitForCache.GetWaitForSecondReal(1f);
 
             PressButtonAnimation();
             DisplayControlGuide2("RightPunch");
@@ -174,10 +174,10 @@ public class TutorialMode : MonoBehaviour
         gm.battle_system.tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
 
         Play("Tutorial_Finish");
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.3f));
+        yield return WaitForCache.GetWaitForSecondReal(0.3f);
         Play("Tutorial_Finish_Idle");
 
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(1.5f));
+        yield return WaitForCache.GetWaitForSecondReal(1.5f);
 
         gm.battle_system.ExitBattle(true);
         yield break;

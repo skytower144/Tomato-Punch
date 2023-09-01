@@ -34,6 +34,7 @@ public class EnemyAnimControl : MonoBehaviour
     void OnDisable()
     {
         _fpsDict.Clear();
+        WaitForCache.WaitDict.Clear();
     }
 
     public void InitFrameDict(Animator anim)
@@ -177,7 +178,7 @@ public class EnemyAnimControl : MonoBehaviour
 
     IEnumerator SetCollider(bool state, float wait = 0f)
     {
-        yield return new WaitForSeconds(wait);
+        yield return WaitForCache.GetWaitForSecond(wait);
         
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;

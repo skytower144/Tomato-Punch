@@ -44,12 +44,13 @@ public class GameManager : MonoBehaviour
     private float player_x, player_y;
 
     public int gamepadType;
-    private string[] joystickNames;
     public float stickSensitivity;
     [System.NonSerialized] public float holdStartTime = float.MaxValue;
     [SerializeField] private float holdTimer;
     [SerializeField] private float intervalTime;
+    private string[] joystickNames;
     private float delayTimer;
+    
 
     public bool WasHolding => holdStartTime < Time.unscaledTime;
     public bool EnableDebug;
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return WaitForCache.WaitSeconds1_5;
 
         mainCamera.gameObject.SetActive(false);
         gameState = GameState.Battle;
@@ -148,7 +149,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BattleExit_Wait(bool isVictory)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return WaitForCache.WaitSeconds1_5;
 
         foreach (GameObject level_holder in levelHolder) {
             level_holder.SetActive(true);
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
 
             // Talk to currently facing NPC
             if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk))) {
-                yield return new WaitForSeconds(0.5f);
+                yield return WaitForCache.WaitSeconds0_5;
                 DialogueManager.instance.SetIsContinueTalkBool(false);
                 PlayerMovement.instance.PlayerInteract();
             }
@@ -236,7 +237,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DelayDetermine()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return WaitForCache.GetWaitForSecondReal(0.5f);
         joystickNames = Input.GetJoystickNames();
 
         if (joystickNames.Length == 0){ // preventing index error
