@@ -577,14 +577,14 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (dunkEffect);
         Instantiate (dunkEffect2);
-        battleSystem.ShockWaveControl.CallShockWave(battleSystem.DunkShockWave.Duration, battleSystem.DunkShockWave.Size);
+        battleSystem.ShockWaveControl.CallShockWave(battleSystem.DunkShockWave.Duration, battleSystem.DunkShockWave.Size, battleSystem.DunkShockWave.Size);
     }
 
     public void BlastEffect()
     {
         Instantiate (blastEffect);
         Instantiate (upper_hitef, new Vector2 (transform.position.x + 0.7f, transform.position.y - 0.5f), Quaternion.identity);
-        battleSystem.ShockWaveControl.CallShockWave(battleSystem.BlastShockWave.Duration, battleSystem.BlastShockWave.Size);
+        battleSystem.ShockWaveControl.CallShockWave(battleSystem.BlastShockWave.Duration, battleSystem.BlastShockWave.Size, battleSystem.BlastShockWave.Size);
     }
 
     public bool CheckAnimationState(string animation_string)

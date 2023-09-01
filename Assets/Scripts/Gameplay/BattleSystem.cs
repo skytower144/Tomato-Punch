@@ -49,6 +49,7 @@ public class BattleSystem : MonoBehaviour
     void OnEnable()
     {
         Instantiate(battle_initiate_fade);
+        ShockWaveControl.ResetMat();
     }
 
     void OnDisable()

@@ -7,12 +7,16 @@ public class ShockWaveEffect : MonoBehaviour
     private float shockWaveTime;
     [SerializeField] private Material mat;
     private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
+    private static int _waveStrength = Shader.PropertyToID("_ShockWaveStrength");
     private static int _size = Shader.PropertyToID("_Size");
+    private float _cacheSize;
 
-    public void CallShockWave(float duration, float size)
+    public void CallShockWave(float duration, float size, float strength)
     {
+        _cacheSize = size;
         shockWaveTime = duration;
         mat.SetFloat(_size, size);
+        mat.SetFloat(_waveDistanceFromCenter, strength);
         StartCoroutine(ShockWaveAction());
     }
 
@@ -32,6 +36,16 @@ public class ShockWaveEffect : MonoBehaviour
 
             yield return null;
         }
+        while (_cacheSize > 0) {
+            _cacheSize -= 0.01f;
+            mat.SetFloat(_size, _cacheSize);
+            yield return null;
+        }
+        ResetMat();
+    }
+
+    public void ResetMat()
+    {
         mat.SetFloat(_size, 0);
     }
 }
@@ -39,5 +53,5 @@ public class ShockWaveEffect : MonoBehaviour
 [System.Serializable]
 public class ShockWaveInfo
 {
-    public float Duration, Size;
+    public float Duration, Size, Strength;
 }
