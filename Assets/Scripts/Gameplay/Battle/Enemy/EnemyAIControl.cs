@@ -55,7 +55,7 @@ public class EnemyAIControl : MonoBehaviour
             else if (ShouldActivate())
             {
                 //Debug.Log($"Proceeding Action | Idle Count : {idleCount}");
-                int randomPercent = Random.Range(0, 101);
+                int randomPercent = Random.Range(1, 101);
                 int sumPercent = 0;
 
                 for (int i = 0; i < pattern_list.Count; i++)
@@ -66,8 +66,8 @@ public class EnemyAIControl : MonoBehaviour
                         EnemyActDetail selectedMove = pattern_list[i];
                         
                         if (OverMaxIdleCount(selectedMove)) {
-                            //Debug.Log("=== Forcing Enemy Action! ===");
-                            EnemyMove(pattern_list[(Random.Range(1, pattern_list.Count))]);
+                            //Debug.Log("=== Forcing Enemy Action. ===");
+                            EnemyMove(pattern_list[(Random.Range(0, pattern_list.Count - 2))]);
                             return;
                         }
                         EnemyMove(selectedMove);

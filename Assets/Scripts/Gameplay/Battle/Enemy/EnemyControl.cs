@@ -133,6 +133,14 @@ public class EnemyControl : MonoBehaviour
         List<EnemyActDetail> deepCopiedPatterns = new List<EnemyActDetail>();
         int sumPercentage = 0;
 
+        foreach (Enemy_NeutralDetail readingPattern in _base.EnemyNeutralPattern) {
+            deepCopiedPatterns.Add(
+                new Enemy_NeutralDetail(
+                    readingPattern.Name,
+                    readingPattern.percentage
+            ));
+            sumPercentage += readingPattern.percentage;
+        }
         foreach (Enemy_AttackDetail readingPattern in _base.EnemyPattern) {
             deepCopiedPatterns.Add(
                 new Enemy_AttackDetail(
@@ -154,9 +162,7 @@ public class EnemyControl : MonoBehaviour
         if (sumPercentage >= 100)
             Debug.LogError($"Enemy total action percentage error : {sumPercentage}");
         
-        EnemyActDetail idle = new EnemyActDetail();
-        idle.Init(_base.Idle_AnimationString, 100 - sumPercentage);
-        deepCopiedPatterns.Add(idle);
+        deepCopiedPatterns.Add(new Enemy_IdleDetail(_base.Idle_AnimationString, 100 - sumPercentage));
         
         enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
         GameManager.DoDebug($"Enemy idle percent : {100 - sumPercentage}%");

@@ -7,14 +7,31 @@ public class EnemyActDetail
 {
     public string Name;
     public int percentage;
+    // [TextArea(1,1)] public string LinkedMove; 
     public bool PhysicalAttack => (this is Enemy_AttackDetail);
+}
 
-    public void Init(string Name, int percentage)
+[System.Serializable]
+public class Enemy_IdleDetail : EnemyActDetail
+{
+    public Enemy_IdleDetail(string Name, int percentage)
     {
         this.Name = Name;
         this.percentage = percentage;
     }
 }
+
+
+[System.Serializable]
+public class Enemy_NeutralDetail : EnemyActDetail
+{
+    public Enemy_NeutralDetail(string Name, int percentage)
+    {
+        this.Name = Name;
+        this.percentage = percentage;
+    }
+}
+
 
 [System.Serializable]
 public class Enemy_AttackDetail : EnemyActDetail
@@ -62,6 +79,5 @@ public class ProjectileAttackFrame : DamageFrame
     public int SpawnFrame;
     public GameObject Projectile;
 }
-
 
 public enum AttackType { LA, RA, DA, PJ }

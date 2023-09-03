@@ -26,6 +26,7 @@ public class EnemyBase : ScriptableObject
     public ChiliAnimInfo chiliInfo;
     // Add more super info
 
+    [SerializeField] private List <Enemy_NeutralDetail> neutralPattern;
     [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List <Enemy_AttackDetail> enemyPattern;
     [SerializeField] private List <RewardDetail> itemReward;
@@ -121,6 +122,11 @@ public class EnemyBase : ScriptableObject
     public List<string> HurtAnimList
     {
         get { return otherHurtAnim.Concat(new List<string> {hurtL, hurtR}).ToList(); }
+    }
+
+    public List<Enemy_NeutralDetail> EnemyNeutralPattern
+    {
+        get { return neutralPattern; }
     }
 
     public List<Enemy_AttackDetail> EnemyPattern

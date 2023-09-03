@@ -134,15 +134,14 @@ public class EnemyAnimControl : MonoBehaviour
     {
         string animName = actDetail.Name;
 
-        if (IsIdleAct(actDetail)) {
+        if (actDetail is Enemy_IdleDetail) {
             Idle(animName, false);
             return;
         }
-        /*
-        if (actDetail is Enemy_NeutralDetail) {
-            do something
+        else if (actDetail is Enemy_NeutralDetail) {
+            // do something
+            return;
         }
-        */
 
         foreach (DamageFrame frame in _enemyControl.TotalDamageFrames) {
             switch (frame.EnemyAttackType) {
@@ -186,10 +185,6 @@ public class EnemyAnimControl : MonoBehaviour
         _collider.enabled = state;
     }
 
-    private bool IsIdleAct(EnemyActDetail actDetail)
-    {
-        return !(actDetail is Enemy_AttackDetail || actDetail is Enemy_ProjectileDetail);
-    }
 }
 
 public enum BattleActType {
