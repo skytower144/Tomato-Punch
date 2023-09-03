@@ -1,7 +1,7 @@
 Did you figure out how to solve this problem? #hideportrait:_
     * [Yes]
         Let's go. #portrait:Tomato_neutral
-        Let's gooooo #hideportrait:_
+        Let's gooooo! #hideportrait:_
         #battle:_true #continuetalk:_true
         #judgekeyevent:Win_Number2@Lose_Number2
     * [No]
