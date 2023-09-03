@@ -8,7 +8,7 @@ public class EnemyAIControl : MonoBehaviour
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
-    private List<EnemyActDetail> pattern_list = new List<EnemyActDetail>();
+    private List<EnemyActDetail> pattern_list;
 
     private int idleCount = 0;
 
@@ -20,8 +20,12 @@ public class EnemyAIControl : MonoBehaviour
     void EnemyMove(EnemyActDetail move)
     {
         EnemyControl.isPhysical = move.PhysicalAttack;
-        tomatoguard.damage = move.Damage;
-        enemyCtrl.attackType = move.EnemyAttackType;
+
+        if (move is Enemy_AttackDetail)
+            enemyCtrl.SaveEnemyDmgFrames(((Enemy_AttackDetail)move).PhysicalAttackFrames);
+        else if (move is Enemy_ProjectileDetail)
+            enemyCtrl.SaveEnemyDmgFrames(((Enemy_ProjectileDetail)move).ProjectileAttackFrames);
+        
         enemyCtrl.enemyAnimControl.Act(move);
     }
 
@@ -98,5 +102,10 @@ public class EnemyAIControl : MonoBehaviour
     public void LoadEnemyPattern(List<EnemyActDetail> patternList)
     {
         pattern_list = patternList;
+    }
+
+    public void ResetEnemyPattern()
+    {
+        pattern_list = null;
     }
 }

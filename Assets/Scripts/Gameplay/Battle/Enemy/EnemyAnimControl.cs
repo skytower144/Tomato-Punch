@@ -130,37 +130,45 @@ public class EnemyAnimControl : MonoBehaviour
         StartCoroutine(SetCollider(false));
     }
 
-    public void Act(EnemyActDetail attackDetail)
+    public void Act(EnemyActDetail actDetail)
     {
-        string animName = attackDetail.Name;
+        string animName = actDetail.Name;
 
-        switch (attackDetail.EnemyAttackType) {
-            case AttackType.NEUTRAL:
-                ManageNeutralAct(animName);
-                return;
-            
-            case AttackType.LA:
-            case AttackType.RA:
-            case AttackType.DA:
-                Enemy_AttackDetail attack = ((Enemy_AttackDetail)attackDetail);
-                StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
-                _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
-                _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
-                break;
-            
-            case AttackType.PJ:
-                Enemy_ProjectileDetail pj = ((Enemy_ProjectileDetail)attackDetail);
-                _enemyControl.currentProjectile = pj.Projectile;
-                _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
-                break;
-            
-            default:
-                break;
+        if (IsIdleAct(actDetail)) {
+            Idle(animName, false);
+            return;
+        }
+        /*
+        if (actDetail is Enemy_NeutralDetail) {
+            do something
+        }
+        */
+
+        foreach (DamageFrame frame in _enemyControl.TotalDamageFrames) {
+            switch (frame.EnemyAttackType) {
+                case AttackType.LA:
+                case AttackType.RA:
+                case AttackType.DA:
+                    PhysicalAttackFrame attack = (PhysicalAttackFrame)frame;
+                    StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
+                    _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
+                    _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
+                    break;
+                
+                case AttackType.PJ:
+                    ProjectileAttackFrame pj = (ProjectileAttackFrame)frame;
+                    _enemyControl.currentProjectile = pj.Projectile;
+                    _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
+                    break;
+                
+                default:
+                    break;
+            }
+            _enemyControl.Invoke("hitFrame", frame.HitFrame / _fpsDict[animName].Item1);
         }
         _anim.Play(animName);
         StartCoroutine(SetCollider(false));
         _enemyControl.guardDown();
-        _enemyControl.Invoke("hitFrame", attackDetail.HitFrame / _fpsDict[animName].Item1);
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
     }
 
@@ -170,18 +178,17 @@ public class EnemyAnimControl : MonoBehaviour
             _enemyControl.CancelInvoke(methodName);
     }
 
-    private void ManageNeutralAct(string animName)
-    {
-        if (animName == _enemyControl._base.Idle_AnimationString)
-            Idle(animName, false);
-    }
-
     IEnumerator SetCollider(bool state, float wait = 0f)
     {
         yield return WaitForCache.GetWaitForSecond(wait);
         
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;
+    }
+
+    private bool IsIdleAct(EnemyActDetail actDetail)
+    {
+        return !(actDetail is Enemy_AttackDetail || actDetail is Enemy_ProjectileDetail);
     }
 }
 

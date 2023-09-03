@@ -35,14 +35,18 @@ public class TextSpawn : MonoBehaviour
             if (tomatocontrol.CheckAnimationState("tomato_LP") || tomatocontrol.CheckAnimationState("tomato_RP"))
                 tomatocontrol.tomatoAnim.Play("tomato_miss",-1, 0f);
             
-            randomPosition = Random.insideUnitSphere * 1.5f + new Vector3(-30,0,0);
-            GameObject miss = Instantiate(missEffect, transform);
-            miss.transform.position = randomPosition;
-
+            SpawnMissText();
             decreaseStamina();
             GameManager.gm_instance.assistManager.SetIsBlast(false);
             tomatocontrol.isMiss = false;
         }
+    }
+
+    public void SpawnMissText()
+    {
+        randomPosition = Random.insideUnitSphere * 1.5f + new Vector3(-30,0,0);
+        GameObject miss = Instantiate(missEffect, transform);
+        miss.transform.position = randomPosition;
     }
 
     void decreaseStamina()

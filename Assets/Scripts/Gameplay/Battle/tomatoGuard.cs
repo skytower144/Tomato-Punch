@@ -12,8 +12,7 @@ public class tomatoGuard : MonoBehaviour
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private GuardBar guardBar;
     [SerializeField] private tomatoHurt tomatohurt;
-    [HideInInspector] public float damage;
-    private float leftoverDamage, reducedDamage;
+    private float damage, leftoverDamage, reducedDamage;
     void Start()
     {
         anim = GetComponentInParent<Animator>();
@@ -96,6 +95,7 @@ public class tomatoGuard : MonoBehaviour
 
     void guardDamageConversion()
     {
+        damage = GameManager.gm_instance.battle_system.enemy_control.GetCurrentAttackDamage();
         if(damage % 2 == 0)
             reducedDamage = damage / 2;
         else

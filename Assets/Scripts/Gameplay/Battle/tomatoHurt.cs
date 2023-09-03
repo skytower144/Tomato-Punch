@@ -24,7 +24,7 @@ public class tomatoHurt : MonoBehaviour
         {
             isTomatoHurt = true;
             Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);
-            TakeDamage(tomatoguard.damage);
+            TakeDamage(GameManager.gm_instance.battle_system.enemy_control.GetCurrentAttackDamage());
 
             if(!tomatoControl.isFainted){
                 if(col.gameObject.tag.Equals("enemy_LA"))

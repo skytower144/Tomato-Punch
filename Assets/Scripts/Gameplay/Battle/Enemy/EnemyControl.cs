@@ -16,6 +16,10 @@ public class EnemyControl : MonoBehaviour
     public Material mat_default => matDefault;
     public SpriteRenderer enemyRenderer => enemy_renderer;
 
+    [System.NonSerialized] public List<DamageFrame> TotalDamageFrames = new List<DamageFrame>();
+    private int _currentDamageFrameIndex = -1;
+    private AttackType _attackType;
+
     [SerializeField] private EnemyGreyEffect greyEffect;
     [SerializeField] private Animator anim; 
     [SerializeField] private SpriteRenderer enemy_renderer;
@@ -64,6 +68,9 @@ public class EnemyControl : MonoBehaviour
     void OnDisable()
     {
         enemy_Countered.counter_is_initialized = false;
+        ResetTotalDamageFrames();
+        enemyAIControl.ResetEnemyPattern();
+
         CancelInvoke();
         enemyAIControl.CancelInvoke();
         enemyCounterEnd();
@@ -131,12 +138,7 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_AttackDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
-                    readingPattern.Damage,
-                    readingPattern.EnemyAttackType,
-
-                    readingPattern.CounterStartFrame,
-                    readingPattern.CounterEndFrame,
-                    readingPattern.HitFrame
+                    readingPattern.PhysicalAttackFrames
             ));
             sumPercentage += readingPattern.percentage;
         }
@@ -145,21 +147,17 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_ProjectileDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
-                    readingPattern.Damage,
-                    readingPattern.EnemyAttackType,
-
-                    readingPattern.SpawnFrame,
-                    readingPattern.HitFrame,
-                    readingPattern.Projectile
+                    readingPattern.ProjectileAttackFrames
             ));
             sumPercentage += readingPattern.percentage;
         }
         if (sumPercentage >= 100)
             Debug.LogError($"Enemy total action percentage error : {sumPercentage}");
         
-        deepCopiedPatterns.Add(
-            new Enemy_AttackDetail(_base.Idle_AnimationString, 100 - sumPercentage, 0, AttackType.NEUTRAL)
-        );
+        EnemyActDetail idle = new EnemyActDetail();
+        idle.Init(_base.Idle_AnimationString, 100 - sumPercentage);
+        deepCopiedPatterns.Add(idle);
+        
         enemyAIControl.LoadEnemyPattern(deepCopiedPatterns);
         GameManager.DoDebug($"Enemy idle percent : {100 - sumPercentage}%");
     }
@@ -211,21 +209,28 @@ public class EnemyControl : MonoBehaviour
 
     public void hitFrame() //depending on the animation, this function decides whether it should instantiate LA/RA/DA collider.            
     {
-        if(attackType == AttackType.LA)
-        {   
-            Instantiate (enemy_LA, AttackBoxes);
-        }
-        else if(attackType == AttackType.RA)
-        {
-            Instantiate (enemy_RA, AttackBoxes);
-        }
-        else if(attackType == AttackType.DA)
-        {
-            Instantiate (enemy_DA, AttackBoxes);
-        }
-        else if(attackType == AttackType.PJ)
-        {
-            Instantiate (enemy_PJ, AttackBoxes);
+        _currentDamageFrameIndex++;
+        _attackType = TotalDamageFrames[_currentDamageFrameIndex].EnemyAttackType;
+
+        switch (_attackType) {
+            case AttackType.LA:
+                Instantiate (enemy_LA, AttackBoxes);
+                break;
+            
+            case AttackType.RA:
+                Instantiate (enemy_RA, AttackBoxes);
+                break;
+            
+            case AttackType.DA:
+                Instantiate (enemy_DA, AttackBoxes);
+                break;
+            
+            case AttackType.PJ:
+                Instantiate (enemy_PJ, AttackBoxes);
+                break;
+            
+            default:
+                break;
         }
     }
 
@@ -433,5 +438,34 @@ public class EnemyControl : MonoBehaviour
     public void LoadEnemyBaseData(EnemyBase enemyBase)
     {
         _base = enemyBase;
+    }
+
+    public void SaveEnemyDmgFrames(List<PhysicalAttackFrame> damageFrames)
+    {
+        ResetTotalDamageFrames();
+        _currentDamageFrameIndex = -1;
+        
+        foreach (PhysicalAttackFrame frame in damageFrames)
+            TotalDamageFrames.Add(frame);
+    }
+    public void SaveEnemyDmgFrames(List<ProjectileAttackFrame> damageFrames)
+    {
+        ResetTotalDamageFrames();
+        _currentDamageFrameIndex = -1;
+        foreach (ProjectileAttackFrame frame in damageFrames)
+            TotalDamageFrames.Add(frame);
+    }
+    public void ResetTotalDamageFrames()
+    {
+        TotalDamageFrames = new List<DamageFrame>();
+    }
+
+    public float GetCurrentAttackDamage()
+    {
+        if (_currentDamageFrameIndex >= 0 && _currentDamageFrameIndex < TotalDamageFrames.Count)
+            return TotalDamageFrames[_currentDamageFrameIndex].Damage;
+        
+        Debug.LogError($"Abnormal attack calculation detected. Current Damage Frame Index : {_currentDamageFrameIndex}");
+        return 0;
     }
 }

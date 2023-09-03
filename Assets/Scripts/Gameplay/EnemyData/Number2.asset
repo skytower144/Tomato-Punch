@@ -53,33 +53,37 @@ MonoBehaviour:
   projectiles:
   - Name: Number2_attack_boomerang
     percentage: 20
-    Damage: 1
-    EnemyAttackType: 3
-    HitFrame: 7
-    SpawnFrame: 2
-    Projectile: {fileID: 596274545546477243, guid: ce9a3e56aac6e5142ab897f0659445b9, type: 3}
+    ProjectileAttackFrames:
+    - Damage: 1
+      EnemyAttackType: 3
+      HitFrame: 7
+      SpawnFrame: 2
+      Projectile: {fileID: 596274545546477243, guid: ce9a3e56aac6e5142ab897f0659445b9, type: 3}
   - Name: Number2_attack_equal
     percentage: 20
-    Damage: 1
-    EnemyAttackType: 3
-    HitFrame: 5
-    SpawnFrame: 3
-    Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
+    ProjectileAttackFrames:
+    - Damage: 1
+      EnemyAttackType: 3
+      HitFrame: 5
+      SpawnFrame: 3
+      Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
   enemyPattern:
   - Name: Number2_attack_oneplus
     percentage: 8
-    Damage: 4
-    EnemyAttackType: 0
-    HitFrame: 23
-    CounterStartFrame: 20
-    CounterEndFrame: 22
+    PhysicalAttackFrames:
+    - Damage: 4
+      EnemyAttackType: 0
+      HitFrame: 23
+      CounterStartFrame: 20
+      CounterEndFrame: 22
   - Name: Number2_attack_sword
     percentage: 10
-    Damage: 2
-    EnemyAttackType: 1
-    HitFrame: 10
-    CounterStartFrame: 5
-    CounterEndFrame: 9
+    PhysicalAttackFrames:
+    - Damage: 2
+      EnemyAttackType: 1
+      HitFrame: 10
+      CounterStartFrame: 5
+      CounterEndFrame: 9
   itemReward: []
   battleExp: 30
   battleCoin: 0

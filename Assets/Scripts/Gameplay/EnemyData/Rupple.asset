@@ -54,32 +54,36 @@ MonoBehaviour:
   enemyPattern:
   - Name: Rupple_lefthook
     percentage: 15
-    Damage: 2
-    EnemyAttackType: 0
-    HitFrame: 5
-    CounterStartFrame: 1
-    CounterEndFrame: 4
+    PhysicalAttackFrames:
+    - Damage: 2
+      EnemyAttackType: 0
+      HitFrame: 5
+      CounterStartFrame: 1
+      CounterEndFrame: 4
   - Name: Rupple_righthook
     percentage: 15
-    Damage: 3
-    EnemyAttackType: 1
-    HitFrame: 6
-    CounterStartFrame: 2
-    CounterEndFrame: 5
+    PhysicalAttackFrames:
+    - Damage: 3
+      EnemyAttackType: 1
+      HitFrame: 6
+      CounterStartFrame: 2
+      CounterEndFrame: 5
   - Name: Rupple_lowkick
     percentage: 6
-    Damage: 2
-    EnemyAttackType: 2
-    HitFrame: 6
-    CounterStartFrame: 2
-    CounterEndFrame: 5
+    PhysicalAttackFrames:
+    - Damage: 2
+      EnemyAttackType: 2
+      HitFrame: 6
+      CounterStartFrame: 2
+      CounterEndFrame: 5
   - Name: Rupple_leftupper
     percentage: 4
-    Damage: 5
-    EnemyAttackType: 0
-    HitFrame: 8
-    CounterStartFrame: 5
-    CounterEndFrame: 7
+    PhysicalAttackFrames:
+    - Damage: 5
+      EnemyAttackType: 0
+      HitFrame: 8
+      CounterStartFrame: 5
+      CounterEndFrame: 7
   itemReward: []
   battleExp: 50
   battleCoin: 100
