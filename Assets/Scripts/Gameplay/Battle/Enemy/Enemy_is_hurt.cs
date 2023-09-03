@@ -14,11 +14,12 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
-    [SerializeField] private GameObject hitEffect, hitSpark, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam;
+    [SerializeField] private GameObject hitEffect, hitSpark, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam, deflectLaserHit;
     [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
     [System.NonSerialized] public bool guardUp;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
+    private bool _onlyProjectileHit = false;
     
     void OnEnable()
     {
@@ -79,8 +80,18 @@ public class Enemy_is_hurt : MonoBehaviour
                 enemy_isPunched = true;
                 enemyIsHit = true;           // Boolean to prevent enemyHurt anim and counter2idle anim happening at the same time
 
+                //DEFLECT LASER
+                if (col.gameObject.tag.Equals("tomato_DeflectLaser"))
+                {
+                    float projectileDmg = enemyControl.GetCurrentAttackDamage();
+                    enemyHurtDamage(projectileDmg + tomatocontrol.dmg_normalPunch);
+                    checkDefeat("SK");
+                    Instantiate(deflectLaserHit, Parent);
+
+                    if (_onlyProjectileHit) return;
+                }
                 //NORMAL PUNCHES
-                if(col.gameObject.tag.Equals("tomato_LP"))
+                else if(col.gameObject.tag.Equals("tomato_LP"))
                 {
                     enemyHurtDamage(tomatocontrol.dmg_normalPunch);
                     checkDefeat("L");
@@ -90,7 +101,6 @@ public class Enemy_is_hurt : MonoBehaviour
                     enemyHurtDamage(tomatocontrol.dmg_normalPunch);
                     checkDefeat("R");
                 }
-
                 //SKILL
                 else if(col.gameObject.tag.Equals("tomato_SK"))
                 {
@@ -219,5 +229,10 @@ public class Enemy_is_hurt : MonoBehaviour
         Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
         var spark = Instantiate(hitSpark, transform);
         spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
+    }
+
+    public void SetProjectileHit(bool state)
+    {
+        _onlyProjectileHit = state;
     }
 }

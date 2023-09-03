@@ -13,6 +13,7 @@ public class EnemyAnimControl : MonoBehaviour
     private Animator _anim;
     [SerializeField] private BoxCollider2D _collider;
     private EnemyControl _enemyControl;
+    private Enemy_is_hurt _enemyHurt;
     private Dictionary<string, (float, float)> _fpsDict = new Dictionary<string, (float, float)>();
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
@@ -24,6 +25,7 @@ public class EnemyAnimControl : MonoBehaviour
     void Start()
     {
         _enemyControl = GameManager.gm_instance.battle_system.enemy_control;
+        _enemyHurt = _enemyControl.enemy_hurt;
     }
 
     void OnEnable()
@@ -156,6 +158,8 @@ public class EnemyAnimControl : MonoBehaviour
                 
                 case AttackType.PJ:
                     ProjectileAttackFrame pj = (ProjectileAttackFrame)frame;
+                    StartCoroutine(SetCollider(true, (pj.HitFrame + 1)/ _fpsDict[animName].Item1));
+                    _enemyHurt.SetProjectileHit(true);
                     _enemyControl.currentProjectile = pj.Projectile;
                     _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
                     break;
@@ -184,7 +188,6 @@ public class EnemyAnimControl : MonoBehaviour
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;
     }
-
 }
 
 public enum BattleActType {

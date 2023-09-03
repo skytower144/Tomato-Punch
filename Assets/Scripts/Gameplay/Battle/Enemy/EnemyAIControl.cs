@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyAIControl : MonoBehaviour
 {
+    private const int MAXIDLECOUNT = 5;
     [SerializeField] private EnemyControl enemyCtrl;
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
     private List<EnemyActDetail> pattern_list;
-
     private int idleCount = 0;
 
     void OnEnable()
@@ -90,7 +90,7 @@ public class EnemyAIControl : MonoBehaviour
             return false;
         }
         
-        if (idleCount < 4) {
+        if (idleCount < MAXIDLECOUNT) {
             idleCount++;
             return false;
         }

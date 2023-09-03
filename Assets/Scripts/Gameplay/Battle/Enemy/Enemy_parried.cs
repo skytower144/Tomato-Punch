@@ -5,15 +5,17 @@ using UnityEngine;
 public class Enemy_parried : MonoBehaviour
 {
     private Animator anim;
-    private EnemyControl enemyControl;
+    private EnemyControl _enemyControl;
+    private tomatoControl _tomatoControl;
     [SerializeField] private GameObject parryEffect, parryCircle;
     [HideInInspector] public static bool isParried = false;
     [HideInInspector] public static bool pjParried = false;
 
     void OnEnable()
     {
-        anim = GetComponentInParent<Animator>();
-        enemyControl = GameManager.gm_instance.battle_system.enemy_control;
+        _enemyControl = GameManager.gm_instance.battle_system.enemy_control;
+        anim = _enemyControl.enemyAnim;
+        _tomatoControl = GameManager.gm_instance.battle_system.tomato_control;
         isParried = pjParried = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
@@ -30,12 +32,13 @@ public class Enemy_parried : MonoBehaviour
             {
                 isParried = true;
                 Instantiate (parryCircle, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
-                enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
+                _enemyControl.enemyAnimControl.Act(_enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             }
             else
             {
                 Enemy_parried.pjParried = true;
-                enemyControl.DestroyProjectiles();
+                _enemyControl.DestroyProjectiles();
+                _tomatoControl.StartCoroutine(_tomatoControl.SetDeflectLaser(_tomatoControl.deflectLaser, true));
                 Invoke("TurnOffPjParried", 0.1f);
             }
         }

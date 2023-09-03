@@ -6,12 +6,11 @@ using UnityEngine.InputSystem;
 
 public class tomatoControl : MonoBehaviour
 {
+    public Animator tomatoAnim => tomatoAnimator;
     [SerializeField] private PlayerInput tomatoInput;
-    private Animator tomatoAnimator; public Animator tomatoAnim => tomatoAnimator;
-    private GameObject _parryInstance;
-    [SerializeField] Animator gatleButton_anim_L, gatleButton_anim_R;
-    [SerializeField] private Animator gaksung_objAnim, gaksung_anim; [SerializeField] private GameObject gaksung_OBJ;
-    [SerializeField] private GameObject tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
+    [SerializeField] private Animator gatleButton_anim_L, gatleButton_anim_R, gaksung_objAnim, gaksung_anim;
+    public GameObject deflectLaser;
+    [SerializeField] private GameObject gaksung_OBJ, tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars, blastEffect, dunkEffect, dunkEffect2, sparkleEffect;
     [System.NonSerialized] public GameObject tempObj = null;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
@@ -25,6 +24,8 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
     [SerializeField] private FlashEffect flashEffect;
+    private Animator tomatoAnimator; 
+    private GameObject _parryInstance;
     
     //========================================================================================================================
 
@@ -585,6 +586,12 @@ public class tomatoControl : MonoBehaviour
         Instantiate (blastEffect);
         Instantiate (upper_hitef, new Vector2 (transform.position.x + 0.7f, transform.position.y - 0.5f), Quaternion.identity);
         battleSystem.ShockWaveControl.CallShockWave(battleSystem.BlastShockWave.Duration, battleSystem.BlastShockWave.Size, battleSystem.BlastShockWave.Size);
+    }
+
+    public IEnumerator SetDeflectLaser(GameObject laser, bool state, float wait = 0f)
+    {
+        yield return WaitForCache.GetWaitForSecond(wait);
+        laser.SetActive(state);
     }
 
     public bool CheckAnimationState(string animation_string)
