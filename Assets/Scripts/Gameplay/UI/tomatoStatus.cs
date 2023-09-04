@@ -14,10 +14,10 @@ public class tomatoStatus : MonoBehaviour
     public float player_totalExp, player_leftExp;
     public int player_statPt;
 
-    // Stat Increase Amount
-    private int HpIncrease = 10;
-    private int AtkIncrease = 2;
-    private int DefIncrease = 5;
+    [Header("[ Stat Increase Amount ]")]
+    [SerializeField] private int HpIncrease;
+    [SerializeField] private int AtkIncrease;
+    [SerializeField] private int DefIncrease;
 
     [SerializeField] private List<Color32> levelEffectColors;
     private float levelEffect_x = -106.6f;

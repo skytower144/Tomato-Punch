@@ -127,6 +127,9 @@ Icecream_Description : 2 scoops of sweet icecream!
 Milk Bottle : Milk Bottle
 Milk Bottle_Description : A holy drink gifted from the cat gang.
 
+Chocolate Coin : Chocolate Coin
+Chocolate Coin_Description : It's actually chocolate.
+
 // OTHER
 RustyKey : RustyKey
 RustyKey_Description : A rusty house key.

@@ -1,1 +1,1 @@
-Hoho. #portrait:Gin_neutral
+Nothing like shooting hoops in the afternoon.  #portrait:Gin_neutral

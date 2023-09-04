@@ -1,30 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class tomatoDamage : MonoBehaviour
+public class tomatoDamage
 {
-    public float NormalPunch(float currentAtk)
+    public static float NormalPunch(float currentAtk)
     {
-        return currentAtk * 0.4f;
+        return currentAtk * 0.2f;
     }
 
-    public float GatlePunch(float currentAtk)
+    public static float GatlePunch(float currentAtk)
     {
-        return currentAtk * 0.1f;
+        return NormalPunch(currentAtk) / 4f;
     }
-    public float UpperPunch(float currentAtk)
+    public static float UpperPunch(float currentAtk)
     {
-        return currentAtk * 1.3f;
+        return 4 * NormalPunch(currentAtk);
     }
-    public float SkillAttack(float currentAtk, float skillDmg)
+    public static float SkillAttack(float currentAtk, float skillDmg)
     {
-        return currentAtk * (skillDmg + 100) / 100 * 0.8f;
+        return  2 * NormalPunch(currentAtk) * ((skillDmg + 100f) / 100f);
     }
-
-    public float DunkAttack(float currentAtk)
+    public static float DunkAttack(float currentAtk)
     {
-        return currentAtk * 1.2f;
+        return 3 * NormalPunch(currentAtk);
     }
-
 }

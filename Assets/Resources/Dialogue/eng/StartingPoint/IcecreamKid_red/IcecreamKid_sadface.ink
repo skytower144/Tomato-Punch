@@ -1,2 +1,2 @@
 #hideportrait:_ 
-\* Kid is staring down at the ice cream scoop, slowly melting away along with his smile.
+\*  The ice cream scoop is slowly melting away, along with the kid's smile.

@@ -11914,6 +11914,9 @@ MonoBehaviour:
   player_totalExp: 0
   player_leftExp: 30
   player_statPt: 0
+  HpIncrease: 5
+  AtkIncrease: 2
+  DefIncrease: 5
   levelEffectColors:
   - serializedVersion: 2
     rgba: 2650796900
@@ -18126,7 +18129,6 @@ GameObject:
   - component: {fileID: 384357809660484706}
   - component: {fileID: 384357809660484707}
   - component: {fileID: 8677502982703303286}
-  - component: {fileID: 384357809660484710}
   - component: {fileID: 384357809660484708}
   - component: {fileID: 384357809660484711}
   m_Layer: 6
@@ -18253,7 +18255,6 @@ MonoBehaviour:
   staminaIcon: {fileID: 384357809837640120}
   counterTrack: {fileID: 384357810723291688}
   tomatohurt: {fileID: 384357810755073106}
-  tomatodamage: {fileID: 384357809660484710}
   textSpawn: {fileID: 384357809665552908}
   flashEffect: {fileID: 8677502982703303286}
   tomatoSuperEquip: {fileID: 0}
@@ -18262,8 +18263,8 @@ MonoBehaviour:
   - {fileID: 0}
   maxHealth: 20
   currentHealth: 20
-  maxGuard: 10
-  current_guardPt: 10
+  maxGuard: 4
+  current_guardPt: 4
   tomatoAtk: 5
   maxStamina: 30
   currentStamina: 30
@@ -18285,18 +18286,6 @@ Transform:
   m_Father: {fileID: 384357809614087741}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &384357809660484710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384357809660484704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6770274f2856b91439ff982808a810f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &384357809660484711
 Rigidbody2D:
   serializedVersion: 4
@@ -33858,7 +33847,6 @@ MonoBehaviour:
   BattleCanvas_Parent: {fileID: 384357809614087741}
   enemyControl: {fileID: 384357809064918365}
   tomatocontrol: {fileID: 384357809660484708}
-  tomatodamage: {fileID: 384357809660484710}
   tomatoAnim: {fileID: 384357809660484707}
   tomatoParryBar: {fileID: 384357809045350140}
   staminaIcon: {fileID: 384357809837640120}
@@ -46435,8 +46423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.58, y: 42.38}
-  m_SizeDelta: {x: 315.53, y: 315.53}
+  m_AnchoredPosition: {x: -1.98, y: 50}
+  m_SizeDelta: {x: 313.07, y: 315.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &3720000826141921302
 RectTransform:

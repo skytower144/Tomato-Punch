@@ -9,7 +9,6 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
-    [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
@@ -107,7 +106,7 @@ public class Enemy_is_hurt : MonoBehaviour
                     float skillDmg = 0;
                     switch (tomatocontrol.currentSkillType) {
                         case SkillType.Equip_Skill:
-                            skillDmg = tomatodamage.SkillAttack(tomatocontrol.tomatoAtk, tomatocontrol.tomatoEquip[0].skillDamage);
+                            skillDmg = tomatoDamage.SkillAttack(tomatocontrol.tomatoAtk, tomatocontrol.tomatoEquip[0].skillDamage);
                             break;
                         
                         case SkillType.Assist_Skill:

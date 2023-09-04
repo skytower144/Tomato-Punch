@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1f407c95c9d8a6744a41f3fbb2df884c, type: 3}
   bgTexture: {fileID: 2800000, guid: 14c9b1916b106fc4b979ad45d7bc12a4, type: 3}
   parallaxDirection: {x: -0.05, y: 0.05}
-  enemyMaxHealth: 40
-  enemyCurrentHealth: 40
+  enemyMaxHealth: 22
+  enemyCurrentHealth: 22
   min_hitct: 4
   max_hitct: 8
   animationController: {fileID: 9100000, guid: 4468e76d3bbf36f4bb36daaf7c49fe74, type: 2}
@@ -55,7 +55,7 @@ MonoBehaviour:
   - Name: Number2_attack_boomerang
     percentage: 20
     ProjectileAttackFrames:
-    - Damage: 1
+    - Damage: 2
       EnemyAttackType: 3
       HitFrame: 7
       SpawnFrame: 2
@@ -63,16 +63,16 @@ MonoBehaviour:
   - Name: Number2_attack_equal
     percentage: 20
     ProjectileAttackFrames:
-    - Damage: 1
+    - Damage: 2
       EnemyAttackType: 3
       HitFrame: 5
       SpawnFrame: 3
       Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
   enemyPattern:
   - Name: Number2_attack_oneplus
-    percentage: 8
+    percentage: 6
     PhysicalAttackFrames:
-    - Damage: 4
+    - Damage: 8
       EnemyAttackType: 0
       HitFrame: 23
       CounterStartFrame: 20
@@ -80,7 +80,7 @@ MonoBehaviour:
   - Name: Number2_attack_sword
     percentage: 10
     PhysicalAttackFrames:
-    - Damage: 2
+    - Damage: 4
       EnemyAttackType: 1
       HitFrame: 10
       CounterStartFrame: 5

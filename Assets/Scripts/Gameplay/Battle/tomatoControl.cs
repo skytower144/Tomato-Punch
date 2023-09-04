@@ -21,7 +21,6 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private CounterTrack counterTrack;
     [SerializeField] private tomatoHurt tomatohurt;
-    [SerializeField] private tomatoDamage tomatodamage;
     [SerializeField] private TextSpawn textSpawn;
     [SerializeField] private FlashEffect flashEffect;
     private Animator tomatoAnimator; 
@@ -82,11 +81,11 @@ public class tomatoControl : MonoBehaviour
         isIntro = true;
         isVictory = isFainted = isTired = tomatoGuard.isParry = gatleButton_once = uppercutYes = enemyUppered = enemyFreeze = enemy_supered = false;
 
-        dmg_normalPunch = tomatodamage.NormalPunch(tomatoAtk);
-        dmg_gatlePunch = tomatodamage.GatlePunch(tomatoAtk);
-        dmg_upperPunch = tomatodamage.UpperPunch(tomatoAtk);
-        if (tomatoSuperEquip) dmg_super = tomatodamage.SkillAttack(tomatoAtk, tomatoSuperEquip.skillDamage);
-        dmg_dunk = tomatodamage.DunkAttack(tomatoAtk);
+        dmg_normalPunch = tomatoDamage.NormalPunch(tomatoAtk);
+        dmg_gatlePunch = tomatoDamage.GatlePunch(tomatoAtk);
+        dmg_upperPunch = tomatoDamage.UpperPunch(tomatoAtk);
+        if (tomatoSuperEquip) dmg_super = tomatoDamage.SkillAttack(tomatoAtk, tomatoSuperEquip.skillDamage);
+        dmg_dunk = tomatoDamage.DunkAttack(tomatoAtk);
 
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
