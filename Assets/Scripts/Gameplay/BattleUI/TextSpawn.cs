@@ -32,7 +32,7 @@ public class TextSpawn : MonoBehaviour
     {
         if (tomatocontrol.isMiss)
         {
-            if (tomatocontrol.CheckAnimationState("tomato_LP") || tomatocontrol.CheckAnimationState("tomato_RP"))
+            if ((tomatocontrol.CheckAnimationState("tomato_LP") || tomatocontrol.CheckAnimationState("tomato_RP")) && (!tomatocontrol.IsMatoAttacked()))
                 tomatocontrol.tomatoAnim.Play("tomato_miss",-1, 0f);
             
             SpawnMissText();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAIControl : MonoBehaviour
 {
-    private const int MAXIDLECOUNT = 5;
+    private const int MAXIDLECOUNT = 3;
     [SerializeField] private EnemyControl enemyCtrl;
     [SerializeField] private Animator battleAnim;
     [SerializeField] private tomatoGuard tomatoguard;

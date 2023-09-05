@@ -110,7 +110,7 @@ public class Enemy_is_hurt : MonoBehaviour
                             break;
                         
                         case SkillType.Assist_Skill:
-                            skillDmg = GameManager.gm_instance.assistManager.assistDamage;
+                            skillDmg = tomatoDamage.SkillAttack(tomatocontrol.tomatoAtk, GameManager.gm_instance.assistManager.assistDamage);
                             break;
                     }
                     enemyHurtDamage(skillDmg);
@@ -175,7 +175,9 @@ public class Enemy_is_hurt : MonoBehaviour
 
     public bool checkDefeat(string animString = "")
     {
-        if (Enemy_currentHealth == 0){
+        if (Enemy_currentHealth == 0){           
+            if (enemy_isDefeated) return true;
+
             tomatoControl.isVictory = true;
             enemy_isDefeated = true;
 

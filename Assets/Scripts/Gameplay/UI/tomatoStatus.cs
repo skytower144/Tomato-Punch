@@ -10,7 +10,7 @@ public class tomatoStatus : MonoBehaviour
     [SerializeField] private GameObject statusArrow, status_up_effect, frameshine_effect;
     [SerializeField] private Transform spawnPoint;
     [System.NonSerialized] public float player_maxHp, player_currentHp, player_atk, player_def;
-    [System.NonSerialized] public int STATPOINT = 3;
+    [System.NonSerialized] public int STATPOINT = 2;
     public float player_totalExp, player_leftExp;
     public int player_statPt;
 

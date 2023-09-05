@@ -1929,6 +1929,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   current_scene_name: 
   previous_scene_name: 
+--- !u!1 &1758762348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1758762349}
+  m_Layer: 6
+  m_Name: PunchColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1758762349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758762348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 384357809660484709}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806408456
 GameObject:
   m_ObjectHideFlags: 0
@@ -18246,7 +18276,7 @@ MonoBehaviour:
   dunkEffect: {fileID: 5519385095673975256, guid: 1e8fcec17cf30b44b97b836ac318359f, type: 3}
   dunkEffect2: {fileID: 6732872296591057369, guid: 1a1aae94bc90cfb41a20dec4cc4d4f33, type: 3}
   sparkleEffect: {fileID: 7127629496630314954, guid: 06b4560cde0faa9489750972b78b3e96, type: 3}
-  Parent: {fileID: 384357809660484709}
+  Parent: {fileID: 1758762349}
   BattleCanvas_Parent: {fileID: 384357809614087741}
   battleSystem: {fileID: 384357809004606580}
   healthBar: {fileID: 384357809339416892}
@@ -18266,8 +18296,8 @@ MonoBehaviour:
   maxGuard: 4
   current_guardPt: 4
   tomatoAtk: 5
-  maxStamina: 30
-  currentStamina: 30
+  maxStamina: 20
+  currentStamina: 20
 --- !u!4 &384357809660484709
 Transform:
   m_ObjectHideFlags: 0
@@ -18283,6 +18313,7 @@ Transform:
   - {fileID: 8477465724452235264}
   - {fileID: 384357808855182974}
   - {fileID: 1997384627918074623}
+  - {fileID: 1758762349}
   m_Father: {fileID: 384357809614087741}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

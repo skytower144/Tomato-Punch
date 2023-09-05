@@ -499,6 +499,7 @@ public class tomatoControl : MonoBehaviour
 
         string enemyReEngage = battleSystem.GetEnemyBase().ReEngage;
         battleSystem.enemy_control.enemyAnimControl.Act(enemyReEngage, BattleActType.ReEngage);
+        battleSystem.enemy_control.guardDown();
 
         battleSystem.resetPlayerHealth = true;
         battleSystem.resetEnemyHealth = true;
@@ -553,6 +554,8 @@ public class tomatoControl : MonoBehaviour
     }
     void playKnockBack()
     {
+        if (IsMatoAttacked()) return;
+
         if(isTired)
             tomatoAnimator.Play("tomato_tiredKnockback",-1,0f);
         else
@@ -591,6 +594,17 @@ public class tomatoControl : MonoBehaviour
     {
         yield return WaitForCache.GetWaitForSecond(wait);
         laser.SetActive(state);
+    }
+
+    public void DestroyAllMatoPunches()
+    {
+        foreach (Transform punch in Parent)
+            Destroy(punch.gameObject);
+    }
+
+    public bool IsMatoAttacked()
+    {
+        return (isFainted || tomatoHurt.isTomatoHurt);
     }
 
     public bool CheckAnimationState(string animation_string)

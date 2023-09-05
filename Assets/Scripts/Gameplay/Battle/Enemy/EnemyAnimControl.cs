@@ -18,7 +18,7 @@ public class EnemyAnimControl : MonoBehaviour
     private string[] _invokeMethods = {
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
-        "BlastShrink", "RecoverShrink", "RecoverAnimation", "actionOver",
+        "BlastShrink", "RecoverShrink", "RecoverAnimation",
         "enemy_isPunchedEnd", "hurtOver", "projectileSpawn"
     };
 
@@ -48,7 +48,9 @@ public class EnemyAnimControl : MonoBehaviour
 
     public void Idle(string animName, bool noDelay = true)
     {
+        CancelScheduledInvokes();
         _enemyControl.disableBools();
+        
         if (noDelay) _anim.Play(animName, -1, 0f);
         else _anim.Play(animName);
         StartCoroutine(SetCollider(true));
@@ -101,8 +103,9 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Knockback:
+                StartCoroutine(SetCollider(true));
                 _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
-                break;
+                return;
             
             case BattleActType.Bounce:
                 _enemyControl.DunkBounceSmoke2();
@@ -134,6 +137,7 @@ public class EnemyAnimControl : MonoBehaviour
 
     public void Act(EnemyActDetail actDetail)
     {
+        CancelScheduledInvokes();
         string animName = actDetail.Name;
 
         if (actDetail is Enemy_IdleDetail) {

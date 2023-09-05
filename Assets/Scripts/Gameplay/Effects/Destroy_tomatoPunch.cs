@@ -14,17 +14,15 @@ public class Destroy_tomatoPunch : MonoBehaviour
         Invoke("destroyPunch", 0.1f);
     }
 
-    void Update()
+    void OnDisable()
     {
-        if (tomatoHurt.isTomatoHurt)
-            destroyPunch();
+        if(!isHit && !tomatoControl.isFainted && !tomatoGuard.isParry && !TutorialMode.isTutorial){
+            GameManager.gm_instance.battle_system.tomato_control.isMiss = true;
+        }
     }
     
     void destroyPunch()
     {
-        if(!isHit && !tomatoGuard.isParry && !TutorialMode.isTutorial){
-            GameManager.gm_instance.battle_system.tomato_control.isMiss = true;
-        }
         Destroy(gameObject);
     }
 }

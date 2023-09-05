@@ -23,6 +23,7 @@ public class tomatoHurt : MonoBehaviour
         if((!Enemy_parried.isParried) && !tomatoGuard.preventDamageOverlap)
         {
             isTomatoHurt = true;
+            tomatocontrol.DestroyAllMatoPunches();
             Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);
             TakeDamage(GameManager.gm_instance.battle_system.enemy_control.GetCurrentAttackDamage());
 
@@ -44,6 +45,8 @@ public class tomatoHurt : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        if (tomatoControl.isFainted) return;
+        
         if(tomatocontrol.currentHealth < damage)
             damage = tomatocontrol.currentHealth;
         tomatocontrol.currentHealth -= damage;

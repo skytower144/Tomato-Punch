@@ -38,15 +38,19 @@ public class DuplicateRenderer : MonoBehaviour
         flashSpeed = (1 - duration) * 0.001f;
         enemy_sr.material = mat_type == 0 ? matWhite : matYellow;
         stopFlash = false;
-        gameObject.SetActive(true);
         enemy_sr.color = Color.white;
+        gameObject.SetActive(true);
         
         StartCoroutine(ResetFlash(duration));
     }
     IEnumerator ResetFlash(float delay)
     {
-        yield return WaitForCache.GetWaitForSecondReal(delay);
+        yield return WaitForCache.GetWaitForSecond(delay);
+        InitFlash();
+    }
 
+    private void InitFlash()
+    {
         enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
         d_sr.sprite = null;
         stopFlash = true;
