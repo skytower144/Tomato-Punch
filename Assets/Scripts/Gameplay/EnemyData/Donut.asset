@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f39d6aeef65614fb295ea86167b835, type: 3}
+  m_Name: Donut
+  m_EditorClassIdentifier: 
+  enemyName: Donut
+  koFace: {fileID: 21300000, guid: e500098173a73a247918f1701ac487df, type: 3}
+  hurtFace: {fileID: 21300000, guid: 00decfde41b3d3f4590e3d3c73b5c8eb, type: 3}
+  defaultFace: {fileID: 21300000, guid: b6a1f2fe000ff4047953f87b100f8557, type: 3}
+  isFixedBg: 1
+  isParallaxBg: 0
+  bgSprites:
+  - {fileID: 21300000, guid: 74e15c091731cd649942af59ebeb69aa, type: 3}
+  bgTexture: {fileID: 0}
+  parallaxDirection: {x: 0, y: 0}
+  enemyMaxHealth: 70
+  enemyCurrentHealth: 70
+  min_hitct: 3
+  max_hitct: 5
+  animationController: {fileID: 9100000, guid: 85cbef17ade53df4ea7754a9e6a6a939, type: 2}
+  idle: Donut_idle
+  intro: Donut_intro
+  defeated: Donut_ko
+  knockback: Donut_knockback
+  suffer: Donut_suffer
+  stun: Donut_stun
+  uppered: Donut_uppered
+  recover: Donut_recover
+  guard: Donut_guard
+  hurtL: Donut_hurt_L
+  hurtR: Donut_hurt_R
+  blasted: Donut_blasted
+  bounce: Donut_bounce
+  dunk: Donut_dunked
+  wait: Donut_wait
+  reEngage: Donut_waitover
+  victory: Donut_victory
+  otherHurtAnim:
+  - Donut_hurt_1
+  - Donut_hurt_2
+  chiliInfo:
+    hitPosition: {x: -190, y: 60}
+    hitSprite: {fileID: 0}
+  neutralPattern: []
+  projectiles:
+  - Name: Donut_attack_4
+    percentage: 10
+    ProjectileAttackFrames:
+    - Damage: 4
+      EnemyAttackType: 3
+      HitFrame: 9
+      SpawnFrame: 7
+      Projectile: {fileID: 1498421394241176466, guid: bc7ef68396c0d484db57eb40abe8674a, type: 3}
+  enemyPattern:
+  - Name: Donut_attack_1
+    percentage: 20
+    PhysicalAttackFrames:
+    - Damage: 3
+      EnemyAttackType: 0
+      HitFrame: 8
+      CounterStartFrame: 5
+      CounterEndFrame: 7
+  - Name: Donut_attack_2
+    percentage: 8
+    PhysicalAttackFrames:
+    - Damage: 5
+      EnemyAttackType: 2
+      HitFrame: 5
+      CounterStartFrame: 2
+      CounterEndFrame: 4
+  - Name: Donut_attack_3
+    percentage: 10
+    PhysicalAttackFrames:
+    - Damage: 4
+      EnemyAttackType: 0
+      HitFrame: 9
+      CounterStartFrame: 6
+      CounterEndFrame: 8
+    - Damage: 4
+      EnemyAttackType: 1
+      HitFrame: 19
+      CounterStartFrame: 16
+      CounterEndFrame: 18
+  itemReward: []
+  battleExp: 30
+  battleCoin: 15

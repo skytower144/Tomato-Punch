@@ -148,24 +148,31 @@ public class EnemyAnimControl : MonoBehaviour
             // do something
             return;
         }
+        
+        int actionCount = 0;
 
         foreach (DamageFrame frame in _enemyControl.TotalDamageFrames) {
+            actionCount++;
+            bool finishedAttack = actionCount == _enemyControl.TotalDamageFrames.Count;
+
             switch (frame.EnemyAttackType) {
                 case AttackType.LA:
                 case AttackType.RA:
                 case AttackType.DA:
                     PhysicalAttackFrame attack = (PhysicalAttackFrame)frame;
-                    StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
                     _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
                     _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
+                    
+                    if (finishedAttack) StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
                     break;
                 
                 case AttackType.PJ:
                     ProjectileAttackFrame pj = (ProjectileAttackFrame)frame;
-                    StartCoroutine(SetCollider(true, (pj.HitFrame + 1)/ _fpsDict[animName].Item1));
                     _enemyHurt.SetProjectileHit(true);
                     _enemyControl.currentProjectile = pj.Projectile;
                     _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
+
+                    if (finishedAttack) StartCoroutine(SetCollider(true, (pj.HitFrame + 1)/ _fpsDict[animName].Item1));
                     break;
                 
                 default:
