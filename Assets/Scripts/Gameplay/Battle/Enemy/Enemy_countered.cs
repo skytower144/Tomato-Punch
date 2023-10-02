@@ -15,7 +15,6 @@ public class Enemy_countered : MonoBehaviour
     [HideInInspector] public bool counter_is_initialized = false;
 
     [System.NonSerialized] public int totalCounter = 0;
-    private GameObject instance1;
     void OnEnable()
     {
         if (!counter_is_initialized)

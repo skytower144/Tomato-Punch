@@ -103,7 +103,7 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Knockback:
-                StartCoroutine(SetCollider(true));
+                StartCoroutine(SetCollider(true, 0.1f));
                 _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
                 return;
             
