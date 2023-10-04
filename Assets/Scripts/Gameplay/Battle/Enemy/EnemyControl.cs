@@ -9,6 +9,7 @@ public class EnemyControl : MonoBehaviour
     public EnemyBase _base { get; private set; }
     public Enemy_countered enemy_Countered;
     public EnemyAnimControl enemyAnimControl;
+    public EnemyGimmicks enemyGimmicks;
     public DuplicateRenderer duplicate_r;
 
     public Enemy_is_hurt enemy_hurt => enemyHurt;
@@ -146,6 +147,7 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_AttackDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
+                    readingPattern.isSpecialHit,
                     readingPattern.PhysicalAttackFrames
             ));
             sumPercentage += readingPattern.percentage;
@@ -155,6 +157,7 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_ProjectileDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
+                    readingPattern.isSpecialHit,
                     readingPattern.ProjectileAttackFrames
             ));
             sumPercentage += readingPattern.percentage;
@@ -176,6 +179,7 @@ public class EnemyControl : MonoBehaviour
     {
         enemy_supered = false;
         enemy_hurt.SetProjectileHit(false);
+        enemyAnimControl.SetIsSpecialAttack(false);
 
         if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
             enemyAnimControl.Idle(_base.Idle_AnimationString);

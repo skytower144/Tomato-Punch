@@ -120,6 +120,13 @@ public class tomatoControl : MonoBehaviour
     {
         tomatoAnimator.Play(newState);
     }
+
+    public IEnumerator ChangeAnimationState(string animName, float wait)
+    {
+        yield return WaitForCache.GetWaitForSecond(wait);
+        tomatoAnimator.Play(animName, -1, 0f);
+    }
+
     void Update()
     {
         if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory)
@@ -304,7 +311,7 @@ public class tomatoControl : MonoBehaviour
         }
     }
 
-    void tomatoHurtStart()      //prevents from initiating action while hurt , reset all booleans except isAction
+    public void tomatoHurtStart()      //prevents from initiating action while hurt , reset all booleans except isAction
     {
         isPunch = false;
         isAction = true;
@@ -322,7 +329,7 @@ public class tomatoControl : MonoBehaviour
         }
         
     }
-    void tomatoHurtOver()
+    public void tomatoHurtOver()
     {
         isPunch = false;
         isAction = false;
@@ -675,14 +682,14 @@ public class tomatoControl : MonoBehaviour
             gaksung_anim.Play("Gaksung_jump",-1,0f);
         }
     }
-    void gaksung_OFF()
+    public void gaksung_OFF()
     {
         if(parryBar.gaksungOn)
         {
             gaksung_OBJ.SetActive(false);
         }
     }
-    void gaksung_ON()
+    public void gaksung_ON()
     {
         if(parryBar.gaksungOn)
         {

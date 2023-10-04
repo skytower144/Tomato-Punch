@@ -21,6 +21,8 @@ public class EnemyAnimControl : MonoBehaviour
         "BlastShrink", "RecoverShrink", "RecoverAnimation",
         "enemy_isPunchedEnd", "hurtOver", "projectileSpawn"
     };
+    public Dictionary<string, (float, float)> FpsDict => _fpsDict;
+    public bool IsSpecialAttack { private set; get; }
 
     void Start()
     {
@@ -139,6 +141,7 @@ public class EnemyAnimControl : MonoBehaviour
     {
         CancelScheduledInvokes();
         string animName = actDetail.Name;
+        IsSpecialAttack = actDetail.isSpecialHit;
 
         if (actDetail is Enemy_IdleDetail) {
             Idle(animName, false);
@@ -148,7 +151,6 @@ public class EnemyAnimControl : MonoBehaviour
             // do something
             return;
         }
-        
         int actionCount = 0;
 
         foreach (DamageFrame frame in _enemyControl.TotalDamageFrames) {
@@ -163,7 +165,7 @@ public class EnemyAnimControl : MonoBehaviour
                     _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
                     _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
                     
-                    if (finishedAttack) StartCoroutine(SetCollider(true, (attack.HitFrame + 1)/ _fpsDict[animName].Item1));
+                    SetColliderAfterHit(finishedAttack, attack.HitFrame, animName);
                     break;
                 
                 case AttackType.PJ:
@@ -172,7 +174,7 @@ public class EnemyAnimControl : MonoBehaviour
                     _enemyControl.currentProjectile = pj.Projectile;
                     _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
 
-                    if (finishedAttack) StartCoroutine(SetCollider(true, (pj.HitFrame + 1)/ _fpsDict[animName].Item1));
+                    SetColliderAfterHit(finishedAttack, pj.HitFrame, animName);
                     break;
                 
                 default:
@@ -183,21 +185,30 @@ public class EnemyAnimControl : MonoBehaviour
         _anim.Play(animName);
         StartCoroutine(SetCollider(false));
         _enemyControl.guardDown();
+
         _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
     }
 
     public void CancelScheduledInvokes()
     {
+        StopAllCoroutines();
         foreach (string methodName in _invokeMethods)
             _enemyControl.CancelInvoke(methodName);
     }
-
-    IEnumerator SetCollider(bool state, float wait = 0f)
+    private void SetColliderAfterHit(bool finishedAttack, int hitFrame, string animName)
+    {
+        if (finishedAttack) StartCoroutine(SetCollider(true, (hitFrame + 1)/ _fpsDict[animName].Item1));
+    }
+    public IEnumerator SetCollider(bool state, float wait = 0f)
     {
         yield return WaitForCache.GetWaitForSecond(wait);
         
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;
+    }
+    public void SetIsSpecialAttack(bool state)
+    {
+        IsSpecialAttack = state;
     }
 }
 

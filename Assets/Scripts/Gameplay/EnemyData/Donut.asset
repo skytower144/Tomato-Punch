@@ -54,6 +54,7 @@ MonoBehaviour:
   projectiles:
   - Name: Donut_attack_4
     percentage: 10
+    isSpecialHit: 0
     ProjectileAttackFrames:
     - Damage: 4
       EnemyAttackType: 3
@@ -63,6 +64,7 @@ MonoBehaviour:
   enemyPattern:
   - Name: Donut_attack_1
     percentage: 20
+    isSpecialHit: 0
     PhysicalAttackFrames:
     - Damage: 3
       EnemyAttackType: 0
@@ -70,7 +72,8 @@ MonoBehaviour:
       CounterStartFrame: 5
       CounterEndFrame: 7
   - Name: Donut_attack_2
-    percentage: 8
+    percentage: 50
+    isSpecialHit: 1
     PhysicalAttackFrames:
     - Damage: 5
       EnemyAttackType: 2
@@ -79,6 +82,7 @@ MonoBehaviour:
       CounterEndFrame: 4
   - Name: Donut_attack_3
     percentage: 10
+    isSpecialHit: 0
     PhysicalAttackFrames:
     - Damage: 4
       EnemyAttackType: 0

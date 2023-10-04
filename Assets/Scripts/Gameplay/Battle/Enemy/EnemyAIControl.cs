@@ -108,4 +108,13 @@ public class EnemyAIControl : MonoBehaviour
     {
         pattern_list = null;
     }
+
+    public EnemyActDetail ReturnEnemyPattern(string name)
+    {
+        foreach (EnemyActDetail act in pattern_list) {
+            if (act.Name == name) return act;
+        }
+        Debug.LogError($"{name} : Enemy Act not found.");
+        return null;
+    }
 }

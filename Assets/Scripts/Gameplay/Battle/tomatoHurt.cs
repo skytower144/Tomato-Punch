@@ -12,10 +12,14 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private TextSpawn textSpawn;
+    private BattleSystem _battleSystem;
+    private EnemyControl _enemyControl;
     
     void Start()
     {
         anim = GetComponentInParent<Animator>();
+        _battleSystem = GameManager.gm_instance.battle_system;
+        _enemyControl = _battleSystem.enemy_control;
     }
 
     void OnTriggerEnter2D(Collider2D col) 
@@ -24,8 +28,14 @@ public class tomatoHurt : MonoBehaviour
         {
             isTomatoHurt = true;
             tomatocontrol.DestroyAllMatoPunches();
+
+            if (_enemyControl.enemyAnimControl.IsSpecialAttack) {
+                _enemyControl.enemyGimmicks.InvokeLoadedAction();
+                return;
+            }
+
             Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);
-            TakeDamage(GameManager.gm_instance.battle_system.enemy_control.GetCurrentAttackDamage());
+            TakeDamage(_enemyControl.GetCurrentAttackDamage());
 
             if(!tomatoControl.isFainted){
                 if(col.gameObject.tag.Equals("enemy_LA"))
@@ -56,7 +66,7 @@ public class tomatoHurt : MonoBehaviour
 
         if(tomatocontrol.currentHealth == 0){
             tomatoControl.isFainted = true;
-            GameManager.gm_instance.battle_system.enemy_control.EraseAllAttacks();
+            _enemyControl.EraseAllAttacks();
 
             textSpawn.Invoke("AskContinue", 1.8f);
 
@@ -66,8 +76,8 @@ public class tomatoHurt : MonoBehaviour
             Instantiate(faintBurstEffect);
             tomatocontrol.ResetGaksung();
 
-            GameManager.gm_instance.battle_system.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
-            GameManager.gm_instance.battle_system.battleTimeManager.DoSlowmotion();
+            _battleSystem.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
+            _battleSystem.battleTimeManager.DoSlowmotion();
         }
 
         else if (tomatocontrol.current_guardPt == 0)
@@ -75,7 +85,7 @@ public class tomatoHurt : MonoBehaviour
             anim.Play("tomato_L_hurt",-1,0f);
         }
 
-        GameManager.gm_instance.battle_system.featherPointManager.ResetFeather();
+        _battleSystem.featherPointManager.ResetFeather();
     }
 
     public void SetHitBox(bool state)

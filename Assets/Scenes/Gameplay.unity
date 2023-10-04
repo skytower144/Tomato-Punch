@@ -9058,6 +9058,7 @@ GameObject:
   - component: {fileID: 384357809064918363}
   - component: {fileID: 384357809064918365}
   - component: {fileID: 384357809064918364}
+  - component: {fileID: 384357809064918366}
   - component: {fileID: 8533154929030946978}
   - component: {fileID: 9141947710235121946}
   m_Layer: 6
@@ -9164,6 +9165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_Countered: {fileID: 5820148391002691455}
   enemyAnimControl: {fileID: 384357809064918364}
+  enemyGimmicks: {fileID: 384357809064918366}
   duplicate_r: {fileID: 384357809863535612}
   greyEffect: {fileID: 8533154929030946978}
   anim: {fileID: 384357809064918363}
@@ -9188,10 +9190,21 @@ MonoBehaviour:
   enemyAIControl: {fileID: 384357808746844929}
   enemyHurt: {fileID: 384357810682219711}
   textSpawn: {fileID: 384357809665552908}
-  HitBox: {fileID: 384357810682219710}
   projectileSpawnPoint: {fileID: 933909586}
   flashDuration: 0.13
   hitFlashDuration: 0.08
+--- !u!114 &384357809064918366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357809064918361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072ebc46ccc35a04d91509965ba15635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &384357809072484966
 GameObject:
   m_ObjectHideFlags: 0
