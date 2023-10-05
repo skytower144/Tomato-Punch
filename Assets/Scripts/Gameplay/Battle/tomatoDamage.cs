@@ -1,5 +1,5 @@
-
-public class tomatoDamage
+using UnityEngine;
+public class tomatoDamage : MonoBehaviour
 {
     public static float NormalPunch(float currentAtk)
     {

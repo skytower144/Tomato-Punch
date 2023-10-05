@@ -134,6 +134,8 @@ public class BattleContinue : MonoBehaviour
         money_text.color = new Color32(207, 58, 68, 255);
 
         runMoneyTimer = true; // Begins DecreaseMoney() in Update
+        
+        // tomatoControl.revive_to_idle()
     }
 
     private void DecreaseMoney()
@@ -157,7 +159,7 @@ public class BattleContinue : MonoBehaviour
 
     private void ReviveTomato()
     {
-        battle_system.GetTomatoAnim().Play("tomato_revive", -1, 0f);
+        battle_system.tomato_control.tomatoAnim.Play("tomato_revive", -1, 0f);
         battle_system.ScreenFlash();
         Destroy(gameObject, 1f);
     }

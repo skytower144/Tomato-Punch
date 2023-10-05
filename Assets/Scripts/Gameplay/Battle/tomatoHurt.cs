@@ -28,29 +28,8 @@ public class tomatoHurt : MonoBehaviour
         {
             isTomatoHurt = true;
             tomatocontrol.DestroyAllMatoPunches();
-
-            if (_enemyControl.enemyAnimControl.IsSpecialAttack) {
-                _enemyControl.enemyGimmicks.InvokeLoadedAction();
-                return;
-            }
-
-            Instantiate(hurtEffect, new Vector2 (transform.position.x -3.8f, transform.position.y - 0.8f), Quaternion.identity);
+            _enemyControl.enemyHitTypes.DetermineHitResponse(col.gameObject.tag);
             TakeDamage(_enemyControl.GetCurrentAttackDamage());
-
-            if(!tomatoControl.isFainted){
-                if(col.gameObject.tag.Equals("enemy_LA"))
-                {
-                    anim.Play("tomato_L_hurt",-1,0f);
-                }
-                else if(col.gameObject.tag.Equals("enemy_RA"))
-                {
-                    anim.Play("tomato_R_hurt",-1,0f);
-                }
-                else if(col.gameObject.tag.Equals("enemy_DA"))
-                {
-                    anim.Play("tomato_D_hurt",-1,0f);
-                }
-            }
         }
     }
     public void TakeDamage(float damage)
@@ -67,6 +46,7 @@ public class tomatoHurt : MonoBehaviour
         if(tomatocontrol.currentHealth == 0){
             tomatoControl.isFainted = true;
             _enemyControl.EraseAllAttacks();
+            _enemyControl.enemyHitTypes.StopAllCoroutines();
 
             textSpawn.Invoke("AskContinue", 1.8f);
 

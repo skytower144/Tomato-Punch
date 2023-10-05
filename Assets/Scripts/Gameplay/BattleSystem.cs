@@ -1,6 +1,5 @@
 using System;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,6 @@ public class BattleSystem : MonoBehaviour
     public ShockWaveEffect ShockWaveControl;
     public BackgroundParallax parallax;
     
-    [SerializeField] private Animator tomatoAnim, enemyAnim;
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
     [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
 
@@ -134,16 +132,6 @@ public class BattleSystem : MonoBehaviour
             lostCoins = player_status.playerMoney;
         
         player_status.playerMoney -= lostCoins;
-    }
-
-    public Animator GetEnemyAnim()
-    {
-        return enemyAnim;
-    }
-
-    public Animator GetTomatoAnim()
-    {
-        return tomatoAnim;
     }
 
     public void CoinFlip()

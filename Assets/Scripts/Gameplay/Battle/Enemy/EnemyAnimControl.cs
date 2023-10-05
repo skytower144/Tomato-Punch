@@ -22,7 +22,7 @@ public class EnemyAnimControl : MonoBehaviour
         "enemy_isPunchedEnd", "hurtOver", "projectileSpawn"
     };
     public Dictionary<string, (float, float)> FpsDict => _fpsDict;
-    public bool IsSpecialAttack { private set; get; }
+    public HitType CurrentHitType { private set; get; }
 
     void Start()
     {
@@ -141,7 +141,7 @@ public class EnemyAnimControl : MonoBehaviour
     {
         CancelScheduledInvokes();
         string animName = actDetail.Name;
-        IsSpecialAttack = actDetail.isSpecialHit;
+        CurrentHitType = actDetail.EnemyHitType;
 
         if (actDetail is Enemy_IdleDetail) {
             Idle(animName, false);
@@ -192,6 +192,7 @@ public class EnemyAnimControl : MonoBehaviour
     public void CancelScheduledInvokes()
     {
         StopAllCoroutines();
+
         foreach (string methodName in _invokeMethods)
             _enemyControl.CancelInvoke(methodName);
     }
@@ -205,10 +206,6 @@ public class EnemyAnimControl : MonoBehaviour
         
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;
-    }
-    public void SetIsSpecialAttack(bool state)
-    {
-        IsSpecialAttack = state;
     }
 }
 
