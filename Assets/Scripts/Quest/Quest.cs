@@ -12,6 +12,14 @@ public class Quest
     [SerializeField] private List<CarryGoal> carryGoals = new List<CarryGoal>();
     [SerializeField] private List<DefeatGoal> defeatGoals = new List<DefeatGoal>();
     [SerializeField] public Reward reward;
+
+    private List<Goal> ReturnTotalGoals() // Must update this function as goal types increase
+    {
+        List<Goal> totalGoals = new List<Goal>();
+        totalGoals.AddRange(carryGoals);
+        totalGoals.AddRange(defeatGoals);
+        return totalGoals;
+    }
     
     public bool CheckQuestComplete()
     {
@@ -57,15 +65,6 @@ public class Quest
     public void UpdateQuestCompletion(bool state)
     {
         isCompleted = state;
-    }
-
-    // Must update this function as goal types increase
-    private List<Goal> ReturnTotalGoals()
-    {
-        List<Goal> totalGoals = new List<Goal>();
-        totalGoals.AddRange(carryGoals);
-        totalGoals.AddRange(defeatGoals);
-        return totalGoals;
     }
 }
 
