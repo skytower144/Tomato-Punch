@@ -9,9 +9,9 @@ public class Quest
 
     [TextArea(5,5)]
     [SerializeField] private string ultimateGoalDescription;
-    [SerializeField] private List<CarryGoal> carryGoals = new List<CarryGoal>();
-    [SerializeField] private List<DefeatGoal> defeatGoals = new List<DefeatGoal>();
-    [SerializeField] public Reward reward;
+    public List<CarryGoal> carryGoals = new List<CarryGoal>();
+    public List<DefeatGoal> defeatGoals = new List<DefeatGoal>();
+    public Reward reward;
 
     private List<Goal> ReturnTotalGoals() // Must update this function as goal types increase
     {

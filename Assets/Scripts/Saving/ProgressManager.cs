@@ -40,10 +40,11 @@ public class ProgressManager : MonoBehaviour
         }
         instance = this;
 
-        CountableItemDB.Initiatlize();
-        EquipDB.Initiatlize();
-        ItemPrefabDB.Initiatlize();
-        
+        CountableItemDB.Initialize();
+        EquipDB.Initialize();
+        ItemPrefabDB.Initialize();
+        EnemyBaseDB.Initialize();
+
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
     }
@@ -169,6 +170,7 @@ public class ProgressManager : MonoBehaviour
         if (tomatocontrol.tomatoSuperEquip)
             tomatoData.equip_super = tomatocontrol.tomatoSuperEquip.ItemName;
 
+        QuestManager.instance.SerializeQuests();
         tomatoData.assignedQuests = QuestManager.instance.ReturnQuestState(true);
         tomatoData.unassignedQuests = QuestManager.instance.ReturnQuestState(false);
 

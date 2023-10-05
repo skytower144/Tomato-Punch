@@ -159,5 +159,14 @@ public class Inventory : MonoBehaviour
 public class ItemQuantity
 {
     public Item item;
+    [SerializeField, HideInInspector] public string ItemName;
     public int count;
+    public void SerializeItemName()
+    {
+        ItemName = item.ItemName;
+    }
+    public void DeSerializeItemName()
+    {
+        item = CountableItemDB.ReturnItemOfName(ItemName);
+    }
 }

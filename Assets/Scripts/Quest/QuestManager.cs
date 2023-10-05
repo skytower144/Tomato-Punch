@@ -53,8 +53,47 @@ public class QuestManager : MonoBehaviour
         // Recover Quest State
         assignedQuests = assigned;
         unassignedQuests = unassigned;
+        DeSerializeQuests();
         
         foreach (Quest quest in assignedQuests)
             if (!quest.is_completed) quest.InitQuestGoals();
+    }
+
+    public void SerializeQuests()
+    {
+        List<Quest> quests;
+        for (int i = 0; i < 2; i++) {
+            quests = i > 0 ? assignedQuests : unassignedQuests;
+            
+            foreach (Quest quest in quests) {
+                foreach (CarryGoal goal in quest.carryGoals)
+                    goal.SerializeItemName();
+                
+                foreach (DefeatGoal goal in quest.defeatGoals)
+                    goal.SerializeEnemyName();
+                
+                foreach (ItemQuantity itemQuantity in quest.reward.items)
+                    itemQuantity.SerializeItemName();
+            }
+        }
+    }
+
+    private void DeSerializeQuests()
+    {
+        List<Quest> quests;
+        for (int i = 0; i < 2; i++) {
+            quests = i > 0 ? assignedQuests : unassignedQuests;
+            
+            foreach (Quest quest in quests) {
+                foreach (CarryGoal goal in quest.carryGoals)
+                    goal.DeSerializeItemName();
+                
+                foreach (DefeatGoal goal in quest.defeatGoals)
+                    goal.DeSerializeEnemyName();
+                
+                foreach (ItemQuantity itemQuantity in quest.reward.items)
+                    itemQuantity.DeSerializeItemName();
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ public class ItemPrefabDB
 {
     static Dictionary<string, GameObject> ItemPrefabCatalog;
 
-    public static void Initiatlize()
+    public static void Initialize()
     {
         ItemPrefabCatalog = new Dictionary<string, GameObject>();
 

@@ -4,6 +4,8 @@ using UnityEngine;
 public class CarryGoal : Goal
 {
     [SerializeField] private Item targetItem;
+    [SerializeField, HideInInspector] public string TargetItemName;
+
     public override void Init()
     {
         Inventory.instance.onItemPickup -= Pickup;
@@ -24,5 +26,13 @@ public class CarryGoal : Goal
     {
         if (item == targetItem)
             this.currentAmount++;
+    }
+    public void SerializeItemName()
+    {
+        TargetItemName = targetItem.ItemName;
+    }
+    public void DeSerializeItemName()
+    {
+        targetItem = CountableItemDB.ReturnItemOfName(TargetItemName);
     }
 }
