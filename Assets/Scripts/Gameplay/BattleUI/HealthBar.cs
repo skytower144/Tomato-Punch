@@ -6,12 +6,12 @@ using System;
 using TMPro;
 public class HealthBar : MonoBehaviour
 {
+    public const float HP_SHRINKTIMER_MAX = 0.5f;
+    [System.NonSerialized] public float hpShrinkTimer;
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Slider slider;
     [SerializeField] private Gradient gradient;
-    public const float HP_SHRINKTIMER_MAX = 0.5f;
-    public float hpShrinkTimer;
     [SerializeField] private Image fill, damagedFill, tomatoFace;
     [SerializeField] private Sprite face1, face2, face3, face4;
     [SerializeField] private TextMeshProUGUI healthText;

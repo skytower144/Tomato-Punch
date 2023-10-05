@@ -35,13 +35,13 @@ public class BattleSystem : MonoBehaviour
     [field: SerializeField] public ShockWaveInfo BlastShockWave { get; private set; }
     [field: SerializeField] public ShockWaveInfo DunkShockWave { get; private set; }
 
-    [System.NonSerialized] public bool resetPlayerHealth, resetEnemyHealth;
+    [System.NonSerialized] public bool resetPlayerHealth, increaseEnemyHealth;
     private GameObject tempObj;
 
     void Start()
     {
         resetPlayerHealth = false;
-        resetEnemyHealth = false;
+        increaseEnemyHealth = false;
     }
 
     void OnEnable()

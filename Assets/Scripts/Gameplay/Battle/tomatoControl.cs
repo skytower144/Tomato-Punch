@@ -23,6 +23,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private tomatoHurt tomatohurt;
     [SerializeField] private TextSpawn textSpawn;
     [SerializeField] private FlashEffect flashEffect;
+    private EnemyControl enemyControl;
     private Animator tomatoAnimator; 
     private GameObject _parryInstance;
     
@@ -114,6 +115,7 @@ public class tomatoControl : MonoBehaviour
     void Start()
     {
         tomatoAnimator = GetComponent<Animator>();
+        enemyControl = battleSystem.enemy_control;
     }
 
     void ChangeAnimationState(string newState)
@@ -147,8 +149,8 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if (PressKey("LeftPunch"))
                 {
-                    if (battleSystem.enemy_control.canDunk) {
-                        battleSystem.enemy_control.canDunk = false;
+                    if (enemyControl.canDunk) {
+                        enemyControl.canDunk = false;
                         tomatoAnimator.Play("tomato_dunk", -1, 0f);
                     }
 
@@ -160,8 +162,8 @@ public class tomatoControl : MonoBehaviour
                 }
                 else if (PressKey("RightPunch"))
                 {
-                    if (battleSystem.enemy_control.canDunk) {
-                        battleSystem.enemy_control.canDunk = false;
+                    if (enemyControl.canDunk) {
+                        enemyControl.canDunk = false;
                         tomatoAnimator.Play("tomato_dunk", -1, 0f);
                     }
 
@@ -495,8 +497,8 @@ public class tomatoControl : MonoBehaviour
     
     void enemy_Dunked()
     {
-        battleSystem.enemy_control.CancelInvoke("Bounce");
-        battleSystem.enemy_control.isDunked = true;
+        enemyControl.CancelInvoke("Bounce");
+        enemyControl.isDunked = true;
     }
 
     void revive_to_idle()
@@ -505,13 +507,13 @@ public class tomatoControl : MonoBehaviour
         textSpawn.spawn_FIGHT_text();
 
         string enemyReEngage = battleSystem.GetEnemyBase().ReEngage;
-        battleSystem.enemy_control.enemyAnimControl.Act(enemyReEngage, BattleActType.ReEngage);
-        battleSystem.enemy_control.guardDown();
+        enemyControl.enemyAnimControl.Act(enemyReEngage, BattleActType.ReEngage);
+        enemyControl.guardDown();
 
         battleSystem.resetPlayerHealth = true;
-        battleSystem.resetEnemyHealth = true;
+        enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(-1, true);
 
-        battleSystem.enemy_control.enemy_Countered.ResetCounterPoints();
+        enemyControl.enemy_Countered.ResetCounterPoints();
         battleSystem.featherPointManager.ResetFeather();
         battleSystem.tomato_control.guard_bar.RestoreGuardBar();
         

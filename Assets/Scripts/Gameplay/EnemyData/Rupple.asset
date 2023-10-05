@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e237ac19a8c6d5a4ca51961169d58f64, type: 3}
   bgTexture: {fileID: 0}
   parallaxDirection: {x: 0, y: 0}
-  enemyMaxHealth: 30
-  enemyCurrentHealth: 30
+  enemyMaxHealth: 35
+  enemyCurrentHealth: 35
   min_hitct: 3
   max_hitct: 6
   animationController: {fileID: 9100000, guid: 1fb82df5153e0ec46adbc88215492d08, type: 2}
@@ -58,6 +58,7 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 4
       EnemyAttackType: 0
+      HitType: 0
       HitFrame: 5
       CounterStartFrame: 1
       CounterEndFrame: 4
@@ -66,6 +67,7 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 4
       EnemyAttackType: 1
+      HitType: 0
       HitFrame: 6
       CounterStartFrame: 2
       CounterEndFrame: 5
@@ -74,6 +76,7 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 3
       EnemyAttackType: 2
+      HitType: 0
       HitFrame: 6
       CounterStartFrame: 2
       CounterEndFrame: 5
@@ -82,6 +85,7 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 8
       EnemyAttackType: 0
+      HitType: 0
       HitFrame: 8
       CounterStartFrame: 5
       CounterEndFrame: 7

@@ -6,41 +6,25 @@ using System;
 using TMPro;
 public class EnemyHealthBar : MonoBehaviour
 {
-    [SerializeField] private BattleSystem battleSystem;
-    [SerializeField] Enemy_is_hurt enemy_is_hurt;
-    [SerializeField] private Slider slider;
     public float enemy_hpShrinkTimer;
+    [SerializeField] private BattleSystem battleSystem;
+    [SerializeField] private Enemy_is_hurt enemy_is_hurt;
+    [SerializeField] private Slider slider;
     [SerializeField] private Image enemyFace, fill, damagedFill, enemy_whiteFill;
     [SerializeField] private TextMeshProUGUI healthText;
-    private float INCREASE_SPEED = 1;
-    private bool checkOnce = false;
+    private float increaseAmount, targetHealth;
     
     private void Update(){
         healthText.text = enemy_is_hurt.Enemy_currentHealth.ToString("F0")+ "/" + enemy_is_hurt.Enemy_maxHealth.ToString("F0");
-
-        if (battleSystem.resetEnemyHealth)
-        {
-            INCREASE_SPEED = EqualizeSpeed();
-            float increased_hp = slider.value + (INCREASE_SPEED * 1.5f) * Time.deltaTime;
-
-            if (increased_hp >= slider.maxValue){
-                battleSystem.resetEnemyHealth = checkOnce = false;
-                increased_hp = slider.maxValue;
-                Enemy_setDamageFill();
-            }
-
-            enemy_is_hurt.Enemy_currentHealth = increased_hp;
-            Enemy_SetHealth(increased_hp);
-        }
-
+        
+        if (battleSystem.increaseEnemyHealth)
+            IncreaseHealth(increaseAmount);
+        
         enemy_hpShrinkTimer -= Time.deltaTime; // count down timer
-        if (enemy_hpShrinkTimer < 0)
+        if (enemy_hpShrinkTimer < 0 && slider.normalizedValue < damagedFill.fillAmount)
         {
-            if (slider.normalizedValue < damagedFill.fillAmount)
-            {
-                float shrinkSpeed = 5f * Time.deltaTime;
-                damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount,slider.normalizedValue,shrinkSpeed);
-            }
+            float shrinkSpeed = 5f * Time.deltaTime;
+            damagedFill.fillAmount = Mathf.Lerp(damagedFill.fillAmount, slider.normalizedValue, shrinkSpeed);
         }
     }
     public void Enemy_SetMaxHealth(float health)
@@ -82,13 +66,27 @@ public class EnemyHealthBar : MonoBehaviour
             enemyFace.sprite = battleSystem.GetEnemyBase().koFace;
         }
     }
-
-    private float EqualizeSpeed()
+    public void SetIncreaseHealthAmount(float amount, bool isRevive = false)
     {
-        if(!checkOnce){
-            checkOnce = true;
-            INCREASE_SPEED = slider.maxValue - slider.value;
+        increaseAmount = isRevive ? GetLeftoverHealth() : amount;
+        targetHealth = Mathf.Clamp(slider.value + increaseAmount, 0, slider.maxValue);
+
+        battleSystem.increaseEnemyHealth = true;
+    }
+    private void IncreaseHealth(float totalIncrease)
+    {
+        float increased_hp = slider.value + totalIncrease * 1.5f * Time.deltaTime;
+
+        if (increased_hp >= targetHealth){
+            battleSystem.increaseEnemyHealth = false;
+            increased_hp = targetHealth;
+            Enemy_setDamageFill();
         }
-        return INCREASE_SPEED;
+        enemy_is_hurt.Enemy_currentHealth = increased_hp;
+        Enemy_SetHealth(increased_hp);
+    }
+    private float GetLeftoverHealth()
+    {
+        return slider.maxValue - slider.value;
     }
 }

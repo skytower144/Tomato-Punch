@@ -22,8 +22,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 74e15c091731cd649942af59ebeb69aa, type: 3}
   bgTexture: {fileID: 0}
   parallaxDirection: {x: 0, y: 0}
-  enemyMaxHealth: 70
-  enemyCurrentHealth: 70
+  enemyMaxHealth: 30
+  enemyCurrentHealth: 30
   min_hitct: 3
   max_hitct: 5
   animationController: {fileID: 9100000, guid: 85cbef17ade53df4ea7754a9e6a6a939, type: 2}
@@ -54,43 +54,44 @@ MonoBehaviour:
   projectiles:
   - Name: Donut_attack_4
     percentage: 10
-    EnemyHitType: 0
     ProjectileAttackFrames:
     - Damage: 4
       EnemyAttackType: 3
+      HitType: 0
       HitFrame: 9
       SpawnFrame: 7
       Projectile: {fileID: 1498421394241176466, guid: bc7ef68396c0d484db57eb40abe8674a, type: 3}
   enemyPattern:
   - Name: Donut_attack_1
     percentage: 20
-    EnemyHitType: 0
     PhysicalAttackFrames:
     - Damage: 3
       EnemyAttackType: 0
+      HitType: 0
       HitFrame: 8
       CounterStartFrame: 5
       CounterEndFrame: 7
   - Name: Donut_attack_2
     percentage: 50
-    EnemyHitType: 1
     PhysicalAttackFrames:
     - Damage: 5
       EnemyAttackType: 2
+      HitType: 1
       HitFrame: 5
       CounterStartFrame: 2
       CounterEndFrame: 4
   - Name: Donut_attack_3
     percentage: 10
-    EnemyHitType: 0
     PhysicalAttackFrames:
     - Damage: 4
       EnemyAttackType: 0
+      HitType: 0
       HitFrame: 9
       CounterStartFrame: 6
       CounterEndFrame: 8
     - Damage: 4
       EnemyAttackType: 1
+      HitType: 0
       HitFrame: 19
       CounterStartFrame: 16
       CounterEndFrame: 18
