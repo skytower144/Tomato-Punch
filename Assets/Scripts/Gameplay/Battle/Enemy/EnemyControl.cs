@@ -147,7 +147,6 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_AttackDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
-                    readingPattern.EnemyHitType,
                     readingPattern.PhysicalAttackFrames
             ));
             sumPercentage += readingPattern.percentage;
@@ -157,7 +156,6 @@ public class EnemyControl : MonoBehaviour
                 new Enemy_ProjectileDetail(
                     readingPattern.Name,
                     readingPattern.percentage,
-                    readingPattern.EnemyHitType,
                     readingPattern.ProjectileAttackFrames
             ));
             sumPercentage += readingPattern.percentage;

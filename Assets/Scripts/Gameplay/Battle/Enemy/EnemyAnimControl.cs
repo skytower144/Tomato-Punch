@@ -141,7 +141,6 @@ public class EnemyAnimControl : MonoBehaviour
     {
         CancelScheduledInvokes();
         string animName = actDetail.Name;
-        CurrentHitType = actDetail.EnemyHitType;
 
         if (actDetail is Enemy_IdleDetail) {
             Idle(animName, false);
@@ -156,6 +155,7 @@ public class EnemyAnimControl : MonoBehaviour
         foreach (DamageFrame frame in _enemyControl.TotalDamageFrames) {
             actionCount++;
             bool finishedAttack = actionCount == _enemyControl.TotalDamageFrames.Count;
+            CurrentHitType = frame.HitType;
 
             switch (frame.EnemyAttackType) {
                 case AttackType.LA:

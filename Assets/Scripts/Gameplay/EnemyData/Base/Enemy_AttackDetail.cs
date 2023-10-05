@@ -9,7 +9,6 @@ public class EnemyActDetail
     public int percentage;
     // [TextArea(1,1)] public string LinkedMove;
 
-    public HitType EnemyHitType;
     public bool PhysicalAttack => this is Enemy_AttackDetail;
 }
 
@@ -40,11 +39,10 @@ public class Enemy_AttackDetail : EnemyActDetail
 {
     public List<PhysicalAttackFrame> PhysicalAttackFrames;
     public int LastDamageHitFrame => this.PhysicalAttackFrames[PhysicalAttackFrames.Count - 1].HitFrame;
-    public Enemy_AttackDetail(string Name, int percentage, HitType hitType, List<PhysicalAttackFrame> PhysicalAttackFrames = null)
+    public Enemy_AttackDetail(string Name, int percentage, List<PhysicalAttackFrame> PhysicalAttackFrames = null)
     {
         this.Name = Name;
         this.percentage = percentage;
-        EnemyHitType = hitType;
         this.PhysicalAttackFrames = PhysicalAttackFrames;
     }
 }
@@ -54,11 +52,10 @@ public class Enemy_ProjectileDetail : EnemyActDetail
 {
     public List<ProjectileAttackFrame> ProjectileAttackFrames;
     public int LastDamageHitFrame => this.ProjectileAttackFrames[ProjectileAttackFrames.Count - 1].HitFrame;
-    public Enemy_ProjectileDetail(string Name, int percentage, HitType hitType, List<ProjectileAttackFrame> ProjectileAttackFrames = null)
+    public Enemy_ProjectileDetail(string Name, int percentage, List<ProjectileAttackFrame> ProjectileAttackFrames = null)
     {
         this.Name = Name;
         this.percentage = percentage;
-        EnemyHitType = hitType;
         this.ProjectileAttackFrames = ProjectileAttackFrames;
     }
 }
@@ -68,6 +65,7 @@ public class DamageFrame
 {
     public float Damage;
     public AttackType EnemyAttackType;
+    public HitType HitType;
     public int HitFrame;
 }
 

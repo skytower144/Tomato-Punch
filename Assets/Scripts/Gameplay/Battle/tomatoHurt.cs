@@ -7,7 +7,7 @@ public class tomatoHurt : MonoBehaviour
     private Animator anim;
     [System.NonSerialized] static public bool isTomatoHurt = false;
     [SerializeField] private BoxCollider2D _collider;
-    [SerializeField] private GameObject hurtEffect, faintBurstEffect;
+    [SerializeField] private GameObject faintBurstEffect;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private HealthBar healthBar;
