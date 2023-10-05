@@ -28,12 +28,13 @@ public class tomatoHurt : MonoBehaviour
         {
             isTomatoHurt = true;
             tomatocontrol.DestroyAllMatoPunches();
-            _enemyControl.enemyHitTypes.DetermineHitResponse(col.gameObject.tag);
-            TakeDamage(_enemyControl.GetCurrentAttackDamage());
+            TakeDamage(_enemyControl.GetCurrentAttackDamage(), col.gameObject.tag);
         }
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, string colliderTag = "enemy_LA")
     {
+        _enemyControl.enemyHitTypes.DetermineHitResponse(damage, colliderTag);
+
         if (tomatoControl.isFainted) return;
         
         if(tomatocontrol.currentHealth < damage)
@@ -59,12 +60,6 @@ public class tomatoHurt : MonoBehaviour
             _battleSystem.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
             _battleSystem.battleTimeManager.DoSlowmotion();
         }
-
-        else if (tomatocontrol.current_guardPt == 0)
-        {
-            anim.Play("tomato_L_hurt",-1,0f);
-        }
-
         _battleSystem.featherPointManager.ResetFeather();
     }
 

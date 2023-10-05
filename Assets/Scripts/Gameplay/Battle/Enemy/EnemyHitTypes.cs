@@ -13,7 +13,7 @@ public class EnemyHitTypes : MonoBehaviour
         _enemyAnimControl = _enemyControl.enemyAnimControl;
     }
     
-    public void DetermineHitResponse(string colliderTag)
+    public void DetermineHitResponse(float damage, string colliderTag)
     {
         switch (_enemyAnimControl.CurrentHitType) {
             case HitType.Normal:
@@ -42,7 +42,7 @@ public class EnemyHitTypes : MonoBehaviour
                 float attackFinishedTime = 5 / _enemyAnimControl.FpsDict[animName].Item1;
 
                 _enemyControl.enemyAnim.Play(animName, -1, 0f);
-                _enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(_enemyControl.GetCurrentAttackDamage());
+                _enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(damage);
 
                 _tomatoControl.tomatoAnim.Play("tomato_absorbed", -1, 0f);
                 _tomatoControl.gaksung_OFF();

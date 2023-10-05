@@ -51,7 +51,7 @@ public class tomatoGuard : MonoBehaviour
                 playGuard_BreakEffects();
                 TakeGuardDamage(reducedDamage);
 
-                tomatohurt.TakeDamage(leftoverDamage);
+                tomatohurt.TakeDamage(leftoverDamage, col.gameObject.tag);
             }
             else
             {
@@ -60,10 +60,9 @@ public class tomatoGuard : MonoBehaviour
                 playGuardEffects();
                 playGuard_BreakEffects();
 
-                tomatohurt.TakeDamage(damage);
+                tomatohurt.TakeDamage(damage, col.gameObject.tag);
             }
         }
-        
     }
     void TakeGuardDamage(float dmg)
     {
