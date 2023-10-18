@@ -48,11 +48,9 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     [HideInInspector] public bool canBattle;
     [HideInInspector] public bool instantBattle;
     [HideInInspector] public EnemyBase enemyData;
-    [HideInInspector] public PlayerReviveState reviveState;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    [System.NonSerialized] public bool isDisabled = false;
     private bool initOnce = false;
     private bool isAnimating = false;
 
@@ -190,7 +188,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         if (custom_mode != null)
             custom_mode.ChangeBattleMode();
         
-        GameManager.gm_instance.Initiate_Battle(enemy_data, reviveState);
+        GameManager.gm_instance.Initiate_Battle(enemy_data);
     }
 
     private bool ValidInteractDirection()
@@ -223,22 +221,21 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public ProgressData Capture()
     {
-        ProgressData game_data = new ProgressData();
-        
-        game_data.string_value_0 = inkFileName;
-        game_data.bool_value_0 = isDisabled;
-        game_data.position = transform.position;
-        game_data.keyEventDialogues = keyEventDialogues;
-        
+        ProgressData game_data = new ProgressData
+        {
+            string_value_0 = inkFileName,
+            bool_value_0 = gameObject.activeSelf,
+            position = transform.position,
+            keyEventDialogues = keyEventDialogues
+        };
+
         return game_data;
     }
 
     public void Restore(ProgressData game_data)
     {
         inkFileName = game_data.string_value_0;
-        isDisabled = game_data.bool_value_0;
-        gameObject.SetActive(!isDisabled);
-
+        gameObject.SetActive(game_data.bool_value_0);
         transform.position = game_data.position;
         keyEventDialogues = game_data.keyEventDialogues;
     }
@@ -298,4 +295,4 @@ public class SpriteAnimation
     public List<Sprite> sprites;
 }
 
-public enum PlayerReviveState { LoseTalk, Cafe, Bench }
+public enum PlayerReviveState { Cafe, LoseTalk, Bench }

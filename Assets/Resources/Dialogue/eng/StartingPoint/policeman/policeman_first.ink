@@ -17,13 +17,14 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         OH MY GOODNESS! #animate:shocked
         #turnplayer:LEFT@1.7
         #animate:fainted
-        #changeidle:StartingPoint_Donut@isangry
         #teleport:StartingPoint_Donut@30@41
+        #changeidle:StartingPoint_Donut@isangry
         #setactive:StartingPoint_Donut@true
         #focusanimate:StartingPoint_Donut@angry
         #battletarget:StartingPoint_Donut
-        #continuetalk:_
         #nextdialogue:policeman_fainted
+        #judgekeyevent:Win_Donut_StartingPoint@None
+        #continuetalk:StartingPoint_Donut
         
         - else:
         What's that crumb on your face?

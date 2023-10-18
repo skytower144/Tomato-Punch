@@ -14,7 +14,7 @@ public class NPCManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than one Anim Manager in scene.");
+            Debug.LogError("Found more than one NPC Manager in scene.");
         }
         instance = this;
     }

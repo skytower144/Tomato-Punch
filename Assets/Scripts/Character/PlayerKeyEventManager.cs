@@ -77,6 +77,7 @@ public class PlayerKeyEventManager : MonoBehaviour
 
     public void ApplyCacheKeyEvents(bool is_victory)
     {
+        // Update Player Key Events depending on the battle outcome
         int result = is_victory ? 0 : 1;
 
         PlayerKeyEvent outcomeKeyEvent = cacheKeyEvents[result];  // [WIN, LOSE]
@@ -89,8 +90,9 @@ public class PlayerKeyEventManager : MonoBehaviour
     }
 }
 
+// Utilize this if an event needs to change multiple npcs' dialogues.
 public enum PlayerKeyEvent
 {
     None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint, Win_Number2,
-    Lose_Number2
+    Lose_Number2,   Win_Donut_StartingPoint
 }

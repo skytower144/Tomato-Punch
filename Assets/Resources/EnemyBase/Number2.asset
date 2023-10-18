@@ -57,6 +57,7 @@ MonoBehaviour:
     ProjectileAttackFrames:
     - Damage: 4
       EnemyAttackType: 3
+      HitType: 0
       HitFrame: 7
       SpawnFrame: 2
       Projectile: {fileID: 596274545546477243, guid: ce9a3e56aac6e5142ab897f0659445b9, type: 3}
@@ -65,6 +66,7 @@ MonoBehaviour:
     ProjectileAttackFrames:
     - Damage: 2
       EnemyAttackType: 3
+      HitType: 0
       HitFrame: 5
       SpawnFrame: 3
       Projectile: {fileID: 277930647838553412, guid: d71958087c42f0144a274a186c20be01, type: 3}
@@ -74,6 +76,7 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 8
       EnemyAttackType: 0
+      HitType: 0
       HitFrame: 23
       CounterStartFrame: 20
       CounterEndFrame: 22
@@ -82,9 +85,11 @@ MonoBehaviour:
     PhysicalAttackFrames:
     - Damage: 6
       EnemyAttackType: 1
+      HitType: 0
       HitFrame: 10
       CounterStartFrame: 5
       CounterEndFrame: 9
   itemReward: []
   battleExp: 30
   battleCoin: 0
+  playerReviveState: 1

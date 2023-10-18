@@ -32,6 +32,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private List <RewardDetail> itemReward;
     [SerializeField] private float battleExp;
     [SerializeField] private int battleCoin;
+    [SerializeField] private PlayerReviveState playerReviveState; 
 
 
     public string EnemyName
@@ -150,6 +151,10 @@ public class EnemyBase : ScriptableObject
     public int BattleCoin
     {
         get { return battleCoin; }
+    }
+    public PlayerReviveState ReviveState
+    {
+        get { return playerReviveState; }
     }
 
 }

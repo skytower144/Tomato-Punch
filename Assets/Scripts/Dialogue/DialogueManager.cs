@@ -31,6 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     string[] splitTag;
 
+    public NPCController ContinueTalkTarget;
     public NPCController current_npc => currentNpc;
     public bool is_continue_talk => isContinueTalk;
 
@@ -294,6 +295,7 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case CONTINUETALK_TAG: // #continuetalk:_
+                    ContinueTalkTarget = (tag_value[0] != '_') ? NPCManager.instance.npc_dict[tag_value] : null;
                     isContinueTalk = true;
                     break;
                 
@@ -419,7 +421,6 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 case HIDENPC_TAG:
-                    currentNpc.isDisabled = true;
                     currentNpc.gameObject.SetActive(false);
                     break;
                 
@@ -436,11 +437,11 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case JOINPARTY_TAG: // #joinparty:_
-                    GameManager.gm_instance.partyManager.JoinParty(current_npc);
+                    GameManager.gm_instance.partyManager.JoinParty(currentNpc);
                     break;
                 
                 case LEAVEPARTY_TAG: // #leaveparty:_
-                    string leavingMemberName = (tag_value == "_") ? current_npc.ReturnID() : tag_value;
+                    string leavingMemberName = (tag_value == "_") ? currentNpc.ReturnID() : tag_value;
                     GameManager.gm_instance.partyManager.LeaveParty(leavingMemberName);
                     break; 
 
@@ -530,6 +531,6 @@ public class KeyEventDialogue
 
     public KeyEventDialogue()
     {
-        this.keyEvent = PlayerKeyEvent.None;
+        keyEvent = PlayerKeyEvent.None;
     }
 }

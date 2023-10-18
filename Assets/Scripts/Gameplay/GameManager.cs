@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float intervalTime;
     private string[] joystickNames;
     private float delayTimer;
-    
 
     public bool WasHolding => holdStartTime < Time.unscaledTime;
     public bool EnableDebug;
@@ -113,7 +112,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Initiate_Battle() => StartBattle() => Wait()
-    public void Initiate_Battle(EnemyBase enemy_base, PlayerReviveState revive_state = PlayerReviveState.Cafe)
+    public void Initiate_Battle(EnemyBase enemy_base)
     {
         PlayerMovement.isBattle = true;
 
@@ -124,8 +123,8 @@ public class GameManager : MonoBehaviour
 
         player_x = playerMovement.transform.position.x;
         player_y = playerMovement.transform.position.y;
-
-        expectedReviveState = revive_state;
+        
+        expectedReviveState = enemy_base.ReviveState;
 
         Instantiate (exclamation, new Vector2 (player_x, player_y + 3.8f), Quaternion.identity);
         Invoke("battleStart_ef", 0.4f);
@@ -151,42 +150,59 @@ public class GameManager : MonoBehaviour
     {
         yield return WaitForCache.WaitSeconds1_5;
 
-        foreach (GameObject level_holder in levelHolder) {
+        foreach (GameObject level_holder in levelHolder)
             level_holder.SetActive(true);
-        }
 
         battle_system.battleUI_Control.NormalizeBattleUI();
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
 
-        // Update Player Key Events depending on the battle outcome
-        playerKeyEventManager.ApplyCacheKeyEvents(isVictory);
-
-        // Revive at Cafe
+        // Load quicksave
+        
+        
         if (!isVictory && (expectedReviveState == PlayerReviveState.Cafe)) {
-            
+            // Revive at Cafe
         }
-        else {
-            // Teleport player to bench, play waking up from bench animation
-            if (!isVictory && (expectedReviveState == PlayerReviveState.Bench)) {
-                playerMovement.transform.position = GetBenchPostion();
-                CutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
-                playerAnimator.Play("Wakeup", -1, 0f);
-                Instantiate(playerMovement.newspaper, playerAnimator.transform);
-            }
+        else if (!isVictory && (expectedReviveState == PlayerReviveState.Bench))
+            ReviveFromBench();
 
-            gameState = GameState.FreeRoam;
-            GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (playerMovement.transform.position.x, playerMovement.transform.position.y - 0.05f), Quaternion.identity);
-            fadeInstance.transform.localScale = new Vector2(2f, 2f);
-            mainCamera.gameObject.SetActive(true);
+        else if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk)))
+            Invoke("TalkToFacingNpc", 0.5f);
+        
+        Invoke("ReturnToFreeroam", 1f);
+        playerKeyEventManager.ApplyCacheKeyEvents(isVictory);
+        ShowScreen();
+    }
 
-            // Talk to currently facing NPC
-            if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk))) {
-                yield return WaitForCache.WaitSeconds0_5;
-                DialogueManager.instance.SetIsContinueTalkBool(false);
-                PlayerMovement.instance.PlayerInteract();
-            }
-        }
+    private void ReviveFromBench()
+    {
+        playerMovement.transform.position = GetBenchPostion();
+        CutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
+        playerAnimator.Play("Wakeup", -1, 0f);
+        Instantiate(playerMovement.newspaper, playerAnimator.transform);
+    }
+
+    private void ShowScreen()
+    {
+        GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (playerMovement.transform.position.x, playerMovement.transform.position.y - 0.05f), Quaternion.identity);
+        fadeInstance.transform.localScale = new Vector2(2f, 2f);
+        mainCamera.gameObject.SetActive(true);
+    }
+
+    private void TalkToFacingNpc()
+    {
+        if (DialogueManager.instance.ContinueTalkTarget != null)
+            DialogueManager.instance.ContinueTalkTarget.InitiateTalk();
+        else
+            PlayerMovement.instance.PlayerInteract();
+        
+        DialogueManager.instance.SetIsContinueTalkBool(false);
+        DialogueManager.instance.ContinueTalkTarget = null;
+    }
+
+    private void ReturnToFreeroam()
+    {
+        gameState = GameState.FreeRoam;
         PlayerMovement.isBattle = false;
     }
 

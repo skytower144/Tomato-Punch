@@ -10291,13 +10291,16 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Donut_first
-  keyEventDialogues: []
+  keyEventDialogues:
+  - keyEvent: 6
+    inkFileName: Donut_defeated
   sprite_renderer: {fileID: 771381876}
   sprite_dict:
     m_keys:
     - idle
     - angry
     - isangry
+    - poof
     m_values:
     - is_loop: 1
       fps: 1
@@ -10320,6 +10323,15 @@ MonoBehaviour:
       fps: 1
       sprites:
       - {fileID: 5009084556829288309, guid: b3239eea233ffc448bc7a2bb22fdbc41, type: 3}
+    - is_loop: 0
+      fps: 9
+      sprites:
+      - {fileID: 3836624367161873689, guid: 4aabfde7e332e3740a4a0623fa96c523, type: 3}
+      - {fileID: -7159914678845485935, guid: 4aabfde7e332e3740a4a0623fa96c523, type: 3}
+      - {fileID: 8524688519890822339, guid: 4aabfde7e332e3740a4a0623fa96c523, type: 3}
+      - {fileID: 7201984843184408182, guid: 4aabfde7e332e3740a4a0623fa96c523, type: 3}
+      - {fileID: -8945079394427527835, guid: 4aabfde7e332e3740a4a0623fa96c523, type: 3}
+      - {fileID: 0}
   isFixedSprite: 1
   isUniqueID: 0
   npcID: 
@@ -10342,7 +10354,7 @@ MonoBehaviour:
   canBattle: 1
   instantBattle: 0
   enemyData: {fileID: 11400000, guid: d69c0d6357bb3bb4abd1a00cbd301b46, type: 2}
-  reviveState: 0
+  reviveState: 2
 --- !u!61 &771381875
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -37725,7 +37737,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 20, z: 0}
@@ -37820,7 +37832,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 36, z: 0}
@@ -37849,7 +37861,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -19, y: 39, z: 0}
@@ -60168,7 +60180,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 6, y: 25, z: 0}
@@ -60187,7 +60199,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 29, z: 0}
@@ -60272,7 +60284,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
