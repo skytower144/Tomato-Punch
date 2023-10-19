@@ -5,9 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ProgressData
 {
-    public string string_value_0;
-    public bool bool_value_0;
-    public List<KeyEventDialogue> keyEventDialogues;
-    public Vector2 position;
-
+    public string InkFileName, AnimationState;
+    public bool IsVisible;
+    public Vector2 Position;
+    public List<KeyEventDialogue> KeyEventDialogues;
 }

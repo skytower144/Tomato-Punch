@@ -46,7 +46,7 @@ public class ProgressManager : MonoBehaviour
         EnemyBaseDB.Initialize();
 
         // Application.persistentDataPath will give the OS standard directory for persisting data in a Unity project.
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
     }
 
     public void CaptureScene(bool saveSingleScene = false, string targetSceneName = null)
@@ -90,7 +90,7 @@ public class ProgressManager : MonoBehaviour
 
     public void LoadSaveData(bool startNewGame = false)
     {
-        if (!this.dataHandler.CheckFileExists("Slot_New")) // If this is the first ever load
+        if (!dataHandler.CheckFileExists("Slot_New")) // If this is the first ever load
         {
             BackupCleanSlot();
         }

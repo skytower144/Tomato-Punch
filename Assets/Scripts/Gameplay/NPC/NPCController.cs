@@ -62,21 +62,20 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     private void OnEnable()
     {
-        if (!initOnce) {
-            if (sprite_renderer == null)
-                sprite_renderer = GetComponent<SpriteRenderer>();
-            
-            if (!disableSpriteAnimator) Play("idle");
-            NPCManager.instance.npc_dict[ReturnID()] = this;
+        if (initOnce) return;
+        initOnce = true;
 
-            if (!isSaveTarget) return;
-            string sceneName = isPartyCandidate ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
-            
-            if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
-                ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
-            
-            initOnce = true;
-        }
+        if (sprite_renderer == null)
+            sprite_renderer = GetComponent<SpriteRenderer>();
+        
+        if (!disableSpriteAnimator) Play("idle");
+        NPCManager.instance.npc_dict[ReturnID()] = this;
+
+        if (!isSaveTarget) return;
+        string sceneName = isPartyCandidate ? GameManager.gm_instance.partyManager.candidateControl.sceneName : gameObject.scene.name;
+        
+        if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
+            ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
     }
 
     private void Update()
@@ -87,27 +86,21 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Interact()
     {
-        if (ValidInteractDirection())
+        if (ValidInteractDirection() && !isInteractAnimating)
         {
-            if (!isInteractAnimating)
+            if (hasNoDialogue && !string.IsNullOrEmpty(interactAnimation))
             {
-                if (hasNoDialogue && !string.IsNullOrEmpty(interactAnimation))
-                {
-                    isInteractAnimating = true;
-                    StartCoroutine(PlayInteractAnimation());
-                }
-
-                if (instantBattle)
-                {
-                    StartBattle(enemyData);
-                }
-                else
-                {
-                    InitiateTalk();
-                }
+                isInteractAnimating = true;
+                StartCoroutine(PlayInteractAnimation());
+            }
+            else if (instantBattle)
+            {
+                StartBattle(enemyData);
             }
             else
-                return;
+            {
+                InitiateTalk();
+            }
         }
     }
 
@@ -117,10 +110,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         {
             PlayerMovement playerMovement = PlayerMovement.instance;
             
-            if ((playerMovement.CheckFacingDirection("DOWN")) || (playerMovement.CheckFacingDirection("LD")) || playerMovement.CheckFacingDirection("RD"))
+            if (playerMovement.CheckFacingDirection("DOWN") || playerMovement.CheckFacingDirection("LD") || playerMovement.CheckFacingDirection("RD"))
                 Turn("up");
             
-            else if ((playerMovement.CheckFacingDirection("UP")) || (playerMovement.CheckFacingDirection("LU")) || playerMovement.CheckFacingDirection("RU"))
+            else if (playerMovement.CheckFacingDirection("UP") || playerMovement.CheckFacingDirection("LU") || playerMovement.CheckFacingDirection("RU"))
                 Turn("down");
             
             else if (playerMovement.CheckFacingDirection("RIGHT"))
@@ -168,8 +161,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         }
         else
         {
-            List<Sprite> singleSprite = new List<Sprite>();
-            singleSprite.Add(sprite_renderer.sprite);
+            List<Sprite> singleSprite = new List<Sprite> { sprite_renderer.sprite };
             spriteAnimator = new SpriteAnimator(this, sprite_renderer, singleSprite, 0, false);
         }   
     }
@@ -215,29 +207,30 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Teleport(float input_x, float input_y)
     {
-        float input_z = this.gameObject.transform.localPosition.z;
-        this.gameObject.transform.localPosition = new Vector3(input_x, input_y, input_z);
+        float input_z = gameObject.transform.localPosition.z;
+        gameObject.transform.localPosition = new Vector3(input_x, input_y, input_z);
     }
 
     public ProgressData Capture()
     {
         ProgressData game_data = new ProgressData
         {
-            string_value_0 = inkFileName,
-            bool_value_0 = gameObject.activeSelf,
-            position = transform.position,
-            keyEventDialogues = keyEventDialogues
+            InkFileName = inkFileName,
+            AnimationState = idleAnimation,
+            IsVisible = gameObject.activeSelf,
+            Position = transform.position,
+            KeyEventDialogues = keyEventDialogues
         };
-
         return game_data;
     }
 
     public void Restore(ProgressData game_data)
     {
-        inkFileName = game_data.string_value_0;
-        gameObject.SetActive(game_data.bool_value_0);
-        transform.position = game_data.position;
-        keyEventDialogues = game_data.keyEventDialogues;
+        inkFileName = game_data.InkFileName;
+        if (sprite_dict.Count > 0) Play(game_data.AnimationState);
+        gameObject.SetActive(game_data.IsVisible);
+        transform.position = game_data.Position;
+        keyEventDialogues = game_data.KeyEventDialogues;
     }
 
     public void SetIsAnimating(bool state)

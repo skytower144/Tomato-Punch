@@ -42,6 +42,8 @@ public class DialogueManager : MonoBehaviour
     private Interactable currentTarget;
     private DialogueExit dialogueExit = DialogueExit.Nothing;
 
+    private string[] animInfo;
+
     private bool dialogueIsPlaying, isPromptChoice, isContinueTalk, hideDialogue;
 
     private const string PORTRAIT_TAG = "portrait";
@@ -309,20 +311,26 @@ public class DialogueManager : MonoBehaviour
                     StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], delay));
                     break;
 
-                case ANIMATE_TAG: // #animate:fainted
-                    currentNpc.Play(tag_value);
+                case ANIMATE_TAG: // #animate:fainted // #animate:fainted-fainted // #animate:clipname-newidlename
+                    animInfo = tag_value.Split('-');
+                    if (animInfo.Length == 2) currentNpc.ChangeIdleAnimation(animInfo[1]);
+                    
+                    currentNpc.Play(animInfo[0]);
                     break;
                 
-                case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:this@drop@stop // use with #changeidle
+                case FOCUSANIMATE_TAG: // #focusanimate:StartingPoint_Donut@angry // #focusanimate:StartingPoint_Donut@angry-isangry // #focusanimate:this@drop@stop
                     bool stopAnimation = false;
-                    string[] animInfo = tag_value.Split('@');
+                    animInfo = tag_value.Split('@');
                     NPCController npc = ((animInfo[0] == "_") || (animInfo[0] == "this")) ? currentNpc : NPCManager.instance.npc_dict[animInfo[0]];
 
                     if (animInfo.Length > 2)
                         stopAnimation = true;
                     
+                    animInfo = animInfo[1].Split('-');
+                    if (animInfo.Length == 2) npc.ChangeIdleAnimation(animInfo[1]);
+
                     HideDialogue();
-                    npc.Play(animInfo[1], ShowAndContinueDialogue, stopAnimation);
+                    npc.Play(animInfo[0], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
                 case CHANGEIDLE_TAG: // #changeidle:StartingPoint_Donut@isangry
