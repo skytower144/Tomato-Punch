@@ -19,6 +19,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     [System.NonSerialized] public bool isLoadMode = false;
     [System.NonSerialized] public bool isLoading = false;
+    [System.NonSerialized] public bool isAutoSaving = false;
     private bool isSaving = false;
 
     [Header("PROMPT")]
@@ -31,10 +32,10 @@ public class SaveLoadMenu : MonoBehaviour
     private int choiceNumber = 0;
     private bool isPrompt = false;
     private bool isNotifying = false;
-
+    
     private void Awake()
     {
-        saveSlots = this.GetComponentsInChildren<SaveSlot>(true);
+        saveSlots = GetComponentsInChildren<SaveSlot>(true);
     }
 
     void Start()
@@ -45,7 +46,7 @@ public class SaveLoadMenu : MonoBehaviour
     {
         if (isNotifying) CloseNotify();
         if (isLoadMode) quickSaveIcon.SetActive(true);
-        if (slotNumber != 0) ResetMenuState(); // In case slotNumber is not set to zero.
+        if (slotNumber != 0) ResetMenuState(true); // In case slotNumber is not set to zero.
     }
     
     void Update()
@@ -116,6 +117,11 @@ public class SaveLoadMenu : MonoBehaviour
         }
     }
 
+    public void SetSlotNumber(int number)
+    {
+        slotNumber = number;
+    }
+
     private void NotifySave()
     {
         isNotifying = true;
@@ -184,7 +190,7 @@ public class SaveLoadMenu : MonoBehaviour
         OnFocusSlot(3); // Quick Save Slot
     }
 
-    private void ResetMenuState()
+    private void ResetMenuState(bool onEnable = false)
     {
         quickSaveIcon.SetActive(false);
         quickSaveMenu.SetActive(false);
@@ -199,11 +205,13 @@ public class SaveLoadMenu : MonoBehaviour
         slotTransforms[1].localScale = new Vector3(1f, 1f, 1f);
         slotTransforms[2].localScale = new Vector3(1f, 1f, 1f);
 
-        gameObject.GetComponent<CanvasGroup>().alpha = 1;
-        gameObject.SetActive(false);
+        if (!onEnable) {
+            gameObject.GetComponent<CanvasGroup>().alpha = 1;
+            gameObject.SetActive(false);
+        }
     }
 
-    public void SimulateEscape()
+    private void SimulateEscape()
     {
         PauseMenu.is_busy = false;
         isAnimating = false;
@@ -373,7 +381,7 @@ public class SaveLoadMenu : MonoBehaviour
         yield return WaitForCache.GetWaitForSecondReal(0.5f);
 
         if (TitleScreen.isTitleScreen)
-            EssentialObjects.instance.RestorePortablePosition(ProceedLoad_1, startNewGame); // Normalize hierarchy
+            EssentialObjects.instance.RestorePortablePosition(startNewGame); // Normalize hierarchy
         else
             ProceedLoad_1(startNewGame);
     }
@@ -391,7 +399,8 @@ public class SaveLoadMenu : MonoBehaviour
         PlayerMovement.instance.myCol.gameObject.SetActive(false);
 
         SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), ProceedLoad_2, startNewGame);
-        SimulateEscape();
+
+        if (!isAutoSaving) SimulateEscape();
     }
     public void ProceedLoad_2(bool startNewGame = false)
     {

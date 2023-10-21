@@ -145,7 +145,6 @@ public class GameManager : MonoBehaviour
 
         DisableLevelHolder();
     }
-
     IEnumerator BattleExit_Wait(bool isVictory)
     {
         yield return WaitForCache.WaitSeconds1_5;
@@ -157,15 +156,28 @@ public class GameManager : MonoBehaviour
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
 
-        // Load quicksave
-        
-        
-        if (!isVictory && (expectedReviveState == PlayerReviveState.Cafe)) {
-            // Revive at Cafe
-        }
-        else if (!isVictory && (expectedReviveState == PlayerReviveState.Bench))
-            ReviveFromBench();
+        if (!isVictory) {
+            // Load quicksave
+            saveLoadMenu.isAutoSaving = true;
+            saveLoadMenu.SetSlotNumber(3);
+            StartCoroutine(saveLoadMenu.PrepareLoad());
 
+            while (saveLoadMenu.isAutoSaving) {
+                yield return null;
+            }
+            switch (expectedReviveState) {
+                case PlayerReviveState.Cafe:
+                    // Revive at Cafe
+                    break;
+                
+                case PlayerReviveState.Bench:
+                    ReviveFromBench();
+                    break;
+                
+                default:
+                    break;
+            }
+        }
         else if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk)))
             Invoke("TalkToFacingNpc", 0.5f);
         

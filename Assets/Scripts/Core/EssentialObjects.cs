@@ -27,7 +27,7 @@ public class EssentialObjects : MonoBehaviour
         PortableBundle.transform.position = new Vector3(-113.435f, -0.02000007f, 0f);
     }
 
-    public void RestorePortablePosition(Action<bool> callback = null, bool startNewGame = false)
+    public void RestorePortablePosition(bool startNewGame = false)
     {
         SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), GameManager.gm_instance.save_load_menu.ProceedLoad_1, startNewGame);
 

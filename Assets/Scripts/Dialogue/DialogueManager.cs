@@ -122,6 +122,9 @@ public class DialogueManager : MonoBehaviour
     {
         if (inkJSON == null) return;
 
+        if (inkJSON.text.Contains("battle"))
+            GameManager.gm_instance.save_load_menu.ProceedSave(3); // quicksave
+
         playerMovement.SetIsInteracting(true);
 
         currentNpc = (interactingTarget is NPCController) ? ((NPCController)interactingTarget) : null;

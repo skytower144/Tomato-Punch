@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour, Character
             {
                 PlayerInteract();
             }
-            else if (Press_Key("Status")) // ENTER
+            else if (Press_Key("Status"))
             {
                 HitStatus();
             }
@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour, Character
         }
     }
 
-    // Update is called once per frame
     public void FixedUpdate() //For Executing Physics
     {
        if (PlayerCanMove())

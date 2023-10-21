@@ -204,7 +204,7 @@ public class TitleScreen : MonoBehaviour
 
     public void ResetTitle()
     {
-        darkFilter.SetActive(true);
+        darkFilter.SetActive(pauseMenu.gameObject.activeSelf);
         pauseMenu.gameObject.GetComponent<Image>().enabled = true;
         displayCanvas.alpha = 1;
     }
