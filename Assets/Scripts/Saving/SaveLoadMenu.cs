@@ -421,7 +421,7 @@ public class SaveLoadMenu : MonoBehaviour
             if (npcDialogue.Contains("battle")) ProceedSave(3);
             else return;
         }
-        if (isAutoSave) {
+        else if (isAutoSave) {
             isAutoSave = false;
             ProceedSave(3);
         }
