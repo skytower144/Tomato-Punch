@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour, Character
     private bool isInteracting = false;
     private bool isAnimating = false;
 
+    private float stepTimer = 0f;
+    private float stepInterval;
+    private int stepCounter = 0;
+
     // public event Action BeginBattle;
 
     private void Awake()
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour, Character
     void Start()
     {
        myRb = GetComponent<Rigidbody2D>();
+       stepInterval = Time.deltaTime;
     }
     
     void OnEnable()
@@ -80,6 +85,8 @@ public class PlayerMovement : MonoBehaviour, Character
                 myAnim.SetFloat("moveY", movement.y);
 
                 myRb.MovePosition(myRb.position + movement * speed * Time.fixedDeltaTime);
+                
+                CountSteps();
             }
             else if(!InputDetection(movement))
             {
@@ -90,6 +97,23 @@ public class PlayerMovement : MonoBehaviour, Character
         else {
             myRb.velocity = Vector3.zero;
         }
+    }
+
+    private void CountSteps()
+    {
+        if (stepCounter > gameManager.save_load_menu.AutoSaveStep && PlayerCanMove()) {
+            ResetStepCounter();
+            gameManager.save_load_menu.ProceedSave(3);
+        }
+        stepTimer += stepInterval;
+        stepCounter = (int) stepTimer;
+        // GameManager.DoDebug($"{stepCounter}");
+    }
+
+    public void ResetStepCounter()
+    {
+        stepTimer = 0f;
+        stepCounter = 0;
     }
 
     public void Animate(bool isAnimating, Vector2 direction = default, bool flattenPos = true)
@@ -105,7 +129,7 @@ public class PlayerMovement : MonoBehaviour, Character
 
     public bool InputDetection(Vector2 move)
     {
-        return (move.x >= gameManager.stickSensitivity || move.x <= -gameManager.stickSensitivity|| move.y >= gameManager.stickSensitivity || move.y <= -gameManager.stickSensitivity);
+        return move.x >= gameManager.stickSensitivity || move.x <= -gameManager.stickSensitivity|| move.y >= gameManager.stickSensitivity || move.y <= -gameManager.stickSensitivity;
     }
     public Vector2 ReturnMoveVector()
     {
@@ -160,16 +184,16 @@ public class PlayerMovement : MonoBehaviour, Character
     {
         movement = playerInput.actions["Move"].ReadValue<Vector2>();
 
-        if((movement.y >= gameManager.stickSensitivity))
+        if (movement.y >= gameManager.stickSensitivity)
             return "UP";
 
-        else if(movement.y <= -gameManager.stickSensitivity)
+        else if (movement.y <= -gameManager.stickSensitivity)
             return "DOWN";
         
-        else if(movement.x >= gameManager.stickSensitivity)
+        else if (movement.x >= gameManager.stickSensitivity)
             return "RIGHT";
         
-        else if( (movement.x <= -gameManager.stickSensitivity))
+        else if (movement.x <= -gameManager.stickSensitivity)
             return "LEFT";
         
         return "";
@@ -290,7 +314,7 @@ public class PlayerMovement : MonoBehaviour, Character
         CutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 
-    private bool PlayerCanMove()
+    public bool PlayerCanMove()
     {
         return (
             !isBattle &&
@@ -298,7 +322,8 @@ public class PlayerMovement : MonoBehaviour, Character
             !TitleScreen.isTitleScreen &&
             !gameManager.save_load_menu.isLoading &&
             playerSprite.activeSelf &&
-            !isAnimating
+            !isAnimating &&
+            Time.timeScale == 1
         );
     }
 }

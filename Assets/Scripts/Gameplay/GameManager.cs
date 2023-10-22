@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
         gm_instance = this;
         EnableDebug = AppSettings.IsUnityEditor;
 
@@ -189,7 +188,7 @@ public class GameManager : MonoBehaviour
     {
         playerMovement.transform.position = GetBenchPostion();
 
-        List<PartyMember> partyMembers = gm_instance.partyManager.partyMembers;
+        List<PartyMember> partyMembers = partyManager.partyMembers;
         Vector2 playerPos = playerMovement.transform.position;
 
         for (int i = 0; i < partyMembers.Count; i++)

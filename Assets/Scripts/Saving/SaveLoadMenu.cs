@@ -13,6 +13,8 @@ public class SaveLoadMenu : MonoBehaviour
     public List<Sprite> slotSprites;
     private SaveSlot[] saveSlots;
 
+    public int AutoSaveStep => AUSTOSAVESTEP;
+    private const int AUSTOSAVESTEP = 20;
     private int slotNumber = 0;
     private int prevSlotNumber = 0;
     private bool isAnimating = false;
@@ -43,6 +45,7 @@ public class SaveLoadMenu : MonoBehaviour
     {
         PrepareMenu();
     }
+
     void OnEnable()
     {
         if (isNotifying) CloseNotify();
@@ -398,6 +401,7 @@ public class SaveLoadMenu : MonoBehaviour
 
         if (!isAutoLoad) SimulateEscape();
     }
+
     public void ProceedLoad_2(bool startNewGame = false)
     {
         ProgressManager.instance.LoadSaveData(startNewGame);
