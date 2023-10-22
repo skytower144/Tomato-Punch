@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
 
-        if (!isVictory) {
+        if (!isVictory && expectedReviveState != PlayerReviveState.LoseTalk) {
             saveLoadMenu.PrepareAutoLoad();
             StartCoroutine(saveLoadMenu.PrepareLoad());
 

@@ -54,28 +54,36 @@ public class EnemyAIControl : MonoBehaviour
             }
             else if (ShouldActivate())
             {
-                //Debug.Log($"Proceeding Action | Idle Count : {idleCount}");
-                int randomPercent = Random.Range(1, 101);
-                int sumPercent = 0;
-
-                for (int i = 0; i < pattern_list.Count; i++)
-                {
-                    sumPercent += pattern_list[i].percentage;
-                    if (sumPercent >= randomPercent)
-                    {
-                        EnemyActDetail selectedMove = pattern_list[i];
+                EnemyActDetail selectedMove = GetRandomEnemyAct();
                         
-                        if (OverMaxIdleCount(selectedMove)) {
-                            //Debug.Log("=== Forcing Enemy Action. ===");
-                            EnemyMove(pattern_list[(Random.Range(0, pattern_list.Count - 2))]);
-                            return;
-                        }
-                        EnemyMove(selectedMove);
-                        break;
-                    }
+                if (OverMaxIdleCount(selectedMove)) {
+                    GameManager.DoDebug("=== Forcing Enemy Action. ===");
+                    EnemyMove(GetRandomEnemyAct(true));
+                    return;
                 }
+                EnemyMove(selectedMove);
             }
         }
+    }
+
+    private EnemyActDetail GetRandomEnemyAct(bool excludeIdleAct = false)
+    {
+        int idlePercent = pattern_list[pattern_list.Count - 1].percentage;
+        int maxPercent = excludeIdleAct ? 100 - idlePercent : 100;
+
+        int sumPercent = 0;
+        int randomPercent = Random.Range(1, maxPercent + 1);
+        int totalActCount = excludeIdleAct ? pattern_list.Count - 1 : pattern_list.Count;
+
+        for (int i = 0; i < totalActCount; i++)
+        {
+            sumPercent += pattern_list[i].percentage;
+            if (sumPercent >= randomPercent) {
+                // GameManager.DoDebug($"{pattern_list[i].Name} - {randomPercent}% | sum : {sumPercent}");
+                return pattern_list[i];
+            }
+        }
+        return pattern_list[pattern_list.Count - 1];
     }
 
     private bool IsIdle()
