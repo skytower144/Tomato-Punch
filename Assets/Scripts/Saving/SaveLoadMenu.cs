@@ -19,6 +19,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     [System.NonSerialized] public bool isLoadMode = false;
     [System.NonSerialized] public bool isLoading = false;
+    [System.NonSerialized] public bool isAutoSave = false;
     [System.NonSerialized] public bool isAutoLoad = false;
     private bool isSaving = false;
 
@@ -412,5 +413,17 @@ public class SaveLoadMenu : MonoBehaviour
     {
         isAutoLoad = true;
         slotNumber = 3;
+    }
+
+    public void DetermineAutoSave(string npcDialogue = "")
+    {
+        if (npcDialogue != "") {
+            if (npcDialogue.Contains("battle")) ProceedSave(3);
+            else return;
+        }
+        if (isAutoSave) {
+            isAutoSave = false;
+            ProceedSave(3);
+        }
     }
 }

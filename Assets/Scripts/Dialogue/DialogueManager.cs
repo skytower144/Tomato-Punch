@@ -122,15 +122,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (inkJSON == null) return;
 
-        if (inkJSON.text.Contains("battle"))
-            GameManager.gm_instance.save_load_menu.ProceedSave(3); // quicksave
-
         playerMovement.SetIsInteracting(true);
 
         currentNpc = (interactingTarget is NPCController) ? ((NPCController)interactingTarget) : null;
         currentTarget = interactingTarget;
 
         GameManager.gm_instance.partyManager.SetMemberFollow(false);
+        GameManager.gm_instance.save_load_menu.DetermineAutoSave(inkJSON.text);
         
         currentStory = new Story(inkJSON.text);
         portrait.sprite = SpriteDB.ReturnPortrait("Tomato_neutral");
@@ -149,6 +147,7 @@ public class DialogueManager : MonoBehaviour
 
         playerMovement.SetIsInteracting(false);
         GameManager.gm_instance.partyManager.SetMemberFollow(true);
+        GameManager.gm_instance.save_load_menu.DetermineAutoSave();
 
         InvokeEvent();
     }
@@ -167,7 +166,6 @@ public class DialogueManager : MonoBehaviour
             default:
                 break;
         }
-
         currentTarget = null;
         dialogueExit = DialogueExit.Nothing;
     }

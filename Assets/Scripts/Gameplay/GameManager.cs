@@ -181,6 +181,7 @@ public class GameManager : MonoBehaviour
         
         Invoke("ReturnToFreeroam", 1f);
         playerKeyEventManager.ApplyCacheKeyEvents(isVictory);
+        saveLoadMenu.isAutoSave = isVictory;
         ShowScreen();
     }
 
