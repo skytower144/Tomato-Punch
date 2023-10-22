@@ -48,7 +48,7 @@ public class LoadingScreen : MonoBehaviour
         DOTween.Rewind("fader_out");
         DOTween.Play("fader_out");
 
-        GameManager.gm_instance.save_load_menu.isAutoSaving = false;
+        GameManager.gm_instance.save_load_menu.isAutoLoad = false;
     }
 
     public IEnumerator UncoverLoadingScreen()

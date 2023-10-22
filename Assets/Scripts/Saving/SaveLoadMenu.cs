@@ -19,7 +19,7 @@ public class SaveLoadMenu : MonoBehaviour
 
     [System.NonSerialized] public bool isLoadMode = false;
     [System.NonSerialized] public bool isLoading = false;
-    [System.NonSerialized] public bool isAutoSaving = false;
+    [System.NonSerialized] public bool isAutoLoad = false;
     private bool isSaving = false;
 
     [Header("PROMPT")]
@@ -115,11 +115,6 @@ public class SaveLoadMenu : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void SetSlotNumber(int number)
-    {
-        slotNumber = number;
     }
 
     private void NotifySave()
@@ -400,7 +395,7 @@ public class SaveLoadMenu : MonoBehaviour
 
         SceneControl.instance.UnloadExceptGameplay(SceneControl.instance.ScenesExceptGameplay(), ProceedLoad_2, startNewGame);
 
-        if (!isAutoSaving) SimulateEscape();
+        if (!isAutoLoad) SimulateEscape();
     }
     public void ProceedLoad_2(bool startNewGame = false)
     {
@@ -411,5 +406,11 @@ public class SaveLoadMenu : MonoBehaviour
         SceneControl.instance.InvokeRepeating("CheckLoadComplete", 0.1f, 1f);
 
         // PlayerMovement.instance.collider_obj.SetActive(true); --> SceneControl - CheckLoadComplete
+    }
+
+    public void PrepareAutoLoad()
+    {
+        isAutoLoad = true;
+        slotNumber = 3;
     }
 }

@@ -157,12 +157,10 @@ public class GameManager : MonoBehaviour
         battleSystem.gameObject.SetActive(false);
 
         if (!isVictory) {
-            // Load quicksave
-            saveLoadMenu.isAutoSaving = true;
-            saveLoadMenu.SetSlotNumber(3);
+            saveLoadMenu.PrepareAutoLoad();
             StartCoroutine(saveLoadMenu.PrepareLoad());
 
-            while (saveLoadMenu.isAutoSaving) {
+            while (saveLoadMenu.isAutoLoad) {
                 yield return null;
             }
             switch (expectedReviveState) {
@@ -189,6 +187,13 @@ public class GameManager : MonoBehaviour
     private void ReviveFromBench()
     {
         playerMovement.transform.position = GetBenchPostion();
+
+        List<PartyMember> partyMembers = gm_instance.partyManager.partyMembers;
+        Vector2 playerPos = playerMovement.transform.position;
+
+        for (int i = 0; i < partyMembers.Count; i++)
+            partyMembers[i].follow.Teleport(new Vector2(playerPos.x + 1f * (i + 1), playerPos.y - 0.2f));
+        
         CutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
         playerAnimator.Play("Wakeup", -1, 0f);
         Instantiate(playerMovement.newspaper, playerAnimator.transform);
