@@ -156,7 +156,10 @@ public class DialogueManager : MonoBehaviour
         switch (dialogueExit)
         {
             case DialogueExit.Battle:
-                currentNpc.StartBattle(GameManager.gm_instance.battle_system.enemy_control._base);
+                GameManager.gm_instance.battle_system.StartBattle(
+                    GameManager.gm_instance.battle_system.enemy_control._base, 
+                    currentNpc.gameObject.GetComponent<CustomBattleMode>()
+                );
                 break;
             
             case DialogueExit.UnlockDoor:

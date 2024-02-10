@@ -95,7 +95,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             }
             else if (instantBattle)
             {
-                StartBattle(enemyData);
+                GameManager.gm_instance.battle_system.StartBattle(enemyData, gameObject.GetComponent<CustomBattleMode>());
             }
             else
             {
@@ -172,15 +172,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         yield return WaitForCache.GetWaitForSecondReal(2f);
         Play("idle");
         isInteractAnimating = false;
-    }
-
-    public void StartBattle(EnemyBase enemy_data)
-    {
-        CustomBattleMode custom_mode = gameObject.GetComponent<CustomBattleMode>();
-        if (custom_mode != null)
-            custom_mode.ChangeBattleMode();
-        
-        GameManager.gm_instance.Initiate_Battle(enemy_data);
     }
 
     private bool ValidInteractDirection()

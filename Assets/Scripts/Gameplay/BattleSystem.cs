@@ -61,6 +61,12 @@ public class BattleSystem : MonoBehaviour
         DebugBools.DebugFunctions();
     }
 
+    public void StartBattle(EnemyBase enemy_data, CustomBattleMode custom_mode = null)
+    {
+        if (custom_mode != null) custom_mode.ChangeBattleMode();
+        GameManager.gm_instance.Initiate_Battle(enemy_data);
+    }
+
     public void ExitBattle(bool isVictory)
     {
         if (!isVictory && (tomato_control.currentHealth == 0))
