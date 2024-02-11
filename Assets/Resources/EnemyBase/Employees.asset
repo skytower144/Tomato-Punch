@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f39d6aeef65614fb295ea86167b835, type: 3}
+  m_Name: Employees
+  m_EditorClassIdentifier: 
+  enemyName: 
+  koFace: {fileID: 0}
+  hurtFace: {fileID: 0}
+  defaultFace: {fileID: 0}
+  isFixedBg: 1
+  isParallaxBg: 0
+  bgSprites:
+  - {fileID: 21300000, guid: b7e5237aad61808448f40e2a395f9aa6, type: 3}
+  bgTexture: {fileID: 0}
+  parallaxDirection: {x: 0, y: 0}
+  enemyMaxHealth: 0
+  enemyCurrentHealth: 0
+  min_hitct: 0
+  max_hitct: 0
+  animationController: {fileID: 9100000, guid: b26e796bb5485f0498ea7653c778bada, type: 2}
+  idle: 
+  intro: Employee_intro
+  defeated: 
+  knockback: 
+  suffer: 
+  stun: 
+  uppered: 
+  recover: 
+  guard: 
+  hurtL: 
+  hurtR: 
+  blasted: 
+  bounce: 
+  dunk: 
+  wait: 
+  reEngage: 
+  victory: 
+  otherHurtAnim: []
+  chiliInfo:
+    hitPosition: {x: 0, y: 0}
+    hitSprite: {fileID: 0}
+  neutralPattern: []
+  projectiles: []
+  enemyPattern: []
+  itemReward: []
+  battleExp: 0
+  battleCoin: 0
+  playerReviveState: 0

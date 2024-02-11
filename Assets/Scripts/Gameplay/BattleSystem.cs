@@ -36,6 +36,7 @@ public class BattleSystem : MonoBehaviour
     [field: SerializeField] public ShockWaveInfo DunkShockWave { get; private set; }
 
     [System.NonSerialized] public bool resetPlayerHealth, increaseEnemyHealth;
+    [System.NonSerialized] public bool IsGangfight = false;
     private GameObject tempObj;
 
     void Start()

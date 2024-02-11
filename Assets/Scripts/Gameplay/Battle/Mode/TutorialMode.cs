@@ -27,7 +27,6 @@ public class TutorialMode : MonoBehaviour
     private Dictionary<string, Dictionary<string, ControlMapDisplay>> currentMapDict;
     
     [SerializeField] private Animator anim;
-    private TextSpawn textSpawn;
     private Coroutine warmupPhase;
 
     void Update()
@@ -74,7 +73,6 @@ public class TutorialMode : MonoBehaviour
         gm.control_scroll.CaptureCurrentBind();
         currentMapDict = gm.control_scroll.CurrentBindingsDict;
 
-        textSpawn = transform.parent.gameObject.GetComponent<TextSpawn>();
         anim = gm.battle_system.enemy_control.enemyAnim;
 
         // Exit Button UI

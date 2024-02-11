@@ -9,10 +9,13 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
-    [SerializeField] private GameObject GetReadyText;
     [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
+    private GameObject initialCartridge;
 
+    void Start() {
+        initialCartridge = startingCartridge;
+    }
     public void SwitchCartridge(GameObject inputCartridge)
     {
         startingCartridge = inputCartridge;
@@ -25,7 +28,7 @@ public class TextSpawn : MonoBehaviour
     private void OnDisable()
     {
         normalize_resultCard();
-        startingCartridge = GetReadyText;
+        startingCartridge = initialCartridge;
     }
 
     void Update()

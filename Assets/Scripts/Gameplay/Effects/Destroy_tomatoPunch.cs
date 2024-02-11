@@ -16,7 +16,7 @@ public class Destroy_tomatoPunch : MonoBehaviour
 
     void OnDisable()
     {
-        if(!isHit && !tomatoControl.isFainted && !tomatoGuard.isParry && !TutorialMode.isTutorial){
+        if(!isHit && !tomatoControl.isFainted && !tomatoGuard.isParry && !TutorialMode.isTutorial && !GameManager.gm_instance.battle_system.IsGangfight){
             GameManager.gm_instance.battle_system.tomato_control.isMiss = true;
         }
     }
