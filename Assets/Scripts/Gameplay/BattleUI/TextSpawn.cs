@@ -11,24 +11,31 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
     [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
+    private Transform cartridgeSpawn;
     private GameObject initialCartridge;
 
-    void Start() {
+    public void SwitchCartridge(GameObject inputCartridge, bool spawnAtEnemy)
+    {
         initialCartridge = startingCartridge;
-    }
-    public void SwitchCartridge(GameObject inputCartridge)
-    {
         startingCartridge = inputCartridge;
+        if (spawnAtEnemy) cartridgeSpawn = GameManager.gm_instance.battle_system.enemy_control.transform;
     }
-    private void OnEnable()
+    void OnEnable()
     {
-        Instantiate(startingCartridge, transform);
+        if (initialCartridge == null)
+            initialCartridge = startingCartridge;
+        
+        if (cartridgeSpawn == null)
+            cartridgeSpawn = transform;
+
+        Instantiate(startingCartridge, cartridgeSpawn);
         Invoke("playIntro", 0.65f);
     }
-    private void OnDisable()
+    void OnDisable()
     {
         normalize_resultCard();
         startingCartridge = initialCartridge;
+        cartridgeSpawn = transform;
     }
 
     void Update()

@@ -28,6 +28,11 @@ public class Enemy_parried : MonoBehaviour
             GameManager.gm_instance.battle_system.enemy_control.EraseAllAttacks();
             GameManager.gm_instance.battle_system.tomato_control.guard_bar.RestoreGuardBar();
 
+            if (GameManager.gm_instance.battle_system.IsGangfight) {
+                GameManager.gm_instance.battle_system.enemy_control.enemyAnimControl.Parried();
+                return;
+            }
+
             if(EnemyControl.isPhysical)    // if isParried True -> enemy cannot move
             {
                 isParried = true;

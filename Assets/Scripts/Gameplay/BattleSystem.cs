@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private tomatoStatus player_status; public tomatoStatus tomatostatus => player_status;
     [SerializeField] private TomatoLevel tomatoLevel;
     [SerializeField] private EnemyControl enemyControl; public EnemyControl enemy_control => enemyControl;
+    [System.NonSerialized] public GangFightMode gangFightMode;
     public tomatoHurt tomato_hurt;
     public BattleTimeManager battleTimeManager;
     public FeatherPoints featherPointManager;

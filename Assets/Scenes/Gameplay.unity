@@ -12228,7 +12228,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 1983642435
+  m_SortingLayerID: 1161205635
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &384357809301026690
@@ -13130,7 +13130,6 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  hpShrinkTimer: 0
   fill: {fileID: 384357809136921056}
   damagedFill: {fileID: 384357809152380899}
   tomatoFace: {fileID: 384357809809249696}
@@ -18389,7 +18388,6 @@ MonoBehaviour:
   enemy_Countered: {fileID: 5820148391002691455}
   staminaIcon: {fileID: 384357809837640120}
   rebindKey: {fileID: 384357809942665931}
-  GetReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   startingCartridge: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
   YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
@@ -33494,10 +33492,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbbaef7fa4063e41aef700d568d2a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy_hpShrinkTimer: 0
   battleSystem: {fileID: 384357809004606580}
   enemy_is_hurt: {fileID: 384357810682219711}
   slider: {fileID: 384357810668152472}
-  enemy_hpShrinkTimer: 0
   enemyFace: {fileID: 384357809202890215}
   fill: {fileID: 384357810101149779}
   damagedFill: {fileID: 384357809458421823}
@@ -34374,7 +34372,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 384357810755073109}
-  hurtEffect: {fileID: 6591653107828056527, guid: 8291993d08dc51847a178d4ae5e2c9a1, type: 3}
   faintBurstEffect: {fileID: 2280391110547374306, guid: 7d714edae3c7dd945a93ea444ee10475, type: 3}
   tomatocontrol: {fileID: 384357809660484708}
   tomatoguard: {fileID: 489650832154752558}
@@ -45665,6 +45662,7 @@ MonoBehaviour:
   choiceText:
   - {fileID: 8542169280114831913}
   - {fileID: 3230454977006066385}
+  ContinueTalkTarget: {fileID: 0}
 --- !u!224 &3462929170767684306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -51318,6 +51316,7 @@ MonoBehaviour:
     - currentAmount: 0
       requiredAmount: 1
       targetItem: {fileID: 11400000, guid: 00aeb97e6e366fd4e976973af0170c76, type: 2}
+      TargetItemName: 
     defeatGoals: []
     reward:
       items: []
@@ -51331,6 +51330,7 @@ MonoBehaviour:
     - currentAmount: 0
       requiredAmount: 1
       targetItem: {fileID: 11400000, guid: 0a719f5e0bee0994da8b17fc99dd574f, type: 2}
+      TargetItemName: 
     defeatGoals: []
     reward:
       items: []
@@ -52392,7 +52392,6 @@ MonoBehaviour:
   canBattle: 0
   instantBattle: 0
   enemyData: {fileID: 0}
-  reviveState: 0
 --- !u!1 &6516992554488685594
 GameObject:
   m_ObjectHideFlags: 0

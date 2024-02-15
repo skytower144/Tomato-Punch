@@ -13,6 +13,7 @@ public class EnemyControl : MonoBehaviour
     public DuplicateRenderer duplicate_r;
 
     public Enemy_is_hurt enemy_hurt => enemyHurt;
+    public EnemyAIControl enemyAiControl => enemyAIControl;
     public Animator enemyAnim => anim;
     public Material mat_default => matDefault;
     public SpriteRenderer enemyRenderer => enemy_renderer;
@@ -21,6 +22,7 @@ public class EnemyControl : MonoBehaviour
     private int _currentDamageFrameIndex = -1;
     private AttackType _attackType;
 
+    public Transform AttackBoxSpawn => AttackBoxes;
     [SerializeField] private EnemyGreyEffect greyEffect;
     [SerializeField] private Animator anim; 
     [SerializeField] private SpriteRenderer enemy_renderer;
@@ -48,6 +50,7 @@ public class EnemyControl : MonoBehaviour
 
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private float flashDuration, hitFlashDuration;
+    [System.NonSerialized] public float gangFightDmg = -1;
     
     public static int totalParry = 0;
     [System.NonSerialized] public int totalSuper = 0;
@@ -75,6 +78,8 @@ public class EnemyControl : MonoBehaviour
         CancelInvoke();
         enemyAIControl.CancelInvoke();
         enemyCounterEnd();
+
+        gangFightDmg = -1;
     }
     
     void Update()
@@ -477,6 +482,9 @@ public class EnemyControl : MonoBehaviour
         if (_currentDamageFrameIndex >= 0 && _currentDamageFrameIndex < TotalDamageFrames.Count)
             return TotalDamageFrames[_currentDamageFrameIndex].Damage;
         
+        else if (gangFightDmg != -1)
+            return gangFightDmg;
+
         Debug.LogError($"Abnormal attack calculation detected. Current Damage Frame Index : {_currentDamageFrameIndex}");
         return 0;
     }

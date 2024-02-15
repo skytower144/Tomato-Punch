@@ -29,9 +29,10 @@ public class EnemyAIControl : MonoBehaviour
         enemyCtrl.enemyAnimControl.Act(move);
     }
 
-    private bool ShouldActivate()
+    public bool ShouldActivate()
     {
         return (
+            !enemy_isIntro &&
             !tomatoControl.isFainted &&
             !Enemy_is_hurt.enemy_isDefeated &&
             !Enemy_parried.isParried &&
@@ -45,9 +46,9 @@ public class EnemyAIControl : MonoBehaviour
 
     public void ProceedAction()
     {
-        if(!enemy_isIntro && IsIdle())
+        if (IsIdle())
         {
-            if(enemyCtrl.action_afterSuffer)
+            if (enemyCtrl.action_afterSuffer)
             {
                 enemyCtrl.action_afterSuffer = false;
                 return;

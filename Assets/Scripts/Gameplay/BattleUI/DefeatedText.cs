@@ -23,9 +23,7 @@ public class DefeatedText : MonoBehaviour
 
         giveUpCost = battleSystem.GetEnemyBase().BattleCoin;
         
-        string victoryAnimation = battleSystem.GetEnemyBase().Victory;
-        battleSystem.enemy_control.enemyAnimControl.Act(victoryAnimation, BattleActType.Victory);
-
+        battleSystem.enemy_control.enemyAnimControl.Victory();
         Invoke("SpawnTextBox", 1.5f);
     }
 

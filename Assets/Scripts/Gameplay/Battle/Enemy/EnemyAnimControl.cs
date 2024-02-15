@@ -12,6 +12,7 @@ public class EnemyAnimControl : MonoBehaviour
 
     private Animator _anim;
     [SerializeField] private BoxCollider2D _collider;
+    private BattleSystem _battleSystem;
     private EnemyControl _enemyControl;
     private Enemy_is_hurt _enemyHurt;
     private Dictionary<string, (float, float)> _fpsDict = new Dictionary<string, (float, float)>();
@@ -26,7 +27,8 @@ public class EnemyAnimControl : MonoBehaviour
 
     void Start()
     {
-        _enemyControl = GameManager.gm_instance.battle_system.enemy_control;
+        _battleSystem = GameManager.gm_instance.battle_system;
+        _enemyControl = _battleSystem.enemy_control;
         _enemyHurt = _enemyControl.enemy_hurt;
     }
 
@@ -207,6 +209,31 @@ public class EnemyAnimControl : MonoBehaviour
         if (_collider.enabled == state) yield break;
         _collider.enabled = state;
     }
+
+    // If Gangfight situation, animation states will act differently /////////////////////////////////////////////////
+    public void Parried()
+    {
+        _battleSystem.gangFightMode.SpawnParriedAnimation();
+    }
+    public void ReEngage()
+    {
+        if (_battleSystem.IsGangfight) {
+            //
+            return;
+        }
+        string enemyReEngage = _battleSystem.GetEnemyBase().ReEngage;
+        _enemyControl.enemyAnimControl.Act(enemyReEngage, BattleActType.ReEngage);
+    }
+    public void Victory()
+    {
+        if (_battleSystem.IsGangfight) {
+            // Play victory
+            return;
+        }
+        string victoryAnimation = _battleSystem.GetEnemyBase().Victory;
+        _enemyControl.enemyAnimControl.Act(victoryAnimation, BattleActType.Victory);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 public enum BattleActType {
