@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 5894424859255266903}
+  _projectile: []
 --- !u!61 &3503719592904828680
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -260,8 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 3191586141070991485}
+  _projectile:
+  - {fileID: 1503927814793686393, guid: cd8e20933a6e6e849999e80c2c254061, type: 3}
 --- !u!61 &2856083457275936112
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -406,8 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 810829142310649604}
+  _projectile:
+  - {fileID: 4389903074973170660, guid: 546185f99fba94d419d0bbfcfef0d2f7, type: 3}
+  - {fileID: 1865066301516623929, guid: 974f09a73aca2ca459c9e53891248429, type: 3}
 --- !u!61 &5416281117790543855
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -550,8 +553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 1440029901023030450}
+  _projectile: []
 --- !u!61 &7677267601715962053
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -694,8 +697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 8534451356194385484}
+  _projectile: []
 --- !u!61 &8890865135008669677
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -838,8 +841,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 3228934308616714140}
+  _projectile: []
 --- !u!61 &7861619443169994552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -982,8 +985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 4539995034568310676}
+  _projectile: []
 --- !u!61 &304019132039497001
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1126,8 +1129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 6869553771635711366}
+  _projectile: []
 --- !u!61 &2422895925642004120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1269,8 +1272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 2121180780980436700}
+  _projectile: []
 --- !u!1 &6348050770424626793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,8 +1389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 2213021369946740335}
+  _projectile: []
 --- !u!1 &8011590226969925573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,8 +1507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff57e56957cb58543bfff76ac3239ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gangFight: {fileID: 456403787650001311}
   _anim: {fileID: 6091518432062984907}
+  _projectile: []
 --- !u!61 &1260529115278914042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1584,40 +1587,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186b12ce9c005a34ea27df264590bac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _getReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
-  _attacks:
-  - Anim: {fileID: 4539995034568310676}
+  AnimList:
+  - {fileID: 6091518432062984907}
+  - {fileID: 4539995034568310676}
+  - {fileID: 8534451356194385484}
+  - {fileID: 5894424859255266903}
+  - {fileID: 3191586141070991485}
+  - {fileID: 6869553771635711366}
+  - {fileID: 3228934308616714140}
+  - {fileID: 1440029901023030450}
+  - {fileID: 810829142310649604}
+  - {fileID: 2213021369946740335}
+  - {fileID: 2121180780980436700}
+  Attacks:
+  - AnimIndex: 1
     Name: empl_1_atk
-    Percentage: 20
-  - Anim: {fileID: 8534451356194385484}
+    Percentage: 10
+  - AnimIndex: 2
     Name: empl_2_atk
-    Percentage: 20
-  - Anim: {fileID: 5894424859255266903}
+    Percentage: 10
+  - AnimIndex: 3
     Name: empl_3_atk
     Percentage: 10
-  - Anim: {fileID: 6091518432062984907}
+  - AnimIndex: 0
     Name: empl_0_atk
     Percentage: 10
-  - Anim: {fileID: 6869553771635711366}
+  - AnimIndex: 5
     Name: empl_5_atk
     Percentage: 10
-  - Anim: {fileID: 3228934308616714140}
+  - AnimIndex: 6
     Name: empl_6_atk
     Percentage: 10
-  - Anim: {fileID: 3191586141070991485}
+  - AnimIndex: 4
     Name: empl_prt_atk
     Percentage: 10
-  - Anim: {fileID: 810829142310649604}
+  - AnimIndex: 8
     Name: empl_big_atk
-    Percentage: 5
-  - Anim: {fileID: 1440029901023030450}
+    Percentage: 10
+  - AnimIndex: 9
+    Name: empl_14_atk
+    Percentage: 10
+  - AnimIndex: 10
+    Name: empl_16_atk
+    Percentage: 10
+  - AnimIndex: 7
     Name: empl_back_atk
-    Percentage: 5
+    Percentage: 10
+  _getReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   _colliders:
   - {fileID: 1532408246453528815, guid: cd4dad395d738814882d5fb994b6e096, type: 3}
   - {fileID: 4425042731320507169, guid: bf90562c9f06cc74ea6b72a7736ce079, type: 3}
+  - {fileID: 8950153196583877838, guid: 660fadfc80208034f82c3a00f49a1e3f, type: 3}
+  - {fileID: 2426031716149107699, guid: 5fa3b70fa9b348a4f955312481be6c23, type: 3}
   _parriedAnimations:
   - {fileID: 2890540308443329994, guid: 0f0fba9dc74d7d840a26aa462801a996, type: 3}
   - {fileID: 4803562055183311532, guid: 648a0be33ee7ac4468b7aec22733da65, type: 3}
   - {fileID: 3809864038166890333, guid: 9e5637c824ed5bb4991cb4781f74df5a, type: 3}
+  _parriedPjs:
   - {fileID: 1949894448416810421, guid: 48f16a80f6546ac49ad61b900cda6700, type: 3}
+  - {fileID: 9003449430536308669, guid: 390d65d39349c9a41aa7d54bb81931f4, type: 3}
+  - {fileID: 5749008958419115098, guid: 9d5b6b85cbfa65e4aaab6d0470cb4b8d, type: 3}
+  - {fileID: 939561785427376169, guid: c598747bb43a87d46ae9e2ca281b0ce4, type: 3}

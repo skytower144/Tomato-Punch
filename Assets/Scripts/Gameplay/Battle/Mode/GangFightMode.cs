@@ -1,30 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GangFightMode : MonoBehaviour
 {
-    [SerializeField] private GameObject _getReadyText;
-    [SerializeField] private List<ActDetailWithAnim> _attacks;
-    [SerializeField] private List<GameObject> _colliders;
-    [SerializeField] private List<GameObject> _parriedAnimations;
-    private Transform _attackBoxSpawn;
-
     public enum GangParry { Physical, Projectile }
-    [System.NonSerialized] public GangParry CurrentState;
-    [System.NonSerialized] public GameObject CurrentGuy;
-    [System.NonSerialized] public bool IsAction = false;
-
-    private int _maxPercent = 100;
-    private int _savedIndex;
 
     [System.Serializable]
     public class ActDetailWithAnim
     {
-        public Animator Anim;
+        public int AnimIndex;
         public string Name;
         public int Percentage;
+        public ActDetailWithAnim(int animIndex, string name, int percentage)
+        {
+            AnimIndex = animIndex;
+            Name = name;
+            Percentage = percentage;
+        }
     }
+    public List<Animator> AnimList;
+    public List<ActDetailWithAnim> Attacks;
+    [System.NonSerialized] public GangParry CurrentState;
+    [System.NonSerialized] public GameObject CurrentGuy, CurrentProjectile;
+    [System.NonSerialized] public bool IsAction = false;
+    [System.NonSerialized] public int ParriedPjIndex = 0;
+
+    [SerializeField] private GameObject _getReadyText;
+    [SerializeField] private List<GameObject> _colliders, _parriedAnimations, _parriedPjs;
+
+    private Transform _attackBoxSpawn;
+    private int _maxPercent = 100;
+    private int _savedIndex;
+
     void OnEnable() {
         Instantiate(_getReadyText, GameManager.gm_instance.battle_system.textSpawn.transform);
         GameManager.gm_instance.battle_system.gangFightMode = this;
@@ -47,12 +54,12 @@ public class GangFightMode : MonoBehaviour
         int sumPercent = 0;
         int randomPercent = Random.Range(1, _maxPercent + 1);
 
-        for (int i = 0; i < _attacks.Count; i++)
+        for (int i = 0; i < Attacks.Count; i++)
         {
-            sumPercent += _attacks[i].Percentage;
+            sumPercent += Attacks[i].Percentage;
 
             if (sumPercent >= randomPercent) {
-                _attacks[i].Anim.Play(_attacks[i].Name);
+                AnimList[Attacks[i].AnimIndex].Play(Attacks[i].Name);
                 _savedIndex = i;
                 IsAction = true;
                 return;
@@ -68,7 +75,15 @@ public class GangFightMode : MonoBehaviour
 
             case "RIGHT":
                 Instantiate(_colliders[1], _attackBoxSpawn);
-                break;           
+                break;       
+
+            case "DOWN":
+                Instantiate(_colliders[2], _attackBoxSpawn);
+                break;
+            
+            case "PJ":
+                Instantiate(_colliders[3], _attackBoxSpawn);
+                break;
 
             default:
                 break;
@@ -76,19 +91,22 @@ public class GangFightMode : MonoBehaviour
     }
     public void SpawnParriedAnimation()
     {
-        CurrentGuy.SetActive(false);
-        _maxPercent -= _attacks[_savedIndex].Percentage;
-        _attacks.RemoveAt(_savedIndex);
-        Invoke("EnableAction", 0.5f);
-
+        if (_savedIndex != -1) {
+            _savedIndex = -1;
+            _maxPercent -= Attacks[_savedIndex].Percentage;
+            Attacks.RemoveAt(_savedIndex);
+        }
         switch (CurrentState) {
             case GangParry.Physical:
                 Instantiate(_parriedAnimations[Random.Range(0, 3)], transform.parent);
+                Invoke("EnableAction", 0.5f);
+                CurrentGuy.SetActive(false);
                 break;
 
             case GangParry.Projectile:
-                Instantiate(_parriedAnimations[3], transform.parent);
-                break; 
+                Destroy(CurrentProjectile);
+                Instantiate(_parriedPjs[ParriedPjIndex], transform.parent);
+                break;
         }
     }
     private void EnableAction()
