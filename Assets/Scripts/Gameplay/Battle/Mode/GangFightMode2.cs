@@ -53,8 +53,10 @@ public class GangFightMode2 : MonoBehaviour
         if (tagInfo.Length > 1) {
             int index = int.Parse(tagInfo[0]);
             
-            if (_gangFight.AnimList[index].gameObject.activeSelf)
+            if (!_gangFight.IsDead(index)) {
                 _gangFight.AnimList[index].Play(tagInfo[1], -1, 0f);
+                ShowTarget(index);
+            }
             return;
         }
         _anim.Play(tag, -1, 0f);
@@ -88,19 +90,46 @@ public class GangFightMode2 : MonoBehaviour
             name,
             percentage
         ));
+        _gangFight.SetMaxPercent(percentage);
     }
     void CheckBigEmployeeParry()
     {
-        bool empl14 = _gangFight.AnimList[9].gameObject.activeSelf;
-        bool empl16 = _gangFight.AnimList[10].gameObject.activeSelf;
+        bool empl14 = !_gangFight.IsDead(9);
+        bool empl16 = !_gangFight.IsDead(10);
 
-        if (empl14 && !empl16)
+        _gangFight.RemoveAttacks(8);
+
+        if (empl14 && empl16)
+            AddAct("8-empl_big_atk-10");
+
+        else if (!empl14 && empl16)
             AddAct("8-empl_big_rightAtk-10");
         
-        else if (!empl14 && empl16)
+        else if (empl14 && !empl16)
             AddAct("8-empl_big_leftAtk-10");
         
         else if (!empl14 && !empl16)
-            PlayAnimation("8-empl_big_sad");
+            Invoke("DelaySadAnimation", 0.1f);
+    }
+    private void DelaySadAnimation()
+    {
+        PlayAnimation("8-empl_big_sad");
+    }
+    void MarkDead(int index)
+    {
+        _gangFight.MarkDead(index);
+    }
+    void RemoveAttacks(int index)
+    {
+        _gangFight.RemoveAttacks(index);
+    }
+    void HideTarget(int index)
+    {
+        _gangFight.HideTarget(index);
+    }
+    private void ShowTarget(int index)
+    {
+        _gangFight.ColorIndex = index;
+        _gangFight.Invoke("ShowTarget", 0.05f);
     }
 }
