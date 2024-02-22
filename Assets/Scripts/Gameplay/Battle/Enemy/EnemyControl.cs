@@ -218,6 +218,7 @@ public class EnemyControl : MonoBehaviour
     }
     public void enemyCounterEnd()
     {
+        duplicate_r.InitFlash();
         counterBox.SetActive(false);
     }
 

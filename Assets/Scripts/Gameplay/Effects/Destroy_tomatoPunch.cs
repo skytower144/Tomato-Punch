@@ -11,12 +11,12 @@ public class Destroy_tomatoPunch : MonoBehaviour
     }
     void OnEnable()
     {
-        Invoke("destroyPunch", 0.1f);
+        Invoke("destroyPunch", 0.05f);
     }
 
     void OnDisable()
     {
-        if(!isHit && !tomatoControl.isFainted && !tomatoGuard.isParry && !TutorialMode.isTutorial && !GameManager.gm_instance.battle_system.IsGangfight){
+        if(!isHit && !tomatoControl.isFainted && !tomatoGuard.isParry && !TutorialMode.isTutorial){
             GameManager.gm_instance.battle_system.tomato_control.isMiss = true;
         }
     }

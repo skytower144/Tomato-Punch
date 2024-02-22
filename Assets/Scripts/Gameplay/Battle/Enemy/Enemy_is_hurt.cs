@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy_is_hurt : MonoBehaviour
 {
-    private Animator anim;
     private EnemyBase enemyBase;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
@@ -26,7 +25,6 @@ public class Enemy_is_hurt : MonoBehaviour
     {
         enemyBase = enemyControl._base;
 
-        anim = GetComponentInParent<Animator>();
         Enemy_maxHealth = enemyBase.EnemyMaxHealth;
         Enemy_currentHealth = enemyBase.EnemyCurrentHealth;
 
@@ -84,6 +82,8 @@ public class Enemy_is_hurt : MonoBehaviour
                 //DEFLECT LASER
                 if (col.gameObject.tag.Equals("tomato_DeflectLaser"))
                 {
+                    tomatocontrol.currentSkillType = SkillType.Deflect_Skill;
+                    
                     float projectileDmg = enemyControl.GetCurrentAttackDamage();
                     enemyHurtDamage(projectileDmg + tomatocontrol.dmg_normalPunch);
                     checkDefeat("SK");
@@ -196,42 +196,51 @@ public class Enemy_is_hurt : MonoBehaviour
         }
         else if (animString != "") {
             HitEffect(animString);
+            HurtReact(animString);
             enemyControl.enemyHurtFlash();
         }
         return false;
     }
-
-    private void HitEffect(string anim_string, float distance = 4.5f)
+    private void HurtReact(string anim_string)
     {
-        int direction = 1;
-
-        if (anim_string == "R") {
+        if (anim_string == "R")
             enemyControl.enemyAnimControl.Act(enemyBase.HurtR_AnimationString, BattleActType.Hurt);
-            distance = 5f;
-            direction = -1;
-        }
+
         else if (anim_string == "L")
             enemyControl.enemyAnimControl.Act(enemyBase.HurtL_AnimationString, BattleActType.Hurt);
-        
-        else if (anim_string == "GP") {
+
+        else if (anim_string == "GP")
             enemyControl.enemyAnimControl.Act(enemyBase.HurtL_AnimationString, BattleActType.Hurt);
-            return;
-        }
+
         else if (anim_string == "SK") {
             if (GameManager.gm_instance.assistManager.isBlast && tomatocontrol.currentSkillType == SkillType.Assist_Skill) {
                 GameManager.gm_instance.assistManager.SetIsBlast(false);
                 enemy_isPunched = false;
-                
-                tomatocontrol.BlastEffect();
                 enemyControl.enemyAnimControl.Act(enemyBase.Blasted, BattleActType.Blast);
             }
             else
                 enemyControl.enemyAnimControl.Act(enemyBase.HurtAnimList[Random.Range(0, enemyBase.HurtAnimList.Count)], BattleActType.Hurt);
         }
+    }
+    public void HitEffect(string anim_string, float distance = 4.5f, int direction = 1)
+    {
+        if (anim_string == "R") {
+            distance = 5f;
+            direction = -1;
+        }
 
-        Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
-        var spark = Instantiate(hitSpark, transform);
-        spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
+        if (anim_string == "SK") {
+            if (GameManager.gm_instance.assistManager.isBlast && tomatocontrol.currentSkillType == SkillType.Assist_Skill)
+                tomatocontrol.BlastEffect();
+
+            else if (tomatocontrol.currentSkillType == SkillType.Equip_Skill)
+                GameManager.gm_instance.battle_system.tomato_control.SkillEffect();
+        }
+        else if (anim_string != "GP") {
+            Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
+            var spark = Instantiate(hitSpark, transform);
+            spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
+        }
     }
 
     public void SetProjectileHit(bool state)

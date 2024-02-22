@@ -53,15 +53,17 @@ public class Enemy_countered : MonoBehaviour
         enemy_is_hurt.enemyHurtDamage(tomatocontrol.dmg_normalPunch);
         if(!enemy_is_hurt.checkDefeat("CTR"))
         {
-            Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
-            Instantiate (hitEffect, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
-            Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
-            
-            Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
-            
+            CounterEffect();
             enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             gameObject.SetActive(false);
         }
+    }
+    public void CounterEffect()
+    {
+        Instantiate (counterEffect, new Vector2 (transform.position.x + 2.3f , transform.position.y-0.2f), Quaternion.identity);
+        Instantiate (hitEffect, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
+        Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
+        Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
     }
 
     public void ResetCounterPoints()

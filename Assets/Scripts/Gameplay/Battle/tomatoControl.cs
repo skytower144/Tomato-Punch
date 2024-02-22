@@ -7,8 +7,10 @@ using UnityEngine.InputSystem;
 public class tomatoControl : MonoBehaviour
 {
     public Animator tomatoAnim => tomatoAnimator;
+
     [SerializeField] private PlayerInput tomatoInput;
     [SerializeField] private Animator gatleButton_anim_L, gatleButton_anim_R, gaksung_objAnim, gaksung_anim;
+
     public GameObject deflectLaser;
     [SerializeField] private GameObject gaksung_OBJ, tomato_LP, tomato_RP, tomato_G, tomato_PRY, tomato_S;
     [SerializeField] private GameObject gatleSmoke_L, gatleSmoke_R, upperBg, upper_hitef, upper_hitef2, upperSmoke, superBanner, screenFlash, defeatedEffect_pop, faintStars, blastEffect, dunkEffect, dunkEffect2, sparkleEffect;
@@ -23,6 +25,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private tomatoHurt tomatohurt;
     [SerializeField] private TextSpawn textSpawn;
     [SerializeField] private FlashEffect flashEffect;
+
     private EnemyControl enemyControl;
     private Animator tomatoAnimator; 
     private GameObject _parryInstance;
@@ -73,6 +76,8 @@ public class tomatoControl : MonoBehaviour
 
     [System.NonSerialized] public SkillType currentSkillType;
     [System.NonSerialized] public int tomatoes = 0;
+    private int skillEffectIndex = -1;
+    private int equipIndex = -1;
 
     void OnEnable()
     {
@@ -197,7 +202,10 @@ public class tomatoControl : MonoBehaviour
                     {
                         if((tomatoEquip[0] != null) && tomatoes > 0){
                             currentSkillType = SkillType.Equip_Skill;
+                            equipIndex = 0;
+
                             tomatoAnimator.Play(tomatoEquip[0].SkillAnimation,-1,0f);
+
                             tomatoes -= 1;
                             counterTrack.CounterTracker();
                         }
@@ -707,17 +715,13 @@ public class tomatoControl : MonoBehaviour
     }
 
 // SKILL ATTACK =====================================================================================================================
-    void skill()
+    void skill(int effectIndex)
     {
+        skillEffectIndex = effectIndex;
         Instantiate (tomato_S, Parent);
     }
-    void effect0()
-    {
-        Instantiate (tomatoEquip[0].HitEffects[0], Parent);
-    }
-    void effect1()
-    {
-        Instantiate (tomatoEquip[0].HitEffects[1], Parent);
+    public void SkillEffect() {
+        Instantiate (tomatoEquip[equipIndex].HitEffects[skillEffectIndex], Parent);
     }
 
 // SUPER ATTACK =====================================================================================================================
@@ -725,7 +729,6 @@ public class tomatoControl : MonoBehaviour
     {
         enemy_supered = true;
     }
-
 }
 
-public enum SkillType { Equip_Skill, Assist_Skill }
+public enum SkillType { Equip_Skill, Assist_Skill, Deflect_Skill }

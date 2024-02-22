@@ -21,6 +21,7 @@ public class GangFightMode : MonoBehaviour
     public List<Animator> AnimList;
     public List<SpriteRenderer> SrList;
     public List<ActDetailWithAnim> Attacks;
+    public DuplicateRenderer DuplicateRd;
 
     [System.NonSerialized] public GangParry CurrentState;
     [System.NonSerialized] public GameObject CurrentGuy, CurrentProjectile;
@@ -28,7 +29,7 @@ public class GangFightMode : MonoBehaviour
     [System.NonSerialized] public int ParriedPjIndex = 0;
     [System.NonSerialized] public int ColorIndex;
 
-    [SerializeField] private GameObject _getReadyText;
+    [SerializeField] private GameObject _getReadyText, _hitEffect;
     [SerializeField] private List<GameObject> _colliders, _parriedAnimations, _parriedPjs;
 
     private List<bool> isDeadList = new List<bool>();
@@ -115,6 +116,10 @@ public class GangFightMode : MonoBehaviour
                 Instantiate(_parriedPjs[ParriedPjIndex], transform.parent);
                 break;
         }
+        RemoveCurrentAttack();
+    }
+    public void RemoveCurrentAttack()
+    {
         if (_savedIndex != -1) {
             SetMaxPercent(-Attacks[_savedIndex].Percentage);
             Attacks.RemoveAt(_savedIndex);

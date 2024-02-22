@@ -4,12 +4,47 @@ using UnityEngine;
 public class GangFightMode2 : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
+    [SerializeField] private Collider2D _col;
+    [SerializeField] private string _counteredTag;
     [SerializeField] private List<GameObject> _projectile;
     private GangFightMode _gangFight; 
 
     void Start()
     {
         _gangFight = GameManager.gm_instance.battle_system.gangFightMode;
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        string hitType = "";
+
+        if (col.gameObject.tag.Equals("tomato_LP") || col.gameObject.tag.Equals("tomato_SK"))
+            hitType = "L";
+
+        if (col.gameObject.tag.Equals("tomato_RP"))
+            hitType = "R";
+        
+        if (!string.IsNullOrEmpty(hitType)) {
+            DisableHitBox();
+            _gangFight.RemoveCurrentAttack();
+            // MarkDead();
+
+            _anim.Play(_counteredTag, -1, 0f);
+            GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.HitEffect(hitType);
+            GameManager.gm_instance.battle_system.enemy_control.enemy_Countered.CounterEffect();
+        }
+    }
+    void EnableHitBox()
+    {
+        _col.enabled = true;
+    }
+    void DisableHitBox()
+    {
+        Invoke("DelayedDisableHitBox", 0.06f);
+    }
+    void DelayedDisableHitBox()
+    {
+        _gangFight.DuplicateRd.InitFlash();
+        _col.enabled = false;
     }
     void DisableIsAttacking(string idle)
     {
@@ -44,6 +79,22 @@ public class GangFightMode2 : MonoBehaviour
     void SpawnProjectile(int index)
     {
         _gangFight.CurrentProjectile = Instantiate(_projectile[index], transform.parent);
+    }
+    void SpawnObjectAt(string tag)
+    {
+        //projectileIndex_posX_posY_scaleX_scaleY
+
+        string[] tagInfo = tag.Split('_');
+
+        int index = int.Parse(tagInfo[0]);
+        float posX = float.Parse(tagInfo[1]);
+        float posY = float.Parse(tagInfo[2]);
+        int scaleX = int.Parse(tagInfo[3]);
+        int scaleY = int.Parse(tagInfo[4]);
+
+        GameObject spawned = Instantiate(_projectile[index], GameManager.gm_instance.battle_system.enemy_control.transform);
+        spawned.transform.localPosition = new Vector2(posX, posY);
+        spawned.transform.localScale = new Vector2(scaleX, scaleY);
     }
     void PlayAnimation(string tag)
     {
@@ -131,5 +182,16 @@ public class GangFightMode2 : MonoBehaviour
     {
         _gangFight.ColorIndex = index;
         _gangFight.Invoke("ShowTarget", 0.05f);
+    }
+    void HurtBlink(int index)
+    {
+        _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
+        _gangFight.DuplicateRd.InitFlash();
+        StartCoroutine(_gangFight.DuplicateRd.BlinkEffect(2, 0.04f));
+    }
+    void CounterFlash(int index)
+    {
+        _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
+        _gangFight.DuplicateRd.FlashEffect(0.3f, 1);
     }
 }
