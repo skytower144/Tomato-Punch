@@ -143,29 +143,7 @@ public class GangFightMode2 : MonoBehaviour
         ));
         _gangFight.SetMaxPercent(percentage);
     }
-    void CheckBigEmployeeParry()
-    {
-        bool empl14 = !_gangFight.IsDead(9);
-        bool empl16 = !_gangFight.IsDead(10);
 
-        _gangFight.RemoveAttacks(8);
-
-        if (empl14 && empl16)
-            AddAct("8-empl_big_atk-10");
-
-        else if (!empl14 && empl16)
-            AddAct("8-empl_big_rightAtk-10");
-        
-        else if (empl14 && !empl16)
-            AddAct("8-empl_big_leftAtk-10");
-        
-        else if (!empl14 && !empl16)
-            Invoke("DelaySadAnimation", 0.1f);
-    }
-    private void DelaySadAnimation()
-    {
-        PlayAnimation("8-empl_big_sad");
-    }
     void MarkDead(int index)
     {
         _gangFight.MarkDead(index);
@@ -194,4 +172,39 @@ public class GangFightMode2 : MonoBehaviour
         _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
         _gangFight.DuplicateRd.FlashEffect(0.3f, 1);
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    void CheckBigEmployeeParry()
+    {
+        bool empl14 = !_gangFight.IsDead(9);
+        bool empl16 = !_gangFight.IsDead(10);
+
+        _gangFight.RemoveAttacks(8);
+
+        if (empl14 && empl16)
+            AddAct("8-empl_big_atk-10");
+
+        else if (!empl14 && empl16)
+            AddAct("8-empl_big_rightAtk-10");
+        
+        else if (empl14 && !empl16)
+            AddAct("8-empl_big_leftAtk-10");
+        
+        else if (!empl14 && !empl16)
+            Invoke("DelaySadAnimation", 0.1f);
+    }
+    private void DelaySadAnimation()
+    {
+        PlayAnimation("8-empl_big_sad");
+    }
+    void WhenPlayerEvadeChangeAnim()
+    {
+        Invoke("DelayEvadedPrinterAnimation", 0.08f);
+    }
+    private void DelayEvadedPrinterAnimation()
+    {
+        Animator playerAnim = GameManager.gm_instance.battle_system.tomato_control.tomatoAnim;
+        if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Levade") || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("tomato_Revade"))
+            PlayAnimation("empl_prt_thrown");
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
