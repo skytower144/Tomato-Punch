@@ -118,8 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 5894424859255266903}
   _col: {fileID: 3503719592904828680}
-  _counteredTag: empl_3_ctr
   _projectile: []
+  _counteredTag: empl_3_ctr
 --- !u!61 &3503719592904828680
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -264,9 +264,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 3191586141070991485}
   _col: {fileID: 2856083457275936112}
-  _counteredTag: 
   _projectile:
   - {fileID: 1503927814793686393, guid: cd8e20933a6e6e849999e80c2c254061, type: 3}
+  _counteredTag: 
 --- !u!61 &2856083457275936112
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -413,10 +413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 810829142310649604}
   _col: {fileID: 5416281117790543855}
-  _counteredTag: 
   _projectile:
   - {fileID: 4389903074973170660, guid: 546185f99fba94d419d0bbfcfef0d2f7, type: 3}
   - {fileID: 1865066301516623929, guid: 974f09a73aca2ca459c9e53891248429, type: 3}
+  _counteredTag: 
 --- !u!61 &5416281117790543855
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -659,8 +659,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 1440029901023030450}
   _col: {fileID: 0}
-  _counteredTag: 
   _projectile: []
+  _counteredTag: 
 --- !u!1 &3724484925362278084
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,8 +779,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 8534451356194385484}
   _col: {fileID: 8890865135008669677}
-  _counteredTag: empl_2_ctr
   _projectile: []
+  _counteredTag: empl_2_ctr
 --- !u!61 &8890865135008669677
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -925,8 +925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 3228934308616714140}
   _col: {fileID: 7861619443169994552}
-  _counteredTag: empl_6_ctr
   _projectile: []
+  _counteredTag: empl_6_ctr
 --- !u!61 &7861619443169994552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1071,8 +1071,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 4539995034568310676}
   _col: {fileID: 304019132039497001}
-  _counteredTag: empl_1_ctr
   _projectile: []
+  _counteredTag: empl_1_ctr
 --- !u!61 &304019132039497001
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1217,8 +1217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 6869553771635711366}
   _col: {fileID: 2422895925642004120}
-  _counteredTag: empl_5_ctr
   _projectile: []
+  _counteredTag: empl_5_ctr
 --- !u!61 &2422895925642004120
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1363,8 +1363,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 2121180780980436700}
   _col: {fileID: 4915865813047826420}
-  _counteredTag: empl_16_ctr
   _projectile: []
+  _counteredTag: empl_16_ctr
 --- !u!61 &4915865813047826420
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1509,8 +1509,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 2213021369946740335}
   _col: {fileID: 7451012069336210918}
-  _counteredTag: empl_14_ctr
   _projectile: []
+  _counteredTag: empl_14_ctr
 --- !u!61 &7451012069336210918
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1655,8 +1655,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 6091518432062984907}
   _col: {fileID: 1260529115278914042}
-  _counteredTag: empl_0_ctr
   _projectile: []
+  _counteredTag: empl_0_ctr
 --- !u!61 &1260529115278914042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1748,6 +1748,18 @@ MonoBehaviour:
   - {fileID: 810829142310649604}
   - {fileID: 2213021369946740335}
   - {fileID: 2121180780980436700}
+  VictoryAnimNames:
+  - empl_0_victory
+  - empl_1_victory
+  - empl_2_victory
+  - empl_3_victory
+  - empl_prt_victory
+  - empl_5_victory
+  - empl_6_victory
+  - empl_back_victory
+  - empl_big_victory
+  - empl_14_victory
+  - empl_16_victory
   SrList:
   - {fileID: 5619287698464647334}
   - {fileID: 311952488274875159}
@@ -1764,39 +1776,52 @@ MonoBehaviour:
   - AnimIndex: 1
     Name: empl_1_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 2
     Name: empl_2_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 3
     Name: empl_3_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 0
     Name: empl_0_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 5
     Name: empl_5_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 6
     Name: empl_6_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 4
     Name: empl_prt_atk
     Percentage: 5
+    AttackDamage: 2
   - AnimIndex: 8
     Name: empl_big_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 9
     Name: empl_14_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 10
     Name: empl_16_atk
     Percentage: 10
+    AttackDamage: 2
   - AnimIndex: 7
     Name: empl_back_atk
     Percentage: 5
+    AttackDamage: 2
+  DefaultDamage: 3
   DuplicateRd: {fileID: 7766776023561038583}
   _getReadyText: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   _hitEffect: {fileID: 6591653107828056527, guid: 8291993d08dc51847a178d4ae5e2c9a1, type: 3}
+  _puffEffect: {fileID: 6930286395856593016, guid: f61188f4aacf4d54ba72beae48c714d3, type: 3}
   _colliders:
   - {fileID: 1532408246453528815, guid: cd4dad395d738814882d5fb994b6e096, type: 3}
   - {fileID: 4425042731320507169, guid: bf90562c9f06cc74ea6b72a7736ce079, type: 3}
@@ -1811,4 +1836,3 @@ MonoBehaviour:
   - {fileID: 9003449430536308669, guid: 390d65d39349c9a41aa7d54bb81931f4, type: 3}
   - {fileID: 5749008958419115098, guid: 9d5b6b85cbfa65e4aaab6d0470cb4b8d, type: 3}
   - {fileID: 939561785427376169, guid: c598747bb43a87d46ae9e2ca281b0ce4, type: 3}
-  _maxPercent: 100

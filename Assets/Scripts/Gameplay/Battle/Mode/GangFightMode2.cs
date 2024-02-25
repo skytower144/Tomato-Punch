@@ -5,8 +5,8 @@ public class GangFightMode2 : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
     [SerializeField] private Collider2D _col;
-    [SerializeField] private string _counteredTag;
     [SerializeField] private List<GameObject> _projectile;
+    [SerializeField] private string _counteredTag;
     private GangFightMode _gangFight; 
 
     void Start()
@@ -72,10 +72,6 @@ public class GangFightMode2 : MonoBehaviour
             _gangFight.SpawnAttackBox(typeInfo[0]);
         }
     }
-    void HitDamage(float dmg)
-    {
-        GameManager.gm_instance.battle_system.enemy_control.gangFightDmg = dmg;
-    }
     void SpawnProjectile(int index)
     {
         _gangFight.CurrentProjectile = Instantiate(_projectile[index], transform.parent);
@@ -139,7 +135,8 @@ public class GangFightMode2 : MonoBehaviour
         _gangFight.Attacks.Add(new GangFightMode.ActDetailWithAnim(
             animIndex,
             name,
-            percentage
+            percentage,
+            _gangFight.DefaultDamage
         ));
         _gangFight.SetMaxPercent(percentage);
     }
@@ -163,12 +160,13 @@ public class GangFightMode2 : MonoBehaviour
     }
     void HurtBlink(int index)
     {
-        _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
         _gangFight.DuplicateRd.InitFlash();
+        _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
         StartCoroutine(_gangFight.DuplicateRd.BlinkEffect(2, 0.04f));
     }
     void CounterFlash(int index)
     {
+        _gangFight.DuplicateRd.InitFlash();
         _gangFight.DuplicateRd.InitEnemySr(_gangFight.SrList[index]);
         _gangFight.DuplicateRd.FlashEffect(0.3f, 1);
     }

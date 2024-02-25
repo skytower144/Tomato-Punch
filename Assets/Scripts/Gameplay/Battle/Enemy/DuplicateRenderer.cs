@@ -27,7 +27,7 @@ public class DuplicateRenderer : MonoBehaviour
         for (int i = 0; i < repeat; i++) {
             enemy_sr.material = matWhite;
             yield return WaitForCache.GetWaitForSecondReal(interval);
-            enemy_sr.material  = GameManager.gm_instance.battle_system.enemy_control.mat_default;
+            enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
             yield return WaitForCache.GetWaitForSecondReal(interval);
         }
         yield break;

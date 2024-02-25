@@ -421,9 +421,11 @@ public class EnemyControl : MonoBehaviour
         }
         yield break;
     }
-    private void UnFreeze()
+    public void UnFreeze()
     {
-        anim.enabled = true;
+        if (!GameManager.gm_instance.battle_system.IsGangfight)
+            anim.enabled = true;
+
         tomatoAnim.enabled = true;
         Instantiate(defeatedEffect_pop);
         textSpawn.spawn_KO_text();

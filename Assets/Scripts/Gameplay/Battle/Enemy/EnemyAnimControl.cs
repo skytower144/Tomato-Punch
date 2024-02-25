@@ -218,20 +218,30 @@ public class EnemyAnimControl : MonoBehaviour
     public void ReEngage()
     {
         if (_battleSystem.IsGangfight) {
-            //
+            _battleSystem.gangFightMode.RestoreAttacks();
+            _battleSystem.gangFightMode.ReviveDead();
             return;
         }
         string enemyReEngage = _battleSystem.GetEnemyBase().ReEngage;
-        _enemyControl.enemyAnimControl.Act(enemyReEngage, BattleActType.ReEngage);
+        Act(enemyReEngage, BattleActType.ReEngage);
     }
     public void Victory()
     {
         if (_battleSystem.IsGangfight) {
-            // Play victory
+            _battleSystem.gangFightMode.PlayVictoryAnimation();
             return;
         }
         string victoryAnimation = _battleSystem.GetEnemyBase().Victory;
-        _enemyControl.enemyAnimControl.Act(victoryAnimation, BattleActType.Victory);
+        Act(victoryAnimation, BattleActType.Victory);
+    }
+    public void Defeated()
+    {
+        if (_battleSystem.IsGangfight) {
+            _enemyControl.UnFreeze();
+            return;
+        }
+        string defeatedAnimation = _battleSystem.GetEnemyBase().Defeated_AnimationString;
+        Act(defeatedAnimation, BattleActType.Defeated);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

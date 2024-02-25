@@ -184,7 +184,7 @@ public class Enemy_is_hurt : MonoBehaviour
             enemy_isDefeated = true;
 
             tomatoAnim.enabled = false;
-            enemyControl.enemyAnimControl.Act(enemyBase.Defeated_AnimationString, BattleActType.Defeated);
+            enemyControl.enemyAnimControl.Defeated();
 
             Instantiate(defeatedEffect_beam);
             Instantiate(defeatedEffect_flash, BattleCanvas_Parent);

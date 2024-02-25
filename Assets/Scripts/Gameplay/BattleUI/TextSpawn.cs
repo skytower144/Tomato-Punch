@@ -97,7 +97,7 @@ public class TextSpawn : MonoBehaviour
             enemyControl.totalSuper, 
             textSpawn_BattleSystem, 
             enemyControl._base
-            );
+        );
     }
 
     public void PlayDefeated_Player()
