@@ -26,14 +26,6 @@ public class Enemy_countered : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if(tomatoControl.enemyFreeze)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D col) 
     {
         enemyControl.enemyAnimControl.CancelScheduledInvokes();
@@ -43,12 +35,7 @@ public class Enemy_countered : MonoBehaviour
         GameManager.gm_instance.assistManager.SetIsBlast(false);
         enemy_isCountered = true;
         
-        totalCounter += 1;
-
-        if(tomatocontrol.tomatoes<5){
-            tomatocontrol.tomatoes += 1;
-            counterTrack.CounterTracker();
-        }
+        AddCounterPoint();
 
         enemy_is_hurt.enemyHurtDamage(tomatocontrol.dmg_normalPunch);
         if(!enemy_is_hurt.checkDefeat("CTR"))
@@ -64,6 +51,15 @@ public class Enemy_countered : MonoBehaviour
         Instantiate (hitEffect, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
         Instantiate (counterPunch_effect, new Vector2 (transform.position.x + 4.7f , transform.position.y - 0.4f), Quaternion.identity);
         Instantiate (screenFlash, new Vector2 (transform.position.x + 2.3f , transform.position.y - 0.5f), Quaternion.identity);
+    }
+    public void AddCounterPoint()
+    {
+        totalCounter += 1;
+
+        if(tomatocontrol.tomatoes < 5){
+            tomatocontrol.tomatoes += 1;
+            counterTrack.CounterTracker();
+        }
     }
 
     public void ResetCounterPoints()

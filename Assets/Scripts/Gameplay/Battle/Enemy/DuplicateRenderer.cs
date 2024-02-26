@@ -38,7 +38,6 @@ public class DuplicateRenderer : MonoBehaviour
         flashSpeed = (1 - duration) * 0.001f;
         enemy_sr.material = mat_type == 0 ? matWhite : matYellow;
         stopFlash = false;
-        enemy_sr.color = Color.white;
         gameObject.SetActive(true);
         
         StartCoroutine(ResetFlash(duration));
@@ -51,11 +50,11 @@ public class DuplicateRenderer : MonoBehaviour
 
     public void InitFlash()
     {
+        stopFlash = true;
         StopAllCoroutines();
-        
+
         enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
         d_sr.sprite = null;
-        stopFlash = true;
         gameObject.SetActive(false);
     }
     public void InitEnemySr(SpriteRenderer enemySr)

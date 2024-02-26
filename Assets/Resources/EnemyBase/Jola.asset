@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Jola
   m_EditorClassIdentifier: 
   enemyName: Jola
-  koFace: {fileID: 21300000, guid: 08bd5bec24af9244893b395d99b931a8, type: 3}
-  hurtFace: {fileID: 21300000, guid: ec0568d6ffb8c394c9fdba64a0f3997e, type: 3}
-  defaultFace: {fileID: 21300000, guid: 469fe6d864bcde543a6d958229067b42, type: 3}
+  koFace: {fileID: 21300000, guid: 515ab5b9e85c6eb4d80099b4b02e4514, type: 3}
+  hurtFace: {fileID: 21300000, guid: 94dbc463fa06a854d8ae5148004c0920, type: 3}
+  defaultFace: {fileID: 21300000, guid: a56b7b356fc2f744ebefc5ecec7a78e6, type: 3}
   isFixedBg: 0
   isParallaxBg: 0
   bgSprites: []
@@ -47,36 +47,21 @@ MonoBehaviour:
   chiliInfo:
     hitPosition: {x: 0, y: 0}
     hitSprite: {fileID: 0}
+  neutralPattern: []
   projectiles:
   - Name: 
     percentage: 5
-    Damage: 0
-    EnemyAttackType: 3
-    HitFrame: 0
-    SpawnFrame: 0
-    Projectile: {fileID: 0}
+    ProjectileAttackFrames: []
   enemyPattern:
   - Name: 
     percentage: 15
-    Damage: 0
-    EnemyAttackType: 0
-    HitFrame: 0
-    CounterStartFrame: 0
-    CounterEndFrame: 0
+    PhysicalAttackFrames: []
   - Name: 
     percentage: 15
-    Damage: 0
-    EnemyAttackType: 1
-    HitFrame: 0
-    CounterStartFrame: 0
-    CounterEndFrame: 0
+    PhysicalAttackFrames: []
   - Name: 
     percentage: 5
-    Damage: 0
-    EnemyAttackType: 2
-    HitFrame: 0
-    CounterStartFrame: 0
-    CounterEndFrame: 0
+    PhysicalAttackFrames: []
   itemReward:
   - RewardItem: {fileID: 11400000, guid: 9499252a5832d5f418fd1f458614be12, type: 2}
     DropChance: 80
@@ -84,3 +69,4 @@ MonoBehaviour:
     DropChance: 30
   battleExp: 52
   battleCoin: 150
+  playerReviveState: 0

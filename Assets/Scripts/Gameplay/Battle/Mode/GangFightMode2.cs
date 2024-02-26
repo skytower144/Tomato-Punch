@@ -26,11 +26,16 @@ public class GangFightMode2 : MonoBehaviour
         if (!string.IsNullOrEmpty(hitType)) {
             DisableHitBox();
             _gangFight.RemoveCurrentAttack();
+
             // MarkDead();
+            // DecreaseHp();
 
             _anim.Play(_counteredTag, -1, 0f);
-            GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.HitEffect(hitType);
-            GameManager.gm_instance.battle_system.enemy_control.enemy_Countered.CounterEffect();
+
+            EnemyControl enemyControl = GameManager.gm_instance.battle_system.enemy_control;
+            enemyControl.enemy_hurt.HitEffect(hitType);
+            enemyControl.enemy_Countered.CounterEffect();
+            enemyControl.enemy_Countered.AddCounterPoint();
         }
     }
     void EnableHitBox()
@@ -145,6 +150,11 @@ public class GangFightMode2 : MonoBehaviour
     {
         _gangFight.MarkDead(index);
     }
+    void DecreaseHp(int count)
+    {
+        GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.enemyHurtDamage(count * _gangFight.HpPerGuy);
+        _gangFight.CheckBattleOver();
+    }
     void RemoveAttacks(int index)
     {
         _gangFight.RemoveAttacks(index);
@@ -173,6 +183,9 @@ public class GangFightMode2 : MonoBehaviour
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void CheckBigEmployeeParry()
     {
+        if (_gangFight.IsDead(8))
+            return;
+        
         bool empl14 = !_gangFight.IsDead(9);
         bool empl16 = !_gangFight.IsDead(10);
 

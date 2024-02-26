@@ -21,7 +21,9 @@ public class AssistManager : MonoBehaviour
             if (assistCharacter.featherUsageOrder[i - 1] != null) {
                 GameManager.gm_instance.battle_system.featherPointManager.SubtractFeatherPoint(i);
                 assistDamage = assistCharacter.featherUsageOrder[i - 1].skillDamage;
-                isBlast = (i >= 3);
+
+                if (!ProhibitBlast())
+                    isBlast = i >= 3;
                 
                 return assistCharacter.featherUsageOrder[i - 1].animString;
             }
@@ -43,7 +45,11 @@ public class AssistManager : MonoBehaviour
     {
         if (isBlast != state) isBlast = state;
     }
-
+    
+    private bool ProhibitBlast()
+    {
+        return GameManager.gm_instance.battle_system.IsGangfight;
+    }
 }
 
 [System.Serializable]

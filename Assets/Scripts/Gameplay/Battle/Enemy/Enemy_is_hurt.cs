@@ -18,6 +18,7 @@ public class Enemy_is_hurt : MonoBehaviour
     public EnemyHealthBar EnemyHealthBar => enemyHealthBar;
     [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
     [System.NonSerialized] public bool guardUp;
+    [System.NonSerialized] public bool isGuarding = false;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
     
@@ -182,8 +183,8 @@ public class Enemy_is_hurt : MonoBehaviour
 
             tomatoControl.isVictory = true;
             enemy_isDefeated = true;
-
             tomatoAnim.enabled = false;
+
             enemyControl.enemyAnimControl.Defeated();
 
             Instantiate(defeatedEffect_beam);

@@ -111,9 +111,11 @@ public class EnemyControl : MonoBehaviour
             if(tomatoControl.enemyFreeze)
             {
                 tomatoControl.enemyFreeze = false;
+    
                 anim.enabled = false;
                 EraseAllAttacks();
                 enemyAnimControl.CancelScheduledInvokes();
+                enemy_Countered.gameObject.SetActive(false);
             }
             else if(tomatocontrol.enemy_supered)
             {
@@ -208,11 +210,13 @@ public class EnemyControl : MonoBehaviour
 
     public void enemyHurtFlash()
     {
+        duplicate_r.InitFlash();
         duplicate_r.FlashEffect(hitFlashDuration, 0);
     }
 
     public void enemyCounterStart()
     {
+        duplicate_r.InitFlash();
         duplicate_r.FlashEffect(flashDuration, 1);
         counterBox.SetActive(true);
     }
@@ -392,8 +396,12 @@ public class EnemyControl : MonoBehaviour
         enemyHurt.guardUp = false;
         enemyHurt.hitct = 0;
     }
+    public void DisableIsGuarding()
+    {
+        enemyHurt.isGuarding = false;
+    }
 
-    public void freezeAnimation() // when KO
+    public void freezeAnimation() // when KO // EnemyAnimControl
     {
         Invoke("UnFreeze", 0.6f);
         anim.enabled = false;
@@ -423,10 +431,9 @@ public class EnemyControl : MonoBehaviour
     }
     public void UnFreeze()
     {
-        if (!GameManager.gm_instance.battle_system.IsGangfight)
-            anim.enabled = true;
-
+        anim.enabled = true;
         tomatoAnim.enabled = true;
+
         Instantiate(defeatedEffect_pop);
         textSpawn.spawn_KO_text();
 

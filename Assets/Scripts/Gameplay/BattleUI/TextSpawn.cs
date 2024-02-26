@@ -87,6 +87,7 @@ public class TextSpawn : MonoBehaviour
     public void PlayVictory_Player()
     {
         tomatocontrol.tomatoAnim.Play("tomato_victory", -1, 0f);
+
         Instantiate(YouWin_Text, transform);
         Instantiate(dark_filter, transform);
         GameObject resultCard_obj = Instantiate(resultCard, transform);
@@ -108,7 +109,7 @@ public class TextSpawn : MonoBehaviour
 
     public void normalize_resultCard()
     {
-        enemy_Countered.totalCounter = 0;
+        enemy_Countered.ResetCounterPoints();
         EnemyControl.totalParry = 0;
         enemyControl.totalSuper = 0;
     }

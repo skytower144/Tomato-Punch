@@ -72,6 +72,8 @@ public class EnemyAnimControl : MonoBehaviour
             
             case BattleActType.Recover:
             case BattleActType.ReEngage:
+                _enemyControl.enemy_hurt.isGuarding = true;
+                _enemyControl.Invoke("DisableIsGuarding", _fpsDict[animName].Item2);
                 _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
                 break;
             

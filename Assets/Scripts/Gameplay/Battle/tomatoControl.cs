@@ -368,21 +368,22 @@ public class tomatoControl : MonoBehaviour
     }
     void return_to_Guard()
     {
-        if(Enemy_parried.isParried && EnemyControl.isPhysical)
+        if (Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             ChangeAnimationState(TOMATO_GATLING);
         }
         else
         {
-            if(tomatoGuard.isParry)
+            if (tomatoGuard.isParry)
             {
                 tomatoGuard.isParry = false;
                 tomato_G.SetActive(true);
             }
-            if(tomatoInput.actions["Guard"].IsPressed())
-            {
+            if (isVictory)
+                ReleaseGuard();
+
+            else if (tomatoInput.actions["Guard"].IsPressed())
                 ChangeAnimationState(TOMATO_GUARD);
-            }
         }
     }
 
@@ -520,7 +521,7 @@ public class tomatoControl : MonoBehaviour
         battleSystem.resetPlayerHealth = true;
         enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(-1, true);
 
-        enemyControl.enemy_Countered.ResetCounterPoints();
+        textSpawn.normalize_resultCard();
         battleSystem.featherPointManager.ResetFeather();
         battleSystem.tomato_control.guard_bar.RestoreGuardBar();
         

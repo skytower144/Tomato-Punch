@@ -40,6 +40,7 @@ public class EnemyAIControl : MonoBehaviour
             !Enemy_is_hurt.enemy_isPunched &&
             !GameManager.gm_instance.assistManager.isBlast &&
             !enemyCtrl.enemy_supered &&
+            !enemyCtrl.enemy_hurt.isGuarding &&
             enemyCtrl.enemyAnim.enabled
         );
     }

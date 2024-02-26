@@ -25,6 +25,7 @@ public class GangFightMode : MonoBehaviour
     public List<SpriteRenderer> SrList;
     public List<ActDetailWithAnim> Attacks;
     public int DefaultDamage;
+    public int HpPerGuy;
     public DuplicateRenderer DuplicateRd;
 
     [System.NonSerialized] public GangParry CurrentState;
@@ -131,8 +132,6 @@ public class GangFightMode : MonoBehaviour
             SetMaxPercent(-Attacks[_savedIndex].Percentage);
             Attacks.RemoveAt(_savedIndex);
             _savedIndex = -1;
-
-            CheckBattleOver();
         }
     }
     private void EnableAction()
@@ -182,6 +181,7 @@ public class GangFightMode : MonoBehaviour
             _isDeadList[i] = false;
             AnimList[i].gameObject.SetActive(false);
             AnimList[i].gameObject.SetActive(true);
+            SrList[i].color = _visibleColor;
         }
     }
     public bool IsDead(int index)
@@ -196,7 +196,6 @@ public class GangFightMode : MonoBehaviour
                 Attacks.RemoveAt(i);
             }
         }
-        CheckBattleOver();
     }
     public void SetMaxPercent(int amount)
     {
@@ -210,11 +209,10 @@ public class GangFightMode : MonoBehaviour
     {
         SrList[ColorIndex].color = _visibleColor;
     }
-    private void CheckBattleOver()
+    public void CheckBattleOver()
     {
         if (Attacks.Count == 0)
             GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.checkDefeat();
-        // Connect HP Bar
     }
     public void PlayVictoryAnimation()
     {
