@@ -198,7 +198,9 @@ public class Enemy_is_hurt : MonoBehaviour
         else if (animString != "") {
             HitEffect(animString);
             HurtReact(animString);
-            enemyControl.enemyHurtFlash();
+
+            if (animString != "CTR")
+                enemyControl.enemyHurtFlash();
         }
         return false;
     }

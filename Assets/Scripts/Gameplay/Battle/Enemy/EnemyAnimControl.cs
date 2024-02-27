@@ -110,6 +110,14 @@ public class EnemyAnimControl : MonoBehaviour
             
             case BattleActType.Knockback:
                 StartCoroutine(SetCollider(true, 0.1f));
+
+                if (Enemy_countered.enemy_isCountered) {
+                    _enemyControl.duplicate_r.InitFlash();
+                    StartCoroutine(_enemyControl.duplicate_r.BlinkEffect(3, 0.05f));
+                }
+                else if (Enemy_parried.isParried)
+                    _enemyControl.enemyHurtFlash(0.4f);
+
                 _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
                 return;
             
@@ -130,7 +138,9 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Dunk:
+                _enemyControl.duplicate_r.InitFlash();
                 StartCoroutine(_enemyControl.duplicate_r.BlinkEffect(6, 0.02f));
+
                 _enemyControl.Invoke("DunkBounceSmoke", 1 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
                 break;

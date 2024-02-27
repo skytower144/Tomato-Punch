@@ -17,12 +17,12 @@ public class EnemyControl : MonoBehaviour
     public Animator enemyAnim => anim;
     public Material mat_default => matDefault;
     public SpriteRenderer enemyRenderer => enemy_renderer;
+    public Transform AttackBoxSpawn => AttackBoxes;
 
     [System.NonSerialized] public List<DamageFrame> TotalDamageFrames = new List<DamageFrame>();
     private int _currentDamageFrameIndex = -1;
     private AttackType _attackType;
 
-    public Transform AttackBoxSpawn => AttackBoxes;
     [SerializeField] private EnemyGreyEffect greyEffect;
     [SerializeField] private Animator anim; 
     [SerializeField] private SpriteRenderer enemy_renderer;
@@ -37,23 +37,22 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private EnemyAIControl enemyAIControl;
     [SerializeField] private Enemy_is_hurt enemyHurt;
     [SerializeField] private TextSpawn textSpawn;
-    private Material matDefault;
+    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private float flashDuration, hitFlashDuration;
 
+    public static int totalParry = 0;
+    [System.NonSerialized] public int totalSuper = 0;
+    [System.NonSerialized] public float gangFightDmg = -1;
     [System.NonSerialized] public static bool isPhysical = true;
     [System.NonSerialized] public bool action_afterSuffer = false;
     [System.NonSerialized] public bool enemy_supered = false;
     [System.NonSerialized] public bool canDunk = false;
     [System.NonSerialized] public bool isDunked = false;
-
     [System.NonSerialized] public AttackType attackType;
     [System.NonSerialized] public GameObject currentProjectile = null;
 
-    [SerializeField] private Transform projectileSpawnPoint;
-    [SerializeField] private float flashDuration, hitFlashDuration;
-    [System.NonSerialized] public float gangFightDmg = -1;
-    
-    public static int totalParry = 0;
-    [System.NonSerialized] public int totalSuper = 0;
+    private Material matDefault;
+    private Vector3 enemyTransformPos, enemyTransformScale;
 
     void OnEnable()
     {
@@ -208,10 +207,13 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    public void enemyHurtFlash()
+    public void enemyHurtFlash(float duration = 0f)
     {
+        if (duration == 0f)
+            duration = hitFlashDuration;       
+
         duplicate_r.InitFlash();
-        duplicate_r.FlashEffect(hitFlashDuration, 0);
+        duplicate_r.FlashEffect(duration, 0);
     }
 
     public void enemyCounterStart()
@@ -294,14 +296,17 @@ public class EnemyControl : MonoBehaviour
 
     public void BlastShrink()
     {
+        enemyTransformPos = transform.localPosition;
+        enemyTransformScale = transform.localScale;
+
         transform.localPosition = new Vector3(216.77f, 121.93f, transform.localPosition.z);
         transform.localScale = new Vector3(21f, 21f, 21f);
     }
 
     public void RecoverShrink()
     {
-        transform.localPosition = new Vector3(0f, 0f, transform.position.z);
-        transform.localScale = new Vector3(45f, 45f, 45f);
+        transform.localPosition = enemyTransformPos;
+        transform.localScale = enemyTransformScale;
     }
     
     public void DisableDunk()
