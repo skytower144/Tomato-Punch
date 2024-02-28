@@ -34,10 +34,11 @@ public class EnemyAIControl : MonoBehaviour
         return (
             !enemy_isIntro &&
             !tomatoControl.isFainted &&
-            !Enemy_is_hurt.enemy_isDefeated &&
             !Enemy_parried.isParried &&
             !Enemy_countered.enemy_isCountered &&
+            !Enemy_is_hurt.enemy_isDefeated &&
             !Enemy_is_hurt.enemy_isPunched &&
+            !Enemy_is_hurt.enemyIsHit &&
             !GameManager.gm_instance.assistManager.isBlast &&
             !enemyCtrl.enemy_supered &&
             !enemyCtrl.enemy_hurt.isGuarding &&

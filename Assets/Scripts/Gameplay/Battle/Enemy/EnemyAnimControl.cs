@@ -116,7 +116,7 @@ public class EnemyAnimControl : MonoBehaviour
                     StartCoroutine(_enemyControl.duplicate_r.BlinkEffect(3, 0.05f));
                 }
                 else if (Enemy_parried.isParried)
-                    _enemyControl.enemyHurtFlash(0.4f);
+                    _enemyControl.enemyHurtFlash(0.3f);
 
                 _enemyControl.Invoke("DetermineCC", _fpsDict[animName].Item2);
                 return;

@@ -272,6 +272,8 @@ public class EnemyControl : MonoBehaviour
         Enemy_is_hurt.enemyIsHit = false;
         if (Enemy_countered.enemy_isCountered) beginSuffer();
         else if (Enemy_parried.isParried) beginStun();
+        
+        duplicate_r.RestoreEnemyMat();
         greyEffect.StartGreyEffect();
     }
 

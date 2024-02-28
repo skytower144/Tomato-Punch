@@ -238,12 +238,18 @@ public class Enemy_is_hurt : MonoBehaviour
 
             else if (tomatocontrol.currentSkillType == SkillType.Equip_Skill)
                 GameManager.gm_instance.battle_system.tomato_control.SkillEffect();
+            
+            else
+                SparkEffect(distance, direction);
         }
-        else if (anim_string != "GP") {
-            Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
-            var spark = Instantiate(hitSpark, transform);
-            spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
-        }
+        else if (anim_string != "GP")
+            SparkEffect(distance, direction);
+    }
+    private void SparkEffect(float distance, int direction)
+    {
+        Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
+        var spark = Instantiate(hitSpark, transform);
+        spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
     }
 
     public void SetProjectileHit(bool state)

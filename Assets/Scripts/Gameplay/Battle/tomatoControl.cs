@@ -597,7 +597,7 @@ public class tomatoControl : MonoBehaviour
     {
         Instantiate (dunkEffect);
         Instantiate (dunkEffect2);
-        battleSystem.ShockWaveControl.CallShockWave(battleSystem.DunkShockWave.Duration, battleSystem.DunkShockWave.Size, battleSystem.DunkShockWave.Size);
+        // battleSystem.ShockWaveControl.CallShockWave(battleSystem.DunkShockWave.Duration, battleSystem.DunkShockWave.Size, battleSystem.DunkShockWave.Size);
     }
 
     public void BlastEffect()

@@ -57,6 +57,10 @@ public class DuplicateRenderer : MonoBehaviour
         d_sr.sprite = null;
         gameObject.SetActive(false);
     }
+    public void RestoreEnemyMat()
+    {
+        enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
+    }
     public void InitEnemySr(SpriteRenderer enemySr)
     {
         enemy_sr = enemySr;
