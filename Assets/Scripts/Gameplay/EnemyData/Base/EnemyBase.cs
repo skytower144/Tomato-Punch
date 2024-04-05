@@ -26,10 +26,11 @@ public class EnemyBase : ScriptableObject
     public ChiliAnimInfo chiliInfo;
     // Add more super info
 
-    [SerializeField] private List <Enemy_NeutralDetail> neutralPattern;
-    [SerializeField] private List <Enemy_ProjectileDetail> projectiles;
-    [SerializeField] private List <Enemy_AttackDetail> enemyPattern;
-    [SerializeField] private List <RewardDetail> itemReward;
+    [SerializeField] private List<Enemy_NeutralDetail> neutralPattern;
+    [SerializeField] private List<Enemy_ProjectileDetail> projectiles;
+    [SerializeField] private List<Enemy_AttackDetail> enemyPattern;
+    [SerializeField] private List<GameObject> extraProp;
+    [SerializeField] private List<RewardDetail> itemReward;
     [SerializeField] private float battleExp;
     [SerializeField] private int battleCoin;
     [SerializeField] private PlayerReviveState playerReviveState; 
@@ -138,6 +139,11 @@ public class EnemyBase : ScriptableObject
     public List<Enemy_ProjectileDetail> EnemyProjectilePattern
     {
         get { return projectiles; }
+    }
+
+    public List<GameObject> ExtraProp
+    {
+        get { return extraProp; }
     }
 
     public List<RewardDetail> ItemReward

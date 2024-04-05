@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f39d6aeef65614fb295ea86167b835, type: 3}
+  m_Name: ShinyBoss
+  m_EditorClassIdentifier: 
+  enemyName: Shiny Boss
+  koFace: {fileID: 21300000, guid: 93994d999f3128347a1efda2d1b7fbd3, type: 3}
+  hurtFace: {fileID: 21300000, guid: 047341cec48d4ce4791ce531c40f6ae8, type: 3}
+  defaultFace: {fileID: 21300000, guid: 7902235df39659a45b0dd835dd431e64, type: 3}
+  isFixedBg: 1
+  isParallaxBg: 0
+  bgSprites:
+  - {fileID: 21300000, guid: b7e5237aad61808448f40e2a395f9aa6, type: 3}
+  bgTexture: {fileID: 0}
+  parallaxDirection: {x: 0, y: 0}
+  enemyMaxHealth: 90
+  enemyCurrentHealth: 90
+  min_hitct: 3
+  max_hitct: 4
+  animationController: {fileID: 9100000, guid: e5b594eb2d20a7b4ea21ff01a5fa0901, type: 2}
+  idle: ShinyBoss_idle
+  intro: ShinyBoss_intro
+  defeated: ShinyBoss_ko
+  knockback: ShinyBoss_knockback
+  suffer: ShinyBoss_suffer
+  stun: ShinyBoss_stun
+  uppered: ShinyBoss_uppered
+  recover: ShinyBoss_recover
+  guard: ShinyBoss_guard
+  hurtL: ShinyBoss_hurt_L
+  hurtR: ShinyBoss_hurt_R
+  blasted: ShinyBoss_blasted
+  bounce: ShinyBoss_bounce
+  dunk: ShinyBoss_dunked
+  wait: ShinyBoss_wait
+  reEngage: ShinyBoss_intro
+  victory: ShinyBoss_victory
+  otherHurtAnim:
+  - ShinyBoss_hurt_1
+  - ShinyBoss_hurt_2
+  chiliInfo:
+    hitPosition: {x: -190, y: 60}
+    hitSprite: {fileID: 7380134854968501262, guid: b6d60b840c344fa4e8076ae8b4feebfb, type: 3}
+  neutralPattern: []
+  projectiles:
+  - Name: ShinyBoss_atk_printer
+    percentage: 20
+    ProjectileAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 3
+      HitType: 0
+      HitFrame: 0
+      SpawnFrame: 7
+      Projectile: {fileID: 5248630092104201764, guid: d002896342cbe4741b934e3a8c781533, type: 3}
+  - Name: ShinyBoss_atk_bowl
+    percentage: 20
+    ProjectileAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 3
+      HitType: 0
+      HitFrame: 0
+      SpawnFrame: 20
+      Projectile: {fileID: 8359877981082140253, guid: bae12e82c4bb69346b70721c7120ae64, type: 3}
+  enemyPattern:
+  - Name: ShinyBoss_atk_shine
+    percentage: 10
+    PhysicalAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 4
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+  - Name: ShinyBoss_atk_slap
+    percentage: 30
+    PhysicalAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 9
+      CounterStartFrame: 5
+      CounterEndFrame: 8
+  - Name: ShinyBoss_atk_whip
+    percentage: 0
+    PhysicalAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 8
+      CounterStartFrame: 5
+      CounterEndFrame: 7
+  - Name: ShinyBoss_atk_beltrope
+    percentage: 0
+    PhysicalAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 11
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 15
+      CounterStartFrame: 0
+      CounterEndFrame: 0
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 19
+      CounterStartFrame: 24
+      CounterEndFrame: 27
+  - Name: ShinyBoss_atk_whiplash
+    percentage: 0
+    PhysicalAttackFrames:
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 4
+      CounterStartFrame: 2
+      CounterEndFrame: 3
+    - Damage: 0
+      EnemyAttackType: 0
+      HitType: 0
+      HitFrame: 8
+      CounterStartFrame: 6
+      CounterEndFrame: 7
+  extraProp:
+  - {fileID: 2189596701149366917, guid: a096a8f315558124a92cfea02cdc72fc, type: 3}
+  itemReward: []
+  battleExp: 0
+  battleCoin: 0
+  playerReviveState: 0

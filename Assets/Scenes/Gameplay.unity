@@ -1757,6 +1757,36 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7150522402224304160, guid: adb03ce2eebcb9d4db926e45bb54d829, type: 3}
   m_PrefabInstance: {fileID: 696973352}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1265744402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1265744403}
+  m_Layer: 6
+  m_Name: PropOrEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1265744403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265744402}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 384357809064918360}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1374075889 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7150522402224304160, guid: adb03ce2eebcb9d4db926e45bb54d829, type: 3}
@@ -9040,6 +9070,7 @@ Transform:
   - {fileID: 384357808746845054}
   - {fileID: 6633392154055329747}
   - {fileID: 933909586}
+  - {fileID: 1265744403}
   m_Father: {fileID: 384357809614087741}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
