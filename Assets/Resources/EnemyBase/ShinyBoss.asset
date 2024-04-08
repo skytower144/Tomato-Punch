@@ -58,7 +58,6 @@ MonoBehaviour:
     - Damage: 0
       EnemyAttackType: 3
       HitType: 0
-      HitFrame: 0
       SpawnFrame: 7
       Projectile: {fileID: 5248630092104201764, guid: d002896342cbe4741b934e3a8c781533, type: 3}
   - Name: ShinyBoss_atk_bowl
@@ -67,7 +66,6 @@ MonoBehaviour:
     - Damage: 0
       EnemyAttackType: 3
       HitType: 0
-      HitFrame: 0
       SpawnFrame: 20
       Projectile: {fileID: 8359877981082140253, guid: bae12e82c4bb69346b70721c7120ae64, type: 3}
   enemyPattern:
@@ -78,8 +76,8 @@ MonoBehaviour:
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 4
-      CounterStartFrame: 0
-      CounterEndFrame: 0
+      CounterStartFrame: -1
+      CounterEndFrame: -1
   - Name: ShinyBoss_atk_slap
     percentage: 30
     PhysicalAttackFrames:
@@ -105,19 +103,19 @@ MonoBehaviour:
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 11
-      CounterStartFrame: 0
-      CounterEndFrame: 0
+      CounterStartFrame: -1
+      CounterEndFrame: -1
     - Damage: 0
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 15
-      CounterStartFrame: 0
-      CounterEndFrame: 0
+      CounterStartFrame: -1
+      CounterEndFrame: -1
     - Damage: 0
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 19
-      CounterStartFrame: 24
+      CounterStartFrame: 22
       CounterEndFrame: 27
   - Name: ShinyBoss_atk_whiplash
     percentage: 0
@@ -126,16 +124,19 @@ MonoBehaviour:
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 4
-      CounterStartFrame: 2
-      CounterEndFrame: 3
+      CounterStartFrame: -1
+      CounterEndFrame: -1
     - Damage: 0
       EnemyAttackType: 0
       HitType: 0
       HitFrame: 8
-      CounterStartFrame: 6
+      CounterStartFrame: 5
       CounterEndFrame: 7
   extraProp:
+  - {fileID: 728436895438426534, guid: d0c3b937b966b5a418a678e317e0317c, type: 3}
   - {fileID: 2189596701149366917, guid: a096a8f315558124a92cfea02cdc72fc, type: 3}
+  - {fileID: 6177458094078179732, guid: 5fb276baf164e164b8491a874cd9a5e8, type: 3}
+  - {fileID: 2529041187060966464, guid: 3c86f99bd9940ce4bb381517544cb3f9, type: 3}
   itemReward: []
   battleExp: 0
   battleCoin: 0

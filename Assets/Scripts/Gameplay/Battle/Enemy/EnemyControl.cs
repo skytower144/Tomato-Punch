@@ -29,7 +29,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private GameObject counterBox;
     [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
-    [SerializeField] private Transform AttackBoxes;
+    [SerializeField] private Transform AttackBoxes, propTransform;
     [SerializeField] private Animator tomatoAnim;
     [SerializeField] private tomatoGuard tomatoguard;
     [SerializeField] private tomatoControl tomatocontrol;
@@ -500,5 +500,8 @@ public class EnemyControl : MonoBehaviour
 
         Debug.LogError($"Abnormal attack calculation detected. Current Damage Frame Index : {_currentDamageFrameIndex}");
         return 0;
+    }
+    public void SpawnProp(int index) {
+        Instantiate(_base.ExtraProp[index], propTransform);
     }
 }

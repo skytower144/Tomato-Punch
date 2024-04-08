@@ -87,7 +87,7 @@ public class EnemyAnimControl : MonoBehaviour
                 return;
             
             case BattleActType.Intro:
-                _enemyControl.Invoke("enemyIntroOver", _fpsDict[animName].Item2);
+                _enemyControl.Invoke("enemyIntroOver", _fpsDict[animName].Item2 + 0.05f);
                 break;
             
             case BattleActType.Defeated:
@@ -179,9 +179,10 @@ public class EnemyAnimControl : MonoBehaviour
                 case AttackType.RA:
                 case AttackType.DA:
                     PhysicalAttackFrame attack = (PhysicalAttackFrame)frame;
-                    _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
-                    _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
-                    
+                    if (attack.CounterStartFrame != -1) {
+                        _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
+                        _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
+                    }
                     SetColliderAfterHit(finishedAttack, attack.HitFrame, animName);
                     _enemyControl.Invoke("hitFrame", attack.HitFrame / _fpsDict[animName].Item1);
                     break;
