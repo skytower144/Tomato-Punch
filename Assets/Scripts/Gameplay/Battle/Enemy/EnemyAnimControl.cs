@@ -49,7 +49,10 @@ public class EnemyAnimControl : MonoBehaviour
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
             _fpsDict[clip.name] = (clip.frameRate, clip.length);
     }
-
+    public int GetTotalActionFrames(string name)
+    {
+        return (int)(_fpsDict[name].Item1 * _fpsDict[name].Item2); 
+    }
     public void Idle(string animName, bool noDelay = true)
     {
         CancelScheduledInvokes();
@@ -180,21 +183,20 @@ public class EnemyAnimControl : MonoBehaviour
                     _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
                     
                     SetColliderAfterHit(finishedAttack, attack.HitFrame, animName);
+                    _enemyControl.Invoke("hitFrame", attack.HitFrame / _fpsDict[animName].Item1);
                     break;
                 
                 case AttackType.PJ:
                     ProjectileAttackFrame pj = (ProjectileAttackFrame)frame;
-                    _enemyHurt.SetProjectileHit(true);
                     _enemyControl.currentProjectile = pj.Projectile;
                     _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);
 
-                    SetColliderAfterHit(finishedAttack, pj.HitFrame, animName);
+                    SetColliderAfterHit(finishedAttack, pj.SpawnFrame, animName);
                     break;
                 
                 default:
                     break;
             }
-            _enemyControl.Invoke("hitFrame", frame.HitFrame / _fpsDict[animName].Item1);
         }
         _anim.Play(animName);
         StartCoroutine(SetCollider(false));

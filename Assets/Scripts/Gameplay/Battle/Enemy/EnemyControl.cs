@@ -181,9 +181,6 @@ public class EnemyControl : MonoBehaviour
     }
     public void actionOver()
     {
-        enemy_supered = false;
-        enemy_hurt.SetProjectileHit(false);
-
         if(!Enemy_countered.enemy_isCountered && !Enemy_is_hurt.enemy_isPunched)
             enemyAnimControl.Idle(_base.Idle_AnimationString);
     }
@@ -395,7 +392,6 @@ public class EnemyControl : MonoBehaviour
         enemy_supered = false;
         canDunk = false;
         isDunked = false;
-        enemy_hurt.SetProjectileHit(false);
     }
 
     public void guardDown() // apply to all enemy attack animations' first frame

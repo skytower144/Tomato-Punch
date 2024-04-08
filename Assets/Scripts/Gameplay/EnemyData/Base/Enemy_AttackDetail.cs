@@ -38,7 +38,7 @@ public class Enemy_NeutralDetail : EnemyActDetail
 public class Enemy_AttackDetail : EnemyActDetail
 {
     public List<PhysicalAttackFrame> PhysicalAttackFrames;
-    public int LastDamageHitFrame => this.PhysicalAttackFrames[PhysicalAttackFrames.Count - 1].HitFrame;
+    public int LastDamageHitFrame => PhysicalAttackFrames[PhysicalAttackFrames.Count - 1].HitFrame;
     public Enemy_AttackDetail(string Name, int percentage, List<PhysicalAttackFrame> PhysicalAttackFrames = null)
     {
         this.Name = Name;
@@ -51,7 +51,6 @@ public class Enemy_AttackDetail : EnemyActDetail
 public class Enemy_ProjectileDetail : EnemyActDetail
 {
     public List<ProjectileAttackFrame> ProjectileAttackFrames;
-    public int LastDamageHitFrame => this.ProjectileAttackFrames[ProjectileAttackFrames.Count - 1].HitFrame;
     public Enemy_ProjectileDetail(string Name, int percentage, List<ProjectileAttackFrame> ProjectileAttackFrames = null)
     {
         this.Name = Name;
@@ -66,12 +65,12 @@ public class DamageFrame
     public float Damage;
     public AttackType EnemyAttackType;
     public HitType HitType;
-    public int HitFrame;
 }
 
 [System.Serializable]
 public class PhysicalAttackFrame : DamageFrame
 {
+    public int HitFrame;
     public int CounterStartFrame, CounterEndFrame;
 }
 

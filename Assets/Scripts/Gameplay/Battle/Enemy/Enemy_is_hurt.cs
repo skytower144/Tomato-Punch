@@ -13,7 +13,6 @@ public class Enemy_is_hurt : MonoBehaviour
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, hitSpark, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam, deflectLaserHit;
-    private bool _onlyProjectileHit = false;
     
     public EnemyHealthBar EnemyHealthBar => enemyHealthBar;
     [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
@@ -89,8 +88,6 @@ public class Enemy_is_hurt : MonoBehaviour
                     enemyHurtDamage(projectileDmg + tomatocontrol.dmg_normalPunch);
                     checkDefeat("SK");
                     Instantiate(deflectLaserHit, Parent);
-
-                    if (_onlyProjectileHit) return;
                 }
                 //NORMAL PUNCHES
                 else if(col.gameObject.tag.Equals("tomato_LP"))
@@ -250,10 +247,5 @@ public class Enemy_is_hurt : MonoBehaviour
         Instantiate(hitEffect, new Vector2 (transform.position.x + distance, transform.position.y), Quaternion.identity);
         var spark = Instantiate(hitSpark, transform);
         spark.transform.localScale = new Vector2(spark.transform.localScale.x * direction, spark.transform.localScale.y);
-    }
-
-    public void SetProjectileHit(bool state)
-    {
-        _onlyProjectileHit = state;
     }
 }
