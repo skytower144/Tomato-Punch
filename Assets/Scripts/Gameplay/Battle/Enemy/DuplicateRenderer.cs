@@ -50,16 +50,12 @@ public class DuplicateRenderer : MonoBehaviour
 
     public void InitFlash()
     {
-        stopFlash = true;
         StopAllCoroutines();
+        gameObject.SetActive(false);
+        stopFlash = true;
 
         enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
         d_sr.sprite = null;
-        gameObject.SetActive(false);
-    }
-    public void RestoreEnemyMat()
-    {
-        enemy_sr.material = GameManager.gm_instance.battle_system.enemy_control.mat_default;
     }
     public void InitEnemySr(SpriteRenderer enemySr)
     {

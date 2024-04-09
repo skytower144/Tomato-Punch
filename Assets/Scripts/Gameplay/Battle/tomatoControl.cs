@@ -267,6 +267,7 @@ public class tomatoControl : MonoBehaviour
     {
         isAction = false;
         tomatoHurt.isTomatoHurt = false;
+        tomatohurt.IsHit = false;
     }
 
     void actionStart()

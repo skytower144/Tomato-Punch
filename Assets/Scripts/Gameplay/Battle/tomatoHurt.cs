@@ -14,6 +14,7 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private TextSpawn textSpawn;
     private BattleSystem _battleSystem;
     private EnemyControl _enemyControl;
+    [System.NonSerialized] public bool IsHit;
     
     void Start()
     {
@@ -24,6 +25,8 @@ public class tomatoHurt : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) 
     {
+        IsHit = true;
+
         if((!Enemy_parried.isParried) && !tomatoGuard.preventDamageOverlap)
         {
             isTomatoHurt = true;

@@ -81,4 +81,4 @@ public class ProjectileAttackFrame : DamageFrame
     public GameObject Projectile;
 }
 
-public enum AttackType { LA, RA, DA, PJ }
+public enum AttackType { LA, RA, DA, PJ, JumpPJ }

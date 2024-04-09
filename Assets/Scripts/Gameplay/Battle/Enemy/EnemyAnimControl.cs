@@ -77,7 +77,6 @@ public class EnemyAnimControl : MonoBehaviour
             case BattleActType.ReEngage:
                 _enemyControl.enemy_hurt.isGuarding = true;
                 _enemyControl.Invoke("DisableIsGuarding", _fpsDict[animName].Item2);
-                _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
                 break;
             
             case BattleActType.Guard:
@@ -188,6 +187,7 @@ public class EnemyAnimControl : MonoBehaviour
                     break;
                 
                 case AttackType.PJ:
+                case AttackType.JumpPJ:
                     ProjectileAttackFrame pj = (ProjectileAttackFrame)frame;
                     _enemyControl.currentProjectile = pj.Projectile;
                     _enemyControl.Invoke("projectileSpawn", pj.SpawnFrame / _fpsDict[animName].Item1);

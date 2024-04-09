@@ -10,4 +10,8 @@ public class ProjectileHitbox : MonoBehaviour
     void SpawnProp(int index) {
         GameManager.gm_instance.battle_system.enemy_control.SpawnProp(index);
     }
+    void IfHitSpawnProp(int index) {
+        if (GameManager.gm_instance.battle_system.tomato_hurt.IsHit)
+            GameManager.gm_instance.battle_system.enemy_control.SpawnProp(index);
+    }
 }

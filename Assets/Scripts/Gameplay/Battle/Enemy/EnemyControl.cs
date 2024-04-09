@@ -27,7 +27,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Animator anim; 
     [SerializeField] private SpriteRenderer enemy_renderer;
     [SerializeField] private GameObject counterBox;
-    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_Counter;
+    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_JumpPJ, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
     [SerializeField] private Transform AttackBoxes, propTransform;
     [SerializeField] private Animator tomatoAnim;
@@ -246,6 +246,10 @@ public class EnemyControl : MonoBehaviour
             case AttackType.PJ:
                 Instantiate (enemy_PJ, AttackBoxes);
                 break;
+
+            case AttackType.JumpPJ:
+                Instantiate (enemy_JumpPJ, AttackBoxes);
+                break;
             
             default:
                 break;
@@ -270,7 +274,6 @@ public class EnemyControl : MonoBehaviour
         if (Enemy_countered.enemy_isCountered) beginSuffer();
         else if (Enemy_parried.isParried) beginStun();
         
-        duplicate_r.RestoreEnemyMat();
         greyEffect.StartGreyEffect();
     }
 
@@ -401,6 +404,7 @@ public class EnemyControl : MonoBehaviour
     }
     public void DisableIsGuarding()
     {
+        actionOver();
         enemyHurt.isGuarding = false;
     }
 
