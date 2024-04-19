@@ -18,6 +18,7 @@ public class EnemyControl : MonoBehaviour
     public Material mat_default => matDefault;
     public SpriteRenderer enemyRenderer => enemy_renderer;
     public Transform AttackBoxSpawn => AttackBoxes;
+    public Transform PropTransform => propTransform;
 
     [System.NonSerialized] public List<DamageFrame> TotalDamageFrames = new List<DamageFrame>();
     private int _currentDamageFrameIndex = -1;
@@ -27,7 +28,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private Animator anim; 
     [SerializeField] private SpriteRenderer enemy_renderer;
     [SerializeField] private GameObject counterBox;
-    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_JumpPJ, enemy_Counter;
+    [SerializeField] private GameObject enemy_LA, enemy_RA, enemy_DA, enemy_PJ, enemy_JumpPJ, enemy_GuardOrJump, enemy_Counter;
     [SerializeField] private GameObject defeatedEffect_pop, defeatedEffect_beam, defeatedEffect_flash, wallhitEffect, dunkSmoke, dunkSmoke2;
     [SerializeField] private Transform AttackBoxes, propTransform;
     [SerializeField] private Animator tomatoAnim;
@@ -41,6 +42,8 @@ public class EnemyControl : MonoBehaviour
     [SerializeField] private float flashDuration, hitFlashDuration;
 
     public static int totalParry = 0;
+    [System.NonSerialized] public int pjPropIndex = -1;
+    [System.NonSerialized] public GameObject currentProjectile = null;
     [System.NonSerialized] public int totalSuper = 0;
     [System.NonSerialized] public float gangFightDmg = -1;
     [System.NonSerialized] public static bool isPhysical = true;
@@ -48,8 +51,7 @@ public class EnemyControl : MonoBehaviour
     [System.NonSerialized] public bool enemy_supered = false;
     [System.NonSerialized] public bool canDunk = false;
     [System.NonSerialized] public bool isDunked = false;
-    [System.NonSerialized] public AttackType attackType;
-    [System.NonSerialized] public GameObject currentProjectile = null;
+    [System.NonSerialized] public bool isRecovering = false;
 
     private Material matDefault;
     private Vector3 enemyTransformPos, enemyTransformScale;
@@ -58,12 +60,13 @@ public class EnemyControl : MonoBehaviour
     {
         disableBools();
         action_afterSuffer = false;
-        GameManager.gm_instance.assistManager.SetIsBlast(false);
+        counterBox.SetActive(false);
 
         matDefault = enemy_renderer.material;
         anim.runtimeAnimatorController = _base.AnimationController;
         enemyAnimControl.InitFrameDict(anim);
         InitEnemyPattern();
+        enemyHurt.EnemyHealthBar.SetBarColor();
 
         enemyAIControl.InvokeRepeating("ProceedAction",1f,1f);
     }
@@ -83,26 +86,23 @@ public class EnemyControl : MonoBehaviour
     
     void Update()
     {
-        if(gatleCircleControl.failUppercut)
-            RecoverAnimation();
-        
-        else if(tomatoControl.enemyUppered)
+        if(tomatoControl.enemyUppered)
         {
+            tomatoControl.enemyUppered = false;
+            GameManager.gm_instance.battle_system.battleUI_Control.DisableParryBg();
+
             enemyAnimControl.Act(_base.Uppered_AnimationString, BattleActType.Uppered);
             enemyHurt.ParryBonus();
+            greyEffect.StopGreyEffect();
 
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_upperPunch);
-            if (enemyHurt.Enemy_currentHealth == 0){
-                super_upper_KO();
-            }
-
-            greyEffect.StopGreyEffect();
+            enemyHurt.checkDefeat("SUPPER");
         }
         else if (isDunked) {
             isDunked = false;
             enemyHurt.enemyHurtDamage(tomatocontrol.dmg_dunk);
 
-            if (!enemyHurt.checkDefeat())
+            if (!enemyHurt.checkDefeat("DUNK"))
                 enemyAnimControl.Act(_base.Dunk, BattleActType.Dunk);
         }
         else
@@ -124,13 +124,10 @@ public class EnemyControl : MonoBehaviour
                 enemy_supered = true;
 
                 StartCoroutine(SuperAnimation(tomatocontrol.tomatoSuperEquip.ItemName));
+                greyEffect.StopGreyEffect();
                 
                 enemyHurt.enemyHurtDamage(tomatocontrol.dmg_super);
-                if (enemyHurt.Enemy_currentHealth == 0){
-                    super_upper_KO();
-                }
-
-                greyEffect.StopGreyEffect();
+                enemyHurt.checkDefeat("SUPPER");
             }
         }
     }
@@ -232,23 +229,27 @@ public class EnemyControl : MonoBehaviour
 
         switch (_attackType) {
             case AttackType.LA:
-                Instantiate (enemy_LA, AttackBoxes);
+                Instantiate(enemy_LA, AttackBoxes);
                 break;
             
             case AttackType.RA:
-                Instantiate (enemy_RA, AttackBoxes);
+                Instantiate(enemy_RA, AttackBoxes);
                 break;
             
             case AttackType.DA:
-                Instantiate (enemy_DA, AttackBoxes);
+                Instantiate(enemy_DA, AttackBoxes);
+                break;
+            
+            case AttackType.GuardOrJump:
+                Instantiate(enemy_GuardOrJump, AttackBoxes);
                 break;
             
             case AttackType.PJ:
-                Instantiate (enemy_PJ, AttackBoxes);
+                Instantiate(enemy_PJ, AttackBoxes);
                 break;
 
             case AttackType.JumpPJ:
-                Instantiate (enemy_JumpPJ, AttackBoxes);
+                Instantiate(enemy_JumpPJ, AttackBoxes);
                 break;
             
             default:
@@ -293,7 +294,6 @@ public class EnemyControl : MonoBehaviour
     public void EnableDunk()
     {
         canDunk = true;
-        duplicate_r.FlashEffect(0.5f, 0);
     }
 
     public void BlastShrink()
@@ -309,6 +309,7 @@ public class EnemyControl : MonoBehaviour
     {
         transform.localPosition = enemyTransformPos;
         transform.localScale = enemyTransformScale;
+        duplicate_r.FlashEffect(0.5f, 0);
     }
     
     public void DisableDunk()
@@ -319,6 +320,10 @@ public class EnemyControl : MonoBehaviour
     public void Bounce()
     {
         enemyAnimControl.Act(_base.Bounce, BattleActType.Bounce);
+    }
+    public void Angry()
+    {
+        enemyAnimControl.Act(_base.Phases[enemyHurt.HpReachedZero - 1].transition, BattleActType.Angry);
     }
 
     public void DunkBounceSmoke2()
@@ -359,7 +364,6 @@ public class EnemyControl : MonoBehaviour
 
     public void CancelCounterState()
     {
-        if (!Enemy_countered.enemy_isCountered) return;
         CancelInvoke("return_CounterToIdle");
         greyEffect.StopGreyEffect();
         Enemy_countered.enemy_isCountered = false;
@@ -369,6 +373,8 @@ public class EnemyControl : MonoBehaviour
     {
         if(Enemy_is_hurt.enemy_isDefeated) return;
 
+        isRecovering = true;
+        GameManager.gm_instance.assistManager.SetIsBlast(false);
         greyEffect.StopGreyEffect();
         enemyAnimControl.Act(_base.Recover_AnimationString, BattleActType.Recover);
     }
@@ -376,6 +382,7 @@ public class EnemyControl : MonoBehaviour
     public void projectileSpawn()
     {
         if (currentProjectile) Instantiate(currentProjectile, projectileSpawnPoint);
+        currentProjectile = null;
     }
 
     public void DestroyProjectiles()
@@ -389,23 +396,20 @@ public class EnemyControl : MonoBehaviour
         Enemy_is_hurt.enemy_isPunched = false;
         Enemy_is_hurt.enemy_isDefeated = false;
         Enemy_is_hurt.enemyIsHit = false;
+        enemyHurt.isGuarding = false;
         Enemy_countered.enemy_isCountered = false;
         Enemy_parried.isParried = false;
         tomatocontrol.enemy_supered = false;
         enemy_supered = false;
         canDunk = false;
         isDunked = false;
+        isRecovering = false;
     }
 
     public void guardDown() // apply to all enemy attack animations' first frame
     {
         enemyHurt.guardUp = false;
         enemyHurt.hitct = 0;
-    }
-    public void DisableIsGuarding()
-    {
-        actionOver();
-        enemyHurt.isGuarding = false;
     }
 
     public void freezeAnimation() // when KO // EnemyAnimControl
@@ -447,14 +451,6 @@ public class EnemyControl : MonoBehaviour
         DOTween.Rewind("CameraShake");
         DOTween.Play("CameraShake");
     }
-
-    private void super_upper_KO() // if supered or uppered -> KO
-    {
-        tomatoControl.isVictory = true;
-        Enemy_is_hurt.enemy_isDefeated = true;
-        Instantiate(defeatedEffect_beam);
-    }
-
     public void ClearAnimation()
     {
         anim.runtimeAnimatorController = null;
@@ -505,7 +501,34 @@ public class EnemyControl : MonoBehaviour
         Debug.LogError($"Abnormal attack calculation detected. Current Damage Frame Index : {_currentDamageFrameIndex}");
         return 0;
     }
-    public void SpawnProp(int index) {
+    public void SpawnPjProp()
+    {
+        if (pjPropIndex < 0 || _base.ExtraProp.Count == 0)
+            return;
+        
+        if (_attackType != AttackType.PJ && _attackType != AttackType.JumpPJ)
+            return;
+        
+        Instantiate(_base.ExtraProp[pjPropIndex], propTransform);
+        Destroy(currentProjectile);
+        pjPropIndex = -1;
+    }
+    void SetAndSpawnProp(int index)
+    {
+        if (_base.ExtraProp.Count == 0) return;
         Instantiate(_base.ExtraProp[index], propTransform);
+    }
+    public void NextRound(int hpReachedZero, string animString) {
+        GameManager.gm_instance.battle_system.IsNextPhase = true;
+        disableBools();
+
+        if (animString != "DUNK" && animString != "SUPPER") {
+            enemyAnimControl.CancelScheduledInvokes();
+            enemyAnimControl.Act(_base.Blasted, BattleActType.Blast);
+            tomatocontrol.BlastEffect();
+        }
+        enemyAiControl.ChangeEnemyPattern(hpReachedZero - 1);
+        GameManager.gm_instance.battle_system.battleUI_Control.HideBattleUI();
+        GameManager.gm_instance.battle_system.battleUI_Control.ShowBlackbars();
     }
 }

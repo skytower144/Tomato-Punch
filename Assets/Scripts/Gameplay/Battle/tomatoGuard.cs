@@ -33,7 +33,7 @@ public class tomatoGuard : MonoBehaviour
     {
         if(isParry || !tomatoControl.isGuard) return;
         
-        if(col.gameObject.tag.Equals("enemy_LA") || (col.gameObject.tag.Equals("enemy_RA")))
+        if(col.gameObject.tag.Equals("enemy_LA") || col.gameObject.tag.Equals("enemy_RA") || col.gameObject.tag.Equals("enemy_GuardOrJump"))
         {
             guardDamageConversion();
             if(tomatocontrol.current_guardPt >= reducedDamage)

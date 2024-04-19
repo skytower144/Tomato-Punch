@@ -7,10 +7,6 @@ public class gatleCircleControl : MonoBehaviour
     [HideInInspector] public static bool failUppercut = false;
     [HideInInspector] public static bool uppercut_time = false;
 
-    void Update()
-    {
-        
-    }
     void gatleDisappear()
     {
         failUppercut = true;

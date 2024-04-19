@@ -38,6 +38,7 @@ public class BattleSystem : MonoBehaviour
 
     [System.NonSerialized] public bool resetPlayerHealth, increaseEnemyHealth;
     [System.NonSerialized] public bool IsGangfight = false;
+    [System.NonSerialized] public bool IsNextPhase = false;
     private GameObject tempObj;
 
     void Start()
@@ -71,13 +72,22 @@ public class BattleSystem : MonoBehaviour
 
     public void ExitBattle(bool isVictory)
     {
-        if (!isVictory && (tomato_control.currentHealth == 0))
-            tomato_control.currentHealth = 1;
+        if (!isVictory && (tomatocontrol.currentHealth == 0))
+            tomatocontrol.currentHealth = 1;
         
         Destroy(Instantiate(battle_end_circle), 2f);
         OnBattleOver?.Invoke(isVictory);
     }
-
+    public void ResumeBattle()
+    {
+        textSpawn.spawn_Round2_text();
+        tomatocontrol.tomatoAnim.Play("tomato_intro", -1, 0f);
+        enemyControl.guardDown();
+        enemyControl.enemy_hurt.EnemyHealthBar.SetBarColor("RED");
+        enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(-1, true);
+        battleUI_Control.ShowBattleUI();
+        battleUI_Control.HideBlackbars();
+    }
     public void SetBg(EnemyBase enemyBase)
     {
         fixedBg.gameObject.SetActive(false);

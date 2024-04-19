@@ -9,7 +9,7 @@ public class TextSpawn : MonoBehaviour
     [SerializeField] private Enemy_countered enemy_Countered;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private RebindKey rebindKey; public RebindKey rebind_key => rebindKey;
-    [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, dark_filter, missEffect, resultCard, continueBundle;
+    [SerializeField] private GameObject startingCartridge, KOText, YouWin_Text, YouLose_Text, FIGHT_Text, round2_Text, dark_filter, missEffect, resultCard, continueBundle;
     private Vector3 randomPosition;
     private Transform cartridgeSpawn;
     private GameObject initialCartridge;
@@ -82,6 +82,10 @@ public class TextSpawn : MonoBehaviour
     public void spawn_FIGHT_text()
     {
         Instantiate(FIGHT_Text, transform);
+    }
+    public void spawn_Round2_text()
+    {
+        Instantiate(round2_Text, transform);
     }
 
     public void PlayVictory_Player()

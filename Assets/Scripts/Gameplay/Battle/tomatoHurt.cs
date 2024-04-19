@@ -14,8 +14,7 @@ public class tomatoHurt : MonoBehaviour
     [SerializeField] private TextSpawn textSpawn;
     private BattleSystem _battleSystem;
     private EnemyControl _enemyControl;
-    [System.NonSerialized] public bool IsHit;
-    
+
     void Start()
     {
         anim = GetComponentInParent<Animator>();
@@ -25,8 +24,6 @@ public class tomatoHurt : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) 
     {
-        IsHit = true;
-
         if((!Enemy_parried.isParried) && !tomatoGuard.preventDamageOverlap)
         {
             isTomatoHurt = true;
@@ -47,21 +44,23 @@ public class tomatoHurt : MonoBehaviour
         healthBar.SetHealth(tomatocontrol.currentHealth);
         healthBar.hpShrinkTimer = HealthBar.HP_SHRINKTIMER_MAX;
 
-        if(tomatocontrol.currentHealth == 0){
+        if(!tomatoControl.isFainted && tomatocontrol.currentHealth == 0){
             tomatoControl.isFainted = true;
+            isTomatoHurt = false;
+
             _enemyControl.EraseAllAttacks();
             _enemyControl.enemyHitTypes.StopAllCoroutines();
 
-            textSpawn.Invoke("AskContinue", 1.8f);
-
-            tomatocontrol.ReleaseGuard();
-            
-            anim.Play("tomato_faint",-1,0f);
-            Instantiate(faintBurstEffect);
             tomatocontrol.ResetGaksung();
+            tomatocontrol.ReleaseGuard();
 
             _battleSystem.battleTimeManager.SetSlowSetting(0.01f, 0.8f);
             _battleSystem.battleTimeManager.DoSlowmotion();
+
+            Instantiate(faintBurstEffect);
+
+            anim.Play("tomato_faint",-1,0f);
+            textSpawn.Invoke("AskContinue", 1.8f);
         }
         _battleSystem.featherPointManager.ResetFeather();
     }

@@ -8,7 +8,7 @@ public class GatleButton_R_keyup : MonoBehaviour
     [SerializeField] private GameObject gatleButtons;
     void gatleButton_R_up()
     {
-        if(!BattleUI_Control.stopGatle)
+        if(!GameManager.gm_instance.battle_system.battleUI_Control.stopGatle)
             gatleButton_anim_R.Play("gatleButton_R_keyup",-1,0f);
     }
     void deactivate_GatleButton()

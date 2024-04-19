@@ -4099,7 +4099,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCtrl: {fileID: 384357809064918365}
   battleAnim: {fileID: 384357809064918363}
-  tomatoguard: {fileID: 489650832154752558}
 --- !u!4 &384357808746845054
 Transform:
   m_ObjectHideFlags: 0
@@ -9006,7 +9005,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 384357809045350141}
-  - component: {fileID: 384357809045350140}
   m_Layer: 6
   m_Name: ParryBar
   m_TagString: Untagged
@@ -9014,24 +9012,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &384357809045350140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384357809045350138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c61e9efe07d5545a9cac5475d83b54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parryWhiteBar: {fileID: 384357809642419019}
-  parryWhiteBarFill: {fileID: 384357809642419021}
-  parryFill: {fileID: 384357809164990085}
-  parry_fullCharge: {fileID: 384357810347497143}
-  parryBar: {fileID: 384357810370385189}
-  gaksung: {fileID: 384357808855182975}
 --- !u!224 &384357809045350141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9205,6 +9185,7 @@ MonoBehaviour:
   enemy_DA: {fileID: 8950153196583877838, guid: 660fadfc80208034f82c3a00f49a1e3f, type: 3}
   enemy_PJ: {fileID: 2426031716149107699, guid: 5fa3b70fa9b348a4f955312481be6c23, type: 3}
   enemy_JumpPJ: {fileID: 7265518875425100304, guid: 5a3e3d9f27aadbd408f2c0c3f66b086e, type: 3}
+  enemy_GuardOrJump: {fileID: 937351907527548371, guid: 89e6edc1e8ae5ff45a71693420b81c87, type: 3}
   enemy_Counter: {fileID: 8566184366384418792, guid: 9b92c681a976e9846a8ac668b512f5c9, type: 3}
   defeatedEffect_pop: {fileID: 795758294053743534, guid: 3c353bc7f298eb14eab850f09cc98681, type: 3}
   defeatedEffect_beam: {fileID: 4926095398018033078, guid: 746d7ef6e69b4474a8df4678b17e8743, type: 3}
@@ -9237,6 +9218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtEffect: {fileID: 6591653107828056527, guid: 8291993d08dc51847a178d4ae5e2c9a1, type: 3}
+  flashBang: {fileID: 1765967713255548461, guid: f4cd5e20159b96e4c8be8a02f83556a5, type: 3}
 --- !u!1 &384357809072484966
 GameObject:
   m_ObjectHideFlags: 0
@@ -10203,6 +10185,8 @@ GameObject:
   - component: {fileID: 384357809106780655}
   - component: {fileID: 384357809106780652}
   - component: {fileID: 384357809106780653}
+  - component: {fileID: 384357809106780656}
+  - component: {fileID: 384357809106780654}
   m_Layer: 6
   m_Name: tomatoUI
   m_TagString: Untagged
@@ -10424,6 +10408,113 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &384357809106780654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357809106780651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.3
+  easeType: 6
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: HideBattleUI
+  isRelative: 0
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 384357809106780655}
+  animationType: 7
+  targetType: 2
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: 0, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalString: 
 --- !u!225 &384357809106780655
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10436,6 +10527,113 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &384357809106780656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357809106780651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.46
+  easeType: 9
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: HideBattleUI
+  isRelative: 1
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 384357809106780650}
+  animationType: 1
+  targetType: 5
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: 329, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalString: 
 --- !u!1 &384357809136921054
 GameObject:
   m_ObjectHideFlags: 0
@@ -11458,7 +11656,7 @@ MonoBehaviour:
   upperCircle: {fileID: 5226918014326311358, guid: 1ef46c80a39079f4b8f205a998b006f2, type: 3}
   tomatoRush_ef: {fileID: 5325313646496223588, guid: a6b6e1bb1e84d5b45893c242350dc6b9, type: 3}
   parryBg: {fileID: 384357809302542637}
-  parry_Bar: {fileID: 384357810370385189}
+  blackBars: {fileID: 1092238075443417976, guid: c696643444771a6418c74dce6b755f78, type: 3}
   guardBar: {fileID: 384357810497204409}
 --- !u!224 &384357809221301295
 RectTransform:
@@ -18341,7 +18539,7 @@ MonoBehaviour:
   battleSystem: {fileID: 384357809004606580}
   healthBar: {fileID: 384357809339416892}
   guardBar: {fileID: 384357810497204409}
-  parryBar: {fileID: 384357809045350140}
+  parryBar: {fileID: 384357810370385190}
   staminaIcon: {fileID: 384357809837640120}
   counterTrack: {fileID: 384357810723291688}
   tomatohurt: {fileID: 384357810755073106}
@@ -18441,6 +18639,7 @@ MonoBehaviour:
   YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
   YouLose_Text: {fileID: 3526224795657967158, guid: cc50164d4c18c8447a0a3305da0118bb, type: 3}
   FIGHT_Text: {fileID: 612117501084407712, guid: ca535c3361a9928409c88349e67ffc84, type: 3}
+  round2_Text: {fileID: 1237947178381665033, guid: 2906709361392524cbaeedad0709cf24, type: 3}
   dark_filter: {fileID: 4398293146802034871, guid: fbc2b628c73589f44b794293c514183d, type: 3}
   missEffect: {fileID: 1733493814909389476, guid: 0a5b3b76418ebb3428f1a9b8f523e183, type: 3}
   resultCard: {fileID: 8657701029009385914, guid: dd3188687dbade943b097a53a6366cde, type: 3}
@@ -28969,6 +29168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 384357810370385188}
+  - component: {fileID: 384357810370385190}
   m_Layer: 6
   m_Name: parrybar_img
   m_TagString: Untagged
@@ -28976,6 +29176,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &384357810370385190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357810370385189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c61e9efe07d5545a9cac5475d83b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryWhiteBar: {fileID: 384357809642419019}
+  parryWhiteBarFill: {fileID: 384357809642419021}
+  parryFill: {fileID: 384357809164990085}
+  parry_fullCharge: {fileID: 384357810347497143}
+  parryBar: {fileID: 384357810370385189}
+  gaksung: {fileID: 384357808855182975}
 --- !u!224 &384357810374308556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33335,6 +33553,8 @@ GameObject:
   - component: {fileID: 384357810668152476}
   - component: {fileID: 384357810668152477}
   - component: {fileID: 384357810668152474}
+  - component: {fileID: 384357810668152478}
+  - component: {fileID: 384357810668152471}
   m_Layer: 6
   m_Name: EnemyHealthBar
   m_TagString: Untagged
@@ -33342,6 +33562,113 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &384357810668152471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357810668152470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.3
+  easeType: 6
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: HideBattleUI
+  isRelative: 0
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 384357810668152476}
+  animationType: 7
+  targetType: 2
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: 0, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalString: 
 --- !u!114 &384357810668152472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33667,6 +33994,113 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &384357810668152478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384357810668152470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.46
+  easeType: 9
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: HideBattleUI
+  isRelative: 1
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 384357810668152473}
+  animationType: 1
+  targetType: 5
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: -509.8, y: 0, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 0
+  optionalInt0: 0
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalString: 
 --- !u!224 &384357810668821000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33938,7 +34372,6 @@ MonoBehaviour:
   enemyControl: {fileID: 384357809064918365}
   tomatocontrol: {fileID: 384357809660484708}
   tomatoAnim: {fileID: 384357809660484707}
-  tomatoParryBar: {fileID: 384357809045350140}
   staminaIcon: {fileID: 384357809837640120}
   enemyHealthBar: {fileID: 384357810668152475}
   hitEffect: {fileID: 7565940143884383686, guid: ceadbc591a62a1e468be21e46af61ac4, type: 3}

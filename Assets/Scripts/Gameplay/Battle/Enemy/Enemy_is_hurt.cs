@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Enemy_is_hurt : MonoBehaviour
 {
+    private BattleSystem battleSystem;
     private EnemyBase enemyBase;
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private EnemyControl enemyControl;
     [SerializeField] private tomatoControl tomatocontrol;
     [SerializeField] private Animator tomatoAnim;
-    [SerializeField] private ParryBar tomatoParryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private EnemyHealthBar enemyHealthBar;
     [SerializeField] private GameObject hitEffect, hitSpark, gatHit1, gatHit2, enemy_guardEffect, defeatedEffect_flash, defeatedEffect_beam, deflectLaserHit;
@@ -17,10 +17,16 @@ public class Enemy_is_hurt : MonoBehaviour
     public EnemyHealthBar EnemyHealthBar => enemyHealthBar;
     [HideInInspector] public static bool enemy_isPunched, enemy_isDefeated, enemyIsHit;
     [System.NonSerialized] public bool guardUp;
-    [System.NonSerialized] public bool isGuarding = false;
+    [System.NonSerialized] public bool isGuarding;
     [System.NonSerialized] public int hitct;
     public float Enemy_maxHealth, Enemy_currentHealth;
+    private int hpReachedZero = 0;
+    public int HpReachedZero => hpReachedZero;
     
+    void Start()
+    {
+        battleSystem = GameManager.gm_instance.battle_system;
+    }
     void OnEnable()
     {
         enemyBase = enemyControl._base;
@@ -34,10 +40,8 @@ public class Enemy_is_hurt : MonoBehaviour
         enemyHealthBar.Enemy_setDamageFill();
 
         hitct = 0;
+        hpReachedZero = 0;
         guardUp = false;
-        enemy_isPunched = false;
-        enemy_isDefeated = false;
-        enemyIsHit = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
     {
@@ -46,10 +50,10 @@ public class Enemy_is_hurt : MonoBehaviour
         if(Enemy_parried.isParried && EnemyControl.isPhysical)
         {
             //GATLING MODE
-            tomatoParryBar.parryFill.fillAmount += GameManager.gm_instance.battle_system.parryBonus;
-            tomatoParryBar.SetWhiteBar();
+            tomatocontrol.parry_bar.parryFill.fillAmount += battleSystem.parryBonus;
+            tomatocontrol.parry_bar.SetWhiteBar();
             Invoke("parryWhiteOff", 0.05f);
-            tomatoParryBar.parryWhiteBar.SetActive(true);
+            tomatocontrol.parry_bar.parryWhiteBar.SetActive(true);
 
             if(col.gameObject.tag.Equals("tomato_LP"))
             {
@@ -122,12 +126,13 @@ public class Enemy_is_hurt : MonoBehaviour
 
     public void ParryBonus()
     {
-        tomatoParryBar.parryFill.fillAmount += 0.1f;
+        tomatocontrol.parry_bar.parryFill.fillAmount += 0.1f;
+        tomatocontrol.parry_bar.CheckGaksung();
     }
 
     private void parryWhiteOff()
     {
-        tomatoParryBar.parryWhiteBar.SetActive(false);
+        tomatocontrol.parry_bar.parryWhiteBar.SetActive(false);
     }
 
     public void enemyHurtDamage(float damage)
@@ -144,28 +149,20 @@ public class Enemy_is_hurt : MonoBehaviour
 
     private void enemyReflex()
     {
-        if (guardUp || hitct >= enemyBase.max_hitct)
+        if (guardUp || hitct >= enemyBase.max_hitct || hitct == Random.Range(enemyBase.min_hitct, enemyBase.max_hitct))
         {
-            enemyControl.enemyAnimControl.Act(enemyBase.Guard_AnimationString, BattleActType.Guard);
-            Instantiate(enemy_guardEffect, Parent);
             guardUp = true;
             enemy_isPunched = false;
-            return;
-        }
+            isGuarding = true;
 
-        int randct = Random.Range(enemyBase.min_hitct, enemyBase.max_hitct);
-        if (hitct == randct)
-        {
             enemyControl.enemyAnimControl.Act(enemyBase.Guard_AnimationString, BattleActType.Guard);
             Instantiate(enemy_guardEffect, Parent);
-            guardUp = true;
-            enemy_isPunched = false;
         }
     }
 
     void minusTomatoStamina()
     {
-        tomatocontrol.currentStamina -= GameManager.gm_instance.battle_system.blockStamina;
+        tomatocontrol.currentStamina -= battleSystem.blockStamina;
         if (tomatocontrol.currentStamina < 0)
             tomatocontrol.currentStamina = 0;
 
@@ -175,29 +172,36 @@ public class Enemy_is_hurt : MonoBehaviour
 
     public bool checkDefeat(string animString = "")
     {
-        if (Enemy_currentHealth == 0){           
-            if (enemy_isDefeated) return true;
+        if (Enemy_currentHealth == 0){
+            if (enemy_isDefeated)
+                return true;
+            
+            hpReachedZero++;
+            enemyControl.EraseAllAttacks();
+            enemyControl.DestroyProjectiles();
 
+            if (animString == "GP")
+                battleSystem.battleUI_Control.CancelGatleCircle();
+            
+            if (!battleSystem.IsNextPhase && hpReachedZero <= enemyBase.Phases.Count) {
+                enemyControl.NextRound(hpReachedZero, animString);
+                return false;
+            }
             tomatoControl.isVictory = true;
             enemy_isDefeated = true;
-            tomatoAnim.enabled = false;
-
-            enemyControl.enemyAnimControl.Defeated();
 
             Instantiate(defeatedEffect_beam);
             Instantiate(defeatedEffect_flash, BattleCanvas_Parent);
 
-            if (animString == "GP"){
-                gatleCircleControl.failUppercut = true;
+            if (animString != "SUPPER") {
+                tomatoAnim.enabled = false;
+                enemyControl.enemyAnimControl.Defeated();
             }
             return true;
         }
-        else if (animString != "") {
+        else if (animString != "" && animString != "DUNK" && animString != "SUPPER") {
             HitEffect(animString);
             HurtReact(animString);
-
-            if (animString != "CTR")
-                enemyControl.enemyHurtFlash();
         }
         return false;
     }
@@ -214,7 +218,6 @@ public class Enemy_is_hurt : MonoBehaviour
 
         else if (anim_string == "SK") {
             if (GameManager.gm_instance.assistManager.isBlast && tomatocontrol.currentSkillType == SkillType.Assist_Skill) {
-                GameManager.gm_instance.assistManager.SetIsBlast(false);
                 enemy_isPunched = false;
                 enemyControl.enemyAnimControl.Act(enemyBase.Blasted, BattleActType.Blast);
             }
@@ -224,17 +227,19 @@ public class Enemy_is_hurt : MonoBehaviour
     }
     public void HitEffect(string anim_string, float distance = 4.5f, int direction = 1)
     {
+        if (anim_string != "CTR")
+            enemyControl.enemyHurtFlash();
+        
         if (anim_string == "R") {
             distance = 5f;
             direction = -1;
         }
-
         if (anim_string == "SK") {
             if (GameManager.gm_instance.assistManager.isBlast && tomatocontrol.currentSkillType == SkillType.Assist_Skill)
                 tomatocontrol.BlastEffect();
 
             else if (tomatocontrol.currentSkillType == SkillType.Equip_Skill)
-                GameManager.gm_instance.battle_system.tomato_control.SkillEffect();
+                tomatocontrol.SkillEffect();
             
             else
                 SparkEffect(distance, direction);

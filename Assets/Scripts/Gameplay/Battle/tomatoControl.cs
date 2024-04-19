@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class tomatoControl : MonoBehaviour
 {
     public Animator tomatoAnim => tomatoAnimator;
+    public GuardBar guard_bar => guardBar;
+    public ParryBar parry_bar => parryBar;
 
     [SerializeField] private PlayerInput tomatoInput;
     [SerializeField] private Animator gatleButton_anim_L, gatleButton_anim_R, gaksung_objAnim, gaksung_anim;
@@ -18,7 +20,7 @@ public class tomatoControl : MonoBehaviour
     [SerializeField] private Transform Parent, BattleCanvas_Parent;
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private GuardBar guardBar; public GuardBar guard_bar => guardBar;
+    [SerializeField] private GuardBar guardBar;
     [SerializeField] private ParryBar parryBar;
     [SerializeField] private StaminaIcon staminaIcon;
     [SerializeField] private CounterTrack counterTrack;
@@ -29,6 +31,7 @@ public class tomatoControl : MonoBehaviour
     private EnemyControl enemyControl;
     private Animator tomatoAnimator; 
     private GameObject _parryInstance;
+    private BattleUI_Control battleUIControl;
     
     //========================================================================================================================
 
@@ -58,7 +61,10 @@ public class tomatoControl : MonoBehaviour
 
     private bool isAction = false;
     private bool isPunch = false;   // smoothen punch input (enabling cancel)
-    private bool guardRelease = true;      // prevent multiple animations trying to play at a single frame (esp during animation transition)
+    private bool guardRelease = false;      // prevent multiple animations trying to play at a single frame (esp during animation transition)
+    private bool smoothJump = false;
+    private bool isTired = false;
+    private bool isReviving = false;
     [System.NonSerialized] public static bool isGatle = false; 
     [System.NonSerialized] public static bool isGuard = false;
     [System.NonSerialized] public bool isMiss = false;
@@ -72,7 +78,6 @@ public class tomatoControl : MonoBehaviour
     [System.NonSerialized] public static bool enemyUppered = false;
     [System.NonSerialized] public static bool enemyFreeze = false;
     [System.NonSerialized] public bool enemy_supered = false;
-    private bool isTired = false;
 
     [System.NonSerialized] public SkillType currentSkillType;
     [System.NonSerialized] public int tomatoes = 0;
@@ -82,7 +87,7 @@ public class tomatoControl : MonoBehaviour
     void OnEnable()
     {
         isAction = isPunch = isGatle = isGuard = isMiss = false;
-        guardRelease = true;
+        guardRelease = false;
 
         isIntro = true;
         isVictory = isFainted = isTired = tomatoGuard.isParry = gatleButton_once = uppercutYes = enemyUppered = enemyFreeze = enemy_supered = false;
@@ -101,7 +106,7 @@ public class tomatoControl : MonoBehaviour
         current_guardPt = maxGuard;
         guardBar.SetGuardbar(current_guardPt);
 
-        parryBar.SetParryBar();
+        ResetGaksung();
 
         staminaIcon.SetMaxStamina(maxStamina);
         currentStamina = maxStamina;
@@ -121,6 +126,7 @@ public class tomatoControl : MonoBehaviour
     {
         tomatoAnimator = GetComponent<Animator>();
         enemyControl = battleSystem.enemy_control;
+        battleUIControl = battleSystem.battleUI_Control;
     }
 
     void ChangeAnimationState(string newState)
@@ -136,7 +142,7 @@ public class tomatoControl : MonoBehaviour
 
     void Update()
     {
-        if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory)
+        if(!tomatoHurt.isTomatoHurt && !isIntro && !isFainted && !isVictory && !battleSystem.IsNextPhase)
         {
             if(!isAction)
             {
@@ -215,45 +221,38 @@ public class tomatoControl : MonoBehaviour
                         if (battleSystem.featherPointManager.feather_point >= 1)
                         {
                             currentSkillType = SkillType.Assist_Skill;
-                            GameManager.gm_instance.assistManager.SetIsBlast(false);
                             tomatoAnimator.Play(GameManager.gm_instance.assistManager.DecideSkill(1, battleSystem.featherPointManager.feather_point), -1, 0f);
                         }
                     }
                 }
             }
-        
-            else if(isGuard)
-            {
-                if (!Enemy_parried.isParried  && !tomatoHurt.isTomatoHurt && tomatoInput.actions["Guard"].WasReleasedThisFrame())
-                {
-                    ReleaseGuard();
-                }
-            }
-            
             else if (isPunch && !isMiss)
             {
                 if (PressKey("LeftPunch"))
                 {
                     ChangeAnimationState(TOMATO_LP);
                 }
-                if (PressKey("RightPunch"))
+                else if (PressKey("RightPunch"))
                 {
                     ChangeAnimationState(TOMATO_RP);
                 }
             }
+            else if (tomatoInput.actions["Guard"].WasReleasedThisFrame())
+                guardRelease = true;
             
-            if((!BattleUI_Control.stopGatle) && tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GATLINGIDLE))
-            {
+            else if (smoothJump && PressKey("Jump"))
+                tomatoAnimator.Play("tomato_jump", -1, 0f);
+
+            if((!battleUIControl.stopGatle) && tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GATLINGIDLE))
                 gatlePunch();
-            }
+
             if(isGatle)
             {
-                if((!BattleUI_Control.stopGatle) && (tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GLP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GRP)))
-                {
+                if((!battleUIControl.stopGatle) && (tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GLP) || tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GRP)))
                     gatlePunch();
-                }
             }
-            
+            if (isGuard && guardRelease && !battleUIControl.IsGatleMode && !battleUIControl.stopGatle)
+                ReleaseGuard();
         }
     }
 
@@ -263,36 +262,29 @@ public class tomatoControl : MonoBehaviour
     {
         ChangeAnimationState(TOMATO_IDLE);
     }
-    void IdleState()
-    {
-        isAction = false;
-        tomatoHurt.isTomatoHurt = false;
-        tomatohurt.IsHit = false;
-    }
-
     void actionStart()
     {
-        isPunch = false;
         isAction = true;
-    }
-    void evadeStart()
-    {
         isPunch = false;
-        isAction = true;
+        smoothJump = false;
     }
     void actionEnd()
     {
-        isAction = false;
-        isPunch = false;
+        if (tomatoHurt.isTomatoHurt)
+            return;
 
-        if (currentStamina == 0 && !tomatoHurt.isTomatoHurt){
+        if (currentStamina == 0) {
             tomatoAnimator.Play("tomato_tired",-1,0f);
             isTired = true;
         }
-        else if (!tomatoHurt.isTomatoHurt && !isFainted){
+        else if (!isFainted || isReviving) {
             ChangeAnimationState(TOMATO_IDLE);
             isTired = false;
         }
+        isReviving = false;
+        smoothJump = false;
+        isPunch = false;
+        isAction = false;
     }
     void smoothPunch() //allows to rapidly switch between LP and RP
     {
@@ -301,6 +293,10 @@ public class tomatoControl : MonoBehaviour
     void smoothGatle()
     {
         isGatle = true;
+    }
+    void SmoothJump()
+    {
+        smoothJump = true;
     }
     void gatlePunch()
     {
@@ -324,9 +320,11 @@ public class tomatoControl : MonoBehaviour
 
     public void tomatoHurtStart()      //prevents from initiating action while hurt , reset all booleans except isAction
     {
-        isPunch = false;
+        if (!tomatoHurt.isTomatoHurt)
+            tomatoHurt.isTomatoHurt = true;
+        
         isAction = true;
-
+        isPunch = false;
         isGuard = false;
 
         if (tomatoGuard.isParry){
@@ -338,32 +336,22 @@ public class tomatoControl : MonoBehaviour
             tomatoes -= 1;
             counterTrack.CounterTracker();
         }
-        
     }
     public void tomatoHurtOver()
     {
-        isPunch = false;
-        isAction = false;
-        tomatoHurt.isTomatoHurt = false;
         tomatoGuard.preventDamageOverlap = false;
-
-        if (currentStamina == 0 && !tomatoHurt.isTomatoHurt){
-            tomatoAnimator.Play("tomato_tired",-1,0f);
-            isTired = true;
-        }
-        else{
-            ChangeAnimationState(TOMATO_IDLE);
-            isTired = false;
-        }
+        tomatoHurt.isTomatoHurt = false;
+        actionEnd();
     }
 
     void guardStart()
     {
         if(!guardRelease)
         {
-            isPunch = false;
             isAction = true;
             isGuard = true;
+            isPunch = false;
+            smoothJump = false;
             guardBar.regainGuardTimer = GuardBar.G_REGAINTIMER_MAX;
         }
     }
@@ -371,6 +359,8 @@ public class tomatoControl : MonoBehaviour
     {
         if (Enemy_parried.isParried && EnemyControl.isPhysical)
         {
+            isGuard = false;
+            tomatoGuard.isParry = false;
             ChangeAnimationState(TOMATO_GATLING);
         }
         else
@@ -380,27 +370,25 @@ public class tomatoControl : MonoBehaviour
                 tomatoGuard.isParry = false;
                 tomato_G.SetActive(true);
             }
-            if (isVictory)
+            if (isVictory || battleSystem.IsNextPhase)
                 ReleaseGuard();
 
-            else if (tomatoInput.actions["Guard"].IsPressed())
+            else if (!guardRelease)
                 ChangeAnimationState(TOMATO_GUARD);
         }
     }
 
     public void ReleaseGuard()
     {
-        Destroy(_parryInstance);
-        tomatohurt.SetHitBox(true);
-
-        guardRelease = true;
-        
-        tomatoAnimator.Play("tomato_idle",-1,0f);
+        guardRelease = false;
+        tomatoGuard.preventDamageOverlap = false;
+        tomatoGuard.isParry = false;
         isGuard = false;
         isAction = false;
 
-        tomatoGuard.isParry = false;
-        tomatoGuard.preventDamageOverlap = false;
+        Destroy(_parryInstance);
+        tomatoAnimator.Play("tomato_idle",-1,0f);
+        tomatohurt.SetHitBox(true);
     }
 
     void punchActivate()
@@ -434,7 +422,7 @@ public class tomatoControl : MonoBehaviour
 
     void gatlingReady()
     {
-        if(!BattleUI_Control.stopGatle && !gatleCircleControl.failUppercut && !uppercutYes)
+        if(!battleUIControl.stopGatle && !gatleCircleControl.failUppercut && !uppercutYes)
         {
             isGatle = false;
             tomatoAnimator.Play("tomato_gatlingIdle",-1,0f);
@@ -443,13 +431,13 @@ public class tomatoControl : MonoBehaviour
 
     void endGatle()
     {
-        BattleUI_Control.stopGatle = false;
+        battleUIControl.stopGatle = false;
         tomatohurt.SetHitBox(true);
     }
 
     void gatlingPunch()
     {
-        if(!BattleUI_Control.stopGatle)
+        if(!battleUIControl.stopGatle)
         {
             if(tomatoAnimator.GetCurrentAnimatorStateInfo(0).IsName(TOMATO_GLP))
             {
@@ -483,14 +471,8 @@ public class tomatoControl : MonoBehaviour
 
     void endUppercut()
     {
-        isGuard = false;
-        tomatoGuard.isParry = false;
-        /**/ Enemy_parried.isParried = false; /**/
-
-        BattleUI_Control.gatleCircle_once = false;
-        BattleUI_Control.stopGatle = false;
+        battleUIControl.stopGatle = false;
         gatleButton_once = false;
-
         tomatohurt.SetHitBox(true);
     }
     void enemy_Uppered()
@@ -513,7 +495,7 @@ public class tomatoControl : MonoBehaviour
 
     void revive_to_idle()
     {
-        ChangeAnimationState(TOMATO_IDLE);
+        isReviving = true;
         textSpawn.spawn_FIGHT_text();
 
         enemyControl.enemyAnimControl.ReEngage();
@@ -528,7 +510,8 @@ public class tomatoControl : MonoBehaviour
         
         currentStamina = maxStamina;
         staminaIcon.SetStamina(maxStamina);
-        isTired = false;
+
+        actionEnd();
     }
 
     void KO_effect()
@@ -695,14 +678,14 @@ public class tomatoControl : MonoBehaviour
     }
     public void gaksung_OFF()
     {
-        if(parryBar.gaksungOn)
+        if(parryBar.gaksungOn && gaksung_OBJ.activeSelf)
         {
             gaksung_OBJ.SetActive(false);
         }
     }
     public void gaksung_ON()
     {
-        if(parryBar.gaksungOn)
+        if(parryBar.gaksungOn && !gaksung_OBJ.activeSelf)
         {
             gaksung_OBJ.SetActive(true);
         }

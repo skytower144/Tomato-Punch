@@ -56,10 +56,10 @@ public class EnemyAnimControl : MonoBehaviour
     public void Idle(string animName, bool noDelay = true)
     {
         CancelScheduledInvokes();
-        _enemyControl.disableBools();
-        
         if (noDelay) _anim.Play(animName, -1, 0f);
         else _anim.Play(animName);
+
+        _enemyControl.disableBools();
         StartCoroutine(SetCollider(true));
     }
 
@@ -72,11 +72,19 @@ public class EnemyAnimControl : MonoBehaviour
             case BattleActType.Victory:
             case BattleActType.Wait:
                 break;
+
+            case BattleActType.Angry:
+                // _battleSystem.tomato_control.tomatoAnim.Play("tomato_intro", -1, 0f);
+                _battleSystem.Invoke("ResumeBattle", _fpsDict[animName].Item2);
+                _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
+                break;
             
-            case BattleActType.Recover:
             case BattleActType.ReEngage:
-                _enemyControl.enemy_hurt.isGuarding = true;
-                _enemyControl.Invoke("DisableIsGuarding", _fpsDict[animName].Item2);
+            case BattleActType.Recover:
+                if (_battleSystem.IsNextPhase)
+                    _enemyControl.Invoke("Angry", _fpsDict[animName].Item2);
+                else
+                    _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
                 break;
             
             case BattleActType.Guard:
@@ -90,6 +98,7 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
             
             case BattleActType.Defeated:
+                _enemyControl.CancelCounterState();
                 _enemyControl.Invoke("freezeAnimation", 1 / _fpsDict[animName].Item1);
                 break;
 
@@ -102,6 +111,7 @@ public class EnemyAnimControl : MonoBehaviour
             
             case BattleActType.Stun:
             case BattleActType.Suffer:
+                _enemyControl.duplicate_r.InitFlash();
                 StartCoroutine(SetCollider(true));
                 return;
             
@@ -124,18 +134,20 @@ public class EnemyAnimControl : MonoBehaviour
                 return;
             
             case BattleActType.Bounce:
+                _enemyControl.duplicate_r.InitFlash();
                 _enemyControl.DunkBounceSmoke2();
                 _enemyControl.Invoke("RecoverAnimation", _fpsDict[animName].Item2);
                 break;
             
             case BattleActType.Blast:
-                GameManager.gm_instance.assistManager.SetIsBlast(false);
+                if (!_battleSystem.IsNextPhase) {
+                    _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
+                    _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
+                }
                 _enemyControl.CancelCounterState();
                 _enemyControl.WallHitEffect();
-                _enemyControl.Invoke("EnableDunk", 1 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("BlastShrink", 0.9f / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("RecoverShrink", 2 / _fpsDict[animName].Item1);
-                _enemyControl.Invoke("DisableDunk", 5 / _fpsDict[animName].Item1);
                 _enemyControl.Invoke("Bounce", _fpsDict[animName].Item2);
                 break;
             
@@ -177,6 +189,7 @@ public class EnemyAnimControl : MonoBehaviour
                 case AttackType.LA:
                 case AttackType.RA:
                 case AttackType.DA:
+                case AttackType.GuardOrJump:
                     PhysicalAttackFrame attack = (PhysicalAttackFrame)frame;
                     if (attack.CounterStartFrame != -1) {
                         _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
@@ -265,5 +278,6 @@ public enum BattleActType {
     None,
     Intro,      Defeated,   Knockback,  Suffer, Stun,
     Uppered,    Recover,    Guard,      Hurt,   Wait,
-    ReEngage,   Victory,    Blast,      Bounce, Dunk
+    ReEngage,   Victory,    Blast,      Bounce, Dunk,
+    Angry
 }

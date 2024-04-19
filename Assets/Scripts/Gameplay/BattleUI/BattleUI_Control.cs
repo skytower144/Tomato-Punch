@@ -4,74 +4,68 @@ using DG.Tweening;
 public class BattleUI_Control : MonoBehaviour
 {
     [SerializeField] private Animator anim, button_anim_L, button_anim_R, tomato_anim;
-    [SerializeField] private GameObject gatleButtons, gatleCircle, upperCircle, tomatoRush_ef, parryBg, parry_Bar;
-    [HideInInspector] static public bool gatleCircle_once = false;
-    [HideInInspector] static public bool stopGatle = false;
+    [SerializeField] private GameObject gatleButtons, gatleCircle, upperCircle, tomatoRush_ef, parryBg, blackBars;
     [SerializeField] private GuardBar guardBar;
-
+    [System.NonSerialized] public bool stopGatle = false;
+    private GameObject temp;
+    public bool IsGatleMode => isGatleMode;
+    private bool isGatleMode = false;
+    private bool cancelEnemyRecover = false;
     void Update()
     {
-        if(Enemy_parried.isParried && EnemyControl.isPhysical)
+        if(isGatleMode)
         {
-            if(!gatleCircle_once)
-            {
-                gatleCircle_once = true;                            // stop from repeating inside update
-
-                Invoke("fade_InOut", 0.2f);
-                Invoke("activate_GatleButton", 0.6f);
-                Invoke("activate_GatleCircle", 3f);
-            }
-
             if(gatleCircleControl.failUppercut)
             {
+                isGatleMode = false;
                 stopGatle = true;
+                tomatoControl.isGatle = false;
+                tomatoControl.gatleButton_once = false;
+                gatleCircleControl.failUppercut = false;
 
                 gatleCircle.SetActive(false);
-
-                tomato_anim.Play("tomato_gatling2idle",-1,0f);
-                //play: enemy parried2idle animation --> Following code is situated in EnemyControl.cs
-                
                 anim.Play("fade_InOut",-1,0f);
                 button_anim_L.Play("gatleButton_L_blink",-1,0f);
                 button_anim_R.Play("gatleButton_R_blink",-1,0f);
 
-                tomatoControl.isGatle = false;
-                tomatoControl.isGuard = false;
-                tomatoGuard.isParry = false;
-                Enemy_parried.isParried = false;
+                tomato_anim.Play("tomato_gatling2idle",-1,0f);
 
-                gatleCircle_once = false;
-                tomatoControl.gatleButton_once = false;
-
-                gatleCircleControl.failUppercut = false;            // stop from repeating inside update
+                if (!cancelEnemyRecover)
+                    GameManager.gm_instance.battle_system.enemy_control.RecoverAnimation();
+                cancelEnemyRecover = false;
             }
             else if(tomatoControl.uppercutYes)
             {
+                isGatleMode = false;
                 stopGatle = true;
-
+                tomatoControl.isGatle = false;
+                tomatoControl.uppercutYes = false;
                 gatleCircleControl.uppercut_time = false;
+
                 gatleCircle.SetActive(false);
                 gatleButtons.SetActive(false);
+                GameManager.gm_instance.battle_system.tomato_control.parry_bar.gameObject.SetActive(false);
 
-                tomato_anim.Play("tomato_upperReady",-1,0f);
                 Instantiate (upperCircle);
                 Instantiate (tomatoRush_ef);
+
                 anim.Play("fade_darken",-1,0f);
-
-                tomatoControl.isGatle = false;
-
-                tomatoControl.uppercutYes = false;                  // stop from repeating inside update
+                tomato_anim.Play("tomato_upperReady",-1,0f);
             }
         }
-        if(tomatoControl.enemyUppered)
-        {
-            tomatoControl.enemyUppered = false;
-
-            parryBg.SetActive(false);
-            parry_Bar.SetActive(false);
-            anim.Play("defaultUI",-1,0f);
-        }
-        
+    }
+    public void EnterGatleMode()
+    {
+        isGatleMode = true;
+        Invoke("fade_InOut", 0.2f);
+        Invoke("activate_GatleButton", 0.6f);
+        Invoke("activate_GatleCircle", 3f);
+    }
+    public void CancelGatleCircle()
+    {
+        CancelInvoke("activate_GatleCircle");
+        cancelEnemyRecover = true;
+        gatleCircleControl.failUppercut = true;
     }
 
     void activate_GatleButton()
@@ -93,26 +87,44 @@ public class BattleUI_Control : MonoBehaviour
 
     void parryBg_Setup()
     {
-        if(Enemy_parried.isParried && EnemyControl.isPhysical)
+        if(isGatleMode)
         {
             parryBg.SetActive(true);
-            parry_Bar.SetActive(true);
+            GameManager.gm_instance.battle_system.tomato_control.parry_bar.gameObject.SetActive(true);
         }
         else
         {
             parryBg.SetActive(false);
-            parry_Bar.SetActive(false);
+            GameManager.gm_instance.battle_system.tomato_control.parry_bar.gameObject.SetActive(false);
         }
+    }
+    public void DisableParryBg()
+    {
+        parryBg.SetActive(false);
+        anim.Play("defaultUI",-1,0f);
     }
 
     public void ShowBattleUI()
     {
+        DOTween.Rewind("intro");
         DOTween.Play("intro"); // HealthBar UI DoTween
     }
-
+    public void HideBattleUI()
+    {
+        DOTween.Rewind("HideBattleUI");
+        DOTween.Play("HideBattleUI");
+    }
     public void NormalizeBattleUI()
     {
         DOTween.Rewind("intro");
     }
-
+    public void ShowBlackbars()
+    {
+        temp = Instantiate(blackBars, GameManager.gm_instance.battle_system.enemy_control.PropTransform);
+    } 
+    public void HideBlackbars()
+    {
+        DOTween.Play("HideBattleBlackbars");
+        Destroy(temp, 0.6f);
+    }
 }

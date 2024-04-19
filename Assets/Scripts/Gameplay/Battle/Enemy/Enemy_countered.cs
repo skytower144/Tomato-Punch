@@ -41,8 +41,9 @@ public class Enemy_countered : MonoBehaviour
         if(!enemy_is_hurt.checkDefeat("CTR"))
         {
             CounterEffect();
-            enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             gameObject.SetActive(false);
+            if (!GameManager.gm_instance.battle_system.IsNextPhase)
+                enemyControl.enemyAnimControl.Act(enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
         }
     }
     public void CounterEffect()

@@ -26,10 +26,10 @@ public class DebugBools
             Debug.Log($"guardRelease : {GameManager.gm_instance.battle_system.tomato_control.GuardRelease}");
             Debug.Log($"isGatle : {tomatoControl.isGatle}");
             Debug.Log($"isGuard : {tomatoControl.isGuard}");
+            Debug.Log($"isParry : {tomatoGuard.isParry}");
             Debug.Log($"isMiss : {GameManager.gm_instance.battle_system.tomato_control.isMiss}");
 
-            Debug.Log($"gatleCircle_once : {BattleUI_Control.gatleCircle_once}");
-            Debug.Log($"stopGatle : {BattleUI_Control.stopGatle}");
+            Debug.Log($"stopGatle : {GameManager.gm_instance.battle_system.battleUI_Control.stopGatle}");
 
             Debug.Log($"isIntro : {tomatoControl.isIntro}");
             Debug.Log($"isVictory : {tomatoControl.isVictory}");
@@ -42,7 +42,6 @@ public class DebugBools
             Debug.Log($"tomato - enemy_supered : {GameManager.gm_instance.battle_system.tomato_control.enemy_supered}");
             Debug.Log($"isTired : {GameManager.gm_instance.battle_system.tomato_control.IsTired}");
 
-            Debug.Log($"isParry : {tomatoGuard.isParry}");
             Debug.Log($"preventDamageOverlap : {tomatoGuard.preventDamageOverlap}");
             Debug.Log($"isHurt : {tomatoHurt.isTomatoHurt}");
 
@@ -51,9 +50,11 @@ public class DebugBools
             Debug.Log($"pjParried : {Enemy_parried.pjParried}");
             Debug.Log($"enemy_isCountered : {Enemy_countered.enemy_isCountered}");
             Debug.Log($"enemy_isPunched : {Enemy_is_hurt.enemy_isPunched}");
-            Debug.Log($"enemy_isDefeated : {Enemy_is_hurt.enemy_isDefeated}");
             Debug.Log($"enemy_isHit : {Enemy_is_hurt.enemyIsHit}");
-            Debug.Log($"guardUp : {GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.guardUp}");
+            Debug.Log($"enemy_isDefeated : {Enemy_is_hurt.enemy_isDefeated}");
+            Debug.Log($"enemy - isGuarding : {GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.isGuarding}");
+            Debug.Log($"enemy - guardUp : {GameManager.gm_instance.battle_system.enemy_control.enemy_hurt.guardUp}");
+            Debug.Log($"enemy - isRecovering : {GameManager.gm_instance.battle_system.enemy_control.isRecovering}");
             Debug.Log($"enemy - enemy_supered : {GameManager.gm_instance.battle_system.enemy_control.enemy_supered}");
             Debug.Log($"isBlast : {GameManager.gm_instance.assistManager.isBlast}");
         }

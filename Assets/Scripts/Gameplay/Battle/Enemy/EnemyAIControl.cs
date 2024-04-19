@@ -7,7 +7,6 @@ public class EnemyAIControl : MonoBehaviour
     private const int MAXIDLECOUNT = 3;
     [SerializeField] private EnemyControl enemyCtrl;
     [SerializeField] private Animator battleAnim;
-    [SerializeField] private tomatoGuard tomatoguard;
     [System.NonSerialized] public static bool enemy_isIntro = true;
     private List<EnemyActDetail> pattern_list;
     private int idleCount = 0;
@@ -40,8 +39,10 @@ public class EnemyAIControl : MonoBehaviour
             !Enemy_is_hurt.enemy_isPunched &&
             !Enemy_is_hurt.enemyIsHit &&
             !GameManager.gm_instance.assistManager.isBlast &&
+            !GameManager.gm_instance.battle_system.IsNextPhase &&
             !enemyCtrl.enemy_supered &&
             !enemyCtrl.enemy_hurt.isGuarding &&
+            !enemyCtrl.isRecovering &&
             enemyCtrl.enemyAnim.enabled
         );
     }
@@ -119,7 +120,31 @@ public class EnemyAIControl : MonoBehaviour
     {
         pattern_list = null;
     }
+    public void ChangeEnemyPattern(int phaseIndex)
+    {
+        int sumPercent = 0;
+        List<EnemyActDetail> phaseActs = enemyCtrl._base.Phases[phaseIndex].attacks;
 
+        if (phaseActs.Count != pattern_list.Count - 1)
+            Debug.LogWarning("Phase 2 act count does not match with Phase 1.");
+        
+        foreach (EnemyActDetail refAct in phaseActs) {
+            bool flag = false;
+
+            foreach (EnemyActDetail act in pattern_list) {
+                if (act.Name == refAct.Name) {
+                    act.percentage = refAct.percentage;
+                    sumPercent += refAct.percentage;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+                Debug.LogWarning($"{refAct.Name} : Could not change enemy pattern.");
+        }
+        pattern_list[pattern_list.Count - 1].percentage = 100 - sumPercent;
+        GameManager.DoDebug($"Enemy idle percent : {100 - sumPercent}%");
+    }
     public EnemyActDetail ReturnEnemyPattern(string name)
     {
         foreach (EnemyActDetail act in pattern_list) {

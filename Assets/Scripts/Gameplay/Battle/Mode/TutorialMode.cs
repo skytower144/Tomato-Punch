@@ -88,6 +88,8 @@ public class TutorialMode : MonoBehaviour
     private void StartWorkout()
     {
         tomatoControl.isIntro = false;
+        EnemyAIControl.enemy_isIntro = false;
+
         isTutorial = true;
         warmupPhase = StartCoroutine(WarmUp());
 
@@ -167,8 +169,8 @@ public class TutorialMode : MonoBehaviour
         DOTween.Rewind("tutorial_exit");
         DOTween.Play("tutorial_exit");
         
-        gm.battle_system.tomato_control.ReleaseGuard();
         tomatoControl.isVictory = true;
+        gm.battle_system.tomato_control.ReleaseGuard();
         gm.battle_system.tomato_control.tomatoAnim.Play("tomato_victory", -1, 0f);
 
         Play("Tutorial_Finish");

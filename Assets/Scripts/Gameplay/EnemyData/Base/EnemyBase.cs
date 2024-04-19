@@ -29,6 +29,7 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private List<Enemy_NeutralDetail> neutralPattern;
     [SerializeField] private List<Enemy_ProjectileDetail> projectiles;
     [SerializeField] private List<Enemy_AttackDetail> enemyPattern;
+    [SerializeField] private List<BossPhase> phases;
     [SerializeField] private List<GameObject> extraProp;
     [SerializeField] private List<RewardDetail> itemReward;
     [SerializeField] private float battleExp;
@@ -141,6 +142,11 @@ public class EnemyBase : ScriptableObject
         get { return projectiles; }
     }
 
+    public List<BossPhase> Phases
+    {
+        get { return phases; }
+    }
+
     public List<GameObject> ExtraProp
     {
         get { return extraProp; }
@@ -163,6 +169,13 @@ public class EnemyBase : ScriptableObject
         get { return playerReviveState; }
     }
 
+}
+[System.Serializable]
+public class BossPhase
+{
+    public Sprite face;
+    public string transition;
+    public List<EnemyActDetail> attacks;
 }
 
 [System.Serializable]

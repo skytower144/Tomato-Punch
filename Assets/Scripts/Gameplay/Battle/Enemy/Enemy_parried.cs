@@ -14,8 +14,8 @@ public class Enemy_parried : MonoBehaviour
     void OnEnable()
     {
         _enemyControl = GameManager.gm_instance.battle_system.enemy_control;
-        anim = _enemyControl.enemyAnim;
         _tomatoControl = GameManager.gm_instance.battle_system.tomato_control;
+        anim = _enemyControl.enemyAnim;
         isParried = pjParried = false;
     }
     void OnTriggerEnter2D(Collider2D col) 
@@ -37,11 +37,12 @@ public class Enemy_parried : MonoBehaviour
             {
                 isParried = true;
                 Instantiate (parryCircle, new Vector2 (transform.position.x - 0.2f , transform.position.y - 1.3f), Quaternion.identity);
+                GameManager.gm_instance.battle_system.battleUI_Control.EnterGatleMode();
                 _enemyControl.enemyAnimControl.Act(_enemyControl._base.Knockback_AnimationString, BattleActType.Knockback);
             }
             else
             {
-                Enemy_parried.pjParried = true;
+                pjParried = true;
                 _enemyControl.DestroyProjectiles();
                 _tomatoControl.StartCoroutine(_tomatoControl.SetDeflectLaser(_tomatoControl.deflectLaser, true));
                 Invoke("TurnOffPjParried", 0.1f);
@@ -51,7 +52,7 @@ public class Enemy_parried : MonoBehaviour
 
     private void TurnOffPjParried()
     {
-        Enemy_parried.pjParried = false;
+        pjParried = false;
     }
 }
 

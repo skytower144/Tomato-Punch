@@ -5,7 +5,7 @@ public class EnemyHitTypes : MonoBehaviour
     private tomatoControl _tomatoControl;
     private EnemyControl _enemyControl;
     private EnemyAnimControl _enemyAnimControl;
-    [SerializeField] private GameObject hurtEffect;
+    [SerializeField] private GameObject hurtEffect, flashBang;
     void Start()
     {
         _tomatoControl = GameManager.gm_instance.battle_system.tomato_control;
@@ -52,8 +52,15 @@ public class EnemyHitTypes : MonoBehaviour
                 StartCoroutine(_enemyAnimControl.SetCollider(true, attackFinishedTime));
                 _enemyControl.Invoke("actionOver", _enemyAnimControl.FpsDict[animName].Item2);
                 break;
+            
+            case HitType.FlashBang:
+                Instantiate(flashBang, _enemyControl.PropTransform);
+                if(!tomatoControl.isFainted)
+                    _tomatoControl.tomatoAnim.Play("tomato_D_hurt",-1,0f);
+                break;
         }
+        _enemyControl.SpawnPjProp();
     }
 }
 
-public enum HitType { Normal, Absorb }
+public enum HitType { Normal, Absorb, FlashBang }

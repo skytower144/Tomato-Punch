@@ -89,4 +89,11 @@ public class EnemyHealthBar : MonoBehaviour
     {
         return slider.maxValue - slider.value;
     }
+    public void SetBarColor(string color = "OG")
+    {
+        if (color == "RED")
+            fill.color = new Color32(190, 22, 50, 255);
+        else
+            fill.color = new Color32(193, 34, 118, 255);
+    }
 }

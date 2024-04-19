@@ -22,10 +22,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b7e5237aad61808448f40e2a395f9aa6, type: 3}
   bgTexture: {fileID: 0}
   parallaxDirection: {x: 0, y: 0}
-  enemyMaxHealth: 90
-  enemyCurrentHealth: 90
+  enemyMaxHealth: 10
+  enemyCurrentHealth: 10
   min_hitct: 3
-  max_hitct: 4
+  max_hitct: 5
   animationController: {fileID: 9100000, guid: e5b594eb2d20a7b4ea21ff01a5fa0901, type: 2}
   idle: ShinyBoss_idle
   intro: ShinyBoss_intro
@@ -61,7 +61,7 @@ MonoBehaviour:
       SpawnFrame: 7
       Projectile: {fileID: 5248630092104201764, guid: d002896342cbe4741b934e3a8c781533, type: 3}
   - Name: ShinyBoss_atk_bowl
-    percentage: 20
+    percentage: 15
     ProjectileAttackFrames:
     - Damage: 0
       EnemyAttackType: 4
@@ -70,11 +70,11 @@ MonoBehaviour:
       Projectile: {fileID: 8359877981082140253, guid: bae12e82c4bb69346b70721c7120ae64, type: 3}
   enemyPattern:
   - Name: ShinyBoss_atk_shine
-    percentage: 10
+    percentage: 15
     PhysicalAttackFrames:
     - Damage: 0
-      EnemyAttackType: 0
-      HitType: 0
+      EnemyAttackType: 5
+      HitType: 2
       HitFrame: 4
       CounterStartFrame: -1
       CounterEndFrame: -1
@@ -91,7 +91,7 @@ MonoBehaviour:
     percentage: 0
     PhysicalAttackFrames:
     - Damage: 0
-      EnemyAttackType: 0
+      EnemyAttackType: 1
       HitType: 0
       HitFrame: 8
       CounterStartFrame: 5
@@ -100,19 +100,19 @@ MonoBehaviour:
     percentage: 0
     PhysicalAttackFrames:
     - Damage: 0
-      EnemyAttackType: 0
+      EnemyAttackType: 2
       HitType: 0
       HitFrame: 11
       CounterStartFrame: -1
       CounterEndFrame: -1
     - Damage: 0
-      EnemyAttackType: 0
+      EnemyAttackType: 2
       HitType: 0
       HitFrame: 15
       CounterStartFrame: -1
       CounterEndFrame: -1
     - Damage: 0
-      EnemyAttackType: 0
+      EnemyAttackType: 2
       HitType: 0
       HitFrame: 19
       CounterStartFrame: 22
@@ -127,11 +127,29 @@ MonoBehaviour:
       CounterStartFrame: -1
       CounterEndFrame: -1
     - Damage: 0
-      EnemyAttackType: 0
+      EnemyAttackType: 1
       HitType: 0
       HitFrame: 8
       CounterStartFrame: 5
       CounterEndFrame: 7
+  phases:
+  - face: {fileID: 0}
+    transition: ShinyBoss_angry
+    attacks:
+    - Name: ShinyBoss_atk_printer
+      percentage: 5
+    - Name: ShinyBoss_atk_bowl
+      percentage: 3
+    - Name: ShinyBoss_atk_shine
+      percentage: 10
+    - Name: ShinyBoss_atk_slap
+      percentage: 3
+    - Name: ShinyBoss_atk_whip
+      percentage: 20
+    - Name: ShinyBoss_atk_beltrope
+      percentage: 15
+    - Name: ShinyBoss_atk_whiplash
+      percentage: 20
   extraProp:
   - {fileID: 728436895438426534, guid: d0c3b937b966b5a418a678e317e0317c, type: 3}
   - {fileID: 2189596701149366917, guid: a096a8f315558124a92cfea02cdc72fc, type: 3}
