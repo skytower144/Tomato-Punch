@@ -81,7 +81,7 @@ public class BattleSystem : MonoBehaviour
     public void ResumeBattle()
     {
         textSpawn.spawn_Round2_text();
-        tomatocontrol.tomatoAnim.Play("tomato_intro", -1, 0f);
+        tomatocontrol.tomatoAnim.Play("tomato_nextround", -1, 0f);
         enemyControl.guardDown();
         enemyControl.enemy_hurt.EnemyHealthBar.SetBarColor("RED");
         enemyControl.enemy_hurt.EnemyHealthBar.SetIncreaseHealthAmount(-1, true);

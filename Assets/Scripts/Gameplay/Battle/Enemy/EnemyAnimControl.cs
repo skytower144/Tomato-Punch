@@ -20,7 +20,8 @@ public class EnemyAnimControl : MonoBehaviour
         "enemyCounterStart", "enemyCounterEnd", "hitFrame", "actionOver",
         "EnableDunk", "DisableDunk", "Bounce", "DunkBounceSmoke",
         "BlastShrink", "RecoverShrink", "RecoverAnimation",
-        "enemy_isPunchedEnd", "hurtOver", "projectileSpawn"
+        "enemy_isPunchedEnd", "hurtOver", "projectileSpawn",
+        "DownAttackSmoke"
     };
     public Dictionary<string, (float, float)> FpsDict => _fpsDict;
     public HitType CurrentHitType { private set; get; }
@@ -74,7 +75,6 @@ public class EnemyAnimControl : MonoBehaviour
                 break;
 
             case BattleActType.Angry:
-                // _battleSystem.tomato_control.tomatoAnim.Play("tomato_intro", -1, 0f);
                 _battleSystem.Invoke("ResumeBattle", _fpsDict[animName].Item2);
                 _enemyControl.Invoke("actionOver", _fpsDict[animName].Item2);
                 break;
@@ -194,6 +194,11 @@ public class EnemyAnimControl : MonoBehaviour
                     if (attack.CounterStartFrame != -1) {
                         _enemyControl.Invoke("enemyCounterStart", attack.CounterStartFrame / _fpsDict[animName].Item1);
                         _enemyControl.Invoke("enemyCounterEnd", attack.CounterEndFrame / _fpsDict[animName].Item1);
+                    }
+                    if (frame.EnemyAttackType == AttackType.DA) {
+                        int smokeTiming = attack.HitFrame - 5;
+                        Mathf.Clamp(smokeTiming, 0, smokeTiming);
+                        _enemyControl.Invoke("DownAttackSmoke", smokeTiming / _fpsDict[animName].Item1);
                     }
                     SetColliderAfterHit(finishedAttack, attack.HitFrame, animName);
                     _enemyControl.Invoke("hitFrame", attack.HitFrame / _fpsDict[animName].Item1);

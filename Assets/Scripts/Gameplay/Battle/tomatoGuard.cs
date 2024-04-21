@@ -32,13 +32,15 @@ public class tomatoGuard : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col) 
     {
         if(isParry || !tomatoControl.isGuard) return;
+
+        string attackTag = col.gameObject.tag;
         
-        if(col.gameObject.tag.Equals("enemy_LA") || col.gameObject.tag.Equals("enemy_RA") || col.gameObject.tag.Equals("enemy_GuardOrJump"))
+        if(attackTag.Equals("enemy_LA") || attackTag.Equals("enemy_RA") || attackTag.Equals("enemy_GuardOrJump"))
         {
             guardDamageConversion();
             if(tomatocontrol.current_guardPt >= reducedDamage)
             {
-                playGuardEffects();
+                playGuardEffects(attackTag);
                 TakeGuardDamage(reducedDamage);
 
                 anim.Play("tomato_guardAft");
@@ -47,20 +49,20 @@ public class tomatoGuard : MonoBehaviour
             {
                 preventDamageOverlap = true;
 
-                playGuardEffects();
+                playGuardEffects(attackTag);
                 playGuard_BreakEffects();
                 TakeGuardDamage(reducedDamage);
 
-                tomatohurt.TakeDamage(leftoverDamage, col.gameObject.tag);
+                tomatohurt.TakeDamage(leftoverDamage, attackTag);
             }
             else
             {
                 preventDamageOverlap = true;
 
-                playGuardEffects();
+                playGuardEffects(attackTag);
                 playGuard_BreakEffects();
 
-                tomatohurt.TakeDamage(damage, col.gameObject.tag);
+                tomatohurt.TakeDamage(damage, attackTag);
             }
         }
     }
@@ -80,10 +82,20 @@ public class tomatoGuard : MonoBehaviour
         guardBar.guardDamaged(normalize_guardPt);
     }
 
-    void playGuardEffects()
+    void playGuardEffects(string attackTag)
     {
-        Instantiate(guardEffect, new Vector2 (transform.position.x -2.2f, transform.position.y - 1.7f), Quaternion.identity);
-        Instantiate(guardEffect2, new Vector2 (transform.position.x -3.5f, transform.position.y - 2f), Quaternion.identity);
+        Instantiate(guardEffect, new Vector2(transform.position.x -2.2f, transform.position.y - 1.7f), Quaternion.identity);
+        Instantiate(guardEffect2, new Vector2(transform.position.x -3.5f, transform.position.y - 2f), Quaternion.identity);
+
+        Transform hintEffect = Instantiate(guardEffect, GameManager.gm_instance.battle_system.enemy_control.PropTransform).GetComponent<Transform>();
+        hintEffect.localScale = new Vector2(0.5f, 0.5f);
+        hintEffect.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("front");
+
+        if (attackTag == "enemy_LA")
+            hintEffect.localPosition = new Vector2(-5.3f, -3f);
+
+        else if (attackTag == "enemy_RA")
+            hintEffect.localPosition = new Vector2(-3.6f, -3.3f);
     }
 
     void playGuard_BreakEffects()

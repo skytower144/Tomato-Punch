@@ -35,7 +35,7 @@ public class tomatoHurt : MonoBehaviour
     {
         _enemyControl.enemyHitTypes.DetermineHitResponse(damage, colliderTag);
 
-        if (tomatoControl.isFainted) return;
+        if (tomatoControl.isFainted || tomatoControl.isVictory) return;
         
         if(tomatocontrol.currentHealth < damage)
             damage = tomatocontrol.currentHealth;

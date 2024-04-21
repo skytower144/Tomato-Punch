@@ -343,6 +343,10 @@ public class tomatoControl : MonoBehaviour
         tomatoHurt.isTomatoHurt = false;
         actionEnd();
     }
+    public void PlayWaitAnimation()
+    {
+        tomatoAnimator.Play("tomato_wait", -1, 0f);
+    }
 
     void guardStart()
     {

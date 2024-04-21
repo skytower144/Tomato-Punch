@@ -137,6 +137,9 @@ public class Enemy_is_hurt : MonoBehaviour
 
     public void enemyHurtDamage(float damage)
     {
+        if (tomatoControl.isFainted || tomatoControl.isVictory)
+            return;
+        
         if(Enemy_currentHealth < damage)
             damage = Enemy_currentHealth;
         Enemy_currentHealth -= damage;
@@ -176,6 +179,9 @@ public class Enemy_is_hurt : MonoBehaviour
             if (enemy_isDefeated)
                 return true;
             
+            if (tomatoControl.isFainted)
+                return false;
+            
             hpReachedZero++;
             enemyControl.EraseAllAttacks();
             enemyControl.DestroyProjectiles();
@@ -184,6 +190,7 @@ public class Enemy_is_hurt : MonoBehaviour
                 battleSystem.battleUI_Control.CancelGatleCircle();
             
             if (!battleSystem.IsNextPhase && hpReachedZero <= enemyBase.Phases.Count) {
+                battleSystem.IsNextPhase = true;
                 enemyControl.NextRound(hpReachedZero, animString);
                 return false;
             }

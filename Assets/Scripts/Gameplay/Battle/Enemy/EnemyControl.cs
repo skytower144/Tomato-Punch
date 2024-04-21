@@ -323,6 +323,7 @@ public class EnemyControl : MonoBehaviour
     }
     public void Angry()
     {
+        tomatocontrol.Invoke("PlayWaitAnimation", 0.4f);
         enemyAnimControl.Act(_base.Phases[enemyHurt.HpReachedZero - 1].transition, BattleActType.Angry);
     }
 
@@ -334,6 +335,14 @@ public class EnemyControl : MonoBehaviour
     public void DunkBounceSmoke()
     {
         Instantiate(dunkSmoke);
+    }
+
+    public void DownAttackSmoke()
+    {
+        Transform smoke = Instantiate(dunkSmoke, propTransform).GetComponent<Transform>();
+        smoke.transform.localPosition = new Vector2 (0.6f, -3f);
+        smoke.localScale = new Vector2(1, 0.6f);
+        smoke.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("battle_effect");
     }
 
     void beginSuffer()
@@ -519,7 +528,6 @@ public class EnemyControl : MonoBehaviour
         Instantiate(_base.ExtraProp[index], propTransform);
     }
     public void NextRound(int hpReachedZero, string animString) {
-        GameManager.gm_instance.battle_system.IsNextPhase = true;
         disableBools();
 
         if (animString != "DUNK" && animString != "SUPPER") {

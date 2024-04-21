@@ -173,7 +173,7 @@ public class EnemyBase : ScriptableObject
 [System.Serializable]
 public class BossPhase
 {
-    public Sprite face;
+    // public Sprite face;
     public string transition;
     public List<EnemyActDetail> attacks;
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class TextSpawn : MonoBehaviour
 {
     [SerializeField] private BattleSystem textSpawn_BattleSystem;
@@ -85,7 +86,8 @@ public class TextSpawn : MonoBehaviour
     }
     public void spawn_Round2_text()
     {
-        Instantiate(round2_Text, transform);
+        TextMeshProUGUI _roundText = Instantiate(round2_Text, transform).GetComponent<TextMeshProUGUI>();
+        _roundText.text = $"ROUND {enemyControl.enemy_hurt.HpReachedZero + 1}";
     }
 
     public void PlayVictory_Player()
