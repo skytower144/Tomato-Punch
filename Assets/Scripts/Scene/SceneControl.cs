@@ -119,7 +119,7 @@ public class SceneControl : MonoBehaviour
 
     public SceneName GetSceneNameByPos(Vector2 inputPosition)
     {
-        SceneName closestSceneName = SceneName.TomatoHouse;
+        SceneName closestSceneName = CurrentScene.scene_name;
         float closestMagnitude = float.MaxValue;
 
         foreach (KeyValuePair<SceneName, Vector2> kvp in scenePosDict) {

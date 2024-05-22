@@ -16,6 +16,7 @@ using System;
 [CustomPropertyDrawer(typeof(StringLocalizationData))]
 [CustomPropertyDrawer(typeof(StringItemLocation))]
 [CustomPropertyDrawer(typeof(StringStringDictionary))]
+[CustomPropertyDrawer(typeof(StringBoolDictionary))]
 [CustomPropertyDrawer(typeof(StringProgressData))]
 public class SerializableDictionaryPropertyDrawer : PropertyDrawer
 {

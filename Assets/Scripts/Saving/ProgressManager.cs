@@ -111,6 +111,7 @@ public class ProgressManager : MonoBehaviour
         itemTotal = Instantiate(itemTotalPrefab, essential_transform);
         GameManager.gm_instance.itemManager = itemTotal.GetComponent<ItemManager>();
         GameManager.gm_instance.itemManager.RecoverItemState();
+        GameManager.gm_instance.cutTriggerManager.Restore();
 
         playerInventory.GatherEquipSlots();
         LoadPlayerData(); // apply data to gameplay
@@ -253,4 +254,5 @@ public class SaveData
     public StringProgressData progress_dict = new StringProgressData();
     public StringItemLocation CreatedItem_dict = new StringItemLocation();
     public StringItemLocation RemovedItem_dict = new StringItemLocation();
+    public StringBoolDictionary CutTrigger_dict = new StringBoolDictionary();
 }

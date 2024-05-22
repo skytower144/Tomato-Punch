@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StringBoolDictionary : SerializableDictionary<string, bool>{}
+
 public class CutsceneTrigger : MonoBehaviour, Interactable
 {
     [SerializeField] private bool _isAuto;

@@ -129,7 +129,7 @@ You better start looking for a real job.
 {cut}
 Guess I'm off to work.
 
-#cutturn:player@RIGHT-1.6,RD-1
+#cutturn:player@RIGHT-1.7,RD-1
 #cutmove:Friend@-68.68~-0.99,-68.68~-3.8,-66.73~-3.8,-66.73~-4.6@1.5@true@wait
 #cutplay:!TomatoHouse_tv@TomatoHouse_tv_default
 {cut}
