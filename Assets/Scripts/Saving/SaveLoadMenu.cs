@@ -417,7 +417,8 @@ public class SaveLoadMenu : MonoBehaviour
     public void DetermineAutoSave(string npcDialogue = "")
     {
         if (npcDialogue != "") {
-            if (npcDialogue.Contains("battle")) ProceedSave(3);
+            string tag = "\"#\":\"" + DialogueManager.instance.BattleTag;
+            if (npcDialogue.Contains(tag)) ProceedSave(3);
             else return;
         }
         else if (isAutoSave) {

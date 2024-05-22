@@ -1,5 +1,4 @@
 #hideportrait:_
-You know,
-I've been thinking.
+You know what?
 Me too.
 #nextdialogue:girl6_second

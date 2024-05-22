@@ -93,6 +93,7 @@ public class DialogueManager : MonoBehaviour
     private const string UNLOCKPORTAL_TAG = "unlockportal";
     private const string JOINPARTY_TAG = "joinparty";
     private const string LEAVEPARTY_TAG = "leaveparty";
+    public string BattleTag => BATTLE_TAG;
 
     private void Awake()
     {
