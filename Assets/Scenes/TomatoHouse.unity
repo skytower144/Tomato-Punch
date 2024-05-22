@@ -1184,6 +1184,7 @@ GameObject:
   - component: {fileID: 1363994904}
   - component: {fileID: 1363994903}
   - component: {fileID: 1363994902}
+  - component: {fileID: 1363994908}
   - component: {fileID: 1363994906}
   - component: {fileID: 1363994907}
   - component: {fileID: 1363994905}
@@ -1207,7 +1208,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.20751572, y: -0.5448429}
+  m_Offset: {x: 0.029937744, y: -0.5448429}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1218,7 +1219,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2774734, y: 1.2957002}
+  m_Size: {x: 1.3106079, y: 1.2957002}
   m_EdgeRadius: 0
 --- !u!212 &1363994903
 SpriteRenderer:
@@ -1260,7 +1261,7 @@ SpriteRenderer:
   m_SortingLayerID: -1666329631
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6736563781045209871, guid: 7b36080cb5b57d24e84690d85761b228, type: 3}
+  m_Sprite: {fileID: 2892413799098703790, guid: 2e25539b29f604f468ca59c9558f75fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1279,7 +1280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363994901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66.6, y: -1, z: 0}
+  m_LocalPosition: {x: -66.56, y: -0.99000007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1594319990}
@@ -1338,7 +1339,7 @@ Animator:
   m_GameObject: {fileID: 1363994901}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5523ce7f18175d24e8af631d21eb49cb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1363,6 +1364,27 @@ MonoBehaviour:
   anim: {fileID: 1363994906}
   followDelay: 10
   offLimitAreas: 
+--- !u!50 &1363994908
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363994901}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1438192277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,11 +1603,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4677862585124394164, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.17500573
+      value: 0.024995029
       objectReference: {fileID: 0}
     - target: {fileID: 4677862585124394164, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.895
+      value: -0.9000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb146d1e97dbf8643b5f07b0475a305f, type: 3}
@@ -1605,9 +1627,10 @@ GameObject:
   - component: {fileID: 1953853247}
   - component: {fileID: 1953853249}
   - component: {fileID: 1953853248}
+  - component: {fileID: 1953853250}
   m_Layer: 0
-  m_Name: television
-  m_TagString: Untagged
+  m_Name: TomatoHouse_tv
+  m_TagString: BGObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1704,6 +1727,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1953853250
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953853246}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c557a96c15379b46a8adb5524f36884, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2128295430
 GameObject:
   m_ObjectHideFlags: 0

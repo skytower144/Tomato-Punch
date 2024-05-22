@@ -73,7 +73,7 @@ public class FileDataHandler
 
     public void Save(SaveData data, string profileId)
     {
-        ProgressManager.instance.SavePlayerData();
+        ProgressManager.instance.SavePlayerData(profileId == "Slot_New");
 
         // Use Path.Combine to account for different OS's having different path separators.
         string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);

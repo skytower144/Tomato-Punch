@@ -1,3 +1,2 @@
-What's up. #portrait:Gin_neutral
-Shoot some hoops with us, small fighter.
+Shoot some hoops with us, small fighter. #portrait:Gin_neutral
 #nextdialogue:Gin_second

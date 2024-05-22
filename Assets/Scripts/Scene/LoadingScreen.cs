@@ -44,9 +44,9 @@ public class LoadingScreen : MonoBehaviour
         
         GameManager.gm_instance.save_load_menu.PrepareMenu();
         PlayerMovement.instance.myCol.gameObject.SetActive(true);
+        GameManager.gm_instance.cutTriggerManager.gameObject.SetActive(true);
 
-        DOTween.Rewind("fader_out");
-        DOTween.Play("fader_out");
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeIn();
 
         GameManager.gm_instance.save_load_menu.isAutoLoad = false;
     }

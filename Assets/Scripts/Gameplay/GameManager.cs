@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public PlayerKeyEventManager playerKeyEventManager;
     public PartyManager partyManager;
     public ItemManager itemManager;
+    public CutsceneTriggerManager cutTriggerManager;
     public PlayerMovement player_movement => playerMovement;
     public BattleSystem battle_system => battleSystem;
     public RebindKey rebind_key => rebindKey;
@@ -194,7 +195,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < partyMembers.Count; i++)
             partyMembers[i].follow.Teleport(new Vector2(playerPos.x + 1f * (i + 1), playerPos.y - 0.2f));
         
-        CutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
+        DialogueManager.instance.cutsceneHandler.FaceAdjustment(playerMovement.myAnim, "DOWN");
         playerAnimator.Play("Wakeup", -1, 0f);
         Instantiate(playerMovement.newspaper, playerAnimator.transform);
     }

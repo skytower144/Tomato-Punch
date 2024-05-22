@@ -1,2 +1,2 @@
-Oh yeah. #portrait:Sass_neutral
+Right. #portrait:Sass_neutral
 #nextdialogue:Sass_first

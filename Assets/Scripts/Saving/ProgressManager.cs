@@ -121,29 +121,28 @@ public class ProgressManager : MonoBehaviour
         dataHandler.Delete(profileId);
     }
 
-    public void SavePlayerData()
+    public void SavePlayerData(bool isNewSave)
     {
-        PlayerData tomatoData = new PlayerData();
+        PlayerData tomatoData = new PlayerData
+        {
+            max_health = tomatocontrol.maxHealth,
+            current_health = tomatocontrol.currentHealth,
+            max_guard = tomatocontrol.maxGuard,
+            attack = tomatocontrol.tomatoAtk,
+            total_exp = tomatostatus.player_totalExp,
+            left_exp = tomatostatus.player_leftExp,
+            expBar_max = tomatolevel.expFill.maxValue,
+            expBar_current = tomatolevel.expFill.value,
 
-        tomatoData.max_health = tomatocontrol.maxHealth;
-        tomatoData.current_health = tomatocontrol.currentHealth;
-        tomatoData.max_guard = tomatocontrol.maxGuard;
-        tomatoData.attack = tomatocontrol.tomatoAtk;
-        tomatoData.total_exp = tomatostatus.player_totalExp;
-        tomatoData.left_exp = tomatostatus.player_leftExp;
-        tomatoData.expBar_max = tomatolevel.expFill.maxValue;
-        tomatoData.expBar_current = tomatolevel.expFill.value;
+            stat_points = tomatostatus.player_statPt,
+            money = tomatostatus.playerMoney,
+            level = tomatolevel.playerLevel,
+        
+            current_scene = SceneControl.instance.CurrentScene ? SceneControl.instance.CurrentScene.GetSceneName() : SceneName.TomatoHouse.ToString(),
+            postion = isNewSave ? new Vector3(-69f, -4f) : playerInventory.gameObject.transform.position,
 
-        tomatoData.stat_points = tomatostatus.player_statPt;
-        tomatoData.money = tomatostatus.playerMoney;
-        tomatoData.level = tomatolevel.playerLevel;
-
-        if (SceneControl.instance.CurrentScene)
-            tomatoData.current_scene = SceneControl.instance.CurrentScene.GetSceneName();
-        tomatoData.postion = playerInventory.gameObject.transform.position;
-
-        tomatoData.isCameraFixated = PlayerMovement.instance.cameraControl.isCameraFixated;
-
+            isCameraFixated = PlayerMovement.instance.cameraControl.isCameraFixated,
+        };
         foreach (ItemQuantity consumable in playerInventory.consumableItems)
         {
             tomatoData.carrying_countable_list.Add(new SerializedItemQuantity(consumable.item.ItemName, consumable.count));

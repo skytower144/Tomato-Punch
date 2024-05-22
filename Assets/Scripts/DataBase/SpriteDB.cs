@@ -3,15 +3,23 @@ using UnityEngine;
 
 public class SpriteDB
 {
-    static Dictionary<string, Sprite> PortraitCatalog = new Dictionary<string, Sprite>();
+    static Dictionary<string, Sprite> spriteCatalog = new Dictionary<string, Sprite>();
 
     public static Sprite ReturnPortrait(string fileName)
     {
-        if (PortraitCatalog.ContainsKey(fileName))
-            return PortraitCatalog[fileName];
+        if (spriteCatalog.ContainsKey(fileName))
+            return spriteCatalog[fileName];
         
         //GameManager.DoDebug($"Added\n{fileName} to Portrait Catalog");
-        PortraitCatalog[fileName] = Resources.Load<Sprite>($"Portraits/{fileName}");
-        return PortraitCatalog[fileName];
+        spriteCatalog[fileName] = Resources.Load<Sprite>($"Sprites/Portraits/{fileName}");
+        return spriteCatalog[fileName];
+    }
+    public static Sprite ReturnCutsceneSprite(string fileName)
+    {
+        if (spriteCatalog.ContainsKey(fileName))
+            return spriteCatalog[fileName];
+        
+        spriteCatalog[fileName] = Resources.Load<Sprite>($"Sprites/Cutscenes/{fileName}");
+        return spriteCatalog[fileName];
     }
 }

@@ -49,7 +49,7 @@ public class LocationPortal : MonoBehaviour, Interactable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsLocked()) return;
+        if (collision.tag != "Player" || IsLocked()) return;
         EnableDoor();
     }
 
@@ -67,7 +67,7 @@ public class LocationPortal : MonoBehaviour, Interactable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (IsLocked()) return;
+        if (collision.tag != "Player" || IsLocked()) return;
         canEnter = false;
     }
 
@@ -80,7 +80,7 @@ public class LocationPortal : MonoBehaviour, Interactable
             if (direction == this.enterDirection.ToString()) {
                 canEnter = false;
                 Time.timeScale = 0;
-                CutsceneHandler.FaceAdjustment(player_movement.myAnim, direction);
+                DialogueManager.instance.cutsceneHandler.FaceAdjustment(player_movement.myAnim, direction);
                 
                 if (enterAnimator != null)
                     StartCoroutine(DelayEnter(0.5f));
@@ -94,9 +94,7 @@ public class LocationPortal : MonoBehaviour, Interactable
 
     private void FadeAndTeleport()
     {
-        DOTween.Rewind("fader_in");
-        DOTween.Play("fader_in");
-
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
         StartCoroutine(ManageScenes(0.35f));
     }
     IEnumerator DelayEnter(float waitTime)
@@ -157,9 +155,7 @@ public class LocationPortal : MonoBehaviour, Interactable
         if (camera_switch != null)
             camera_switch.ReturnToPlayerCamera();
         
-        DOTween.Rewind("fader_out");
-        DOTween.Play("fader_out");
-
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeIn();
         Time.timeScale = 1;
     }
 

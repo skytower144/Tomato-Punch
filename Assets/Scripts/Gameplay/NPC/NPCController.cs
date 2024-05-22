@@ -151,9 +151,14 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
-        if (disableSpriteAnimator)
+        if (disableSpriteAnimator) {
             npcAnim.Play(clipName, -1, 0f);
-        
+
+            if (dialogueAction != null) {
+                AnimationClip clip = DialogueManager.instance.cutsceneHandler.ReturnAnimationClip(npcAnim, clipName);
+                StartCoroutine(DialogueManager.instance.DialogueAction(npcAnim, dialogueAction, clip.length, stopAfterAnimation));
+            }
+        }
         else if (sprite_dict.ContainsKey(clipName))
         {
             SpriteAnimation animation = sprite_dict[clipName];
@@ -163,7 +168,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         {
             List<Sprite> singleSprite = new List<Sprite> { sprite_renderer.sprite };
             spriteAnimator = new SpriteAnimator(this, sprite_renderer, singleSprite, 0, false);
-        }   
+        }
     }
 
     IEnumerator PlayInteractAnimation()
@@ -250,7 +255,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             npcMove.SetFollowSpeed(moveSpeed);
 
         foreach (string xy in posStrings) {
-            posString = xy.Split('-');
+            posString = xy.Split('~');
             Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
 
             while ((targetPos - npcMove.npcRb.position).magnitude >= 0.01f) {
@@ -265,7 +270,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     public void Turn(string direction)
     {
         if (disableSpriteAnimator)
-            CutsceneHandler.FaceAdjustment(npcAnim, direction.ToUpper());
+            DialogueManager.instance.cutsceneHandler.FaceAdjustment(npcAnim, direction.ToUpper());
         else
             Play($"{direction.ToLower()}");
     }

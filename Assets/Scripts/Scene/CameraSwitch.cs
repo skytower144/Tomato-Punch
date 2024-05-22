@@ -10,6 +10,9 @@ public class CameraSwitch : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag != "Player")
+            return;
+        
         SetPlayerSpeed();
 
         PlayerMovement.instance.cameraControl.SetPlayerCamera(false);
@@ -19,8 +22,10 @@ public class CameraSwitch : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        NormalizePlayerSpeed();
+        if (collision.tag != "Player")
+            return;
         
+        NormalizePlayerSpeed();
         customCamera.enabled = false;
     }
 

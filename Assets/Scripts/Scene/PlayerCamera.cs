@@ -19,7 +19,6 @@ public class PlayerCamera : MonoBehaviour
     {
         if (!player_camera.enabled) {
             uiCanvas.transform.SetParent(essential_transform);
-
             isCameraFixated = true;
         }
         else {
@@ -37,6 +36,7 @@ public class PlayerCamera : MonoBehaviour
         // Fixate canvas position according to the camera position when entering.
         isCameraFixated = true;
         uicanvas_pos.localPosition = new Vector2(camera_pos.localPosition.x, camera_pos.localPosition.y);
+        DialogueManager.instance.cutsceneHandler.SetCutscenePosition();
     }
 
     public void RestoreCameraState(bool isCameraFixated)

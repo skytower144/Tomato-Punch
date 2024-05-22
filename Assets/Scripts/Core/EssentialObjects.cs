@@ -22,6 +22,7 @@ public class EssentialObjects : MonoBehaviour
         TitleScreen.isTitleScreen = true;
         
         PlayerMovement.instance.myCol.gameObject.SetActive(false);
+        PlayerMovement.instance.Teleport(18.45999f, -0.9450035f);
 
         PortableBundle.transform.SetParent(transform.parent);
         PortableBundle.transform.position = new Vector3(-113.435f, -0.02000007f, 0f);

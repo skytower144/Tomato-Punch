@@ -7,12 +7,19 @@ public class InkDB
 
     public static TextAsset ReturnTextAsset(string language, string sceneName, string npcName, string inkFileName, bool isUniqueID)
     {
-        if (string.IsNullOrEmpty(inkFileName)) return null;
+        if (string.IsNullOrEmpty(inkFileName))
+            return null;
+        
+        string id;
 
         if (isUniqueID)
             sceneName = "aMobile";
         
-        string id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
+        if (sceneName == "Cutscene")
+            id = $"Dialogue/{language}/Cutscene/{inkFileName}";
+        else
+            id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
+
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];
         

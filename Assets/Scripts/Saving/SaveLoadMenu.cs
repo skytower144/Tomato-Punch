@@ -322,15 +322,13 @@ public class SaveLoadMenu : MonoBehaviour
         PauseMenu.is_busy = true;
         isAnimating = true;
 
-        DOTween.Rewind("fader_in");
-        DOTween.Play("fader_in");
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
 
         gameObject.GetComponent<CanvasGroup>().alpha = 1;
 
-        DOTween.Rewind("fader_out");
-        DOTween.Play("fader_out");
-        
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeIn();
+
         isAnimating = false;
     }
 
@@ -338,14 +336,12 @@ public class SaveLoadMenu : MonoBehaviour
     {
         isAnimating = true;
 
-        DOTween.Rewind("fader_in");
-        DOTween.Play("fader_in");
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
         yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
 
         ResetMenuState();
         
-        DOTween.Rewind("fader_out");
-        DOTween.Play("fader_out");
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeIn();
 
         isAnimating = false;
         PauseMenu.is_busy = false;
@@ -372,8 +368,7 @@ public class SaveLoadMenu : MonoBehaviour
         isLoading = true;
 
         GameManager.DoDebug("Covering Gamescreen.");
-        DOTween.Rewind("fader_in");
-        DOTween.Play("fader_in");
+        DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
 
         ProgressManager.instance.item_total.SetActive(false);
 

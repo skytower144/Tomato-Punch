@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEditor.Animations;
 
 /* FORMAT
     #tag:value
@@ -11,28 +12,31 @@ public class CutsceneHandler : MonoBehaviour
 {
     private const string PLAY = "cutplay";
     /*
-        0. If using wait, animation should NOT be LOOP
+        # If using wait, animation should NOT be LOOP
+        # If target is a background object, insert '!' before target's name 
 
         1. #cutplay:target@animstring@wait (once)
         2. #cutplay:target@animstring      (once/loop)
 
         3. #cutplay:player@Wakeup@wait
         4. #cutplay:BabyCat@escort_cat
-    */
 
+        5. #cutplay:!television@animstring@wait
+        6. #cutplay:!television@flicker
+    */
     private const string MOVE = "cutmove";
     /*
-        0. REQUIRES UNITY ANIMATOR BLEND TREE
+        # REQUIRES UNITY ANIMATOR BLEND TREE
+        # MUST be IDLE before moving npc/player
 
-        1. #cutmove:target:@x-y@speed@animate@wait
-        2. #cutmove:target:@x-y@speed@animate
+        1. #cutmove:target@x~y@speed@animate@wait
+        2. #cutmove:target@x~y@speed@animate
 
-        3. #cutmove:Babycat@2-4@13@false
-        4. #cutmove:Babycat@2-4@13@true@wait
-        5. #cutmove:Babycat@2-3,4-3,5-5@13@true@wait
-        6. #cutmove:player@10-22,11-24,8-21@5@true@wait
+        3. #cutmove:Babycat@2~4@13@false
+        4. #cutmove:Babycat@2~4@13@true@wait
+        5. #cutmove:Babycat@2~3,4~3,5~5@13@true@wait
+        6. #cutmove:player@10~22,11~24,8~21@5@true@wait
     */
-
     private const string TURN = "cutturn";
     /*
         1. #cutturn:target@DIR-duration@wait
@@ -41,18 +45,42 @@ public class CutsceneHandler : MonoBehaviour
         3. #cutturn:player@UP-0.5,LEFT-1.2
         4. #cutturn:StartingPoint_Gob@RIGHT-0.5,DOWN-0.5,LEFT-0.5,UP-0.5@wait
     */
-
+    private const string IMAGE = "cutimage";
+    /*
+        1. #cutimage:index@true
+        2. #cutimage:index@false
+    */
+    private const string FADEIN = "cutfadein";
+    private const string FADEOUT = "cutfadeout";
+    /*
+        1. #cutfadein:duration@delay@fps@wait
+        2. #cutfadein:duration@delay@fps
+        3. #cutfadein:duration@delay
+        4. #cutfadein:duration
+    */
+    private const string SPAWN = "cutspawn";
+    private const string DESTROY = "cutdestroy";
+    /*
+        1. #cutspawn:index
+        2. #cutdestroy:index
+    */
     private const string WAIT = "cutwait";
     /*
         1. #cutwait:duration
-        
         2. #cutwait:0.5
     */
-    
+    public FadeInOut FadeControl;
+    public RectTransform UiCanvasTransform;
+    public SpriteRenderer CutSceneHolder;
+    private List<Sprite> imageList;
+    private List<GameObject> spawnList;
+    private List<GameObject> currentSpawns;
     private Character character;
+    private AnimationClip playingClip;
     private string[] splitTag, valueArray;
     string currentTag;
-    float duration;
+    float duration, delay;
+    int fps, index;
     bool dontWait;
     
     public IEnumerator HandleCutsceneTags(List<string> tags)
@@ -72,19 +100,40 @@ public class CutsceneHandler : MonoBehaviour
                 case PLAY:
                     if (TagCountBelow(2)) break;
 
-                    character = GetTargetCharacter(valueArray[0]);
-                    character.Play(valueArray[1]);
-
                     dontWait = valueArray.Length < 3;
-                    if (dontWait) break;
+                    bool isObject = valueArray[0][0] == '!';
+                    
+                    if (isObject) {
+                        Animator objectAnim = null;
+                        string objectName = valueArray[0].Remove(0, 1);
+                        GameObject[] bgObjects = GameObject.FindGameObjectsWithTag("BGObject");
 
-                    character.SetIsAnimating(true);
+                        foreach (GameObject bgObject in bgObjects) {
+                            if (bgObject.name == objectName) {
+                                objectAnim = bgObject.GetComponent<Animator>();
+                                objectAnim.Play(valueArray[1]);
+                                break;
+                            }
+                        }
+                        if (objectAnim == null) Debug.LogError($"Couldn't find object named : {valueArray[0]}");
+                        if (dontWait) break;
 
-                    if (character.UsesDefaultAnimator()) {
-                        AnimationClip playingClip = ReturnAnimationClip(character.UsesDefaultAnimator(), valueArray[1]);
-                        Invoke("SetIsAnimatingFalse", playingClip.length);
+                        playingClip = ReturnAnimationClip(objectAnim, valueArray[1]);
+                        yield return new WaitForSecondsRealtime(playingClip.length);
                     }
-                    while (character.IsAnimating()) yield return null;
+                    else {
+                        character = GetTargetCharacter(valueArray[0]);
+                        character.Play(valueArray[1]);
+                        if (dontWait) break;
+
+                        character.SetIsAnimating(true);
+
+                        if (character.UsesDefaultAnimator()) {
+                            playingClip = ReturnAnimationClip(character.UsesDefaultAnimator(), valueArray[1]);
+                            Invoke("SetIsAnimatingFalse", playingClip.length);
+                        }
+                        while (character.IsAnimating()) yield return null;
+                    }
                     break;
                 
                 case MOVE:
@@ -116,11 +165,47 @@ public class CutsceneHandler : MonoBehaviour
                         yield return PlayTurnActions(character, dirStrings);
                     break;
                 
-                case WAIT:
+                case IMAGE:
+                    index = int.Parse(valueArray[0]);
+                    if (index < imageList.Count) {
+                        CutSceneHolder.gameObject.SetActive(valueArray[1] == "true");
+                        CutSceneHolder.sprite = imageList[index];
+                    }
+                    break;
+
+                case FADEIN:
+                case FADEOUT:
                     duration = float.Parse(valueArray[0]);
-                    yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(duration));
+                    delay = valueArray.Length >= 2 ? float.Parse(valueArray[1]) : 0f;
+                    fps = valueArray.Length >= 3 ? int.Parse(valueArray[2]) : 60;
+                    dontWait = valueArray.Length < 4;
+
+                    if (dontWait)
+                        StartCoroutine(FadeControl.Fade(duration, delay, fps, tag_key == FADEIN));
+                    else                    
+                        yield return StartCoroutine(FadeControl.Fade(duration, delay, fps, tag_key == FADEIN));
+                    break;
+
+                case SPAWN:
+                    index = int.Parse(valueArray[0]);
+                    if (index < spawnList.Count)
+                        currentSpawns[index] = Instantiate(spawnList[index], transform);
                     break;
                 
+                case DESTROY:
+                    index = int.Parse(valueArray[0]);
+                    if (index < spawnList.Count && currentSpawns[index] != null) {
+                        Destroy(currentSpawns[index]);
+                        currentSpawns[index] = null;
+                    }
+                    break;
+
+                case WAIT:
+                    duration = float.Parse(valueArray[0]);
+                    if (duration == 0) break;
+                    yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(duration));
+                    break;
+
                 default:
                     break;
             }
@@ -144,7 +229,7 @@ public class CutsceneHandler : MonoBehaviour
         return false;
     }
 
-    private AnimationClip ReturnAnimationClip(Animator animator, string clipName)
+    public AnimationClip ReturnAnimationClip(Animator animator, string clipName)
     {
         foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
             if (clip.name == clipName)
@@ -153,13 +238,17 @@ public class CutsceneHandler : MonoBehaviour
         Debug.LogError($"Animation clip not found : {clipName}");
         return null;
     }
-
+    public string GetBaseLayerEntryAnimationTag(Animator anim)
+    {
+        AnimatorController controller = anim.runtimeAnimatorController as AnimatorController;
+        return controller.layers[0].stateMachine.defaultState.name;
+    }
     private void SetIsAnimatingFalse() // Invoke
     {
         character.SetIsAnimating(false);
     }
 
-    public static void FaceAdjustment(Animator anim, string facing_direction)
+    public void FaceAdjustment(Animator anim, string facing_direction)
     {
         float face_x = 0f;
         float face_y = 0f;
@@ -215,5 +304,21 @@ public class CutsceneHandler : MonoBehaviour
 
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(float.Parse(dirString[1])));
         }
+    }
+    public void SetCutscenePosition()
+    {
+        transform.position = UiCanvasTransform.position;
+    }
+    public void InitSpawnList(List<GameObject> spawns)
+    {
+        spawnList = spawns;
+        currentSpawns = new List<GameObject>();
+
+        for (int i = 0; i < spawns.Count; i++)
+            currentSpawns.Add(null);
+    }
+    public void InitImageList(List<Sprite> images)
+    {
+        imageList = images;
     }
 }

@@ -1,5 +1,5 @@
 VAR br = "<br>"
 
-Ya look tired for some reason.{br}Hm... #portrait:Gob_neutral
-Welp, if ya need professional advice,
-Ya know who to talk to. #portrait:Gob_serious #rollbackdialogue:_
+You look tired for some reason. #portrait:Gob_neutral
+Well, if you need professional advice,
+You know who to talk to. #portrait:Gob_serious #rollbackdialogue:_

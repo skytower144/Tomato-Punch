@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public string current_scene =  "HomePoint";
+    public string current_scene = SceneName.TomatoHouse.ToString();
     public Vector3 postion;
     public bool isCameraFixated;
     public int stat_points, money, level;

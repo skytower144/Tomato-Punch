@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour, Character
     public IEnumerator DelayFaceAdjustment(string direction, float delay)
     {
         yield return WaitForCache.GetWaitForSecondReal(delay);
-        CutsceneHandler.FaceAdjustment(myAnim, direction);
+        DialogueManager.instance.cutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 
     public bool CheckFacingDirection(string checking_direction)
@@ -261,7 +261,7 @@ public class PlayerMovement : MonoBehaviour, Character
             speed = moveSpeed;
 
         foreach (string xy in posStrings) {
-            posString = xy.Split('-');
+            posString = xy.Split('~');
             Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
 
             while ((targetPos - myRb.position).magnitude >= 0.01f) {
@@ -311,9 +311,17 @@ public class PlayerMovement : MonoBehaviour, Character
 
     public void Turn(string direction)
     {
-        CutsceneHandler.FaceAdjustment(myAnim, direction);
+        DialogueManager.instance.cutsceneHandler.FaceAdjustment(myAnim, direction);
     }
-
+    
+    public void Teleport(float x, float y)
+    {
+        transform.position = new Vector3(x, y, transform.position.z);
+    }
+    public Vector3 GetPlayerPos()
+    {
+        return transform.position;
+    }
     public bool PlayerCanMove()
     {
         return (

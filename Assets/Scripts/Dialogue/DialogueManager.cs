@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance { get; private set; }
     public CutsceneHandler cutsceneHandler;
+    public Canvas uiCanvas;
+
     private PlayerMovement playerMovement;
     private ChoiceType choiceType = ChoiceType.OXChoice;
     
@@ -19,32 +21,35 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private GameObject portraitBox;
 
-    [SerializeField] private Image portrait; 
+    [SerializeField] private Image portrait, dialogueBoxImage, cursorImage;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TypeEffect dialogue_typeEffect;
-    [SerializeField] private RectTransform dialogue_rect;
+    [SerializeField] private RectTransform dialogue_rect, dialogueBox_rect, cursor_rect;
 
     [Header("Choice UI")]
     [SerializeField] private GameObject choiceBox;
     [SerializeField] private RectTransform choiceBoxPTransform;
     [SerializeField] private List<TextMeshProUGUI> choiceText;
 
-    string[] splitTag;
-
-    public NPCController ContinueTalkTarget;
+    [System.NonSerialized] public NPCController ContinueTalkTarget;
     public NPCController current_npc => currentNpc;
     public bool is_continue_talk => isContinueTalk;
 
     private NPCController currentNpc;
     private Story currentStory; 
     private string currentSentence;
+    private string[] splitTag;
+    private string[] animInfo;
 
     private Interactable currentTarget;
     private DialogueExit dialogueExit = DialogueExit.Nothing;
 
-    private string[] animInfo;
-
     private bool dialogueIsPlaying, isPromptChoice, isContinueTalk, hideDialogue;
+
+    private string uiCanvas_layerName;
+    private int uiCanvas_order;
+    private float dialogueBox_x, dialogueBox_y, cursor_x, cursor_y;
+    private Color32 dialogueText_color, cursor_color;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string HIDEPORTRAIT_TAG = "hideportrait";
@@ -64,6 +69,13 @@ public class DialogueManager : MonoBehaviour
     private const string EARNMONEY_TAG = "earnmoney";
     private const string MOVECHOICEBOX_TAG = "movechoicebox";
     private const string RESETCHOICEBOX_TAG = "resetchoicebox";
+    private const string MOVEDIALOGUEBOX_TAG = "movedialoguebox";
+    private const string MOVECURSOR_TAG = "movecursor";
+    private const string DIALOGUEBOXALPHA_TAG = "setboxalpha";
+    private const string DIALOGUEBOXSIZE_TAG = "setboxsize";
+    private const string RESETDIALOGUEBOX_TAG = "resetdialoguebox";
+    private const string UICANVASLAYER_TAG = "uicanvaslayer";
+    private const string TEXTCOLOR_TAG = "textcolor";
     private const string VIEWSHOP_TAG = "viewshop";
     private const string CALCULATESHOP_TAG = "calculateshop";
     private const string PAYSHOP_TAG = "payshop";
@@ -96,7 +108,9 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         isPromptChoice = false;
+
         dialogueBox.SetActive(false);
+        SaveDialogueBoxState();
 
         playerMovement = PlayerMovement.instance;
     }
@@ -118,7 +132,7 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(ContinueStory());
     }
 
-    public void EnterDialogue(TextAsset inkJSON, Interactable interactingTarget)
+    public void EnterDialogue(TextAsset inkJSON, Interactable interactingTarget = null, bool autoContinue = false)
     {
         if (inkJSON == null) return;
 
@@ -135,6 +149,9 @@ public class DialogueManager : MonoBehaviour
 
         SetDialogueBox(true);
         dialogueIsPlaying = true;
+
+        if (autoContinue)
+            StartCoroutine(ContinueStory());
     }
 
     public void ExitDialogue()
@@ -145,6 +162,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         currentSentence = "";
 
+        ResetDialogueBoxState();
         playerMovement.SetIsInteracting(false);
         GameManager.gm_instance.partyManager.SetMemberFollow(true);
         GameManager.gm_instance.save_load_menu.DetermineAutoSave();
@@ -179,7 +197,7 @@ public class DialogueManager : MonoBehaviour
             currentSentence = currentStory.Continue().Trim();
             
             if (currentSentence == "/cut") {
-                HideDialogue();
+                SetDialogue(false);
                 yield return cutsceneHandler.HandleCutsceneTags(currentStory.currentTags);
                 ShowAndContinueDialogue();
                 yield break;
@@ -333,7 +351,7 @@ public class DialogueManager : MonoBehaviour
                     animInfo = animInfo[1].Split('-');
                     if (animInfo.Length == 2) npc.ChangeIdleAnimation(animInfo[1]);
 
-                    HideDialogue();
+                    SetDialogue(false);
                     npc.Play(animInfo[0], ShowAndContinueDialogue, stopAnimation);
                     break;
                 
@@ -377,6 +395,50 @@ public class DialogueManager : MonoBehaviour
                     choiceBoxPTransform.localPosition = new Vector2(498, 166);
                     break;
                 
+                case MOVEDIALOGUEBOX_TAG: // #movedialoguebox:x@y
+                    string[] boxPosInfo = CheckTagValueError(tag_value);
+                    float boxX = float.Parse(boxPosInfo[0]);
+                    float boxY = float.Parse(boxPosInfo[1]);
+                    dialogueBox_rect.localPosition = new Vector2(boxX, boxY);
+                    break;
+
+                case MOVECURSOR_TAG: // #movecursor@x@y
+                    string[] cursorInfo = CheckTagValueError(tag_value);
+                    float cursorX = float.Parse(cursorInfo[0]);
+                    float cursorY = float.Parse(cursorInfo[1]);
+                    cursor_rect.localPosition = new Vector2(cursorX, cursorY);
+                    break;
+
+                case DIALOGUEBOXALPHA_TAG: // #setboxalpha:0.5
+                    float boxAlpha = float.Parse(tag_value);
+                    Color boxColor = dialogueBoxImage.color;
+                    boxColor.a = boxAlpha;
+                    dialogueBoxImage.color = boxColor;
+                    break;
+
+                case DIALOGUEBOXSIZE_TAG: // #setboxsize:1.2
+                    float boxSize = float.Parse(tag_value);
+                    dialogueBox_rect.localScale = new Vector3(boxSize, boxSize, 1f);
+                    break;
+
+                case RESETDIALOGUEBOX_TAG: // #resetdialoguebox:_
+                    ResetDialogueBoxState();
+                    break;
+
+                case UICANVASLAYER_TAG: // #uicanvaslayer:name@layerOrder
+                    string[] layerInfo = CheckTagValueError(tag_value);
+                    uiCanvas.sortingLayerName = layerInfo[0];
+                    uiCanvas.sortingOrder = int.Parse(layerInfo[1]);
+                    break;
+
+                case TEXTCOLOR_TAG: // #textcolor:white
+                    Color32 changedColor = new Color32();
+                    if (tag_value == "white")
+                        changedColor = new Color32(255, 255, 255, 255);
+
+                    dialogueText.color = cursorImage.color = changedColor;
+                    break;
+
                 case VIEWSHOP_TAG:
                     choiceType = ChoiceType.ShopChoice;
                     break;
@@ -425,14 +487,20 @@ public class DialogueManager : MonoBehaviour
                     WorldCamera.instance.PlayCameraEffect(tag_value);
                     break;
                 
-                case TELEPORT_TAG: // #teleport:StartingPoint_Donut@x@y
+                case TELEPORT_TAG: // #teleport:StartingPoint_Donut@x@y #teleport:player@x@y
                     string[] posInfo = CheckTagValueError(tag_value);
+                    float x = float.Parse(posInfo[1]);
+                    float y = float.Parse(posInfo[2]);
 
-                    NPCController npc2 = NPCManager.instance.npc_dict[posInfo[0]];
-                    npc2.Teleport(float.Parse(posInfo[1]), float.Parse(posInfo[2]));
+                    if (posInfo[0].ToLower() == "player")
+                        playerMovement.Teleport(x, y);
+                    else {
+                        NPCController npc2 = NPCManager.instance.npc_dict[posInfo[0]];
+                        npc2.Teleport(x, y);
+                    }
                     break;
                 
-                case HIDENPC_TAG:
+                case HIDENPC_TAG: // #hidenpc:_
                     currentNpc.gameObject.SetActive(false);
                     break;
                 
@@ -440,8 +508,7 @@ public class DialogueManager : MonoBehaviour
                     string[] info = CheckTagValueError(tag_value);
 
                     NPCController npc3 = NPCManager.instance.npc_dict[info[0]];
-                    bool state = (info[1] == "true") ? true : false;
-                    npc3.gameObject.SetActive(state);
+                    npc3.gameObject.SetActive(info[1] == "true");
                     break;
                 
                 case UNLOCKPORTAL_TAG: // #unlockportal:_
@@ -455,8 +522,8 @@ public class DialogueManager : MonoBehaviour
                 case LEAVEPARTY_TAG: // #leaveparty:_
                     string leavingMemberName = (tag_value == "_") ? currentNpc.ReturnID() : tag_value;
                     GameManager.gm_instance.partyManager.LeaveParty(leavingMemberName);
-                    break; 
-
+                    break;
+                
                 default:
                     Debug.Log("Tag detected but not handled." + tag);
                     break;
@@ -466,7 +533,7 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayDialogue()
     {
-        if (String.IsNullOrEmpty(currentSentence) || currentSentence == "/cut")
+        if (string.IsNullOrEmpty(currentSentence) || currentSentence == "/cut" || currentSentence == "/ignore")
             StartCoroutine(ContinueStory());
         
         else {
@@ -479,15 +546,22 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowAndContinueDialogue()
     {
-        hideDialogue = false;
-        SetDialogueBox(true);
+        SetDialogue(true);
         DisplayDialogue();
     }
 
-    private void HideDialogue()
+    public IEnumerator DialogueAction(Animator anim, Action dialogueAction, float delay, bool stopAfterAnimation)
     {
-        hideDialogue = true;
-        SetDialogueBox(false);
+        yield return new WaitForSecondsRealtime(delay);
+        dialogueAction.Invoke();
+        if (!stopAfterAnimation)
+            anim.Play(cutsceneHandler.GetBaseLayerEntryAnimationTag(anim));
+    }
+
+    private void SetDialogue(bool state)
+    {
+        hideDialogue = !state;
+        SetDialogueBox(state);
     }
 
     public void SetPortraitBox(bool hasPortrait)
@@ -509,6 +583,37 @@ public class DialogueManager : MonoBehaviour
     private void SetDialogueBox(bool state)
     {
         dialogueBox.SetActive(state);
+    }
+
+    private void SaveDialogueBoxState()
+    {
+        dialogueBox_x = dialogueBox_rect.localPosition.x;
+        dialogueBox_y = dialogueBox_rect.localPosition.y;
+        cursor_x = cursor_rect.localPosition.x;
+        cursor_y = cursor_rect.localPosition.y;
+        
+        dialogueText_color = dialogueText.color;
+        cursor_color = cursorImage.color;
+
+        uiCanvas_layerName = uiCanvas.sortingLayerName;
+        uiCanvas_order = uiCanvas.sortingOrder;
+    }
+
+    private void ResetDialogueBoxState()
+    {
+        dialogueBox_rect.localScale = new Vector3(1f, 1f, 1f);
+        dialogueBox_rect.localPosition = new Vector2(dialogueBox_x, dialogueBox_y);
+        cursor_rect.localPosition = new Vector2(cursor_x, cursor_y);
+
+        dialogueText.color = dialogueText_color;
+        cursorImage.color = cursor_color;
+
+        Color boxColor = dialogueBoxImage.color;
+        boxColor.a = 1;
+        dialogueBoxImage.color = boxColor;
+
+        uiCanvas.sortingLayerName = uiCanvas_layerName;
+        uiCanvas.sortingOrder = uiCanvas_order;
     }
 
     public void SetIsContinueTalkBool(bool state)

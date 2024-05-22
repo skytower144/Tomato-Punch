@@ -28,7 +28,7 @@ Someone definitely stole my donut. #hasquest:FindTheDonut
         - else:
         What's that crumb on your face?
         
-        Oops. I mean, um.... #portrait:tomato_neutral
+        Oops. I mean, um... #portrait:tomato_neutral
         
         \* An awkward silence takes place for a slight second. #hideportrait:_
         
