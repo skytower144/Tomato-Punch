@@ -766,6 +766,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: Sass_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -852,6 +853,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: 
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -1416,6 +1418,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: 
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -2140,6 +2143,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: 
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 177038262}
   sprite_dict:
@@ -4843,6 +4847,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: smoker1_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 287812806}
   sprite_dict:
@@ -5102,6 +5107,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: guy6_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1312277667}
   sprite_dict:
@@ -5267,6 +5273,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Rupple_first
+  keyEventProgressList: []
   keyEventDialogues:
   - keyEvent: 1
     inkFileName: Rupple_battleOver
@@ -5275,8 +5282,8 @@ MonoBehaviour:
     m_keys: []
     m_values: []
   isFixedSprite: 1
-  isUniqueID: 1
-  npcID: Rupple
+  isUniqueID: 0
+  npcID: 
   willMove: 0
   npcMove: {fileID: 0}
   npcCollider: {fileID: 0}
@@ -5883,6 +5890,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: guy4_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 363760914}
   sprite_dict:
@@ -6519,6 +6527,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: girl6_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 409038580}
   sprite_dict:
@@ -7380,6 +7389,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: girl2_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 509997382}
   sprite_dict:
@@ -8504,6 +8514,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Snowman_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 627512640}
   sprite_dict:
@@ -9307,6 +9318,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Gob_first
+  keyEventProgressList: []
   keyEventDialogues:
   - keyEvent: 1
     inkFileName: Gob_impressed
@@ -9730,6 +9742,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: girl0_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -10278,6 +10291,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Donut_first
+  keyEventProgressList: []
   keyEventDialogues:
   - keyEvent: 6
     inkFileName: Donut_defeated
@@ -10756,6 +10770,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: policeman_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 803112004}
   sprite_dict:
@@ -11524,6 +11539,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: Gin_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 852602746}
   sprite_dict:
@@ -12152,6 +12168,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: IcecreamKid_red
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 905842710}
   sprite_dict:
@@ -13214,6 +13231,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: IcecreamKid_blue
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1052022158}
   sprite_dict:
@@ -13701,6 +13719,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: kid0_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1556090447}
   sprite_dict:
@@ -37737,7 +37756,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 24, z: 0}
@@ -37766,7 +37785,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 0, y: 29, z: 0}
@@ -37775,7 +37794,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 29, z: 0}
@@ -37784,7 +37803,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 8, y: 31, z: 0}
@@ -37852,7 +37871,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -14, y: 40, z: 0}
@@ -60123,7 +60142,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -5, y: 15, z: 0}
@@ -60170,7 +60189,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 28, z: 0}
@@ -60218,7 +60237,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: 36, z: 0}
@@ -60843,6 +60862,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: drunkguy_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1503603560}
   sprite_dict:
@@ -63276,6 +63296,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: girl3_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 496873219}
   sprite_dict:
@@ -63641,6 +63662,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: 
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
@@ -64538,6 +64560,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: cat1_first
+  keyEventProgressList: []
   keyEventDialogues:
   - keyEvent: 3
     inkFileName: cat1_gift
@@ -66099,6 +66122,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: guy3_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1637957221}
   sprite_dict:
@@ -115826,6 +115850,7 @@ MonoBehaviour:
   isSaveTarget: 0
   isPartyCandidate: 0
   inkFileName: smoker0_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1881383484}
   sprite_dict:
@@ -117527,6 +117552,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Tonic_first
+  keyEventProgressList: []
   keyEventDialogues: []
   sprite_renderer: {fileID: 1910407686}
   sprite_dict:

@@ -155,7 +155,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
         if (disableSpriteAnimator && gameObject.activeSelf && npcAnim.gameObject.activeSelf) {
-            npcAnim.Play(clipName, -1, 0f);
+            if (CutsceneHandler.DoesAnimationExist(npcAnim, clipName))
+                npcAnim.Play(clipName, -1, 0f);
 
             if (dialogueAction != null) {
                 AnimationClip clip = CutsceneHandler.ReturnAnimationClip(npcAnim, clipName);
@@ -217,7 +218,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             AnimationState = idleAnimation,
             IsVisible = gameObject.activeSelf,
             Position = transform.position,
-            KeyEventDialogues = keyEventDialogues
+            KeyEventDialogues = keyEventDialogues,
+            KeyEventList = keyEventProgressList
         };
         return game_data;
     }
@@ -225,10 +227,13 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     public void Restore(ProgressData game_data)
     {
         LoadNextDialogue(game_data.InkFileName);
+        idleAnimation = game_data.AnimationState;
         transform.position = game_data.Position;
         keyEventDialogues = game_data.KeyEventDialogues;
+        keyEventProgressList = game_data.KeyEventList;
+
         gameObject.SetActive(game_data.IsVisible);
-        Play(game_data.AnimationState);
+        Play(idleAnimation);
 
         GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this, keyEventProgressList);
     }

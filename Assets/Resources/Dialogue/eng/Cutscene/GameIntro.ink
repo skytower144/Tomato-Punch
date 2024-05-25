@@ -6,12 +6,12 @@ VAR i2 = "</i>"
 
 #hideportrait:_
 #teleport:player@-70.44@-2.12
-#teleport:Friend@-66.56@-0.99
+#teleport:TomatoHouse_Friend@-66.56@-0.99
 #uicanvaslayer:front_ui@3
 {ignore}
 
 #cutturn:player@RU-0
-#cutplay:Friend@Friend_sit_sofa
+#cutplay:TomatoHouse_Friend@Friend_sit_sofa
 #cutplay:!TomatoHouse_tv@TomatoHouse_tv_flicker
 #cutfadein:1@1.5@4@wait
 #cutwait:0.8
@@ -90,12 +90,12 @@ It's perfection.
 {cut}
 I know you're in there!{br}Are you out of your mind?
 
-#cutplay:Friend@Friend_lookR_sofa
+#cutplay:TomatoHouse_Friend@Friend_lookR_sofa
 {cut}
 #portrait:Friend_neutral
 Relax.
 
-#cutplay:Friend@Friend_sit_sofa
+#cutplay:TomatoHouse_Friend@Friend_sit_sofa
 #cutturn:player@RIGHT-0
 {cut}
 #portrait:Friend_bottle
@@ -106,18 +106,18 @@ I'm just taking my coffee break.
 #hideportrait:_
 Boss is mad at you.
 
-#cutplay:Friend@Friend_lookD_sofa
+#cutplay:TomatoHouse_Friend@Friend_lookD_sofa
 {cut}
 Which means BIG trouble.
 
 #cutwait:1
-#cutplay:Friend@Friend_worried_sofa
+#cutplay:TomatoHouse_Friend@Friend_worried_sofa
 {cut}
 #portrait:Friend_neutral
 Dang.
 
 #cutturn:player@RIGHT-0
-#cutplay:Friend@Friend_drink_sofa@wait
+#cutplay:TomatoHouse_Friend@Friend_drink_sofa@wait
 {cut}
 Sigh.
 
@@ -125,15 +125,15 @@ You better start looking for a real job.
 
 ...or you'll end up like me.
 
-#cutplay:Friend@Friend_Idle
+#cutplay:TomatoHouse_Friend@Friend_Idle
 {cut}
 Guess I'm off to work.
 
 #cutturn:player@RIGHT-1,RD-1
-#cutmove:Friend@-68.68~-0.99,-68.68~-3.8,-66.73~-3.8,-66.73~-4.6@3@true@wait
+#cutmove:TomatoHouse_Friend@-68.68~-0.99,-68.68~-3.8,-66.73~-3.8,-66.73~-4.6@3@true@wait
 #cutplay:!TomatoHouse_tv@TomatoHouse_tv_default
 {cut}
 
 #addkeyevent:Work_Friend_TomatoHouse
-#setactive:Friend@false
+#setactive:TomatoHouse_Friend@false
 {ignore}

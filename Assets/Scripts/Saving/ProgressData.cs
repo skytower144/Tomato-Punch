@@ -9,6 +9,7 @@ public class ProgressData
     public bool IsVisible;
     public Vector2 Position;
     public List<KeyEventDialogue> KeyEventDialogues;
+    public List<KeyEventProgressData> KeyEventList;
 }
 [System.Serializable]
 public class KeyEventProgressData

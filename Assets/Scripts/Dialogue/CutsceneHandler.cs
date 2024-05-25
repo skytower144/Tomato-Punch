@@ -328,6 +328,17 @@ public class CutsceneHandler : MonoBehaviour
         Debug.LogError($"Animation clip not found : {clipName}");
         return null;
     }
+    public static bool DoesAnimationExist(Animator animator, string animName)
+    {
+        int layerCount = animator.layerCount;
+
+        for (int i = 0; i < layerCount; i++)
+        {
+            if (animator.HasState(i, Animator.StringToHash(animName)))
+                return true;
+        }
+        return false;
+    }
     public static string GetBaseLayerEntryAnimationTag(Animator anim)
     {
         AnimatorController controller = anim.runtimeAnimatorController as AnimatorController;
