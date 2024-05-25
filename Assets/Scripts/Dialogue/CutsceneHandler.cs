@@ -78,10 +78,11 @@ public class CutsceneHandler : MonoBehaviour
     private Character character;
     private AnimationClip playingClip;
     private string[] splitTag, valueArray;
-    string currentTag;
-    float duration, delay;
-    int fps, index;
-    bool dontWait;
+    private string currentTag;
+    private float duration, delay;
+    private int fps, index;
+    private bool dontWait;
+    private bool dialogueBoxFlag = false;
     
     public IEnumerator HandleCutsceneTags(List<string> tags)
     {
@@ -116,16 +117,20 @@ public class CutsceneHandler : MonoBehaviour
                             }
                         }
                         if (objectAnim == null) Debug.LogError($"Couldn't find object named : {valueArray[0]}");
-                        if (dontWait) break;
-
+                        if (dontWait) {
+                            dialogueBoxFlag = true;
+                            break;
+                        }
                         playingClip = ReturnAnimationClip(objectAnim, valueArray[1]);
                         yield return new WaitForSecondsRealtime(playingClip.length);
                     }
                     else {
                         character = GetTargetCharacter(valueArray[0]);
                         character.Play(valueArray[1]);
-                        if (dontWait) break;
-
+                        if (dontWait) {
+                            dialogueBoxFlag = true;
+                            break;
+                        }
                         character.SetIsAnimating(true);
 
                         if (character.UsesDefaultAnimator()) {
@@ -146,8 +151,10 @@ public class CutsceneHandler : MonoBehaviour
                     bool isAnimate = (valueArray[3].ToLower() == "false") ? false : true;
                     dontWait = valueArray.Length < 5;
 
-                    if (dontWait)
+                    if (dontWait) {
+                        dialogueBoxFlag = true;
                         StartCoroutine(character.PlayMoveActions(posStrings, moveSpeed, isAnimate));
+                    }
                     else
                         yield return character.PlayMoveActions(posStrings, moveSpeed, isAnimate);
                     break;
@@ -159,8 +166,10 @@ public class CutsceneHandler : MonoBehaviour
                     string[] dirStrings = valueArray[1].Split(',');
                     dontWait = valueArray.Length < 3;
 
-                    if (dontWait)
+                    if (dontWait) {
+                        dialogueBoxFlag = true;
                         StartCoroutine(PlayTurnActions(character, dirStrings));
+                    }
                     else
                         yield return PlayTurnActions(character, dirStrings);
                     break;
@@ -210,6 +219,10 @@ public class CutsceneHandler : MonoBehaviour
                     break;
             }
         }
+        if (dialogueBoxFlag) {
+            dialogueBoxFlag = false;
+            DialogueManager.instance.SetDialogueBox(true);
+        }
         yield break;
     }
 
@@ -227,21 +240,6 @@ public class CutsceneHandler : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public AnimationClip ReturnAnimationClip(Animator animator, string clipName)
-    {
-        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
-            if (clip.name == clipName)
-                return clip;
-        }
-        Debug.LogError($"Animation clip not found : {clipName}");
-        return null;
-    }
-    public string GetBaseLayerEntryAnimationTag(Animator anim)
-    {
-        AnimatorController controller = anim.runtimeAnimatorController as AnimatorController;
-        return controller.layers[0].stateMachine.defaultState.name;
     }
     private void SetIsAnimatingFalse() // Invoke
     {
@@ -320,5 +318,19 @@ public class CutsceneHandler : MonoBehaviour
     public void InitImageList(List<Sprite> images)
     {
         imageList = images;
+    }
+    public static AnimationClip ReturnAnimationClip(Animator animator, string clipName)
+    {
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
+            if (clip.name == clipName)
+                return clip;
+        }
+        Debug.LogError($"Animation clip not found : {clipName}");
+        return null;
+    }
+    public static string GetBaseLayerEntryAnimationTag(Animator anim)
+    {
+        AnimatorController controller = anim.runtimeAnimatorController as AnimatorController;
+        return controller.layers[0].stateMachine.defaultState.name;
     }
 }

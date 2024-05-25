@@ -69,7 +69,9 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         if (sprite_renderer == null)
             sprite_renderer = GetComponent<SpriteRenderer>();
         
-        if (!disableSpriteAnimator) Play("idle");
+        if (!disableSpriteAnimator)
+            Play(idleAnimation);
+        
         NPCManager.instance.npc_dict[ReturnID()] = this;
 
         if (!isSaveTarget) return;
@@ -156,7 +158,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             npcAnim.Play(clipName, -1, 0f);
 
             if (dialogueAction != null) {
-                AnimationClip clip = DialogueManager.instance.cutsceneHandler.ReturnAnimationClip(npcAnim, clipName);
+                AnimationClip clip = CutsceneHandler.ReturnAnimationClip(npcAnim, clipName);
                 StartCoroutine(DialogueManager.instance.DialogueAction(npcAnim, dialogueAction, clip.length, stopAfterAnimation));
             }
         }
@@ -207,7 +209,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         float input_z = gameObject.transform.localPosition.z;
         gameObject.transform.localPosition = new Vector3(input_x, input_y, input_z);
     }
-
     public ProgressData Capture()
     {
         ProgressData game_data = new ProgressData
@@ -242,8 +243,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         if (data.ShowIsVisible)
             gameObject.SetActive(data.IsVisible);
         
-        if (data.ShowAnimationState)
-            Play(data.AnimationState);
+        if (data.ShowAnimationState) {
+            idleAnimation = data.AnimationState;
+            Play(idleAnimation);
+        }
     }
 
     public void SetIsAnimating(bool state)

@@ -556,7 +556,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay);
         dialogueAction.Invoke();
         if (!stopAfterAnimation)
-            anim.Play(cutsceneHandler.GetBaseLayerEntryAnimationTag(anim));
+            anim.Play(CutsceneHandler.GetBaseLayerEntryAnimationTag(anim));
     }
 
     private void SetDialogue(bool state)
@@ -581,7 +581,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void SetDialogueBox(bool state)
+    public void SetDialogueBox(bool state)
     {
         dialogueBox.SetActive(state);
     }
