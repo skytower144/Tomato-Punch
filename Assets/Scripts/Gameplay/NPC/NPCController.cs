@@ -14,6 +14,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
+    [SerializeField] private List<KeyEventProgressData> keyEventProgressList;
     [SerializeField] private List<KeyEventDialogue> keyEventDialogues;
     private string cacheDialogueFile;
 
@@ -151,7 +152,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Play(string clipName, Action dialogueAction = null, bool stopAfterAnimation = false)
     {
-        if (disableSpriteAnimator) {
+        if (disableSpriteAnimator && gameObject.activeSelf && npcAnim.gameObject.activeSelf) {
             npcAnim.Play(clipName, -1, 0f);
 
             if (dialogueAction != null) {
@@ -222,11 +223,27 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     public void Restore(ProgressData game_data)
     {
-        inkFileName = game_data.InkFileName;
-        if (sprite_dict.Count > 0) Play(game_data.AnimationState);
-        gameObject.SetActive(game_data.IsVisible);
+        LoadNextDialogue(game_data.InkFileName);
         transform.position = game_data.Position;
         keyEventDialogues = game_data.KeyEventDialogues;
+        gameObject.SetActive(game_data.IsVisible);
+        Play(game_data.AnimationState);
+
+        GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this, keyEventProgressList);
+    }
+    public void ApplyKeyEvent(KeyEventProgressData data)
+    {
+        if (data.ShowInkFileName)
+            LoadNextDialogue(data.InkFileName);
+        
+        if (data.ShowPosition)
+            transform.position = data.Position;
+        
+        if (data.ShowIsVisible)
+            gameObject.SetActive(data.IsVisible);
+        
+        if (data.ShowAnimationState)
+            Play(data.AnimationState);
     }
 
     public void SetIsAnimating(bool state)

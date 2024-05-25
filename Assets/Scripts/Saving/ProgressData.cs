@@ -10,3 +10,20 @@ public class ProgressData
     public Vector2 Position;
     public List<KeyEventDialogue> KeyEventDialogues;
 }
+[System.Serializable]
+public class KeyEventProgressData
+{
+    public PlayerKeyEvent KeyEvent;
+
+    public bool ShowInkFileName;
+    public string InkFileName;
+
+    public bool ShowAnimationState;
+    public string AnimationState;
+
+    public bool ShowIsVisible;
+    public bool IsVisible;
+
+    public bool ShowPosition;
+    public Vector2 Position;
+}

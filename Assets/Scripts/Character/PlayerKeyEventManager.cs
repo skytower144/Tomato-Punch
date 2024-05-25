@@ -37,7 +37,16 @@ public class PlayerKeyEventManager : MonoBehaviour
     {
         return playerKeyevents.Contains(keyEvent);
     }
-    
+    public void CheckProgressKeyEvent(NPCController npc, List<KeyEventProgressData> keyeventProgressList)
+    {
+        foreach (KeyEventProgressData bundle in keyeventProgressList) {
+            if (HasKeyEvent(bundle.KeyEvent)) {
+                npc.ApplyKeyEvent(bundle);
+                keyeventProgressList.Remove(bundle);
+                return;
+            }
+        }
+    }
     public void CheckPlayerKeyEvent(NPCController npc, List<KeyEventDialogue> keyEventDialogues)
     {
         foreach (KeyEventDialogue bundle in keyEventDialogues) {
@@ -89,10 +98,9 @@ public class PlayerKeyEventManager : MonoBehaviour
         Array.Clear(cacheKeyEvents, 0, cacheKeyEvents.Length);
     }
 }
-
 // Utilize this if an event needs to change multiple npcs' dialogues.
 public enum PlayerKeyEvent
 {
     None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint, Win_Number2,
-    Lose_Number2,   Win_Donut_StartingPoint
+    Lose_Number2,   Win_Donut_StartingPoint,    Work_Friend_TomatoHouse
 }
