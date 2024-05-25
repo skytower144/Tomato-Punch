@@ -14,6 +14,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     [Header("[ Ink JSON ]")]
     [SerializeField] private string inkFileName;
+
+    [Header("[ Reserved Key Events ]")]
     [SerializeField] private List<KeyEventProgressData> keyEventProgressList;
     [SerializeField] private List<KeyEventDialogue> keyEventDialogues;
     private string cacheDialogueFile;
