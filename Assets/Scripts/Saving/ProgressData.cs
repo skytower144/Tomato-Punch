@@ -8,7 +8,6 @@ public class ProgressData
     public string InkFileName, AnimationState;
     public bool IsVisible;
     public Vector2 Position;
-    public List<KeyEventDialogue> KeyEventDialogues;
     public List<KeyEventProgressData> KeyEventList;
 }
 [System.Serializable]
@@ -17,14 +16,12 @@ public class KeyEventProgressData
     public PlayerKeyEvent KeyEvent;
 
     public bool ShowInkFileName;
-    public string InkFileName;
-
     public bool ShowAnimationState;
-    public string AnimationState;
-
-    public bool ShowIsVisible;
-    public bool IsVisible;
-
     public bool ShowPosition;
+    public bool ShowIsVisible;
+
+    public string InkFileName;
+    public string AnimationState;
+    public bool IsVisible;
     public Vector2 Position;
 }

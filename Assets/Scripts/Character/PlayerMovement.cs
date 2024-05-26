@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour, Character
 
                 myRb.MovePosition(myRb.position + movement * speed * Time.fixedDeltaTime);
                 
-                CountSteps();
+                // CountSteps();
             }
             else if(!InputDetection(movement))
             {
@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour, Character
         }
     }
 
+    // Step Tracker QuickSave
     private void CountSteps()
     {
         if (stepCounter > gameManager.save_load_menu.AutoSaveStep && PlayerCanMove()) {

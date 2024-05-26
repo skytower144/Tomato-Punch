@@ -5273,10 +5273,17 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Rupple_first
-  keyEventProgressList: []
-  keyEventDialogues:
-  - keyEvent: 1
-    inkFileName: Rupple_battleOver
+  keyEventProgressList:
+  - KeyEvent: 1
+    ShowInkFileName: 1
+    InkFileName: Rupple_battleOver
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  keyEventDialogues: []
   sprite_renderer: {fileID: 0}
   sprite_dict:
     m_keys: []
@@ -9318,12 +9325,26 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Gob_first
-  keyEventProgressList: []
-  keyEventDialogues:
-  - keyEvent: 1
-    inkFileName: Gob_impressed
-  - keyEvent: 2
-    inkFileName: Gob_concerned
+  keyEventProgressList:
+  - KeyEvent: 1
+    ShowInkFileName: 1
+    InkFileName: Gob_impressed
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  - KeyEvent: 2
+    ShowInkFileName: 1
+    InkFileName: Gob_concerned
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  keyEventDialogues: []
   sprite_renderer: {fileID: 660367150}
   sprite_dict:
     m_keys:
@@ -10291,10 +10312,17 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Donut_first
-  keyEventProgressList: []
-  keyEventDialogues:
-  - keyEvent: 6
-    inkFileName: Donut_defeated
+  keyEventProgressList:
+  - KeyEvent: 6
+    ShowInkFileName: 1
+    InkFileName: Donut_defeated
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  keyEventDialogues: []
   sprite_renderer: {fileID: 771381876}
   sprite_dict:
     m_keys:
@@ -37785,7 +37813,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 0, y: 29, z: 0}
@@ -37794,7 +37822,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 29, z: 0}
@@ -37861,7 +37889,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -19, y: 39, z: 0}
@@ -60170,7 +60198,7 @@ Tilemap:
       - {fileID: -2290514042174295067, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: -1548107411028129183, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
       - {fileID: 3771675547654663665, guid: b76dadcb107f30348bf205d35a69836a, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 3, y: 24, z: 0}
@@ -60180,7 +60208,7 @@ Tilemap:
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: 7642569473278341559, guid: ece3555c5208c80469515213debe3637, type: 3}
       - {fileID: -781044818000177771, guid: ece3555c5208c80469515213debe3637, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 6, y: 25, z: 0}
@@ -64560,10 +64588,17 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: cat1_first
-  keyEventProgressList: []
-  keyEventDialogues:
-  - keyEvent: 3
-    inkFileName: cat1_gift
+  keyEventProgressList:
+  - KeyEvent: 3
+    ShowInkFileName: 1
+    InkFileName: cat1_gift
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  keyEventDialogues: []
   sprite_renderer: {fileID: 1534453606}
   sprite_dict:
     m_keys:

@@ -2418,11 +2418,26 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 0
   inkFileName: Kid_homework
-  keyEventDialogues:
-  - keyEvent: 4
-    inkFileName: Kid_solved
-  - keyEvent: 5
-    inkFileName: Kid_disappoint
+  keyEventProgressList:
+  - KeyEvent: 4
+    ShowInkFileName: 1
+    InkFileName: Kid_solved
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  - KeyEvent: 5
+    ShowInkFileName: 1
+    InkFileName: Kid_disappoint
+    ShowAnimationState: 0
+    AnimationState: 
+    ShowIsVisible: 0
+    IsVisible: 0
+    ShowPosition: 0
+    Position: {x: 0, y: 0}
+  keyEventDialogues: []
   sprite_renderer: {fileID: 1410891498}
   sprite_dict:
     m_keys:
@@ -2464,7 +2479,6 @@ MonoBehaviour:
   canBattle: 1
   instantBattle: 0
   enemyData: {fileID: 11400000, guid: 0c8ad2f15f936f04fb371008ab14d28c, type: 2}
-  reviveState: 0
 --- !u!1001 &1526537658
 PrefabInstance:
   m_ObjectHideFlags: 0

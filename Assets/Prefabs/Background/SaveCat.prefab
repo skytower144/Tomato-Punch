@@ -5491,7 +5491,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSaveTarget: 0
+  isPartyCandidate: 0
   inkFileName: 
+  keyEventProgressList: []
   sprite_renderer: {fileID: 6042082877798299402}
   sprite_dict:
     m_keys:
@@ -5517,8 +5520,16 @@ MonoBehaviour:
       - {fileID: 2928960266787466907, guid: 92095d7a7e8777445836612eef94d44b, type: 3}
       - {fileID: 2928960266787466907, guid: 92095d7a7e8777445836612eef94d44b, type: 3}
       - {fileID: 2928960266787466907, guid: 92095d7a7e8777445836612eef94d44b, type: 3}
-  sprites: []
-  fps: 3
+  isFixedSprite: 0
+  isUniqueID: 0
+  npcID: 
+  willMove: 0
+  npcMove: {fileID: 0}
+  npcCollider: {fileID: 0}
+  disableSpriteAnimator: 0
+  npcAnim: {fileID: 0}
+  hasNoDialogue: 0
+  interactAnimation: 
   banInteractDirection: 0
   lock_u: 0
   lock_ru: 0
@@ -5528,6 +5539,9 @@ MonoBehaviour:
   lock_ld: 0
   lock_l: 0
   lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
 --- !u!1001 &6042082876592192863
 PrefabInstance:
   m_ObjectHideFlags: 0

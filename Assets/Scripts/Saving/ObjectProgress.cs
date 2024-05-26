@@ -6,5 +6,7 @@ public interface ObjectProgress
 {
     ProgressData Capture();
     void Restore(ProgressData state);
+    void ApplyKeyEvent(KeyEventProgressData data);
+    List<KeyEventProgressData> ReturnKeyEventProgressList();
     string ReturnID();
 }

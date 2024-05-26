@@ -17,7 +17,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
     [Header("[ Reserved Key Events ]")]
     [SerializeField] private List<KeyEventProgressData> keyEventProgressList;
-    [SerializeField] private List<KeyEventDialogue> keyEventDialogues;
     private string cacheDialogueFile;
 
     private bool isInteractAnimating = false;
@@ -132,7 +131,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     public void InitiateTalk()
     {
         FacePlayer();
-        GameManager.gm_instance.playerKeyEventManager.CheckPlayerKeyEvent(this, keyEventDialogues);
+        GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this);
         TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, gameObject.name, inkFileName, isUniqueID);
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
@@ -220,7 +219,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             AnimationState = idleAnimation,
             IsVisible = gameObject.activeSelf,
             Position = transform.position,
-            KeyEventDialogues = keyEventDialogues,
             KeyEventList = keyEventProgressList
         };
         return game_data;
@@ -231,13 +229,12 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         LoadNextDialogue(game_data.InkFileName);
         idleAnimation = game_data.AnimationState;
         transform.position = game_data.Position;
-        keyEventDialogues = game_data.KeyEventDialogues;
         keyEventProgressList = game_data.KeyEventList;
 
         gameObject.SetActive(game_data.IsVisible);
         Play(idleAnimation);
 
-        GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this, keyEventProgressList);
+        GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this);
     }
     public void ApplyKeyEvent(KeyEventProgressData data)
     {
@@ -255,7 +252,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             Play(idleAnimation);
         }
     }
-
+    public List<KeyEventProgressData> ReturnKeyEventProgressList()
+    {
+        return keyEventProgressList;
+    }
     public void SetIsAnimating(bool state)
     {
         isAnimating = state;

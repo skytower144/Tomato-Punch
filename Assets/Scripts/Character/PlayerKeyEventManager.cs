@@ -37,31 +37,40 @@ public class PlayerKeyEventManager : MonoBehaviour
     {
         return playerKeyevents.Contains(keyEvent);
     }
-    public void CheckProgressKeyEvent(NPCController npc, List<KeyEventProgressData> keyeventProgressList)
+    public void ApplyGlobalKeyEvent(string name)
     {
-        foreach (KeyEventProgressData bundle in keyeventProgressList) {
-            if (HasKeyEvent(bundle.KeyEvent)) {
-                npc.ApplyKeyEvent(bundle);
-                keyeventProgressList.Remove(bundle);
-                return;
-            }
-        }
-    }
-    public void CheckPlayerKeyEvent(NPCController npc, List<KeyEventDialogue> keyEventDialogues)
-    {
-        foreach (KeyEventDialogue bundle in keyEventDialogues) {
-            if (HasKeyEvent(bundle.keyEvent)) {
-                npc.LoadNextDialogue(bundle.inkFileName);
-                keyEventDialogues.Remove(bundle);
-                return;
-            }
-            else if (bundle.keyEvent is PlayerKeyEvent.None) {
-                Debug.LogError($"{npc.name} : is holding a None PlayerKeyEvent");
-                return;
-            }
-        }
-    }
+        PlayerKeyEvent targetEvent = ConvertStringToEnum(name);
 
+        foreach (ProgressAssistant assistant in ProgressManager.instance.assistants.Values) {
+            foreach (ObjectProgress target in assistant.objectProgressList) {
+                List<KeyEventProgressData> keyEventProgressList = target.ReturnKeyEventProgressList();
+
+                foreach (KeyEventProgressData bundle in keyEventProgressList) {
+                    if (targetEvent == bundle.KeyEvent) {
+                        target.ApplyKeyEvent(bundle);
+                        keyEventProgressList.Remove(bundle);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    public void CheckProgressKeyEvent(ObjectProgress target)
+    {
+        List<KeyEventProgressData> keyEventProgressList = target.ReturnKeyEventProgressList();
+
+        foreach (KeyEventProgressData bundle in keyEventProgressList) {
+            if (HasKeyEvent(bundle.KeyEvent)) {
+                target.ApplyKeyEvent(bundle);
+                keyEventProgressList.Remove(bundle);
+                return;
+            }
+            else if (bundle.KeyEvent is PlayerKeyEvent.None) {
+                Debug.LogError($"{target.ReturnID()} : is holding a None PlayerKeyEvent");
+                return;
+            }
+        }
+    }
     public List<PlayerKeyEvent> ReturnPlayerKeyEvents()
     {
         return playerKeyevents;
@@ -102,5 +111,5 @@ public class PlayerKeyEventManager : MonoBehaviour
 public enum PlayerKeyEvent
 {
     None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint, Win_Number2,
-    Lose_Number2,   Win_Donut_StartingPoint,    Work_Friend_TomatoHouse
+    Lose_Number2,   Win_Donut_StartingPoint
 }

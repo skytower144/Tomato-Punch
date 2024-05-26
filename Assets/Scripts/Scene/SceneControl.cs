@@ -112,7 +112,7 @@ public class SceneControl : MonoBehaviour
         GameManager.DoDebug("Load Complete! Uncovering GameScreen.");
         CancelInvoke("CheckLoadComplete");
         GameManager.gm_instance.save_load_menu.isLoading = false;
-        GameManager.gm_instance.player_movement.ResetStepCounter();
+        // GameManager.gm_instance.player_movement.ResetStepCounter();
         
         StartCoroutine(LoadingScreen.instance.UncoverLoadingScreen());
     }

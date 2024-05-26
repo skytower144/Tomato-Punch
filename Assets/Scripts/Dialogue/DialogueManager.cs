@@ -311,8 +311,12 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.playerKeyEventManager.CacheKeyEvents(tag_value);
                     break;
                 
-                case ADDKEYEVENT_TAG: // #addkeyevent:Find_BabyCat_StartingPoint
-                    GameManager.gm_instance.playerKeyEventManager.AddKeyEvent(tag_value);
+                case ADDKEYEVENT_TAG: // #addkeyevent:Find_BabyCat_StartingPoint // #addkeyevent:Find_BabyCat_StartingPoint@true // #addkeyevent:eventname@applynow
+                    string[] eventInfo = tag_value.Split('@');
+                    GameManager.gm_instance.playerKeyEventManager.AddKeyEvent(eventInfo[0]);
+
+                    if (eventInfo.Length == 2 && eventInfo[1] == "true")
+                        GameManager.gm_instance.playerKeyEventManager.ApplyGlobalKeyEvent(eventInfo[0]);
                     break;
                 
                 case ROLLBACKDIALOGUE_TAG: // #rollbackdialogue:_
@@ -640,15 +644,3 @@ public class DialogueManager : MonoBehaviour
 }
 
 public enum DialogueExit { Nothing, Battle, UnlockDoor }
-
-[System.Serializable]
-public class KeyEventDialogue
-{
-    public PlayerKeyEvent keyEvent;
-    public string inkFileName;
-
-    public KeyEventDialogue()
-    {
-        keyEvent = PlayerKeyEvent.None;
-    }
-}
