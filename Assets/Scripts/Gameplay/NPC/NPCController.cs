@@ -81,6 +81,11 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         if (!ProgressManager.instance.assistants[sceneName].objectProgressList.Contains(this))
             ProgressManager.instance.assistants[sceneName].objectProgressList.Add(this);
     }
+    void OnDestroy()
+    {
+        if (NPCManager.instance != null && NPCManager.instance.npc_dict.ContainsKey(ReturnID()))
+            NPCManager.instance.npc_dict.Remove(ReturnID());
+    }
 
     private void Update()
     {

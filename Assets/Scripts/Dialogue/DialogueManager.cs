@@ -67,6 +67,7 @@ public class DialogueManager : MonoBehaviour
     private const string PURCHASE_TAG = "purchase";
     private const string CHECKPLAYERMONEY_TAG = "checkplayermoney";
     private const string EARNMONEY_TAG = "earnmoney";
+    private const string SETPLAYERHEALTH_TAG = "setplayerhp";
     private const string MOVECHOICEBOX_TAG = "movechoicebox";
     private const string RESETCHOICEBOX_TAG = "resetchoicebox";
     private const string MOVEDIALOGUEBOX_TAG = "movedialoguebox";
@@ -390,6 +391,16 @@ public class DialogueManager : MonoBehaviour
                 case EARNMONEY_TAG: //#earnmoney:2
                     int earnedMoney = int.Parse(tag_value);
                     GameManager.gm_instance.battle_system.tomatostatus.UpdatePlayerMoney(earnedMoney);
+                    break;
+                
+                case SETPLAYERHEALTH_TAG: // #setplayerhp:10 // #setplayerhp:10@percent
+                    string[] healthInfo = tag_value.Split('@');
+
+                    if (healthInfo.Length >= 1)
+                        GameManager.gm_instance.TomatoStatus.SetPlayerHealth(float.Parse(healthInfo[0]));
+
+                    else if (healthInfo.Length >= 2 && healthInfo[1] == "percent")
+                        GameManager.gm_instance.TomatoStatus.SetPlayerHealthPercentage(int.Parse(healthInfo[0]));
                     break;
                 
                 case MOVECHOICEBOX_TAG:

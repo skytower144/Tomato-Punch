@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5865142925352672350}
   - component: {fileID: 6283693219470438335}
   - component: {fileID: 2913423976010915476}
-  m_Layer: 0
-  m_Name: water_dispenser
+  - component: {fileID: 7470783502051035203}
+  m_Layer: 9
+  m_Name: WaterDispenser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,3 +110,45 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 1.85}
   m_EdgeRadius: 0
+--- !u!114 &7470783502051035203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276620183137636118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSaveTarget: 0
+  isPartyCandidate: 0
+  inkFileName: WaterDispenser_first
+  keyEventProgressList: []
+  sprite_renderer: {fileID: 6283693219470438335}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  isFixedSprite: 1
+  isUniqueID: 0
+  npcID: 
+  willMove: 0
+  npcMove: {fileID: 0}
+  npcCollider: {fileID: 0}
+  disableSpriteAnimator: 0
+  npcAnim: {fileID: 0}
+  hasNoDialogue: 0
+  interactAnimation: 
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 1
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 1
+  lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}

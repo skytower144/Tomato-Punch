@@ -1051,6 +1051,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1712341}
+  - {fileID: 1627506447}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2249,6 +2250,36 @@ BoxCollider2D:
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 7150522402224304160, guid: adb03ce2eebcb9d4db926e45bb54d829, type: 3}
   m_PrefabInstance: {fileID: 777605630}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1627506446
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 625271519}
+    m_Modifications:
+    - target: {fileID: 8519160951397610556, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: _inkFileName
+      value: FriendDetention
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519160951397610559, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519160951397610559, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -121
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519160951397610559, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 60
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+--- !u!4 &1627506447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8519160951397610559, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+  m_PrefabInstance: {fileID: 1627506446}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1726974152
 PrefabInstance:
@@ -21615,6 +21646,7 @@ MonoBehaviour:
   partyManager: {fileID: 4516606817292136122}
   itemManager: {fileID: 4059772578566471729}
   cutTriggerManager: {fileID: 625271520}
+  TomatoStatus: {fileID: 384357809235454400}
   playerMovement: {fileID: 384357810404681538}
   battleSystem: {fileID: 384357809004606580}
   resolutionMenu: {fileID: 384357809089909066}
@@ -53390,7 +53422,7 @@ MonoBehaviour:
   isSaveTarget: 1
   isPartyCandidate: 1
   inkFileName: BabyCat_first
-  keyEventDialogues: []
+  keyEventProgressList: []
   sprite_renderer: {fileID: 6200140922976342323}
   sprite_dict:
     m_keys: []

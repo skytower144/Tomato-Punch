@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public PartyManager partyManager;
     public ItemManager itemManager;
     public CutsceneTriggerManager cutTriggerManager;
+    public tomatoStatus TomatoStatus;
     public PlayerMovement player_movement => playerMovement;
     public BattleSystem battle_system => battleSystem;
     public RebindKey rebind_key => rebindKey;

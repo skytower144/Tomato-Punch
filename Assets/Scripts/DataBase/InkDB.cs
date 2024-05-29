@@ -12,14 +12,17 @@ public class InkDB
         
         string id;
 
-        if (isUniqueID)
-            sceneName = "aMobile";
-        
-        if (sceneName == "Cutscene")
-            id = $"Dialogue/{language}/Cutscene/{inkFileName}";
-        else
-            id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
+        if (inkFileName.Contains("/"))
+            id = $"Dialogue/{language}/" + inkFileName;
+        else {
+            if (isUniqueID)
+                sceneName = "aMobile";
 
+            if (sceneName == "Cutscene")
+                id = $"Dialogue/{language}/Cutscene/{inkFileName}";
+            else
+                id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
+        }
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];
         

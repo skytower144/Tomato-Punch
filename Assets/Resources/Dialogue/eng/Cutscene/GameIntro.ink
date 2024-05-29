@@ -85,6 +85,8 @@ It's perfection.
 #resetdialoguebox:_
 {ignore}
 
+\+insert sound: knock knock knock
+
 #cutwait:1
 #cutturn:player@RD-0
 {cut}

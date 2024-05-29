@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: a376e0d2fc8330f42921e48829865cee
+guid: fe6a6a9e85f9bfd4f96ded147462daa2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7242564452017025364
-    second: company_worker_0
+      213: -5187832215651900164
+    second: company_worker_walk_up_0
   - first:
-      213: 379566500519436640
-    second: company_worker_1
+      213: 7972126634932142483
+    second: company_worker_walk_up_1
+  - first:
+      213: 2486947449121314916
+    second: company_worker_walk_up_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -71,7 +74,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -83,7 +86,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 64
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -97,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: company_worker_0
+      name: company_worker_walk_up_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 20
-        height: 29
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +114,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 451b8511ff1c28460800000000000000
-      internalID: 7242564452017025364
+      spriteID: cf4adbf061e1108b0800000000000000
+      internalID: -5187832215651900164
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: company_worker_1
+      name: company_worker_walk_up_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 0
-        width: 20
-        height: 29
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +135,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0616910a8bd744500800000000000000
-      internalID: 379566500519436640
+      spriteID: 3918f83bfeea2ae60800000000000000
+      internalID: 7972126634932142483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: company_worker_walk_up_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46890ff4789638220800000000000000
+      internalID: 2486947449121314916
       vertices: []
       indices: 
       edges: []

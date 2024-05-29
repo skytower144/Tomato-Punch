@@ -141,4 +141,18 @@ public class tomatoStatus : MonoBehaviour
     {
         playerMoney += amount;
     }
+
+    public void SetPlayerHealth(float amount)
+    {
+        tomatocontrol.currentHealth = Mathf.Clamp(tomatocontrol.currentHealth + amount, 1, tomatocontrol.maxHealth);
+
+        if (tomatocontrol.currentHealth < 1)
+            tomatocontrol.currentHealth = 1;
+    }
+    public void SetPlayerHealthPercentage(int percentage) {
+        tomatocontrol.currentHealth = Mathf.Floor(tomatocontrol.maxHealth * (percentage / 100f));
+
+        if (tomatocontrol.currentHealth < 1)
+            tomatocontrol.currentHealth = 1f;
+    }
 }
