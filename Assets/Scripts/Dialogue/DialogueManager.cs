@@ -88,7 +88,6 @@ public class DialogueManager : MonoBehaviour
     private const string COMPLETEQUEST_TAG = "completequest";
     private const string CHECKPARTY_TAG = "checkparty";
     private const string REMOVEITEM_TAG = "removeitem";
-    private const string CAMERA_TAG = "camera";
     private const string TELEPORT_TAG = "teleport";
     private const string SETACTIVE_TAG = "setactive";
     private const string UNLOCKPORTAL_TAG = "unlockportal";
@@ -497,10 +496,6 @@ public class DialogueManager : MonoBehaviour
                 case REMOVEITEM_TAG: // #removeitem:Donut
                     Item targetItem = Item.ReturnMatchingItem(tag_value);
                     Inventory.instance.RemoveItem(targetItem);
-                    break;
-
-                case CAMERA_TAG:
-                    WorldCamera.instance.PlayCameraEffect(tag_value);
                     break;
                 
                 case TELEPORT_TAG: // #teleport:StartingPoint_Donut@x@y #teleport:player@x@y

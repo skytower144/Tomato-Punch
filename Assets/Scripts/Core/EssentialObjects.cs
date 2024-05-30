@@ -7,7 +7,6 @@ public class EssentialObjects : MonoBehaviour
     
     [SerializeField] private GameObject PortableBundle;
     public GameObject portable_bundle => PortableBundle;
-    [SerializeField] private WorldCamera worldCamera;
 
     private void Awake()
     {
@@ -16,8 +15,6 @@ public class EssentialObjects : MonoBehaviour
             return;
         }
         instance = this;
-
-        worldCamera.Init();
 
         TitleScreen.isTitleScreen = true;
         
