@@ -238,8 +238,6 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
         gameObject.SetActive(game_data.IsVisible);
         Play(idleAnimation);
-
-        GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this);
     }
     public void ApplyKeyEvent(KeyEventProgressData data)
     {
@@ -256,6 +254,8 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             idleAnimation = data.AnimationState;
             Play(idleAnimation);
         }
+        if (data.ShowFacingDir)
+            Turn(data.FacingDir);
     }
     public List<KeyEventProgressData> ReturnKeyEventProgressList()
     {

@@ -10,12 +10,14 @@ public class KeyEventProgressDataDrawer : PropertyDrawer
         
         SerializedProperty showInkFileName = property.FindPropertyRelative("ShowInkFileName");
         SerializedProperty showAnimationState = property.FindPropertyRelative("ShowAnimationState");
+        SerializedProperty showFacingDir = property.FindPropertyRelative("ShowFacingDir");
         SerializedProperty showIsVisible = property.FindPropertyRelative("ShowIsVisible");
         SerializedProperty showPosition = property.FindPropertyRelative("ShowPosition");
 
         SerializedProperty keyEvent = property.FindPropertyRelative("KeyEvent");
         SerializedProperty inkFileName = property.FindPropertyRelative("InkFileName");
         SerializedProperty animationState = property.FindPropertyRelative("AnimationState");
+        SerializedProperty facingDir = property.FindPropertyRelative("FacingDir");
         SerializedProperty isVisible = property.FindPropertyRelative("IsVisible");
         SerializedProperty targetPos = property.FindPropertyRelative("Position");
 
@@ -38,6 +40,7 @@ public class KeyEventProgressDataDrawer : PropertyDrawer
         var r2 = new Rect(startX, position.y + offSet * 1, toggleWidth, lineHeight);
         var r3 = new Rect(startX, position.y + offSet * 2, toggleWidth, lineHeight);
         var r4 = new Rect(startX, position.y + offSet * 3, toggleWidth, lineHeight);
+        var r5 = new Rect(startX, position.y + offSet * 4, toggleWidth, lineHeight);
 
         EditorGUI.PropertyField(r, keyEvent, GUIContent.none);
 
@@ -59,22 +62,31 @@ public class KeyEventProgressDataDrawer : PropertyDrawer
             animationState.stringValue = EditorGUI.TextField(r2, animationState.stringValue);
         }
 
-        showIsVisible.boolValue = EditorGUI.Toggle(r4, showIsVisible.boolValue);
-        labelRect = new Rect(r4.x + labelOffset, r4.y, labelWidth, r2.height);
-        EditorGUI.LabelField(labelRect, "Change Visibility");
-        if (showIsVisible.boolValue) {
-            r4.x += 120;
-            r4.width = toggleWidth;
-            isVisible.boolValue = EditorGUI.Toggle(r4, isVisible.boolValue);
+        showFacingDir.boolValue = EditorGUI.Toggle(r3, showFacingDir.boolValue);
+        labelRect = new Rect(r3.x + labelOffset, r3.y, labelWidth, r3.height);
+        EditorGUI.LabelField(labelRect, "Change Facing Dir");
+        if (showFacingDir.boolValue) {
+            r3.x += 100;
+            r3.width = 200;
+            facingDir.stringValue = EditorGUI.TextField(r3, facingDir.stringValue);
         }
 
-        showPosition.boolValue = EditorGUI.Toggle(r3, showPosition.boolValue);
-        labelRect = new Rect(r3.x + labelOffset, r3.y, labelWidth, r2.height);
+        showIsVisible.boolValue = EditorGUI.Toggle(r5, showIsVisible.boolValue);
+        labelRect = new Rect(r5.x + labelOffset, r5.y, labelWidth, r2.height);
+        EditorGUI.LabelField(labelRect, "Change Visibility");
+        if (showIsVisible.boolValue) {
+            r5.x += 120;
+            r5.width = toggleWidth;
+            isVisible.boolValue = EditorGUI.Toggle(r5, isVisible.boolValue);
+        }
+
+        showPosition.boolValue = EditorGUI.Toggle(r4, showPosition.boolValue);
+        labelRect = new Rect(r4.x + labelOffset, r4.y, labelWidth, r2.height);
         EditorGUI.LabelField(labelRect, "Change Position");
         if (showPosition.boolValue) {
-            r3.x += 120;
-            r3.width = 150;
-            targetPos.vector2Value = EditorGUI.Vector2Field(r3, "", targetPos.vector2Value);
+            r4.x += 120;
+            r4.width = 150;
+            targetPos.vector2Value = EditorGUI.Vector2Field(r4, "", targetPos.vector2Value);
         }
 
         EditorGUI.indentLevel = indent;

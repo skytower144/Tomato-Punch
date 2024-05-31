@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
         resolutionMenu.LoadResolutionSetting();
         
         itemManager.HideAllItems();
+        cutTriggerManager.gameObject.SetActive(true);
 
         battleSystem.OnBattleOver -= EndBattle;
         battleSystem.OnBattleOver += EndBattle;

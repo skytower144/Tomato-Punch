@@ -46,6 +46,8 @@ public class ProgressAssistant : MonoBehaviour
             string total_key = progress.ReturnID();
             if (dataDict.ContainsKey(total_key))
                 progress.Restore(dataDict[total_key]);
+            
+            GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(progress);
         }   
     }
 }

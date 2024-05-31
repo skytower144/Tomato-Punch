@@ -136,5 +136,6 @@ Guess I'm off to work.
 #cutplay:!TomatoHouse_tv@TomatoHouse_tv_default
 {cut}
 
+#addkeyevent:Scolded_Friend_CompanySecondFloor
 #setactive:TomatoHouse_Friend@false
 {ignore}

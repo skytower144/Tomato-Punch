@@ -5,6 +5,7 @@ public class EssentialObjects : MonoBehaviour
 {
     public static EssentialObjects instance { get; private set; }
     
+    [Header("This Object MUST be placed at x:0, y:0"), Space (5)]
     [SerializeField] private GameObject PortableBundle;
     public GameObject portable_bundle => PortableBundle;
 

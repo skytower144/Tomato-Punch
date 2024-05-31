@@ -26,7 +26,6 @@ public class LoadingScreen : MonoBehaviour
         UIControl.instance.SetFontData(loadingText, "LoadingText");
         
         PlayerMovement.instance.cameraControl.player_camera.enabled = false;
-        GameManager.gm_instance.cutTriggerManager.gameObject.SetActive(false);
         loadingDisplay.SetActive(true);
         loadingCamera.enabled = true;
         gameObject.SetActive(true);
@@ -45,7 +44,6 @@ public class LoadingScreen : MonoBehaviour
         
         GameManager.gm_instance.save_load_menu.PrepareMenu();
         PlayerMovement.instance.myCol.gameObject.SetActive(true);
-        GameManager.gm_instance.cutTriggerManager.gameObject.SetActive(true);
 
         DialogueManager.instance.cutsceneHandler.FadeControl.FadeIn();
 

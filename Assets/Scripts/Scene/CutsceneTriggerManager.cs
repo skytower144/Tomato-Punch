@@ -7,7 +7,7 @@ public class CutsceneTriggerManager : MonoBehaviour
     private Dictionary<string, CutsceneTrigger> _cutsceneTriggerDict = new Dictionary<string, CutsceneTrigger>();
     private CutsceneTrigger[] triggers;
     string triggerName;
-    
+
     private void InitDict()
     {
         if (triggers == null) {
@@ -16,10 +16,11 @@ public class CutsceneTriggerManager : MonoBehaviour
                 _cutsceneTriggerDict[trigger.gameObject.name] = trigger;
         }
     }
-    public void SetCutsceneTrigger(string tag, bool state)
+    public void PlayCutscene(string tag)
     {
         InitDict();
-        _cutsceneTriggerDict[tag].gameObject.SetActive(state);
+        if (_cutsceneTriggerDict[tag].gameObject.activeSelf)
+            _cutsceneTriggerDict[tag].TriggerCutscene();
     }
     public void Capture()
     {

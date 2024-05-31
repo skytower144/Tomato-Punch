@@ -17,11 +17,13 @@ public class KeyEventProgressData
 
     public bool ShowInkFileName;
     public bool ShowAnimationState;
+    public bool ShowFacingDir;
     public bool ShowPosition;
     public bool ShowIsVisible;
 
     public string InkFileName;
     public string AnimationState;
+    public string FacingDir;
     public bool IsVisible;
     public Vector2 Position;
 }

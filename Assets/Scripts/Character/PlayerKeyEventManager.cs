@@ -110,6 +110,6 @@ public class PlayerKeyEventManager : MonoBehaviour
 // Utilize this if an event needs to change multiple npcs' dialogues.
 public enum PlayerKeyEvent
 {
-    None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,  Find_BabyCat_StartingPoint, Win_Number2,
-    Lose_Number2,   Win_Donut_StartingPoint
+    None,           Win_Rupple_StartingPoint,   Lose_Rupple_StartingPoint,         Find_BabyCat_StartingPoint, Win_Number2,
+    Lose_Number2,   Win_Donut_StartingPoint,    Scolded_Friend_CompanySecondFloor
 }

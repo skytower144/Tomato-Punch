@@ -2253,6 +2253,58 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 7584116862073634161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &816727632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736223990314152141, guid: 250e55d06a446b2418073b50836ac800, type: 3}
+  m_PrefabInstance: {fileID: 1293416763756026548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &816727633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816727632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSaveTarget: 0
+  isPartyCandidate: 0
+  inkFileName: table_warning
+  keyEventProgressList: []
+  sprite_renderer: {fileID: 816727634}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  isFixedSprite: 1
+  isUniqueID: 0
+  npcID: 
+  willMove: 0
+  npcMove: {fileID: 0}
+  npcCollider: {fileID: 0}
+  disableSpriteAnimator: 0
+  npcAnim: {fileID: 0}
+  hasNoDialogue: 0
+  interactAnimation: 
+  banInteractDirection: 1
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 1
+  lock_rd: 1
+  lock_d: 1
+  lock_ld: 1
+  lock_l: 1
+  lock_lu: 0
+  canBattle: 0
+  instantBattle: 0
+  enemyData: {fileID: 0}
+--- !u!212 &816727634 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4325653286172075051, guid: 250e55d06a446b2418073b50836ac800, type: 3}
+  m_PrefabInstance: {fileID: 1293416763756026548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!61 &817039417 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
@@ -9067,7 +9119,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6736223990314152141, guid: 250e55d06a446b2418073b50836ac800, type: 3}
       propertyPath: m_Name
-      value: company_table
+      value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736223990314152141, guid: 250e55d06a446b2418073b50836ac800, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7608150870722505406, guid: 250e55d06a446b2418073b50836ac800, type: 3}
       propertyPath: m_RootOrder
