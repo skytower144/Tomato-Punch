@@ -117,8 +117,8 @@ public class NPCMove : MonoBehaviour
         anim.SetBool("isWalking", isAnimating);
 
         if (!isAnimating) {
-            anim.SetFloat("moveX", 0f);
-            anim.SetFloat("moveY", 0f);
+            // anim.SetFloat("moveX", 0f);
+            // anim.SetFloat("moveY", 0f);
             return;
         }
         direction = direction.normalized;

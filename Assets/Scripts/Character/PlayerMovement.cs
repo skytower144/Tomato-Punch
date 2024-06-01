@@ -263,11 +263,14 @@ public class PlayerMovement : MonoBehaviour, Character
 
         foreach (string xy in posStrings) {
             posString = xy.Split('~');
-            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+            float x = posString[0] == "_" ? transform.position.x : float.Parse(posString[0]);
+            float y = posString[1] == "_" ? transform.position.y : float.Parse(posString[1]);
+            Vector2 targetPos = new Vector2(x, y);
 
             while ((targetPos - myRb.position).magnitude >= 0.01f) {
                 yield return Walk(targetPos, isAnimate);
             }
+            transform.position = new Vector3(x, y, transform.position.z);
         }
         speed = originalSpeed;
         myRb.velocity = Vector2.zero;

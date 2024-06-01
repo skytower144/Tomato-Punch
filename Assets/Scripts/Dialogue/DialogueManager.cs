@@ -89,6 +89,7 @@ public class DialogueManager : MonoBehaviour
     private const string CHECKPARTY_TAG = "checkparty";
     private const string REMOVEITEM_TAG = "removeitem";
     private const string TELEPORT_TAG = "teleport";
+    private const string FLIP_TAG = "flip";
     private const string SETACTIVE_TAG = "setactive";
     private const string UNLOCKPORTAL_TAG = "unlockportal";
     private const string JOINPARTY_TAG = "joinparty";
@@ -511,6 +512,12 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
                 
+                case FLIP_TAG: // #flip:Company_SecondFloor_worker_A
+                    NPCController npc3 = NPCManager.instance.npc_dict[tag_value];
+                    Vector3 npcScale = npc3.transform.localScale;
+                    npc3.transform.localScale = new Vector3(npcScale.x * -1, npcScale.y, npcScale.z);
+                    break;
+                
                 case HIDENPC_TAG: // #hidenpc:_
                     currentNpc.gameObject.SetActive(false);
                     break;
@@ -518,8 +525,8 @@ public class DialogueManager : MonoBehaviour
                 case SETACTIVE_TAG: // #setactive:StartingPoint_Donut@true
                     string[] info = CheckTagValueError(tag_value);
 
-                    NPCController npc3 = NPCManager.instance.npc_dict[info[0]];
-                    npc3.gameObject.SetActive(info[1] == "true");
+                    NPCController npc4 = NPCManager.instance.npc_dict[info[0]];
+                    npc4.gameObject.SetActive(info[1] == "true");
                     break;
                 
                 case UNLOCKPORTAL_TAG: // #unlockportal:_
@@ -593,7 +600,17 @@ public class DialogueManager : MonoBehaviour
 
     public void SetDialogueBox(bool state)
     {
+        AlignUiWithCamera(state);
         dialogueBox.SetActive(state);
+    }
+    private void AlignUiWithCamera(bool isBoxVisible)
+    {
+        if (isBoxVisible && playerMovement.cameraControl.isCameraDetached) {
+            float x = playerMovement.cameraControl.transform.localPosition.x;
+            float y = playerMovement.cameraControl.transform.localPosition.y;
+            float z = uiCanvas.transform.localPosition.z;
+            uiCanvas.transform.position = new Vector3(x, y, z);
+        }
     }
 
     private void SaveDialogueBoxState()
@@ -625,6 +642,7 @@ public class DialogueManager : MonoBehaviour
 
         uiCanvas.sortingLayerName = uiCanvas_layerName;
         uiCanvas.sortingOrder = uiCanvas_order;
+        playerMovement.cameraControl.ResetPlayerCamera();
     }
 
     public void SetIsContinueTalkBool(bool state)

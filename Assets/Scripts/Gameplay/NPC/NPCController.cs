@@ -226,6 +226,9 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             Position = transform.position,
             KeyEventList = keyEventProgressList
         };
+        if (disableSpriteAnimator && npcAnim != null)
+            game_data.FacingDir = new Vector2(Mathf.Round(npcAnim.GetFloat("moveX")), Mathf.Round(npcAnim.GetFloat("moveY")));
+        
         return game_data;
     }
 
@@ -236,6 +239,10 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
         transform.position = game_data.Position;
         keyEventProgressList = game_data.KeyEventList;
 
+        if (disableSpriteAnimator && npcAnim != null) {
+            npcAnim.SetFloat("moveX", game_data.FacingDir.x);
+            npcAnim.SetFloat("moveY", game_data.FacingDir.y);
+        }
         gameObject.SetActive(game_data.IsVisible);
         Play(idleAnimation);
     }
@@ -288,11 +295,15 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
 
         foreach (string xy in posStrings) {
             posString = xy.Split('~');
-            Vector2 targetPos = new Vector2(float.Parse(posString[0]), float.Parse(posString[1]));
+            float x = posString[0] == "_" ? transform.position.x : float.Parse(posString[0]);
+            float y = posString[1] == "_" ? transform.position.y : float.Parse(posString[1]);
+            float z = transform.position.z;
+            Vector3 targetPos = new Vector3(x, y, z);
 
-            while ((targetPos - npcMove.npcRb.position).magnitude >= 0.01f) {
+            while ((targetPos - transform.position).magnitude >= 0.01f) {
                 yield return npcMove.Move(targetPos, isAnimate);
             }
+            transform.position = new Vector3(x, y, transform.position.z);
         }
         npcMove.SetFollowSpeed(originalSpeed);
         npcMove.Animate(false, default, false);

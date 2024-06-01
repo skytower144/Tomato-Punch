@@ -7,7 +7,7 @@ public class ProgressData
 {
     public string InkFileName, AnimationState;
     public bool IsVisible;
-    public Vector2 Position;
+    public Vector2 Position, FacingDir;
     public List<KeyEventProgressData> KeyEventList;
 }
 [System.Serializable]
