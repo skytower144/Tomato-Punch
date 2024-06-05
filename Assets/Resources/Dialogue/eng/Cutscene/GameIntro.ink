@@ -1,10 +1,7 @@
 VAR cut = "/cut"
 VAR ignore = "/ignore"
 VAR br = "<br>"
-VAR i1 = "<i>"
-VAR i2 = "</i>"
 
-#hideportrait:_
 #teleport:player@-70.44@-2.12
 #teleport:TomatoHouse_Friend@-66.56@-0.99
 #uicanvaslayer:front_ui@3
@@ -16,7 +13,8 @@ VAR i2 = "</i>"
 #cutfadein:1@1.5@4@wait
 #cutwait:0.8
 {cut}
-{i1}"...this is some intense battle right here!"{i2}
+#hideportrait:_
+"...this is some intense battle right here!"
 
 #movedialoguebox:-220@533
 #movecursor:627@-125
@@ -27,32 +25,32 @@ VAR i2 = "</i>"
 #cutspawn:0
 #cutplay:!BigSmack@GameIntro_BigSmack_getup
 {cut}
-{i1}Will he be able to get up?{i2}
+Will he be able to get up?
 
-{i1}...And the deadly battle continues!{i2}
+...And the deadly battle continues!
 
 #cutplay:!Opponent@GameIntro_opponent_rush
 #cutplay:!BigSmack@GameIntro_BigSmack_guard
 {cut}
-{i1}Once again with the rush!{br}This isn't looking too good!{i2}
+Once again with the rush!{br}This isn't looking too good!
 
 #cutplay:!Opponent@GameIntro_opponent_ko
 #cutplay:!BigSmack@GameIntro_BigSmack_smack
 #cutplay:!VictoryFlash@GameIntro_VictoryFlash
 {cut}
-{i1}AND THERE'S THE SIGNATURE MOVE!{br}THE BIG SMACK!{i2}
+AND THERE'S THE SIGNATURE MOVE!{br}THE BIG SMACK!
 
 #cutplay:!BigSmack@GameIntro_BigSmack_recover
 #cutplay:!Referee@GameIntro_referee_judge
 {cut}
-{i1}That's the cleanest hit I've ever witnessed!{br}Will he get up?{i2}
+That's the cleanest hit I've ever witnessed!{br}Will he get up?
 
 #cutplay:!Referee@GameIntro_referee_ko@wait
 #cutplay:!BigSmack@GameIntro_BigSmack_victory
 #cutplay:!Crowd@GameIntro_crowd_cheer
 #cutplay:!VictoryFlash@GameIntro_VictoryFlash_repeat
 {cut}
-{i1}And that's a KO!{br}Another magnificent victory for Big Smack!{i2}
+And that's a KO!{br}Another magnificent victory for Big Smack!
 
 #cutdestroy:0
 #cutwait:0.8
@@ -85,11 +83,12 @@ It's perfection.
 #resetdialoguebox:_
 {ignore}
 
-\+insert sound: knock knock knock
+insert sound: knock knock knock
 
 #cutwait:1
 #cutturn:player@RD-0
 {cut}
+#hideportrait:_
 I know you're in there!{br}Are you out of your mind?
 
 #cutplay:TomatoHouse_Friend@Friend_lookR_sofa

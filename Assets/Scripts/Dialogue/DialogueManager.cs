@@ -460,7 +460,7 @@ public class DialogueManager : MonoBehaviour
                     break;
 
                 case CALCULATESHOP_TAG:
-                    currentStory.variablesState["totalPrice"] = GameManager.gm_instance.ui_control.ui_shop.total_price;
+                    currentSentence = currentSentence.Replace("[?]", $"{GameManager.gm_instance.ui_control.ui_shop.total_price}");
                     break;
 
                 case PAYSHOP_TAG:

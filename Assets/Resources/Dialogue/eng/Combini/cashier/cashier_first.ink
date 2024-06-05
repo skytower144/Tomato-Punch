@@ -1,4 +1,3 @@
-VAR totalPrice = 0
 VAR hasMember = false
 VAR br = "<br>"
 
@@ -15,8 +14,8 @@ What can I help you? #viewshop:_ #movechoicebox:_
 
 === main ===
     + [ConfirmPurchase]
-        Alright. #calculateshop:_
-        That will be total {totalPrice} coins.{br}Are you okay with that?
+        #calculateshop:_
+        That will be total [?] coins.{br}Are you okay with that?
         
             + + [Yes]
                 Thank you for your purchase. #portrait:Cashier_happy #payshop:_ #continueshopping:_
