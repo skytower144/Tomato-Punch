@@ -66,7 +66,8 @@ public class TextDB
             return key;
         
         if (!table.ContainsKey(key)) {
-            Debug.LogError($"{key} => not found in TextDB");
+            if (key != "/cut" && key != "/ignore")
+                Debug.LogWarning($"{key} => not found in TextDB");
             return key;
         }
         if (table[key][(int)UIControl.currentLang] == "") {
