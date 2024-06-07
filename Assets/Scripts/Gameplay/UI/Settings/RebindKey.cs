@@ -293,7 +293,7 @@ public class RebindKey : MonoBehaviour
     {
         string duplicateName = duplicatePath.Split("/"[0])[1].ToUpper();
 
-        bindFailText.text = UIControl.instance.uiTextDict["Detect_DuplicateBind"];
+        bindFailText.text = TextDB.Translate("Detect_DuplicateBind", TranslationType.UI);
         bindFailText.text += " : " + duplicateName;
         bindFail.SetActive(true);
     }

@@ -27,7 +27,7 @@ public class LocalizeUI : MonoBehaviour
         if (!UIControl.instance) return;
         
         foreach (var bundle in uiDict) {
-            bundle.Value.text = UIControl.instance.uiTextDict[bundle.Key];
+            bundle.Value.text = TextDB.Translate(bundle.Key, TranslationType.UI);
             UIControl.instance.SetFontData(bundle.Value, bundle.Key);
         }
     }

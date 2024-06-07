@@ -56,7 +56,7 @@ public class OptionScript : MonoBehaviour
     public void OpenOptions()
     {
         GameManager.gm_instance.DetermineKeyOrPad();
-        PlayerMovement.instance.faderObj.SetActive(false); // Due to FaderCanvas blocking the UI canvas.
+        // PlayerMovement.instance.faderObj.SetActive(false); // Due to FaderCanvas blocking the UI canvas.
         PauseMenu.is_busy = true;
 
         firstMenu.alpha = 0;
@@ -101,7 +101,7 @@ public class OptionScript : MonoBehaviour
         optionBase.SetActive(false);
         PauseMenu.is_busy = false;
         
-        PlayerMovement.instance.faderObj.SetActive(true);
+        // PlayerMovement.instance.faderObj.SetActive(true);
     }
     private void SwitchOption(string direction)
     {

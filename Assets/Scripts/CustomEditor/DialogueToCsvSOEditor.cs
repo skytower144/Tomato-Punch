@@ -14,6 +14,6 @@ public class DialogueToCsvSOEditor : Editor
         {
             updater.ExecuteUpdate();
         }
-        GUILayout.Label($"Last Updated: {updater.LastUpdated}");
+        GUILayout.Label($"Last Updated: {PlayerPrefs.GetString("DialogueCSV-LastUpdated")}");
     }
 }

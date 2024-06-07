@@ -13,7 +13,6 @@ using System;
 [CustomPropertyDrawer(typeof(StringSpriteanim))]
 [CustomPropertyDrawer(typeof(StringTextGUI))]
 [CustomPropertyDrawer(typeof(StringFontdata))]
-[CustomPropertyDrawer(typeof(StringLocalizationData))]
 [CustomPropertyDrawer(typeof(StringItemLocation))]
 [CustomPropertyDrawer(typeof(StringStringDictionary))]
 [CustomPropertyDrawer(typeof(StringBoolDictionary))]

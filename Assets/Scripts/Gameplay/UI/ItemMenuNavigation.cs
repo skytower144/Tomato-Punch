@@ -40,7 +40,7 @@ public class ItemMenuNavigation : MonoBehaviour
         slot_number = 0;
         isNavigating = itemIcon.enabled = false;
 
-        itemDescription.text = UIControl.instance.uiTextDict["InventoryGuide"];
+        itemDescription.text = TextDB.Translate("InventoryGuide", TranslationType.UI);
         UIControl.instance.SetFontData(itemDescription, "Item_Description");
 
         uiGuide.SetActive(true);
@@ -99,7 +99,7 @@ public class ItemMenuNavigation : MonoBehaviour
 
         if (!state) {
             slot_number = 0;
-            itemDescription.text = UIControl.instance.uiTextDict["InventoryGuide"];
+            itemDescription.text = TextDB.Translate("InventoryGuide", TranslationType.UI);
             ResetSlotListPosition();
             ArrowControl();
         }

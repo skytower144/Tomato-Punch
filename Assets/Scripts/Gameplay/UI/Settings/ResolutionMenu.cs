@@ -19,10 +19,6 @@ public class ResolutionMenu : MonoBehaviour
 
     [System.NonSerialized] public int graphicMenuNumber;
     [System.NonSerialized] public bool drop_isActive = false;
-
-    [SerializeField] private List<LanguageSetting> languageList = new List<LanguageSetting>();
-    private int languageIndex = 0;
-
     void Start()
     {
         resolutionToggle.isOn = Screen.fullScreen;
@@ -68,17 +64,12 @@ public class ResolutionMenu : MonoBehaviour
         if (graphicMenuNumber == 2 && ((direction == "RIGHT") || (direction == "LEFT")))
         {
             if (direction == "RIGHT") 
-                languageIndex += 1;
+                UIControl.SetLanguage(1);
 
             else if (direction == "LEFT")
-                languageIndex -= 1;
-            StartCoroutine(BlinkLangArrow(0.1f, direction));
-        
-            if (languageIndex >= languageList.Count)
-                languageIndex = 0;
-            else if (languageIndex < 0)
-                languageIndex = languageList.Count - 1;
+                UIControl.SetLanguage(-1);
             
+            StartCoroutine(BlinkLangArrow(0.1f, direction));
             SwitchLanguage();
             return;
         }
@@ -190,45 +181,21 @@ public class ResolutionMenu : MonoBehaviour
         resolutionDropdown.value = loaded_resolution;
         SetResolution(loaded_resolution);
     }
-
-    private void DisplayLanguageMode(LanguageSetting lang_setting)
-    {
-        language_text.text = lang_setting.display_name;
-        language_text.font = lang_setting.font_detail.font_type;
-        language_text.fontSize = lang_setting.font_detail.font_size;
-        language_text.characterSpacing = lang_setting.font_detail.character_space;
-        language_text.wordSpacing = lang_setting.font_detail.word_space;
-        language_text.lineSpacing = lang_setting.font_detail.line_space;
-    }
-
     private void SaveLanguageSetting()
     {
-        PlayerPrefs.SetString("LanguageSetting", UIControl.currentLangMode);
+        PlayerPrefs.SetInt("LanguageSetting", (int)UIControl.currentLang);
     }
 
     public void LoadLanguageSetting()
     {
-        string saved_lang_setting = PlayerPrefs.GetString("LanguageSetting");
-        
-        if (!String.IsNullOrEmpty(saved_lang_setting))
-        {
-            UIControl.currentLangMode = saved_lang_setting;
-            for (int i = 0; i < languageList.Count; i ++)
-            {
-                if (languageList[i].language_mode == saved_lang_setting)
-                {
-                    languageIndex = i;
-                    SwitchLanguage();
-                    return;
-                }
-            }
-        }
+        int saved_lang_setting = PlayerPrefs.GetInt("LanguageSetting", 0);
+        UIControl.currentLang = (LanguageType)saved_lang_setting;
+        SwitchLanguage();
     }
 
     private void SwitchLanguage()
     {
-        DisplayLanguageMode(languageList[languageIndex]);
-        UIControl.instance.InitializeInkLangDict(languageList[languageIndex].language_mode);
+        LocalizeUI.OnLocalizeUI?.Invoke();
     }
 
     IEnumerator BlinkLangArrow(float interval, string direction)

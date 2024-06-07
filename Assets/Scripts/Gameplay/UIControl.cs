@@ -6,8 +6,6 @@ using TMPro;
 [System.Serializable]
 public class StringFontdata : SerializableDictionary<string, TMP_FontAsset>{}
 
-[System.Serializable]
-public class StringLocalizationData : SerializableDictionary<string, LocalizationData>{}
 public class UIControl : MonoBehaviour
 {
     [SerializeField] private ResolutionMenu resolutionMenu;
@@ -16,20 +14,23 @@ public class UIControl : MonoBehaviour
     [SerializeField] private List<GameObject> ui_bundle;
     
     [Header("LOCALIZATION")]
-    public static string currentLangMode = "eng";
-    public Dictionary<string, string> uiTextDict = new Dictionary<string, string>(); // uitext - translation
-    private Dictionary<string, string[]> uiFontdataDict = new Dictionary<string, string[]>(); // uitext - fontdata
-    [SerializeField] private StringLocalizationData inkLangDict = new StringLocalizationData();
+    public static LanguageType currentLang = LanguageType.ENGLISH;
     public StringFontdata fontDict = new StringFontdata(); // dictionary of font types
-    private Story UIData;
 
     public static UIControl instance { get; private set; }
+    public static int TotalLanguages => System.Enum.GetValues(typeof(LanguageType)).Length;
 
     void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("Found more than one UI Control in the scene.");
+            return;
+        }
         instance = this;
+
+        TextDB.Initialize();
         resolutionMenu.LoadLanguageSetting();
-        InitializeInkLangDict(currentLangMode);
     }
 
     public void UI_Update(bool state)
@@ -71,84 +72,29 @@ public class UIControl : MonoBehaviour
             ui_bundle[i].GetComponent<RebindChangeUI>()?.RebindUI_sprite(changedSprite, oldPath, newPath);
         }
     }
-
-    public void InitializeInkLangDict(string language = "eng")
-    {
-        currentLangMode = language;
-        uiTextDict.Clear();
-        
-        TextAsset inkJSON = inkLangDict[language].translationData;
-        var UIJsonData = new Story(inkJSON.text);
-        
-        while (UIJsonData.canContinue)
-        {
-            string dataLine = UIJsonData.Continue();
-            string[] splitDataLine = dataLine.Split(':');
-
-            if (splitDataLine.Length != 2)
-                continue;
-
-            string uiTextType = splitDataLine[0].Trim();
-            string uiText = splitDataLine[1].Trim();
-
-            uiTextDict[uiTextType] = uiText;
-        }
-
-        uiFontdataDict.Clear();
-        inkJSON = inkLangDict[language].fontData;
-        UIJsonData = new Story(inkJSON.text);
-
-        while (UIJsonData.canContinue)
-        {
-            string dataLine = UIJsonData.Continue();
-            string[] splitDataLine = dataLine.Split(':');
-
-            if (splitDataLine.Length != 2)
-                continue;
-
-            string uiTextType = splitDataLine[0].Trim();
-            string uiFontdata = splitDataLine[1].Trim();
-            string[] dataList = uiFontdata.Split('_');
-
-            if (dataList.Length != 5)
-                continue;
-
-            uiFontdataDict[uiTextType] = dataList;
-        }
-        LocalizeUI.OnLocalizeUI?.Invoke();
-    }
-
     public void SetFontData(TextMeshProUGUI targetText, string uiTag)
     {
-        targetText.font = fontDict[uiFontdataDict[uiTag][0]];
-        targetText.fontSize = int.Parse(uiFontdataDict[uiTag][1]);
-        targetText.characterSpacing = float.Parse(uiFontdataDict[uiTag][2]);
-        targetText.wordSpacing = float.Parse(uiFontdataDict[uiTag][3]);
-        targetText.lineSpacing = float.Parse(uiFontdataDict[uiTag][4]);
+        string fontData = TextDB.Translate(uiTag, TranslationType.FONT);
+        string[] fontInfos = fontData.Split('_');
+
+        targetText.font = fontDict[fontInfos[0]];
+        targetText.fontSize = int.Parse(fontInfos[1]);
+        targetText.characterSpacing = float.Parse(fontInfos[2]);
+        targetText.wordSpacing = float.Parse(fontInfos[3]);
+        targetText.lineSpacing = float.Parse(fontInfos[4]);
+    }
+    public static void SetLanguage(int amount)
+    {
+        currentLang += amount;
+
+        if ((int)currentLang >= TotalLanguages)
+            currentLang = LanguageType.ENGLISH;
+        
+        else if ((int)currentLang < 0)
+            currentLang = (LanguageType)(TotalLanguages - 1);
     }
 }
-[System.Serializable]
-public class LocalizationData
-{
-    public TextAsset translationData;
-    public TextAsset fontData;
-}
 
-[System.Serializable]
-public class FontData
-{
-    public TMP_FontAsset font_type;
-    public int font_size;
-    public float character_space;
-    public float word_space;
-    public float line_space;
-}
-
-[System.Serializable]
-public class LanguageSetting
-{
-    public TextMeshProUGUI target_text;
-    public string display_name;
-    public string language_mode;
-    public FontData font_detail;
-}
+// Column order MUST match with Dialogue Sheet.csv file table.
+public enum LanguageType { ENGLISH, KOREAN, JAPANESE, CHINESE }
+public enum TranslationType { DIALOGUE, UI, FONT }

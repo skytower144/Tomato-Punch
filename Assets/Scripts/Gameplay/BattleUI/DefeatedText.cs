@@ -53,10 +53,10 @@ public class DefeatedText : MonoBehaviour
     {
         UIControl.instance.SetFontData(displayText, "BattleLost_MoneyMessage");
 
-        string moneyMessage = UIControl.instance.uiTextDict["BattleLost_MoneyMessage"];
-        moneyMessage = moneyMessage.Replace("?", giveUpCost.ToString());
+        string moneyMessage = TextDB.Translate("BattleLost_MoneyMessage", TranslationType.UI);
+        moneyMessage = moneyMessage.Replace("[?]", giveUpCost.ToString());
 
-        string ExitMessage = UIControl.instance.uiTextDict["BattleLost_ExitMessage"];
+        string ExitMessage = TextDB.Translate("BattleLost_ExitMessage", TranslationType.UI);
 
         textList.Add(moneyMessage);
         textList.Add(ExitMessage);

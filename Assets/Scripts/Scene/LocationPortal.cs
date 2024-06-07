@@ -31,7 +31,7 @@ public class LocationPortal : MonoBehaviour, Interactable
     public void Interact()
     {
         if (IsLocked()) {
-            TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, quest_id);
+            TextAsset inkJsonData = InkDB.ReturnTextAsset(gameObject.scene.name, quest_id);
             DialogueManager.instance.EnterDialogue(inkJsonData, this);
         }
     }

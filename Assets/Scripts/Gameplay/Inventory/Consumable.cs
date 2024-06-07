@@ -18,8 +18,8 @@ public class Consumable : Item
 
         if (restoreFullHp || restoreAmount > 0) {
             tomatoControl.currentHealth = Mathf.Clamp(tomatoControl.currentHealth + restoreAmount, 1, tomatoControl.maxHealth);
-            string popuptext = UIControl.instance.uiTextDict["RestoreHealth"];
-            info.effectInfo = popuptext.Replace("?", restoreAmount.ToString());
+            string popuptext = TextDB.Translate("RestoreHealth", TranslationType.UI);
+            info.effectInfo = popuptext.Replace("[?]", restoreAmount.ToString());
         }
         else
             return null;

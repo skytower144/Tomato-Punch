@@ -20,7 +20,7 @@ public class ShopSlot : MonoBehaviour
         icon_image.sprite = shopItem.item.ItemIcon;
         
         itemBaseName = shopItem.item.ItemName;
-        itemName.text = UIControl.instance.uiTextDict[itemBaseName];
+        itemName.text = TextDB.Translate(itemBaseName, TranslationType.UI);
 
         price = shopItem.itemPrice;
         itemPrice.text = price.ToString();

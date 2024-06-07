@@ -13,7 +13,7 @@ public class ItemSlotUI : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(itemBaseName)) {
             UIControl.instance.SetFontData(nameText, "Item_Slot_Name");
-            nameText.text = UIControl.instance.uiTextDict[itemBaseName];
+            nameText.text = TextDB.Translate(itemBaseName, TranslationType.UI);
         }
     }
 
@@ -23,7 +23,7 @@ public class ItemSlotUI : MonoBehaviour
 
         tempColor = slotImage.color;
         itemBaseName = itemQuantity.item.ItemName;
-        nameText.text = UIControl.instance.uiTextDict[itemBaseName];
+        nameText.text = TextDB.Translate(itemBaseName, TranslationType.UI);
         countText.text = $"{itemQuantity.count}";
     }
 

@@ -126,7 +126,7 @@ public class SaveLoadMenu : MonoBehaviour
         isNotifying = true;
 
         cachePromptMessage = choiceTextList[2].text;
-        choiceTextList[2].text = UIControl.instance.uiTextDict["Notfiy_Save"];
+        choiceTextList[2].text = TextDB.Translate("Notfiy_Save", TranslationType.UI);
         // No need to set font.
 
         yesBox.SetActive(false);

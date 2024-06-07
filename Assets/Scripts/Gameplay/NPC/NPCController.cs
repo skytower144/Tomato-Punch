@@ -137,7 +137,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     {
         FacePlayer();
         GameManager.gm_instance.playerKeyEventManager.CheckProgressKeyEvent(this);
-        TextAsset inkJsonData = InkDB.ReturnTextAsset(UIControl.currentLangMode, gameObject.scene.name, gameObject.name, inkFileName, isUniqueID);
+        TextAsset inkJsonData = InkDB.ReturnTextAsset(gameObject.scene.name, gameObject.name, inkFileName, isUniqueID);
         DialogueManager.instance.EnterDialogue(inkJsonData, this);
     }
 

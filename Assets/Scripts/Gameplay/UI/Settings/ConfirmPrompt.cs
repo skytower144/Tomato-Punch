@@ -15,13 +15,13 @@ public class ConfirmPrompt : MonoBehaviour
     private bool isSelectedChoice = false;
     void Start()
     {
-        choiceTextList[2].text = UIControl.instance.uiTextDict[ui_localization_tag];
+        choiceTextList[2].text = TextDB.Translate(ui_localization_tag, TranslationType.UI);
         UIControl.instance.SetFontData(choiceTextList[2], "ConfirmPrompt");
 
-        choiceTextList[0].text = UIControl.instance.uiTextDict["ConfirmPrompt_Yes"];
+        choiceTextList[0].text = TextDB.Translate("ConfirmPrompt_Yes", TranslationType.UI);
         UIControl.instance.SetFontData(choiceTextList[0], "ConfirmPrompt_Yes");
 
-        choiceTextList[1].text = UIControl.instance.uiTextDict["ConfirmPrompt_No"];
+        choiceTextList[1].text = TextDB.Translate("ConfirmPrompt_No", TranslationType.UI);
         UIControl.instance.SetFontData(choiceTextList[1], "ConfirmPrompt_No");
     }
 

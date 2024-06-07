@@ -4,7 +4,7 @@ VAR br = "<br>"
 Hello! #checkparty:BabyCat #portrait:Cashier_neutral
 {
     -hasMember:
-    Um....{br}Sorry, no pets allowed.
+    Um...{br}Pets aren't allowed, Just so you know...
 }
 -> Greet
 

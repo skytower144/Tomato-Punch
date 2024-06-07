@@ -38,13 +38,13 @@ public class ResultCard : MonoBehaviour
 
     private void SetLanguage()
     {
-        CounterUI.text = UIControl.instance.uiTextDict["Resultcard_Counter_Text"];
+        CounterUI.text = TextDB.Translate("Resultcard_Counter_Text", TranslationType.UI);
         UIControl.instance.SetFontData(CounterUI, "Resultcard_Counter_Text");
 
-        ParryUI.text = UIControl.instance.uiTextDict["Resultcard_Parry_Text"];
+        ParryUI.text = TextDB.Translate("Resultcard_Parry_Text", TranslationType.UI);
         UIControl.instance.SetFontData(ParryUI, "Resultcard_Parry_Text");
 
-        SuperUI.text = UIControl.instance.uiTextDict["Resultcard_Super_Text"];
+        SuperUI.text = TextDB.Translate("Resultcard_Super_Text", TranslationType.UI);
         UIControl.instance.SetFontData(SuperUI, "Resultcard_Super_Text");
 
         BelowText.text = "";
@@ -129,11 +129,11 @@ public class ResultCard : MonoBehaviour
         
         SetLanguage();
 
-        string expMessage = UIControl.instance.uiTextDict["BattleWon_ExpMessage"];
-        expMessage = expMessage.Replace("?", totalExp.ToString());
+        string expMessage = TextDB.Translate("BattleWon_ExpMessage", TranslationType.UI);
+        expMessage = expMessage.Replace("[?]", totalExp.ToString());
 
-        string moneyMessage = UIControl.instance.uiTextDict["BattleWon_MoneyMessage"];
-        moneyMessage = moneyMessage.Replace("?", totalGold.ToString());
+        string moneyMessage = TextDB.Translate("BattleWon_MoneyMessage", TranslationType.UI);
+        moneyMessage = moneyMessage.Replace("[?]", totalGold.ToString());
 
         resultTexts.Add(expMessage);
         resultTexts.Add(moneyMessage);
@@ -207,10 +207,10 @@ public class ResultCard : MonoBehaviour
             if(Random.Range(0f, 1f) <= dropChance)
             {
                 string dropItemTag = enemyBase.ItemReward[i].RewardItem.ItemName;
-                dropItemTag = UIControl.instance.uiTextDict[dropItemTag];
+                dropItemTag = TextDB.Translate(dropItemTag, TranslationType.UI);
 
-                string itemMessage = UIControl.instance.uiTextDict["BattleWon_ItemMessage"];
-                itemMessage = itemMessage.Replace("?", dropItemTag);
+                string itemMessage = TextDB.Translate("BattleWon_ItemMessage", TranslationType.UI);
+                itemMessage = itemMessage.Replace("[?]", dropItemTag);
                 //string itemMessage = string.Format("Obtained {0}!", enemyBase.ItemReward[i].RewardItem.ItemName);
                 resultTexts.Add(itemMessage);
                 droppedItems.Add(enemyBase.ItemReward[i]);

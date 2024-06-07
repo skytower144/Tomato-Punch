@@ -22,7 +22,7 @@ public class LoadingScreen : MonoBehaviour
 
     public void EnableLoadingScreen()
     {
-        loadingText.text = UIControl.instance.uiTextDict["LoadingText"];
+        loadingText.text = TextDB.Translate("LoadingText", TranslationType.UI);
         UIControl.instance.SetFontData(loadingText, "LoadingText");
         
         PlayerMovement.instance.cameraControl.player_camera.enabled = false;

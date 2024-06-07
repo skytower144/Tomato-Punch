@@ -166,7 +166,7 @@ public class InventoryUI : MonoBehaviour
         targetImage.sprite = targetItem.ItemIcon;
 
         string descriptionTag = targetItem.ItemName + "_Description";
-        targetText.text = UIControl.instance.uiTextDict[descriptionTag] + DisplayStatusEffect(targetItem);
+        targetText.text = TextDB.Translate(descriptionTag, TranslationType.UI) + DisplayStatusEffect(targetItem);
     }
 
     private string DisplayStatusEffect(Item item)

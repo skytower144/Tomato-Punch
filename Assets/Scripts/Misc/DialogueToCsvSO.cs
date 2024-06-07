@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.IO;
+using System.Text;
 using System;
 using UnityEngine;
+using Ink.Runtime;
 
 [CreateAssetMenu(fileName = "DialogueToCsvSO", menuName = "DialogueToCsvSO")]
 public class DialogueToCsvSO : ScriptableObject
 {
     private List<(string, string)> sentenceInfo = new List<(string, string)>();
     private List<string> csvRows = new List<string>();
-    private string lastUpdated;
-    public string LastUpdated => lastUpdated;
-
+    private List<string> outdatedKeys = new List<string>();
     HashSet<string> ignoreSet = new HashSet<string>() {
         "Yes", "No",
         "/cut", "/ignore", "<br>", "<i>", "</i>",
@@ -21,28 +21,34 @@ public class DialogueToCsvSO : ScriptableObject
     public void ExecuteUpdate()
     {
         string dialogueRootPath = Application.dataPath + "/Resources/Dialogue/eng";
-        string csvPath = Application.dataPath + "/Resources/Dialogue/DialogueSheet.csv";
+        string csvPath = Application.dataPath + "/Resources/TranslationTable/Dialogue_Table.csv";
 
         ExtractTextFromFiles(dialogueRootPath);
         Dictionary<string, int> existingDict = ReturnKeysFromCsv(csvPath);
-        EraseOutdatedKeys(existingDict);
 
+        CopyInkToCsv(existingDict);
+        NotifyOutdatedKeys(existingDict);
+
+        File.WriteAllLines(csvPath, csvRows.ToArray(), new UTF8Encoding(true));
+        PlayerPrefs.SetString("DialogueCSV-LastUpdated", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+        sentenceInfo.Clear();
+        csvRows.Clear();
+    }
+    private void CopyInkToCsv(Dictionary<string, int> existingDict)
+    {
         for (int i = 0; i < sentenceInfo.Count; i++) {
-            if (sentenceInfo[i].Item2 == "\n")
-                csvRows.Insert(i + 1, "");
-            
+            if (sentenceInfo[i].Item2 == "\n") {
+                csvRows.Insert(i + 1, new string(',', UIControl.TotalLanguages));
+            }
             else if (!existingDict.ContainsKey(sentenceInfo[i].Item2)) {
                 string currentSentence = sentenceInfo[i].Item2;
                 currentSentence = currentSentence.Replace("\"", "\"\"");
                 csvRows.Insert(i + 1, $"\"{sentenceInfo[i].Item1}\",\"{currentSentence}\"");
             }
         }
-        File.WriteAllLines(csvPath, csvRows.ToArray());
-        lastUpdated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-        sentenceInfo.Clear();
-        csvRows.Clear();
     }
+    
     private void ExtractTextFromFiles(string path)
     {
         sentenceInfo.Clear();
@@ -113,24 +119,23 @@ public class DialogueToCsvSO : ScriptableObject
     }
     private Dictionary<string, int> ReturnKeysFromCsv(string path)
     {
-        csvRows = new List<string>(File.ReadAllLines(path));
+        csvRows = new List<string>(File.ReadAllLines(path, new UTF8Encoding(true)));
         
         for (int i = csvRows.Count - 1; i > 0; i--) {
-            if (csvRows[i] == "")
+            if (csvRows[i].Split(',')[0] == "")
                 csvRows.RemoveAt(i);
         }
         Dictionary<string, int> existingDict = new Dictionary<string, int>();
+
         for (int i = 1; i < csvRows.Count; i++) {
-            string key = ReturnFirstCell(CutSpeakerInfo(csvRows[i]));
-            existingDict[key] = i;
+            string key = ReturnCells(CutSpeakerInfo(csvRows[i]), 1)[0];
+            if (key != "")
+                existingDict[key] = i;
         }
         return existingDict;
     }
-    private string CutSpeakerInfo(string row)
+    public static string CutSpeakerInfo(string row)
     {
-        if (row == ",")
-            return row;
-        
         int cutIndex = 0;
         for (int i = 0; i < row.Length; i++) {
             if (row[i] == ',') {
@@ -140,9 +145,11 @@ public class DialogueToCsvSO : ScriptableObject
         }
         return row.Substring(cutIndex);
     }
-    private string ReturnFirstCell(string row)
+    public static List<string> ReturnCells(string row, int count = -1)
     {
-        string key = "";
+        List<string> cells = new List<string>();
+        int cellCount = 0;
+        string currentCell = "";
         bool withinQuotes = false;
 
         for (int i = 0; i < row.Length; i++) {
@@ -150,24 +157,33 @@ public class DialogueToCsvSO : ScriptableObject
 
             if (c == '"') {
                 if (withinQuotes && i + 1 < row.Length && row[i + 1] == '"') {
-                    key += '"';
+                    currentCell += '"';
                     i++;
                 }
                 else
                     withinQuotes = !withinQuotes;
             }
-            else if (c == ',' && !withinQuotes)
-                break;
-            else
-                key += c;
+            else if (c == ',' && !withinQuotes) {
+                cells.Add(currentCell);
+                cellCount++;
+                currentCell = "";
+
+                if (count != -1 && cellCount >= count)
+                    return cells;
+            }
+            else {
+                if (c != '\n' && c != '\r')
+                    currentCell += c;
+            }
         }
-        return key;
+        cells.Add(currentCell);
+        return cells;
     }
-    private void EraseOutdatedKeys(Dictionary<string, int> existingDict)
+    private void NotifyOutdatedKeys(Dictionary<string, int> existingDict)
     {
         foreach (KeyValuePair<string, int> kvp in existingDict) {
             if (!sentenceInfo.Any(x => x.Item2 == kvp.Key)) {
-                csvRows.RemoveAt(kvp.Value);
+                Debug.LogWarning($"{kvp.Value + 1}th row is Outdated:\n{kvp.Key}");
             }
         }
     }

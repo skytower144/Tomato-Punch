@@ -166,7 +166,7 @@ public class BattleContinue : MonoBehaviour
 
     private void AdjustLanguage()
     {
-        reviveCostUI.text = UIControl.instance.uiTextDict["ReviveCost_Text"];
+        reviveCostUI.text = TextDB.Translate("ReviveCost_Text", TranslationType.UI);
         UIControl.instance.SetFontData(reviveCostUI, "ReviveCost_Text");
     }
 }

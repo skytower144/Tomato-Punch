@@ -5,7 +5,7 @@ public class InkDB
 {
     static Dictionary<string, TextAsset> InkCatalog = new Dictionary<string, TextAsset>();
 
-    public static TextAsset ReturnTextAsset(string language, string sceneName, string npcName, string inkFileName, bool isUniqueID)
+    public static TextAsset ReturnTextAsset(string sceneName, string npcName, string inkFileName, bool isUniqueID)
     {
         if (string.IsNullOrEmpty(inkFileName))
             return null;
@@ -13,15 +13,15 @@ public class InkDB
         string id;
 
         if (inkFileName.Contains("/"))
-            id = $"Dialogue/{language}/" + inkFileName;
+            id = $"Dialogue/eng/" + inkFileName;
         else {
             if (isUniqueID)
                 sceneName = "aMobile";
 
             if (sceneName == "Cutscene")
-                id = $"Dialogue/{language}/Cutscene/{inkFileName}";
+                id = $"Dialogue/eng/Cutscene/{inkFileName}";
             else
-                id = $"Dialogue/{language}/{sceneName}/{npcName}/{inkFileName}";
+                id = $"Dialogue/eng/{sceneName}/{npcName}/{inkFileName}";
         }
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];
@@ -31,9 +31,9 @@ public class InkDB
         return InkCatalog[id];
     }
 
-    public static TextAsset ReturnTextAsset(string language, string sceneName, string questId)
+    public static TextAsset ReturnTextAsset(string sceneName, string questId)
     {
-        string id = $"Dialogue/{language}/{sceneName}/LocationPortal/{questId}";
+        string id = $"Dialogue/eng/{sceneName}/LocationPortal/{questId}";
 
         if (InkCatalog.ContainsKey(id))
             return InkCatalog[id];

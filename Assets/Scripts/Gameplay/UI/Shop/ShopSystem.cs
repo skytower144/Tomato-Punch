@@ -68,7 +68,7 @@ public class ShopSystem : MonoBehaviour
         inventory.inventory_UI.DisplayItemInfo(shopItems[0].item, itemDescription, itemIcon);
 
         UIControl.instance.SetFontData(clearText, "Shop_Clear_Text");
-        clearText.text = UIControl.instance.uiTextDict["Shop_Clear_Text"];
+        clearText.text = TextDB.Translate("Shop_Clear_Text", TranslationType.UI);
         slot_number = 0;
 
         yield return StartCoroutine(UpdateSlots());

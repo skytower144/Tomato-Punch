@@ -197,6 +197,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue){
             currentSentence = currentStory.Continue().Trim();
+            currentSentence = TextDB.Translate(currentSentence, TranslationType.DIALOGUE);
             
             if (currentSentence == "/cut") {
                 SetDialogue(false);
@@ -543,7 +544,7 @@ public class DialogueManager : MonoBehaviour
                     break;
                 
                 default:
-                    Debug.Log("Tag detected but not handled." + tag);
+                    GameManager.DoDebug("Tag detected but not handled." + tag);
                     break;
             }
         }
