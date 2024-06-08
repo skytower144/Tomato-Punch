@@ -11,11 +11,13 @@ public class UIControl : MonoBehaviour
     [SerializeField] private ResolutionMenu resolutionMenu;
     [SerializeField] private ControlScroll controlScroll;
     public ShopSystem ui_shop;
+
+    [Header("[ KEYBOARD | GAMEPAD ]")]
     [SerializeField] private List<GameObject> ui_bundle;
     
-    [Header("LOCALIZATION")]
     public static LanguageType currentLang = LanguageType.ENGLISH;
-    public StringFontdata fontDict = new StringFontdata(); // dictionary of font types
+    public StringFontdata fontDict = new StringFontdata();
+    public List<Material> fontMats = new List<Material>();
 
     public static UIControl instance { get; private set; }
     public static int TotalLanguages => System.Enum.GetValues(typeof(LanguageType)).Length;
@@ -82,6 +84,9 @@ public class UIControl : MonoBehaviour
         targetText.characterSpacing = float.Parse(fontInfos[2]);
         targetText.wordSpacing = float.Parse(fontInfos[3]);
         targetText.lineSpacing = float.Parse(fontInfos[4]);
+
+        if (fontInfos.Length >= 6)
+            targetText.fontMaterial = fontMats[int.Parse(fontInfos[5])];
     }
     public static void SetLanguage(int amount)
     {
