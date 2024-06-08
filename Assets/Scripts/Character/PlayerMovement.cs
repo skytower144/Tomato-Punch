@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour, Character
     public GameManager gameManager;
     public PauseMenu pauseMenu;
 
-    public GameObject playerSprite, playerUI, pauseObj, darkFilter, faderObj;
+    public GameObject playerSprite, playerUI, pauseObj, darkFilter;
     public GameObject newspaper;
     private Rigidbody2D myRb;
 
