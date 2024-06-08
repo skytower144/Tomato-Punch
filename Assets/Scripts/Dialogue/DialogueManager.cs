@@ -149,6 +149,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         portrait.sprite = SpriteDB.ReturnPortrait("Tomato_neutral");
 
+        SetBoldness();
         SetDialogueBox(true);
         dialogueIsPlaying = true;
 
@@ -236,10 +237,21 @@ public class DialogueManager : MonoBehaviour
             int index = 0;
             foreach (Choice choice in currentChoices)
             {
-                choiceText[index].text = choice.text;
+                string tag = choice.text.ToUpper();
+                string fontTag;
+
+                if (tag == "YES") {
+                    tag = "ConfirmPrompt_Yes";
+                    fontTag = "Choicebox_Yes";
+                }
+                else {
+                    tag = "ConfirmPrompt_No";
+                    fontTag = "Choicebox_No";
+                }
+                choiceText[index].text = TextDB.Translate(tag, TranslationType.UI);
+                UIControl.instance.SetFontData(choiceText[index], fontTag);
                 index++; 
             }
-
             choiceBox.GetComponent<ChoiceSelect>().proceedAction = MakeChoice;
             choiceBox.SetActive(true);
         }
@@ -665,6 +677,20 @@ public class DialogueManager : MonoBehaviour
             return null;
         }
         return tag_bundle;
+    }
+    private void SetBoldness()
+    {
+        bool isBold = TextDB.Translate("BoldType", TranslationType.FONT) == "bold";
+        if (isBold) {
+            dialogueText.fontStyle |= FontStyles.Bold;
+            choiceText[0].fontStyle |= FontStyles.Bold;
+            choiceText[1].fontStyle |= FontStyles.Bold;
+        }
+        else {
+            dialogueText.fontStyle &= ~FontStyles.Bold;
+            choiceText[0].fontStyle &= ~FontStyles.Bold;
+            choiceText[1].fontStyle &= ~FontStyles.Bold;
+        }
     }
 }
 

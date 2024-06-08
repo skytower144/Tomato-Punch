@@ -51,6 +51,7 @@ public class SaveLoadMenu : MonoBehaviour
         if (isNotifying) CloseNotify();
         if (isLoadMode) quickSaveIcon.SetActive(true);
         if (slotNumber != 0) ResetMenuState(true); // In case slotNumber is not set to zero.
+        TranslateLoadMenu();
     }
     
     void Update()
@@ -425,5 +426,16 @@ public class SaveLoadMenu : MonoBehaviour
             isAutoSave = false;
             ProceedSave(3);
         }
+    }
+    private void TranslateLoadMenu()
+    {
+        choiceTextList[0].text = TextDB.Translate("ConfirmPrompt_Yes", TranslationType.UI);
+        UIControl.instance.SetFontData(choiceTextList[0], "Load_Prompt");
+
+        choiceTextList[1].text = TextDB.Translate("ConfirmPrompt_No", TranslationType.UI);
+        UIControl.instance.SetFontData(choiceTextList[1], "Load_Prompt");
+
+        choiceTextList[2].text = TextDB.Translate("Load_Prompt", TranslationType.UI);
+        UIControl.instance.SetFontData(choiceTextList[2], "Load_Prompt");
     }
 }

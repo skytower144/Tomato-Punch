@@ -22,10 +22,10 @@ public class BindingResetPrompt : MonoBehaviour
         main_text.text = TextDB.Translate("BindingResetPrompt_Main", TranslationType.UI);
         UIControl.instance.SetFontData(main_text, "BindingResetPrompt_Main");
 
-        yes_text.text = TextDB.Translate("BindingResetPrompt_Yes", TranslationType.UI);
+        yes_text.text = TextDB.Translate("ConfirmPrompt_Yes", TranslationType.UI);
         UIControl.instance.SetFontData(yes_text, "BindingResetPrompt_Yes");
 
-        no_text.text = TextDB.Translate("BindingResetPrompt_No", TranslationType.UI);
+        no_text.text = TextDB.Translate("ConfirmPrompt_No", TranslationType.UI);
         UIControl.instance.SetFontData(no_text, "BindingResetPrompt_No");
     }
 
