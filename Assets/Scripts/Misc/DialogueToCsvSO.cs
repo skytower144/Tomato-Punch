@@ -25,7 +25,7 @@ public class DialogueToCsvSO : ScriptableObject
         string csvPath = Application.dataPath + "/Resources/TranslationTable/Dialogue_Table.csv";
 
         ExtractTextFromFiles(dialogueRootPath);
-        Dictionary<string, int> existingDict = ReturnKeysFromCsv(csvPath);
+        Dictionary<string, (int, bool)> existingDict = ReturnKeysFromCsv(csvPath);
 
         CopyInkToCsv(existingDict);
         NotifyOutdatedKeys(existingDict);
@@ -38,7 +38,7 @@ public class DialogueToCsvSO : ScriptableObject
         sentenceInfo.Clear();
         csvRows.Clear();
     }
-    private void CopyInkToCsv(Dictionary<string, int> existingDict)
+    private void CopyInkToCsv(Dictionary<string, (int, bool)> existingDict)
     {
         // SPEAKER, ENGLISH, KOREAN ...
         updatedRows.Add(csvRows[0]);
@@ -54,8 +54,8 @@ public class DialogueToCsvSO : ScriptableObject
                 updatedRows.Add($"\"{sentenceInfo[i].Item1}\",\"{currentSentence}\"");
             }
             else {
-                updatedRows.Add(csvRows[existingDict[currentSentence]]);
-                existingDict.Remove(currentSentence);
+                updatedRows.Add(csvRows[existingDict[currentSentence].Item1]);
+                existingDict[currentSentence] = (existingDict[currentSentence].Item1, true);
             }
         }
     }
@@ -128,7 +128,7 @@ public class DialogueToCsvSO : ScriptableObject
         }
         sentenceInfo.Add(("\n", "\n"));
     }
-    private Dictionary<string, int> ReturnKeysFromCsv(string path)
+    private Dictionary<string, (int, bool)> ReturnKeysFromCsv(string path)
     {
         csvRows = new List<string>(File.ReadAllLines(path, new UTF8Encoding(true)));
         
@@ -140,11 +140,11 @@ public class DialogueToCsvSO : ScriptableObject
             else if (csvRows[i][0] == '=')
                 csvRows.RemoveAt(i);
         }
-        Dictionary<string, int> existingDict = new Dictionary<string, int>();
+        Dictionary<string, (int, bool)> existingDict = new Dictionary<string, (int, bool)>();
 
         for (int i = 1; i < csvRows.Count; i++) {
             string key = ReturnCells(CutSpeakerInfo(csvRows[i]), 1)[0];
-            existingDict[key] = i;
+            existingDict[key] = (i, false);
 
             if (string.IsNullOrEmpty(key))
                 Debug.LogError($"{key} => Empty key exsists in Dialogue_Table.csv");
@@ -196,18 +196,21 @@ public class DialogueToCsvSO : ScriptableObject
         cells.Add(currentCell);
         return cells;
     }
-    private void NotifyOutdatedKeys(Dictionary<string, int> existingDict)
+    private void NotifyOutdatedKeys(Dictionary<string, (int, bool)> existingDict)
     {
         string line = new string('=', 20);
-        string boundaryLine = line + " OUTDATED DIALOGUE " + line;
+        string commas = new string(',', UIControl.TotalLanguages);
+        string boundaryLine = $"{line} OUTDATED DIALOGUE {line}{commas}";
         updatedRows.Add(boundaryLine);
 
         // 0th row, last row's \n, boundary line
         int outdatedRowNum = sentenceInfo.Count + 3;
 
-        foreach (KeyValuePair<string, int> kvp in existingDict) {
+        foreach (KeyValuePair<string, (int, bool)> kvp in existingDict) {
+            if (kvp.Value.Item2)
+                continue;
             Debug.LogWarning($"{outdatedRowNum}th row is outdated :\n{kvp.Key}");
-            updatedRows.Add(csvRows[kvp.Value]);
+            updatedRows.Add(csvRows[kvp.Value.Item1]);
             outdatedRowNum++;
         }
     }
