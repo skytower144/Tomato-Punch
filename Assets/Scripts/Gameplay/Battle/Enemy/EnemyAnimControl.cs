@@ -41,7 +41,6 @@ public class EnemyAnimControl : MonoBehaviour
     void OnDisable()
     {
         _fpsDict.Clear();
-        WaitForCache.WaitDict.Clear();
     }
 
     public void InitFrameDict(Animator anim)

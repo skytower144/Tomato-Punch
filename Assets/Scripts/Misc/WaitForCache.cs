@@ -9,6 +9,7 @@ public class WaitForCache
     private static WaitForSeconds _waitSeconds;
     private static WaitForSecondsRealtime _waitRealSeconds;
 
+
     public static WaitForSeconds GetWaitForSecond(float seconds)
     {
         if (!WaitDict.TryGetValue(seconds, out _waitSeconds))

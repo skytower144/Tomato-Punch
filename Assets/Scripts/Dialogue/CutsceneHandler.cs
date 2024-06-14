@@ -167,7 +167,7 @@ public class CutsceneHandler : MonoBehaviour
                             break;
                         }
                         playingClip = ReturnAnimationClip(objectAnim, valueArray[1]);
-                        yield return new WaitForSecondsRealtime(playingClip.length);
+                        yield return new WaitForSeconds(playingClip.length);
                     }
                     else {
                         character = GetTargetCharacter(valueArray[0]);

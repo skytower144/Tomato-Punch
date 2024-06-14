@@ -27,7 +27,7 @@ public class FadeInOut : MonoBehaviour
             SetPosition();
         
         _sr.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(delay);
+        yield return WaitForCache.GetWaitForSecond(delay);
 
         while ((isFadeIn && _sr.color.a > 0) || (!isFadeIn && _sr.color.a < 1)) {
             timer += Time.deltaTime;

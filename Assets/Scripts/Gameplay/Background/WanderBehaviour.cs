@@ -11,7 +11,6 @@ public class WanderBehaviour : MonoBehaviour
     [SerializeField] private string idleAnimationTag, movingAnimationTag, randomBehaviourTag;
     private Animator anim;
     private Vector2 wayPoint;
-    private WaitForSeconds _restDelay;
     private float range = 0.5f;
     private float timeRemaining;
     private bool isResting, stopWander;
@@ -23,7 +22,6 @@ public class WanderBehaviour : MonoBehaviour
         anim.Play(movingAnimationTag, -1, 0f);
 
         timeRemaining = timer;
-        _restDelay = new WaitForSeconds(restingTime);
     }
 
     void OnEnable()
@@ -68,7 +66,7 @@ public class WanderBehaviour : MonoBehaviour
         isResting = true;
 
         anim.Play(idleAnimationTag, -1, 0f);
-        yield return _restDelay;
+        yield return WaitForCache.GetWaitForSecond(restingTime);
         yield return RandomBehaviour();
 
         isResting = false;
