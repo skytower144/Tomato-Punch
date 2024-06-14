@@ -23,7 +23,7 @@ public class BattleSystem : MonoBehaviour
     public BackgroundParallax parallax;
     
     [SerializeField] private Transform battleCanvas_transform, tomato_transform;
-    [SerializeField] private GameObject battle_initiate_fade, darkScreen, coinFlip, battle_end_circle;
+    [SerializeField] private GameObject darkScreen, coinFlip, battle_end_circle;
 
     [SerializeField] private Image fixedBg;
     [SerializeField] private RawImage parallaxBg;
@@ -49,7 +49,8 @@ public class BattleSystem : MonoBehaviour
 
     void OnEnable()
     {
-        Instantiate(battle_initiate_fade);
+        GameManager.gm_instance.FadeControl.SetPosition(transform.position.x, transform.position.y);
+        StartCoroutine(GameManager.gm_instance.FadeControl.Fade(0.4f, 0, 60, true, false));
         ShockWaveControl.ResetMat();
     }
 
@@ -64,9 +65,11 @@ public class BattleSystem : MonoBehaviour
         DebugBools.DebugFunctions();
     }
 
-    public void StartBattle(EnemyBase enemy_data, CustomBattleMode custom_mode = null)
+    public void StartBattle(EnemyBase enemy_data)
     {
-        if (custom_mode != null) custom_mode.ChangeBattleMode();
+        CustomBattleMode custom_mode = enemy_data.CustomMode;
+
+        if (custom_mode != null) enemy_data.CustomMode.ChangeBattleMode();
         GameManager.gm_instance.Initiate_Battle(enemy_data);
     }
 
@@ -75,7 +78,12 @@ public class BattleSystem : MonoBehaviour
         if (!isVictory && (tomatocontrol.currentHealth == 0))
             tomatocontrol.currentHealth = 1;
         
-        Destroy(Instantiate(battle_end_circle), 2f);
+        if (isVictory)
+            Destroy(Instantiate(battle_end_circle), 2f);
+        else {
+            GameManager.gm_instance.FadeControl.SetPosition(transform.position.x, transform.position.y);
+            StartCoroutine(GameManager.gm_instance.FadeControl.Fade(0.6f, 0, 60, false, false));
+        }
         OnBattleOver?.Invoke(isVictory);
     }
     public void ResumeBattle()

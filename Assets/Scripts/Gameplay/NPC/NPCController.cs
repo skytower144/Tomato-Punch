@@ -104,7 +104,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
             }
             else if (instantBattle)
             {
-                GameManager.gm_instance.battle_system.StartBattle(enemyData, gameObject.GetComponent<CustomBattleMode>());
+                GameManager.gm_instance.battle_system.StartBattle(enemyData);
             }
             else
             {

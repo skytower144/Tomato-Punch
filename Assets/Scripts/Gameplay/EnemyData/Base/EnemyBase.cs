@@ -21,7 +21,8 @@ public class EnemyBase : ScriptableObject
     [SerializeField] private RuntimeAnimatorController animationController;
     [SerializeField] private string idle, intro, defeated, knockback, suffer, stun, uppered, recover, guard, hurtL, hurtR, blasted, bounce, dunk;
     [SerializeField] private string wait, reEngage, victory;
-    [SerializeField] List<string> otherHurtAnim;
+    [SerializeField] private List<string> otherHurtAnim;
+    [SerializeField] private CustomBattleMode customMode;
 
     public ChiliAnimInfo chiliInfo;
     // Add more super info
@@ -125,6 +126,11 @@ public class EnemyBase : ScriptableObject
     public List<string> HurtAnimList
     {
         get { return otherHurtAnim.Concat(new List<string> {hurtL, hurtR}).ToList(); }
+    }
+    
+    public CustomBattleMode CustomMode
+    {
+        get { return customMode; }
     }
 
     public List<Enemy_NeutralDetail> EnemyNeutralPattern

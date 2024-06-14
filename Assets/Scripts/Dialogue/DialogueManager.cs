@@ -166,6 +166,7 @@ public class DialogueManager : MonoBehaviour
         currentSentence = "";
 
         ResetDialogueBoxState();
+        playerMovement.cameraControl.ResetPlayerCamera();
         playerMovement.SetIsInteracting(false);
         GameManager.gm_instance.partyManager.SetMemberFollow(true);
         GameManager.gm_instance.save_load_menu.DetermineAutoSave();
@@ -177,10 +178,7 @@ public class DialogueManager : MonoBehaviour
         switch (dialogueExit)
         {
             case DialogueExit.Battle:
-                GameManager.gm_instance.battle_system.StartBattle(
-                    GameManager.gm_instance.battle_system.enemy_control._base, 
-                    currentNpc.gameObject.GetComponent<CustomBattleMode>()
-                );
+                GameManager.gm_instance.battle_system.StartBattle(GameManager.gm_instance.battle_system.enemy_control._base);
                 break;
             
             case DialogueExit.UnlockDoor:
@@ -337,9 +335,13 @@ public class DialogueManager : MonoBehaviour
                     currentNpc.RollbackDialogue();
                     break;
 
-                case CONTINUETALK_TAG: // #continuetalk:_
-                    ContinueTalkTarget = (tag_value[0] != '_') ? NPCManager.instance.npc_dict[tag_value] : null;
+                case CONTINUETALK_TAG: // #continuetalk:_ // #continuetalk:target@true (bool noDelayInteract)
+                    string[] talkInfo = tag_value.Split('@');
+                    ContinueTalkTarget = (talkInfo[0][0] != '_') ? NPCManager.instance.npc_dict[talkInfo[0]] : null;
                     isContinueTalk = true;
+
+                    if (talkInfo.Length >= 2)
+                        GameManager.gm_instance.noDelayInteract = talkInfo[1] == "true";
                     break;
                 
                 case TURNPLAYER_TAG: //#turnplayer:LEFT@1.7// #turnplayer:LEFT
@@ -655,7 +657,6 @@ public class DialogueManager : MonoBehaviour
 
         uiCanvas.sortingLayerName = uiCanvas_layerName;
         uiCanvas.sortingOrder = uiCanvas_order;
-        playerMovement.cameraControl.ResetPlayerCamera();
     }
 
     public void SetIsContinueTalkBool(bool state)

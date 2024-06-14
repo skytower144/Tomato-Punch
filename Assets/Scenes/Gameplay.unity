@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 16998747}
   - component: {fileID: 16998746}
   - component: {fileID: 16998745}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 16998743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 29.299055, y: 26.046265, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 1982503562}
   m_RootOrder: 0
@@ -814,7 +814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 236640793}
   - component: {fileID: 236640795}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CutsceneFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +830,7 @@ Transform:
   m_GameObject: {fileID: 236640792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 18.652613, y: 10.558231, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 1982503562}
   m_RootOrder: 1
@@ -2192,6 +2192,18 @@ PrefabInstance:
       propertyPath: _startWhenCollision
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8519160951397610556, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: imageList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519160951397610556, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: imageList.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 78feb08b95b283b47a1aa369f287f791, type: 3}
+    - target: {fileID: 8519160951397610556, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
+      propertyPath: imageList.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 86ae5623e51521946adb644a4a74e522, type: 3}
     - target: {fileID: 8519160951397610557, guid: a9cfc5c7bc1921748addec5382eb3b44, type: 3}
       propertyPath: m_Size.x
       value: 2.4562988
@@ -2870,6 +2882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sr: {fileID: 236640795}
+  UiCanvasTransform: {fileID: 384357809823879896}
 --- !u!114 &1982503564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2883,7 +2896,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeControl: {fileID: 1982503563}
-  UiCanvasTransform: {fileID: 384357809823879896}
   CutSceneHolder: {fileID: 1820120189}
 --- !u!1 &1984132008
 GameObject:
@@ -7726,7 +7738,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8347,7 +8359,6 @@ MonoBehaviour:
   parallax: {fileID: 2014901554}
   battleCanvas_transform: {fileID: 384357809614087741}
   tomato_transform: {fileID: 384357809660484709}
-  battle_initiate_fade: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
   darkScreen: {fileID: 3107236779830929705, guid: d0124715de340a54a8751ae723b303e8, type: 3}
   coinFlip: {fileID: 35641194223493076, guid: 6aa9755774f345741a72dc5c9288f826, type: 3}
   battle_end_circle: {fileID: 6256539079404525266, guid: f3a5f37fd8d79a4418e1314a668b3a74, type: 3}
@@ -19063,7 +19074,7 @@ MonoBehaviour:
   enemy_Countered: {fileID: 5820148391002691455}
   staminaIcon: {fileID: 384357809837640120}
   rebindKey: {fileID: 384357809942665931}
-  startingCartridge: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
+  defaultCartridge: {fileID: 696070801976195615, guid: ea46c7de57a702b42a3034562f75c751, type: 3}
   KOText: {fileID: 7110729477534265312, guid: 31336c5caac412d40be3a6f59fba33d7, type: 3}
   YouWin_Text: {fileID: 5642869534909035329, guid: b1ce20383cfdf5446a19bb052ef28718, type: 3}
   YouLose_Text: {fileID: 3526224795657967158, guid: cc50164d4c18c8447a0a3305da0118bb, type: 3}
@@ -21411,6 +21422,7 @@ MonoBehaviour:
   itemManager: {fileID: 4059772578566471729}
   cutTriggerManager: {fileID: 625271520}
   TomatoStatus: {fileID: 384357809235454400}
+  FadeControl: {fileID: 1982503563}
   playerMovement: {fileID: 384357810404681538}
   battleSystem: {fileID: 384357809004606580}
   resolutionMenu: {fileID: 384357809089909066}
@@ -21424,7 +21436,6 @@ MonoBehaviour:
   mainCamera: {fileID: 384357809590527806}
   battleCircle: {fileID: 5855777196679259577, guid: 62ecba09751ef914f82b224b3ab9759c, type: 3}
   exclamation: {fileID: 1128744471400820819, guid: 97498d9155afa6b48aa64a82f26194c7, type: 3}
-  fadeIn: {fileID: 8703682214553743989, guid: 12d6f1e0a03077c4b965de6465a59772, type: 3}
   playerAnimator: {fileID: 384357808947218956}
   gamepadType: 2
   stickSensitivity: 0.65
@@ -28146,7 +28157,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -41,6 +42,8 @@ public class CutsceneHandler : MonoBehaviour
     */
     private const string TURN = "cutturn";
     /*
+        # DIR: UP, RIGHT, DOWN, LEFT, RU, RD, LD, LU
+
         1. #cutturn:target@DIR-duration@wait
         2. #cutturn:target@DIR-duration
         
@@ -48,6 +51,19 @@ public class CutsceneHandler : MonoBehaviour
         4. #cutturn:player@UP@wait
         4. #cutturn:player@UP-0.5,LEFT-1.2
         5. #cutturn:StartingPoint_Gob@RIGHT-0.5,DOWN-0.5,LEFT-0.5,UP-0.5@wait
+    */
+    private const string TELEPORT = "cutteleport";
+    /*
+        # TARGET NAME EXAMPLES
+        # player
+        # scene_NpcName     ex) StartingPoint_Gob
+        # !ObjectName       ex) !television
+
+        1. #cutteleport:target@x@y
+    */
+    private const string ROTATE = "cutrotate";
+    /*
+        1. #cutrotate:target@z
     */
     private const string IMAGE = "cutimage";
     /*
@@ -90,7 +106,6 @@ public class CutsceneHandler : MonoBehaviour
         2. #cutwait:0.5
     */
     public FadeInOut FadeControl;
-    public RectTransform UiCanvasTransform;
     public SpriteRenderer CutSceneHolder;
     private List<Sprite> imageList;
     private List<GameObject> spawnList;
@@ -98,7 +113,9 @@ public class CutsceneHandler : MonoBehaviour
     private PlayerMovement playerMov;
     private PlayerCamera playerCamera;
     private Character character;
+    private Transform target;
     private AnimationClip playingClip;
+    private GameObject[] bgObjects = Array.Empty<GameObject>();
     private string[] splitTag, valueArray;
     private string currentTag, easeType;
     private float duration, delay, posX, posY;
@@ -135,7 +152,7 @@ public class CutsceneHandler : MonoBehaviour
                     if (isObject) {
                         Animator objectAnim = null;
                         string objectName = valueArray[0].Remove(0, 1);
-                        GameObject[] bgObjects = GameObject.FindGameObjectsWithTag("BGObject");
+                        InitBGObjects();
 
                         foreach (GameObject bgObject in bgObjects) {
                             if (bgObject.name == objectName) {
@@ -201,7 +218,21 @@ public class CutsceneHandler : MonoBehaviour
                     else
                         yield return PlayTurnActions(character, dirStrings);
                     break;
+                 
+                case TELEPORT:
+                    InitBGObjects();
+                    target = GetTarget(valueArray[0]);
+                    posX = float.Parse(valueArray[1]);
+                    posY = float.Parse(valueArray[2]);
+                    target.position = new Vector3(posX, posY, target.position.z);
+                    break;
                 
+                case ROTATE:
+                    InitBGObjects();
+                    target = GetTarget(valueArray[0]);
+                    target.rotation = Quaternion.Euler(0, 0, float.Parse(valueArray[1]));
+                    break;
+
                 case IMAGE:
                     index = int.Parse(valueArray[0]);
                     if (index < imageList.Count) {
@@ -245,7 +276,7 @@ public class CutsceneHandler : MonoBehaviour
                     dontWait = valueArray.Length < 5;
 
                     playerCamera.MoveCamera(posX, posY, duration, easeType);
-                    if (!dontWait) yield return WaitForCache.GetWaitForSecondReal(duration);
+                    if (!dontWait) yield return WaitForCache.GetWaitForSecond(duration);
                     break;
 
                 case SPAWN:
@@ -265,7 +296,7 @@ public class CutsceneHandler : MonoBehaviour
                 case WAIT:
                     duration = float.Parse(valueArray[0]);
                     if (duration == 0) break;
-                    yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(duration));
+                    yield return WaitForCache.GetWaitForSecond(duration);
                     break;
 
                 default:
@@ -276,6 +307,7 @@ public class CutsceneHandler : MonoBehaviour
             dialogueBoxFlag = false;
             DialogueManager.instance.SetDialogueBox(true);
         }
+        bgObjects = Array.Empty<GameObject>();
         yield break;
     }
 
@@ -283,7 +315,23 @@ public class CutsceneHandler : MonoBehaviour
     {
         return (name.ToLower() == "player") ? playerMov.GetComponent<Character>() : NPCManager.instance.npc_dict[name].GetComponent<Character>();
     }
-
+    private Transform GetTarget(string name)
+    {
+        bool isObject = name[0] == '!';
+        if (isObject)
+            name = name.Remove(0, 1);
+        
+        if (isObject) {
+            foreach (GameObject bgObject in bgObjects) {
+                if (bgObject.name == name)
+                    return bgObject.transform;
+            }
+        }
+        else if (name.ToLower() == "player") {
+            return playerMov.transform;
+        }
+        return NPCManager.instance.npc_dict[name].transform;
+    }
     private bool TagCountBelow(int minTagCount, bool isSplitTag = false)
     {
         string[] targetArray = isSplitTag ? splitTag : valueArray;
@@ -359,10 +407,7 @@ public class CutsceneHandler : MonoBehaviour
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(float.Parse(dirString[1])));
         }
     }
-    public void SetCutscenePosition()
-    {
-        transform.position = UiCanvasTransform.position;
-    }
+
     public void InitSpawnList(List<GameObject> spawns)
     {
         spawnList = spawns;
@@ -374,6 +419,11 @@ public class CutsceneHandler : MonoBehaviour
     public void InitImageList(List<Sprite> images)
     {
         imageList = images;
+    }
+    private void InitBGObjects()
+    {
+        if (bgObjects == null || bgObjects.Length == 0)
+            bgObjects = GameObject.FindGameObjectsWithTag("BGObject");
     }
     public static AnimationClip ReturnAnimationClip(Animator animator, string clipName)
     {

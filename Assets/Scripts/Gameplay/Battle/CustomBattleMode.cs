@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomBattleMode : MonoBehaviour
+[System.Serializable]
+public class CustomBattleMode
 {
     public GameObject cartridge;
     public bool spawnAtEnemy = false;

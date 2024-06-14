@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public ItemManager itemManager;
     public CutsceneTriggerManager cutTriggerManager;
     public tomatoStatus TomatoStatus;
+    public FadeInOut FadeControl;
     public PlayerMovement player_movement => playerMovement;
     public BattleSystem battle_system => battleSystem;
     public RebindKey rebind_key => rebindKey;
@@ -28,21 +29,23 @@ public class GameManager : MonoBehaviour
     public ItemMenuNavigation other_item_navigation => otherItemNavigation;
     public equipControl equip_control => equipcontrol;
 
-    [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] BattleSystem battleSystem;
-    [SerializeField] ResolutionMenu resolutionMenu;
-    [SerializeField] RebindKey rebindKey;
-    [SerializeField] ControlScroll controlScroll;
-    [SerializeField] UIControl uiControl;
-    [SerializeField] SaveLoadMenu saveLoadMenu;
-    [SerializeField] ItemMenuNavigation consumableNavigation, otherItemNavigation;
-    [SerializeField] equipControl equipcontrol;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private BattleSystem battleSystem;
+    [SerializeField] private ResolutionMenu resolutionMenu;
+    [SerializeField] private RebindKey rebindKey;
+    [SerializeField] private ControlScroll controlScroll;
+    [SerializeField] private UIControl uiControl;
+    [SerializeField] private SaveLoadMenu saveLoadMenu;
+    [SerializeField] private ItemMenuNavigation consumableNavigation, otherItemNavigation;
+    [SerializeField] private equipControl equipcontrol;
 
     [SerializeField] Camera mainCamera;
-    [SerializeField] private GameObject battleCircle, exclamation, fadeIn;
+    [SerializeField] private GameObject battleCircle, exclamation;
 
-    [System.NonSerialized] public GameObject[] levelHolder;
     [SerializeField] private Animator playerAnimator;
+    [System.NonSerialized] public GameObject[] levelHolder;
+    [System.NonSerialized] public bool noDelayInteract = false;
+    private bool lastBattleResult = false;
     private float player_x, player_y;
 
     public int gamepadType;
@@ -52,7 +55,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float intervalTime;
     private string[] joystickNames;
     private float delayTimer;
-
     public bool WasHolding => holdStartTime < Time.unscaledTime;
     public bool EnableDebug;
 
@@ -158,6 +160,8 @@ public class GameManager : MonoBehaviour
         battle_system.enemy_control.ClearAnimation();
         battleSystem.gameObject.SetActive(false);
 
+        saveLoadMenu.isAutoSave = isVictory;
+
         if (!isVictory && expectedReviveState != PlayerReviveState.LoseTalk) {
             saveLoadMenu.PrepareAutoLoad();
             StartCoroutine(saveLoadMenu.PrepareLoad());
@@ -178,12 +182,16 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-        else if ((isVictory && DialogueManager.instance.is_continue_talk) || (!isVictory && (expectedReviveState == PlayerReviveState.LoseTalk)))
-            Invoke("TalkToFacingNpc", 0.5f);
-        
-        Invoke("ReturnToFreeroam", 1f);
         playerKeyEventManager.ApplyCacheKeyEvents(isVictory);
-        saveLoadMenu.isAutoSave = isVictory;
+
+        if (DialogueManager.instance.is_continue_talk) {
+            if (expectedReviveState == PlayerReviveState.LoseTalk)
+                lastBattleResult = isVictory;
+
+            float delay = noDelayInteract ? 0f : 0.5f;
+            Invoke("TalkToFacingNpc", delay);
+        }
+        Invoke("ReturnToFreeroam", 1f);
         ShowScreen();
     }
 
@@ -204,8 +212,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowScreen()
     {
-        GameObject fadeInstance = Instantiate(fadeIn, new Vector2 (playerMovement.transform.position.x, playerMovement.transform.position.y - 0.05f), Quaternion.identity);
-        fadeInstance.transform.localScale = new Vector2(2f, 2f);
+        StartCoroutine(FadeControl.Fade(0.4f, 0, 60, true));
         mainCamera.gameObject.SetActive(true);
     }
 

@@ -44,7 +44,7 @@ public class PlayerCamera : MonoBehaviour
         // Fixate canvas position according to the camera position when entering.
         isCameraFixated = true;
         uicanvas_pos.localPosition = new Vector2(camera_pos.localPosition.x, camera_pos.localPosition.y);
-        DialogueManager.instance.cutsceneHandler.SetCutscenePosition();
+        DialogueManager.instance.cutsceneHandler.FadeControl.SetPosition();
     }
 
     public void RestoreCameraState(bool isCameraFixated)

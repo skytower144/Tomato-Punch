@@ -155,11 +155,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 209148173}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &62307152 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 209148173}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &82885647
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,11 +250,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (4)
+      value: company_desk_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -385,11 +384,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (2)
+      value: company_desk_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -442,11 +445,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 1825081917}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &231336605 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 1825081917}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &252512390
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,8 +455,9 @@ GameObject:
   m_Component:
   - component: {fileID: 252512391}
   - component: {fileID: 252512392}
+  - component: {fileID: 252512393}
   m_Layer: 0
-  m_Name: company_boss
+  m_Name: ShinyBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,6 +528,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &252512393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252512390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0b4ede9de83ec48b7739174c357c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSaveTarget: 1
+  isPartyCandidate: 0
+  inkFileName: ShinyBoss_fight
+  keyEventProgressList: []
+  sprite_renderer: {fileID: 252512392}
+  sprite_dict:
+    m_keys: []
+    m_values: []
+  isFixedSprite: 1
+  isUniqueID: 0
+  npcID: 
+  willMove: 0
+  npcMove: {fileID: 0}
+  npcCollider: {fileID: 0}
+  disableSpriteAnimator: 0
+  npcAnim: {fileID: 0}
+  hasNoDialogue: 0
+  interactAnimation: 
+  banInteractDirection: 0
+  lock_u: 0
+  lock_ru: 0
+  lock_r: 0
+  lock_rd: 0
+  lock_d: 0
+  lock_ld: 0
+  lock_l: 0
+  lock_lu: 0
+  canBattle: 1
+  instantBattle: 0
+  enemyData: {fileID: 11400000, guid: b4182ce12aa882b4b9b7868bebe043f1, type: 2}
 --- !u!1001 &259809779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,7 +757,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair
+      value: company_chair_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -773,7 +818,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (1)
+      value: company_chair_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -835,7 +884,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (9)
+      value: company_chair_9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -1234,11 +1287,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 996477693}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &509009197 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 996477693}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &539827748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8426227390057874647, guid: 798dc38c5d3446b408573dc847295975, type: 3}
@@ -1247,11 +1295,6 @@ Transform:
 --- !u!4 &545971659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 1782215347}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &545971660 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 1782215347}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &576316452
@@ -1443,11 +1486,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (3)
+      value: company_desk_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -1508,11 +1555,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (7)
+      value: company_desk_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -1728,7 +1779,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (5)
+      value: company_chair_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -1785,11 +1840,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 1906529687}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &940685249 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 1906529687}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &961986560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8426227390057874647, guid: 798dc38c5d3446b408573dc847295975, type: 3}
@@ -1809,7 +1859,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (3)
+      value: company_chair_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -1870,11 +1924,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (8)
+      value: company_desk_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -1933,9 +1991,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1742600559}
     m_Modifications:
+    - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_UsedByComposite
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk
+      value: company_desk_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -1986,11 +2052,6 @@ PrefabInstance:
 --- !u!4 &1018603046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 723228125}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1018603047 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 723228125}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1019008927 stripped
@@ -2240,6 +2301,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 629235171}
     m_Modifications:
     - target: {fileID: 6247896811256811801, guid: 798dc38c5d3446b408573dc847295975, type: 3}
+      propertyPath: canBattle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247896811256811801, guid: 798dc38c5d3446b408573dc847295975, type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: e9daa8bb8f5af1a489d99570b15ddc4d, type: 2}
+    - target: {fileID: 6247896811256811801, guid: 798dc38c5d3446b408573dc847295975, type: 3}
       propertyPath: inkFileName
       value: Company_FirstFloor/CompanyWorker/worker_working
       objectReference: {fileID: 0}
@@ -2363,7 +2432,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (6)
+      value: company_chair_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -2424,7 +2497,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (2)
+      value: company_chair_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -2475,11 +2552,6 @@ PrefabInstance:
 --- !u!4 &1602407642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 146106235}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1602407643 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 146106235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1657738344
@@ -5279,11 +5351,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (5)
+      value: company_desk_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -5345,7 +5421,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1742600559}
   - component: {fileID: 1742600561}
-  - component: {fileID: 1742600560}
   m_Layer: 0
   m_Name: desks
   m_TagString: Untagged
@@ -5377,160 +5452,6 @@ Transform:
   m_Father: {fileID: 1365931485}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!66 &1742600560
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742600558}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 1
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1896829244}
-    m_ColliderPaths:
-    - - X: 61120543
-        Y: -4530182
-      - X: 61120543
-        Y: 20541992
-      - X: 47174988
-        Y: 20541699
-      - X: 47175281
-        Y: -4530182
-  - m_Collider: {fileID: 940685249}
-    m_ColliderPaths:
-    - - X: -39975345
-        Y: 14569778
-      - X: -39975345
-        Y: 39641952
-      - X: -53920900
-        Y: 39641659
-      - X: -53920607
-        Y: 14569778
-  - m_Collider: {fileID: 1018603047}
-    m_ColliderPaths:
-    - - X: -29525439
-        Y: -24580268
-      - X: -29525439
-        Y: 491905
-      - X: -43470992
-        Y: 491612
-      - X: -43470699
-        Y: -24580268
-  - m_Collider: {fileID: 545971660}
-    m_ColliderPaths:
-    - - X: 55420543
-        Y: -43530196
-      - X: 55420543
-        Y: -18458024
-      - X: 41474992
-        Y: -18458317
-      - X: 41475285
-        Y: -43530196
-  - m_Collider: {fileID: 1819763122}
-    m_ColliderPaths:
-    - - X: 69720475
-        Y: 34570008
-      - X: 69720475
-        Y: 59642180
-      - X: 55774916
-        Y: 59641887
-      - X: 55775209
-        Y: 34570008
-  - m_Collider: {fileID: 1602407643}
-    m_ColliderPaths:
-    - - X: -29525439
-        Y: -44030188
-      - X: -29525439
-        Y: -18958016
-      - X: -43470992
-        Y: -18958309
-      - X: -43470699
-        Y: -44030188
-  - m_Collider: {fileID: 509009197}
-    m_ColliderPaths:
-    - - X: -44725329
-        Y: 34069900
-      - X: -44725329
-        Y: 59142076
-      - X: -58670884
-        Y: 59141783
-      - X: -58670591
-        Y: 34069900
-  - m_Collider: {fileID: 62307152}
-    m_ColliderPaths:
-    - - X: -36375417
-        Y: -5030212
-      - X: -36375417
-        Y: 20041962
-      - X: -50320968
-        Y: 20041669
-      - X: -50320675
-        Y: -5030212
-  - m_Collider: {fileID: 1811990583}
-    m_ColliderPaths:
-    - - X: 55420543
-        Y: -23980178
-      - X: 55420543
-        Y: 1091995
-      - X: 41474992
-        Y: 1091702
-      - X: 41475285
-        Y: -23980178
-  - m_Collider: {fileID: 231336605}
-    m_ColliderPaths:
-    - - X: 64620451
-        Y: 15019836
-      - X: 64620451
-        Y: 40092012
-      - X: 50674896
-        Y: 40091719
-      - X: 50675189
-        Y: 15019836
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 5.542025, y: -4.3530197}
-      - {x: 5.5420837, y: -0.45301822}
-      - {x: 6.1120543, y: -0.4529889}
-      - {x: 6.1120834, y: 1.5019836}
-      - {x: 6.462045, y: 1.502013}
-      - {x: 6.4620743, y: 3.4570007}
-      - {x: 6.9720473, y: 3.45703}
-      - {x: 6.9720187, y: 5.964218}
-      - {x: 5.5774918, y: 5.9641595}
-      - {x: 5.577485, y: 4.0091825}
-      - {x: 5.0674896, y: 4.0091424}
-      - {x: 5.0674834, y: 2.0541773}
-      - {x: 4.717499, y: 2.0541406}
-      - {x: 4.717492, y: 0.1091822}
-      - {x: 4.147499, y: 0.1091409}
-      - {x: 4.1475577, y: -4.3530197}
-    - - {x: -2.9525733, y: -4.403019}
-      - {x: -2.9525733, y: 0.0491905}
-      - {x: -3.6375415, y: 0.0492055}
-      - {x: -3.6375713, y: 2.0041962}
-      - {x: -3.9975345, y: 2.004218}
-      - {x: -3.997564, y: 3.9641953}
-      - {x: -4.4725327, y: 3.9642146}
-      - {x: -4.4725623, y: 5.9142075}
-      - {x: -5.8670883, y: 5.914149}
-      - {x: -5.8670297, y: 3.40699}
-      - {x: -5.3920836, y: 3.4069607}
-      - {x: -5.392031, y: 1.4569778}
-      - {x: -5.0320907, y: 1.4569484}
-      - {x: -5.0320387, y: -0.5030212}
-      - {x: -4.3470926, y: -0.5030506}
-      - {x: -4.3470407, y: -4.403019}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
 --- !u!50 &1742600561
 Rigidbody2D:
   serializedVersion: 4
@@ -5630,11 +5551,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (9)
+      value: company_desk_9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -5695,7 +5620,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (7)
+      value: company_chair_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -5757,11 +5686,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 985866001}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &1811990583 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 985866001}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1813152115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8426227390057874647, guid: 798dc38c5d3446b408573dc847295975, type: 3}
@@ -5770,11 +5694,6 @@ Transform:
 --- !u!4 &1819763121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 1734936975}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1819763122 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 1734936975}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825081917
@@ -5790,11 +5709,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (6)
+      value: company_desk_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -5934,7 +5857,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (4)
+      value: company_chair_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
@@ -6024,11 +5951,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
   m_PrefabInstance: {fileID: 799708499}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &1896829244 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
-  m_PrefabInstance: {fileID: 799708499}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1906529687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6042,11 +5964,15 @@ PrefabInstance:
       objectReference: {fileID: -6144305702996945508, guid: 1e1fdf384fc420345b2865cc5a343e64, type: 3}
     - target: {fileID: 4603590261647174936, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_UsedByComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_Name
-      value: company_desk (1)
+      value: company_desk_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786611737067976958, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 7226668136711826268, guid: 808a4bc2c8a0c154bb25417db3d91e33, type: 3}
       propertyPath: m_RootOrder
@@ -7374,7 +7300,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_Name
-      value: company_chair (8)
+      value: company_chair_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008115628098736310, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
+      propertyPath: m_TagString
+      value: BGObject
       objectReference: {fileID: 0}
     - target: {fileID: 3725657133280024024, guid: fad68ef96887676448268a8b8c7ae8a7, type: 3}
       propertyPath: m_RootOrder
