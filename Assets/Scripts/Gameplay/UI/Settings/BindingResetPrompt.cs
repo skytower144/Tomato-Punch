@@ -155,7 +155,7 @@ public class BindingResetPrompt : MonoBehaviour
 
     IEnumerator Exit_Prompt(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         ExitPrompt();
     }
 

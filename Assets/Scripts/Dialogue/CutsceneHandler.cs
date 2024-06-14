@@ -404,7 +404,7 @@ public class CutsceneHandler : MonoBehaviour
             if (dirString.Length == 1)
                 continue;
             
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(float.Parse(dirString[1])));
+            yield return WaitForCache.GetWaitForSecond(float.Parse(dirString[1]));
         }
     }
 

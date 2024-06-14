@@ -52,11 +52,11 @@ public class LoadingScreen : MonoBehaviour
 
     public IEnumerator UncoverLoadingScreen()
     {
-        yield return WaitForCache.WaitSeconds0_5;
+        yield return WaitForCache.GetWaitForSecond(0.5f);
 
         DOTween.Rewind("loading_out");
         DOTween.Play("loading_out");
-        yield return WaitForCache.WaitSeconds0_8;
+        yield return WaitForCache.GetWaitForSecond(0.8f);
 
         DisableLoadingScreen();
     }

@@ -32,7 +32,7 @@ public class PromptPopup : MonoBehaviour
 
     IEnumerator ExitPopup()
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(0.7f));
+        yield return WaitForCache.GetWaitForSecondReal(0.7f);
         Destroy(gameObject);
     }
 }

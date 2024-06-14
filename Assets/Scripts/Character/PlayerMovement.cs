@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour, Character
 
     public IEnumerator DelayFaceAdjustment(string direction, float delay)
     {
-        yield return WaitForCache.GetWaitForSecondReal(delay);
+        yield return WaitForCache.GetWaitForSecond(delay);
         DialogueManager.instance.cutsceneHandler.FaceAdjustment(myAnim, direction);
     }
 

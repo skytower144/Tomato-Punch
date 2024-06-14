@@ -275,7 +275,7 @@ public class RebindKey : MonoBehaviour
 
     IEnumerator ReleaseBind(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         isBinding = false;
         
         GameManager.gm_instance.DetermineKeyOrPad();

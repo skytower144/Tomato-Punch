@@ -10,7 +10,7 @@ public class DestroyAttack : MonoBehaviour
     }
     IEnumerator DetectEvasionAndDestroy()
     {
-        yield return WaitForCache.WaitSeconds0_1;
+        yield return WaitForCache.GetWaitForSecond(0.1f);
 
         gameObject.SetActive(false);
         GameManager.gm_instance.battle_system.enemy_control.detectEvasion();

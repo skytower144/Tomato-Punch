@@ -86,10 +86,10 @@ public class WanderBehaviour : MonoBehaviour
         if(Random.value > 0.6)
         {
             anim.Play(randomBehaviourTag, -1, 0f);
-            yield return WaitForCache.WaitSeconds1;
+            yield return WaitForCache.GetWaitForSecond(1f);
             
             anim.Play(idleAnimationTag, -1, 0f);
-            yield return WaitForCache.WaitSeconds1;;
+            yield return WaitForCache.GetWaitForSecond(1f);
         }
         yield break;
     }

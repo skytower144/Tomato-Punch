@@ -324,7 +324,7 @@ public class SaveLoadMenu : MonoBehaviour
         isAnimating = true;
 
         DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
 
         gameObject.GetComponent<CanvasGroup>().alpha = 1;
 
@@ -338,7 +338,7 @@ public class SaveLoadMenu : MonoBehaviour
         isAnimating = true;
 
         DialogueManager.instance.cutsceneHandler.FadeControl.FadeOut();
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
 
         ResetMenuState();
         

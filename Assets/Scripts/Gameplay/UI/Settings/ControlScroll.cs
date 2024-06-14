@@ -312,7 +312,7 @@ public class ControlScroll : MonoBehaviour, CanToggleIcon
 
     IEnumerator DelayRebind(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         rebindKey.StartRebinding();
     }
     

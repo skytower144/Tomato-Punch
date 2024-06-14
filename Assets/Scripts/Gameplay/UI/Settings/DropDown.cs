@@ -72,7 +72,7 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     }
     IEnumerator GatherResolution_Wait(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         GatherResolution();
     }
 
@@ -96,7 +96,7 @@ public class DropDown : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     }
     IEnumerator ActivateDropDown(float waitTime)
     {
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(waitTime));
+        yield return WaitForCache.GetWaitForSecondReal(waitTime);
         resolutionMenu.drop_isActive = true;
     }
     public void ClearResolutionList()

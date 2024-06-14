@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return WaitForCache.WaitSeconds1_5;
+        yield return WaitForCache.GetWaitForSecond(1.5f);
 
         mainCamera.gameObject.SetActive(false);
         gameState = GameState.Battle;
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator BattleExit_Wait(bool isVictory)
     {
-        yield return WaitForCache.WaitSeconds1_5;
+        yield return WaitForCache.GetWaitForSecond(1.5f);
 
         foreach (GameObject level_holder in levelHolder)
             level_holder.SetActive(true);

@@ -205,7 +205,7 @@ public class ResolutionMenu : MonoBehaviour
         else
             leftArrow.color = new Color32(169, 90, 69, 255);
         
-        yield return StartCoroutine(CoroutineUtilities.WaitForRealTime(interval));
+        yield return WaitForCache.GetWaitForSecondReal(interval);
 
         if (direction == "RIGHT")
             rightArrow.color = new Color32(144, 121, 115, 255);

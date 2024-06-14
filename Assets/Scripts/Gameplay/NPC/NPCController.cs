@@ -184,7 +184,7 @@ public class NPCController : MonoBehaviour, Interactable, ObjectProgress, Charac
     IEnumerator PlayInteractAnimation()
     {
         Play("interact");
-        yield return WaitForCache.GetWaitForSecondReal(2f);
+        yield return WaitForCache.GetWaitForSecond(2f);
         Play("idle");
         isInteractAnimating = false;
     }
