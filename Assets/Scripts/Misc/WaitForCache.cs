@@ -12,15 +12,21 @@ public class WaitForCache
 
     public static WaitForSeconds GetWaitForSecond(float seconds)
     {
-        if (!WaitDict.TryGetValue(seconds, out _waitSeconds))
+        if (!WaitDict.TryGetValue(seconds, out _waitSeconds)) {
+            if (WaitDict.Count > 40)
+                WaitDict.Clear();
             WaitDict[seconds] = new WaitForSeconds(seconds);
+        }
         return WaitDict[seconds];
     }
 
     public static WaitForSecondsRealtime GetWaitForSecondReal(float seconds)
     {
-        if (!WaitRealDict.TryGetValue(seconds, out _waitRealSeconds))
+        if (!WaitRealDict.TryGetValue(seconds, out _waitRealSeconds)) {
+            if (WaitRealDict.Count > 30)
+                WaitRealDict.Clear();
             WaitRealDict[seconds] = new WaitForSecondsRealtime(seconds);
+        }
         return WaitRealDict[seconds];
     }
 }
