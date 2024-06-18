@@ -4,8 +4,6 @@ VAR br = "<br>"
 
 #cutsetcamera:playerX@65.2
 
-// #cutplay:Company_SecondFloor_worker_A@
-
 #cutteleport:Company_SecondFloor_worker_A@-115.51@60.06
 #cutteleport:Company_SecondFloor_worker_B@-123@61.65
 #cutteleport:Company_SecondFloor_worker_C@-117.54@62.96
@@ -79,6 +77,9 @@ By assaulting my employees,{br}you've officially become a criminal.
 
 Such a pity that not a single employee meets my standards.
 
+#cutlayer:Company_SecondFloor_Friend@Foreground
+#cutplay:Company_SecondFloor_ShinyBoss@ShinyBoss_jump@wait
+{cut}
 I'll show you what real work ethic looks like.
 
 #battletarget:Company_SecondFloor_ShinyBoss

@@ -65,6 +65,11 @@ public class CutsceneHandler : MonoBehaviour
     /*
         1. #cutrotate:target@z
     */
+    private const string LAYER = "cutlayer";
+    /*
+        1. #cutlayer:target@sortinglayer@orderIndex
+        2. #cutlayer:target@sortinglayer
+    */
     private const string IMAGE = "cutimage";
     /*
         1. #cutimage:index@true
@@ -231,6 +236,14 @@ public class CutsceneHandler : MonoBehaviour
                     InitBGObjects();
                     target = GetTarget(valueArray[0]);
                     target.rotation = Quaternion.Euler(0, 0, float.Parse(valueArray[1]));
+                    break;
+                
+                case LAYER:
+                    InitBGObjects();
+                    SpriteRenderer sr = GetTarget(valueArray[0]).GetComponentInChildren<SpriteRenderer>();
+                    sr.sortingLayerName = valueArray[1];
+                    if (valueArray.Length >= 3)
+                        sr.sortingOrder = int.Parse(valueArray[2]);
                     break;
 
                 case IMAGE:
