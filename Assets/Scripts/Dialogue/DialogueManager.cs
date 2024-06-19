@@ -181,6 +181,11 @@ public class DialogueManager : MonoBehaviour
                 GameManager.gm_instance.battle_system.StartBattle(GameManager.gm_instance.battle_system.enemy_control._base);
                 break;
             
+            case DialogueExit.BossFight:
+                GameObject flash = Instantiate(GameManager.gm_instance.bossFightFlash, cutsceneHandler.transform);
+                flash.GetComponent<Transform>().position = playerMovement.GetPlayerPos();
+                break;
+            
             case DialogueExit.UnlockDoor:
                 ((LocationPortal)currentTarget).EnableDoor();
                 break;
@@ -351,7 +356,7 @@ public class DialogueManager : MonoBehaviour
                     if (directionInfo.Length == 2)
                         delay = float.Parse(directionInfo[1]);
                     
-                    StartCoroutine(PlayerMovement.instance.DelayFaceAdjustment(directionInfo[0], delay));
+                    StartCoroutine(playerMovement.DelayFaceAdjustment(directionInfo[0], delay));
                     break;
 
                 case ANIMATE_TAG: // #animate:fainted // #animate:fainted-fainted // #animate:clipname-newidlename
@@ -388,9 +393,13 @@ public class DialogueManager : MonoBehaviour
                     GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(currentNpc.enemyData);
                     break;
 
-                case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut
-                    dialogueExit = DialogueExit.Battle;
-                    GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(NPCManager.instance.npc_dict[tag_value].enemyData);
+                case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut // #battletarget:StartingPoint_Donut@true // #battletarget:target@isBoss
+                    string[] info1 = tag_value.Split('@');
+                    if (info1.Length == 2 && info1[1] == "true")
+                        dialogueExit = DialogueExit.BossFight;
+                    else
+                        dialogueExit = DialogueExit.Battle;
+                    GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(NPCManager.instance.npc_dict[info1[0]].enemyData);
                     break;
 
                 case PURCHASE_TAG: // #purchase:Milk Bottle@0 // #purchase:Donut@0@3 // ItemName@price@_amount
@@ -695,4 +704,4 @@ public class DialogueManager : MonoBehaviour
     }
 }
 
-public enum DialogueExit { Nothing, Battle, UnlockDoor }
+public enum DialogueExit { Nothing, Battle, UnlockDoor, BossFight }

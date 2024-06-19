@@ -82,4 +82,8 @@ public class PlayerCamera : MonoBehaviour
 
         player_camera.transform.DOMove(new Vector3(x, y, cameraZ), duration).SetEase(defaultEase);
     }
+    public void ShakeCamera(float duration, float strength, int vibration, float randomness, float delay)
+    {
+        player_camera.transform.DOShakePosition(duration, strength, vibration, randomness).SetDelay(delay);
+    }
 }

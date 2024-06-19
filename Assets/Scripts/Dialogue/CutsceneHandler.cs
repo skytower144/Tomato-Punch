@@ -98,7 +98,12 @@ public class CutsceneHandler : MonoBehaviour
         4. #cutmovecamera:x@y@duration@easetype@wait
         5. #cutmovecamera:x@y@duration@_@wait
     */
-
+    private const string SHAKECAMERA = "cutshakecamera";
+    /*
+        1. #cutshakecamera:duration@strength@vibration@randomness
+        2. #cutshakecamera:duration@strength@vibration@randomness@delay
+        3. #cutshakecamera:duration@strength@vibration@randomness@delay@wait
+    */
     private const string SPAWN = "cutspawn";
     private const string DESTROY = "cutdestroy";
     /*
@@ -289,6 +294,18 @@ public class CutsceneHandler : MonoBehaviour
                     dontWait = valueArray.Length < 5;
 
                     playerCamera.MoveCamera(posX, posY, duration, easeType);
+                    if (!dontWait) yield return WaitForCache.GetWaitForSecond(duration);
+                    break;
+                
+                case SHAKECAMERA:
+                    duration = float.Parse(valueArray[0]);
+                    float strength = float.Parse(valueArray[1]);
+                    int vibration = int.Parse(valueArray[2]);
+                    float randomness = float.Parse(valueArray[3]);
+                    delay = valueArray.Length >= 5 ? float.Parse(valueArray[4]) : 0f;
+                    dontWait = valueArray.Length < 6;
+
+                    playerCamera.ShakeCamera(duration, strength, vibration, randomness, delay);
                     if (!dontWait) yield return WaitForCache.GetWaitForSecond(duration);
                     break;
 

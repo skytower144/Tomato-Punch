@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private equipControl equipcontrol;
 
     [SerializeField] Camera mainCamera;
-    [SerializeField] private GameObject battleCircle, exclamation;
+    public GameObject battleCircle, exclamation, bossFightFlash;
 
     [SerializeField] private Animator playerAnimator;
     [System.NonSerialized] public GameObject[] levelHolder;
