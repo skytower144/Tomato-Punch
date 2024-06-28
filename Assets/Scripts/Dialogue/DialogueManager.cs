@@ -181,11 +181,6 @@ public class DialogueManager : MonoBehaviour
                 GameManager.gm_instance.battle_system.StartBattle(GameManager.gm_instance.battle_system.enemy_control._base);
                 break;
             
-            case DialogueExit.BossFight:
-                GameObject flash = Instantiate(GameManager.gm_instance.bossFightFlash, cutsceneHandler.transform);
-                flash.GetComponent<Transform>().position = playerMovement.GetPlayerPos();
-                break;
-            
             case DialogueExit.UnlockDoor:
                 ((LocationPortal)currentTarget).EnableDoor();
                 break;
@@ -396,9 +391,9 @@ public class DialogueManager : MonoBehaviour
                 case BATTLETARGET_TAG: // #battletarget:StartingPoint_Donut // #battletarget:StartingPoint_Donut@true // #battletarget:target@isBoss
                     string[] info1 = tag_value.Split('@');
                     if (info1.Length == 2 && info1[1] == "true")
-                        dialogueExit = DialogueExit.BossFight;
-                    else
-                        dialogueExit = DialogueExit.Battle;
+                        GameManager.gm_instance.battle_system.IsBossFight = true;
+                    
+                    dialogueExit = DialogueExit.Battle;
                     GameManager.gm_instance.battle_system.enemy_control.LoadEnemyBaseData(NPCManager.instance.npc_dict[info1[0]].enemyData);
                     break;
 
@@ -704,4 +699,4 @@ public class DialogueManager : MonoBehaviour
     }
 }
 
-public enum DialogueExit { Nothing, Battle, UnlockDoor, BossFight }
+public enum DialogueExit { Nothing, Battle, UnlockDoor }

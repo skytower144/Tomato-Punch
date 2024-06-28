@@ -7,12 +7,13 @@ using UnityEngine;
 [CustomEditor(typeof(EnemyBase))]
 public class EnemyBaseEditor : Editor
 {
-    private SerializedProperty isFixedBg, isParallaxBg, bgSprites, bgTexture, parallaxDirection;
+    private SerializedProperty isFixedBg, isParallaxBg, isBoss, bgSprites, bgTexture, parallaxDirection;
 
     internal void OnEnable()
     {
         isFixedBg = serializedObject.FindProperty("isFixedBg");
         isParallaxBg = serializedObject.FindProperty("isParallaxBg");
+        isBoss = serializedObject.FindProperty("isBoss");
         bgSprites = serializedObject.FindProperty("bgSprites");
         bgTexture = serializedObject.FindProperty("bgTexture");
         parallaxDirection = serializedObject.FindProperty("parallaxDirection");
@@ -25,7 +26,15 @@ public class EnemyBaseEditor : Editor
         value.defaultFace = (Sprite)EditorGUILayout.ObjectField("Def", value.defaultFace, typeof(Sprite), true);
         value.hurtFace = (Sprite)EditorGUILayout.ObjectField("Hurt", value.hurtFace, typeof(Sprite), true);
         value.koFace = (Sprite)EditorGUILayout.ObjectField("KO", value.koFace, typeof(Sprite), true);
-        
+
+        value.isBoss = EditorGUILayout.Toggle("Is Boss", value.isBoss);
+        if (value.isBoss)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUIUtility.labelWidth = 200;
+            value.bossBanner = (Sprite)EditorGUILayout.ObjectField("Banner", value.bossBanner, typeof(Sprite), true);
+            EditorGUI.indentLevel--;
+        }
         GUILine(4);
         EditorGUILayout.Space();
 

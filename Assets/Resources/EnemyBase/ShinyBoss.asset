@@ -16,8 +16,10 @@ MonoBehaviour:
   koFace: {fileID: 21300000, guid: 93994d999f3128347a1efda2d1b7fbd3, type: 3}
   hurtFace: {fileID: 21300000, guid: 047341cec48d4ce4791ce531c40f6ae8, type: 3}
   defaultFace: {fileID: 21300000, guid: 7902235df39659a45b0dd835dd431e64, type: 3}
+  bossBanner: {fileID: 21300000, guid: 5542e8014d62dcd4c811c38212a9eb64, type: 3}
   isFixedBg: 1
   isParallaxBg: 0
+  isBoss: 1
   bgSprites:
   - {fileID: 21300000, guid: b7e5237aad61808448f40e2a395f9aa6, type: 3}
   bgTexture: {fileID: 0}
@@ -47,6 +49,9 @@ MonoBehaviour:
   otherHurtAnim:
   - ShinyBoss_hurt_1
   - ShinyBoss_hurt_2
+  customMode:
+    cartridge: {fileID: 0}
+    spawnAtEnemy: 0
   chiliInfo:
     hitPosition: {x: -190, y: 60}
     hitSprite: {fileID: 7380134854968501262, guid: b6d60b840c344fa4e8076ae8b4feebfb, type: 3}

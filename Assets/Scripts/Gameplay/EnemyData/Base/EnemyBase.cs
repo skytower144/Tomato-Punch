@@ -10,8 +10,8 @@ public class EnemyBase : ScriptableObject
 {   // ATTACKTYPE = LEFT: -1, RIGHT: 1, DOWN: -101, CENTER: 0
     [SerializeField] private string enemyName;
     
-    [HideInInspector] public Sprite koFace, hurtFace, defaultFace;
-    [HideInInspector] public bool isFixedBg, isParallaxBg;
+    [HideInInspector] public Sprite koFace, hurtFace, defaultFace, bossBanner;
+    [HideInInspector] public bool isFixedBg, isParallaxBg, isBoss;
     [HideInInspector] public List<Sprite> bgSprites;
     [HideInInspector] public Texture2D bgTexture;
     [HideInInspector] public Vector2 parallaxDirection;

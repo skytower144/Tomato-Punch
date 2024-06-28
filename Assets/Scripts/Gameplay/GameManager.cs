@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private equipControl equipcontrol;
 
     [SerializeField] Camera mainCamera;
-    public GameObject battleCircle, exclamation, bossFightFlash;
+    public GameObject battleCircle, exclamation, bossFightFlash, bossBanner;
 
     [SerializeField] private Animator playerAnimator;
     [System.NonSerialized] public GameObject[] levelHolder;
@@ -93,11 +93,6 @@ public class GameManager : MonoBehaviour
         InputSystem.onDeviceChange -= DetectGamepad;
     }
 
-    void StartBattle()
-    {
-        StartCoroutine(Wait());
-    }
-
     void EndBattle(bool isVictory)
     {
         StartCoroutine(BattleExit_Wait(isVictory));
@@ -130,19 +125,34 @@ public class GameManager : MonoBehaviour
         
         expectedReviveState = enemy_base.ReviveState;
 
-        Instantiate (exclamation, new Vector2 (player_x, player_y + 3.8f), Quaternion.identity);
-        Invoke("battleStart_ef", 0.4f);
-        StartBattle();
+        if (battle_system.IsBossFight) {
+            GameObject flash = Instantiate(bossFightFlash, DialogueManager.instance.cutsceneHandler.transform);
+            flash.GetComponent<Transform>().position = playerMovement.GetPlayerPos();
+        }
+        else
+            Instantiate (exclamation, new Vector2 (player_x, player_y + 3.8f), Quaternion.identity);
+        
+        StartCoroutine(StartBattle());
     }
-    public void battleStart_ef()
+    private void BattleCircleEffect()
     {
-        Destroy(Instantiate (battleCircle, new Vector2 (player_x-2.6f, player_y), Quaternion.identity),2f);
+        Destroy(Instantiate(battleCircle, new Vector2 (player_x - 2.6f, player_y), Quaternion.identity), 2f);
     }
 
-    IEnumerator Wait()
+    IEnumerator StartBattle()
     {
-        yield return WaitForCache.GetWaitForSecond(1.5f);
+        float battleDelay = battle_system.IsBossFight ? 3f : 0.4f;
 
+        if (battle_system.IsBossFight) {
+            yield return WaitForCache.GetWaitForSecond(1.1f);
+            GameObject banner = Instantiate(bossBanner, DialogueManager.instance.cutsceneHandler.transform);
+            banner.GetComponent<Transform>().position = playerMovement.GetPlayerPos();
+            Destroy(banner, battleDelay + 2f);
+        }
+        yield return WaitForCache.GetWaitForSecond(battleDelay);
+        BattleCircleEffect();
+
+        yield return WaitForCache.GetWaitForSecond(1.1f);
         mainCamera.gameObject.SetActive(false);
         gameState = GameState.Battle;
         battleSystem.gameObject.SetActive(true);

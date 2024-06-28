@@ -38,6 +38,7 @@ public class BattleSystem : MonoBehaviour
 
     [System.NonSerialized] public bool resetPlayerHealth, increaseEnemyHealth;
     [System.NonSerialized] public bool IsGangfight = false;
+    [System.NonSerialized] public bool IsBossFight = false;
     [System.NonSerialized] public bool IsNextPhase = false;
     private GameObject tempObj;
 
